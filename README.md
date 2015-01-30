@@ -134,6 +134,13 @@ Support
 
 If you're having any problem, please [raise an issue](https://github.com/resin-io/drivelist/issues/new) on GitHub.
 
+ChangeLog
+---------
+
+### v1.1.0
+
+- Return non supported OS error to the callback instead of just throwing it.
+
 License
 -------
 
