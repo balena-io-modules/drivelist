@@ -12,4 +12,5 @@ exports.list = (callback) ->
 		when 'win32' then win32.list(callback)
 		when 'linux' then linux.list(callback)
 		else
-			throw new Error("Your OS is not supported by this module: #{operatingSystem}")
+			error = new Error("Your OS is not supported by this module: #{operatingSystem}")
+			return callback(error)

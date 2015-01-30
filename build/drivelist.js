@@ -9,7 +9,7 @@ osx = require('./osx');
 linux = require('./linux');
 
 exports.list = function(callback) {
-  var operatingSystem;
+  var error, operatingSystem;
   operatingSystem = os.platform();
   switch (operatingSystem) {
     case 'darwin':
@@ -19,6 +19,7 @@ exports.list = function(callback) {
     case 'linux':
       return linux.list(callback);
     default:
-      throw new Error("Your OS is not supported by this module: " + operatingSystem);
+      error = new Error("Your OS is not supported by this module: " + operatingSystem);
+      return callback(error);
   }
 };

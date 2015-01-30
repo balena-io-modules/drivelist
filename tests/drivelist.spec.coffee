@@ -80,5 +80,9 @@ describe 'Drivelist:', ->
 			afterEach ->
 				@osPlatformStub.restore()
 
-			it 'should throw an error', ->
-				expect(drivelist.list).to.throw('Your OS is not supported by this module: foobar')
+			it 'should throw an error', (done) ->
+				drivelist.list (error, drives) ->
+					expect(error).to.be.an.instanceof(Error)
+					expect(error.message).to.equal('Your OS is not supported by this module: foobar')
+					expect(drives).to.not.exist
+					done()
