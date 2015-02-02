@@ -3,6 +3,7 @@ drivelist
 
 [![npm version](https://badge.fury.io/js/drivelist.svg)](http://badge.fury.io/js/drivelist)
 [![dependencies](https://david-dm.org/resin-io/drivelist.png)](https://david-dm.org/resin-io/drivelist.png)
+[![Build Status](https://travis-ci.org/resin-io/drivelist.svg?branch=master)](https://travis-ci.org/resin-io/drivelist)
 
 List all connected drives in your computer, in all major operating systems.
 
