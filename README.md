@@ -138,6 +138,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.1.1
+
+- Prevent empty wmic size crash the module. Return `undefined` size instead.
+
 ### v1.1.0
 
 - Return non supported OS error to the callback instead of just throwing it.
