@@ -12,12 +12,12 @@ exports.list = (callback) ->
 		result = tableParser.parse(stdout)
 
 		result = _.map result, (row) ->
-			size = _.parseInt(row.Size[0]) / 1e+9
+			size = _.parseInt(row.Size?[0]) / 1e+9 or undefined
 
 			return {
 				device: _.first(row.DeviceID)
-				size: "#{Math.floor(size)} GB"
 				description: row.Caption.join(' ')
+				size: "#{Math.floor(size)} GB" if size?
 			}
 
 		return callback(null, result)

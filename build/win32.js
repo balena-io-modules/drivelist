@@ -17,13 +17,14 @@ exports.list = function(callback) {
     }
     result = tableParser.parse(stdout);
     result = _.map(result, function(row) {
-      var size;
-      size = _.parseInt(row.Size[0]) / 1e+9;
-      return {
+      var size, _ref;
+      size = _.parseInt((_ref = row.Size) != null ? _ref[0] : void 0) / 1e+9 || void 0;
+      result = {
         device: _.first(row.DeviceID),
-        size: "" + (Math.floor(size)) + " GB",
-        description: row.Caption.join(' ')
+        description: row.Caption.join(' '),
+        size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
       };
+      return result;
     });
     return callback(null, result);
   });
