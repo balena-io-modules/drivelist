@@ -138,6 +138,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.1.2
+
+- Prevent empty lsblk model crash the module. Return `undefined` description instead.
+
 ### v1.1.1
 
 - Prevent empty wmic size crash the module. Return `undefined` size instead.
