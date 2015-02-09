@@ -17,9 +17,10 @@ exports.list = function(callback) {
     }
     result = tableParser.parse(stdout);
     result = _.map(result, function(row) {
+      var _ref;
       return {
         device: "/dev/" + (_.first(row.NAME)),
-        description: row.MODEL.join(' '),
+        description: (_ref = row.MODEL) != null ? _ref.join(' ') : void 0,
         size: _.first(row.SIZE).replace(/,/g, '.')
       };
     });

@@ -45,6 +45,38 @@ describe 'Drivelist LINUX:', ->
 
 				return done()
 
+	describe 'given lsblk output without model', ->
+
+		beforeEach ->
+			@childProcessStub = sinon.stub(childProcess, 'exec')
+			@childProcessStub.yields null, '''
+				NAME    MODEL           SIZE
+				sda     SD Plus         3.8G
+				mmcblk0                14.4G
+			''', undefined
+
+		afterEach ->
+			@childProcessStub.restore()
+
+		it 'should default model to undefined', (done) ->
+			linux.list (error, drives) ->
+				expect(error).to.not.exist
+
+				expect(drives).to.deep.equal [
+					{
+						device: '/dev/sda'
+						description: 'SD Plus'
+						size: '3.8G'
+					}
+					{
+						device: '/dev/mmcblk0'
+						description: undefined
+						size: '14.4G'
+					}
+				]
+
+				return done()
+
 	describe 'given stderr output', ->
 
 		beforeEach ->

@@ -14,7 +14,7 @@ exports.list = (callback) ->
 		result = _.map result, (row) ->
 			return {
 				device: "/dev/#{_.first(row.NAME)}"
-				description: row.MODEL.join(' ')
+				description: row.MODEL?.join(' ')
 				size: _.first(row.SIZE).replace(/,/g, '.')
 			}
 

@@ -19,12 +19,11 @@ exports.list = function(callback) {
     result = _.map(result, function(row) {
       var size, _ref;
       size = _.parseInt((_ref = row.Size) != null ? _ref[0] : void 0) / 1e+9 || void 0;
-      result = {
+      return {
         device: _.first(row.DeviceID),
         description: row.Caption.join(' '),
         size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
       };
-      return result;
     });
     return callback(null, result);
   });
