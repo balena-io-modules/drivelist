@@ -4,13 +4,18 @@ win32 = require('./win32')
 osx = require('./osx')
 linux = require('./linux')
 
-exports.list = (callback) ->
+getOSModule = ->
 	operatingSystem = os.platform()
 
 	switch operatingSystem
-		when 'darwin' then osx.list(callback)
-		when 'win32' then win32.list(callback)
-		when 'linux' then linux.list(callback)
+		when 'darwin' then osx
+		when 'win32' then win32
+		when 'linux' then linux
 		else
-			error = new Error("Your OS is not supported by this module: #{operatingSystem}")
-			return callback(error)
+			throw new Error("Your OS is not supported by this module: #{operatingSystem}")
+
+exports.list = (callback) ->
+	getOSModule().list(callback)
+
+exports.isSystem = (drive, callback) ->
+	getOSModule().isSystem(drive, callback)

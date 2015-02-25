@@ -27,3 +27,17 @@ exports.list = function(callback) {
     return callback(null, result);
   });
 };
+
+exports.isSystem = function(drive, callback) {
+  return childProcess.exec("lsblk " + drive.device + " -d", {}, function(error, stdout, stderr) {
+    var result, _ref;
+    if (error != null) {
+      return callback(false);
+    }
+    if (!_.isEmpty(stderr)) {
+      return callback(false);
+    }
+    result = tableParser.parse(stdout);
+    return callback(((_ref = result[0].RM) != null ? _ref[0] : void 0) !== '1');
+  });
+};

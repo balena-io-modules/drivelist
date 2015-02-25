@@ -107,6 +107,15 @@ The function will throw an error if you attempt to call it from an unsupported o
 - `error` is a possible error.
 - `drives` is an array of objects describing the drives found.
 
+Predicates
+----------
+
+### drivelist.isSystem(drive, callback)
+
+Determines if a drive returned by `drivelist.list()` is a system drive.
+
+The callbacks gets passed a single boolean value.
+
 Tests
 -----
 

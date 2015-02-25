@@ -1,4 +1,4 @@
-var linux, os, osx, win32;
+var getOSModule, linux, os, osx, win32;
 
 os = require('os');
 
@@ -8,18 +8,25 @@ osx = require('./osx');
 
 linux = require('./linux');
 
-exports.list = function(callback) {
-  var error, operatingSystem;
+getOSModule = function() {
+  var operatingSystem;
   operatingSystem = os.platform();
   switch (operatingSystem) {
     case 'darwin':
-      return osx.list(callback);
+      return osx;
     case 'win32':
-      return win32.list(callback);
+      return win32;
     case 'linux':
-      return linux.list(callback);
+      return linux;
     default:
-      error = new Error("Your OS is not supported by this module: " + operatingSystem);
-      return callback(error);
+      throw new Error("Your OS is not supported by this module: " + operatingSystem);
   }
+};
+
+exports.list = function(callback) {
+  return getOSModule().list(callback);
+};
+
+exports.isSystem = function(drive, callback) {
+  return getOSModule().isSystem(drive, callback);
 };

@@ -19,3 +19,16 @@ exports.list = (callback) ->
 			}
 
 		return callback(null, result)
+
+# We determine if a drive is a system drive
+# by checking the removeable flag.
+# There might be a better way in GNU/Linux systems.
+exports.isSystem = (drive, callback) ->
+	childProcess.exec "lsblk #{drive.device} -d", {}, (error, stdout, stderr) ->
+		return callback(false) if error?
+
+		if not _.isEmpty(stderr)
+			return callback(false)
+
+		result = tableParser.parse(stdout)
+		return callback(result[0].RM?[0] isnt '1')
