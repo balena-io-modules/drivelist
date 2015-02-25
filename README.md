@@ -147,6 +147,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.2.0
+
+- Implement isSystem predicate.
+
 ### v1.1.2
 
 - Prevent empty lsblk model crash the module. Return `undefined` description instead.
