@@ -33,3 +33,18 @@ exports.list = (callback) ->
 			}
 
 		return callback(null, result)
+
+exports.isSystem = (drive, callback) ->
+
+	childProcess.exec "diskutil info #{drive.device}", {}, (error, stdout, stderr) ->
+		return callback(false) if error?
+
+		if not _.isEmpty(stderr)
+			return callback(false)
+
+		# Assume true for /dev/disk0
+		return callback(true) if drive.device is '/dev/disk0'
+
+		result = tableParser.parse(stdout)
+		mountPoint = _.findWhere(result, Device: [ 'Mount' ])?['Identifier:'][1]
+		return callback(mountPoint is '/')

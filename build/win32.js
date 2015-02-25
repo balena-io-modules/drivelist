@@ -28,3 +28,7 @@ exports.list = function(callback) {
     return callback(null, result);
   });
 };
+
+exports.isSystem = function(drive, callback) {
+  return callback(drive.device.toUpperCase() === '\\\\.\\PHYSICALDRIVE0');
+};

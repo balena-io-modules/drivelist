@@ -7,88 +7,136 @@ linux = require('../lib/linux')
 
 describe 'Drivelist LINUX:', ->
 
-	describe 'given correct output from lsblk', ->
+	describe '.list()', ->
 
-		beforeEach ->
-			@childProcessStub = sinon.stub(childProcess, 'exec')
-			@childProcessStub.yields null, '''
-				NAME MODEL              SIZE
-				sda  WDC WD10JPVX-75J 931,5G
-				sdb  STORAGE DEVICE    14,7G
-				sr0  DVD+-RW GU90N     1024M
-			''', undefined
+		describe 'given correct output from lsblk', ->
 
-		afterEach ->
-			@childProcessStub.restore()
+			beforeEach ->
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields null, '''
+					NAME MODEL              SIZE
+					sda  WDC WD10JPVX-75J 931,5G
+					sdb  STORAGE DEVICE    14,7G
+					sr0  DVD+-RW GU90N     1024M
+				''', undefined
 
-		it 'should extract the necessary information', (done) ->
-			linux.list (error, drives) ->
-				expect(error).to.not.exist
+			afterEach ->
+				@childProcessStub.restore()
 
-				expect(drives).to.deep.equal [
-					{
-						device: '/dev/sda'
-						description: 'WDC WD10JPVX-75J'
-						size: '931.5G'
-					}
-					{
-						device: '/dev/sdb'
-						description: 'STORAGE DEVICE'
-						size: '14.7G'
-					}
-					{
-						device: '/dev/sr0'
-						description: 'DVD+-RW GU90N'
-						size: '1024M'
-					}
-				]
+			it 'should extract the necessary information', (done) ->
+				linux.list (error, drives) ->
+					expect(error).to.not.exist
 
-				return done()
+					expect(drives).to.deep.equal [
+						{
+							device: '/dev/sda'
+							description: 'WDC WD10JPVX-75J'
+							size: '931.5G'
+						}
+						{
+							device: '/dev/sdb'
+							description: 'STORAGE DEVICE'
+							size: '14.7G'
+						}
+						{
+							device: '/dev/sr0'
+							description: 'DVD+-RW GU90N'
+							size: '1024M'
+						}
+					]
 
-	describe 'given lsblk output without model', ->
+					return done()
 
-		beforeEach ->
-			@childProcessStub = sinon.stub(childProcess, 'exec')
-			@childProcessStub.yields null, '''
-				NAME    MODEL           SIZE
-				sda     SD Plus         3.8G
-				mmcblk0                14.4G
-			''', undefined
+		describe 'given lsblk output without model', ->
 
-		afterEach ->
-			@childProcessStub.restore()
+			beforeEach ->
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields null, '''
+					NAME    MODEL           SIZE
+					sda     SD Plus         3.8G
+					mmcblk0                14.4G
+				''', undefined
 
-		it 'should default model to undefined', (done) ->
-			linux.list (error, drives) ->
-				expect(error).to.not.exist
+			afterEach ->
+				@childProcessStub.restore()
 
-				expect(drives).to.deep.equal [
-					{
-						device: '/dev/sda'
-						description: 'SD Plus'
-						size: '3.8G'
-					}
-					{
-						device: '/dev/mmcblk0'
-						description: undefined
-						size: '14.4G'
-					}
-				]
+			it 'should default model to undefined', (done) ->
+				linux.list (error, drives) ->
+					expect(error).to.not.exist
 
-				return done()
+					expect(drives).to.deep.equal [
+						{
+							device: '/dev/sda'
+							description: 'SD Plus'
+							size: '3.8G'
+						}
+						{
+							device: '/dev/mmcblk0'
+							description: undefined
+							size: '14.4G'
+						}
+					]
 
-	describe 'given stderr output', ->
+					return done()
 
-		beforeEach ->
-			@childProcessStub = sinon.stub(childProcess, 'exec')
-			@childProcessStub.yields(null, undefined, 'Hello World')
+		describe 'given stderr output', ->
 
-		afterEach ->
-			@childProcessStub.restore()
+			beforeEach ->
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields(null, undefined, 'Hello World')
 
-		it 'should return an error containing stderr output', (done) ->
-			linux.list (error, drives) ->
-				expect(error).to.be.an.instanceof(Error)
-				expect(error.message).to.equal('Hello World')
-				expect(drives).not.exist
-				done()
+			afterEach ->
+				@childProcessStub.restore()
+
+			it 'should return an error containing stderr output', (done) ->
+				linux.list (error, drives) ->
+					expect(error).to.be.an.instanceof(Error)
+					expect(error.message).to.equal('Hello World')
+					expect(drives).not.exist
+					done()
+
+	describe '.isSystem()', ->
+
+		describe 'given a system drive', ->
+
+			beforeEach ->
+				@drive =
+					device: '/dev/sda'
+					description: 'WDC WD10JPVX-75J'
+					size: '931,5G'
+
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields null, '''
+					NAME MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+					sda    8:0    0 931,5G  0 disk
+				''', undefined
+
+			afterEach ->
+				@childProcessStub.restore()
+
+			it 'should return true', (done) ->
+				linux.isSystem @drive, (isSystem) ->
+					expect(isSystem).to.be.true
+					done()
+
+		describe 'given a removable drive', ->
+
+			beforeEach ->
+				@drive =
+					device: '/dev/sdc'
+					description: 'Storage Media'
+					size: '7,3G'
+
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields null, '''
+					NAME MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+					sdc    8:32   1   7,3G  0 disk
+				''', undefined
+
+			afterEach ->
+				@childProcessStub.restore()
+
+			it 'should return false', (done) ->
+				linux.isSystem @drive, (isSystem) ->
+					expect(isSystem).to.be.false
+					done()

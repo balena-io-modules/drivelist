@@ -21,3 +21,8 @@ exports.list = (callback) ->
 			}
 
 		return callback(null, result)
+
+exports.isSystem = (drive, callback) ->
+
+	# Assume \\.\PHYSICALDRIVE0 is always the system disk
+	return callback(drive.device.toUpperCase() is '\\\\.\\PHYSICALDRIVE0')

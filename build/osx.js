@@ -39,3 +39,23 @@ exports.list = function(callback) {
     return callback(null, result);
   });
 };
+
+exports.isSystem = function(drive, callback) {
+  return childProcess.exec("diskutil info " + drive.device, {}, function(error, stdout, stderr) {
+    var mountPoint, result, _ref;
+    if (error != null) {
+      return callback(false);
+    }
+    if (!_.isEmpty(stderr)) {
+      return callback(false);
+    }
+    if (drive.device === '/dev/disk0') {
+      return callback(true);
+    }
+    result = tableParser.parse(stdout);
+    mountPoint = (_ref = _.findWhere(result, {
+      Device: ['Mount']
+    })) != null ? _ref['Identifier:'][1] : void 0;
+    return callback(mountPoint === '/');
+  });
+};
