@@ -147,6 +147,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.2.1
+
+Fix win32 issue where DeviceID gets part of the device description.
+
 ### v1.2.0
 
 - Implement isSystem predicate.
