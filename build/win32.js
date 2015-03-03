@@ -19,8 +19,11 @@ exports.list = function(callback) {
     result = _.map(result, function(row) {
       var size, _ref;
       size = _.parseInt((_ref = row.Size) != null ? _ref[0] : void 0) / 1e+9 || void 0;
+      if (row.DeviceID.length > 1) {
+        row.Caption = row.Caption.concat(_.initial(row.DeviceID));
+      }
       return {
-        device: _.first(row.DeviceID),
+        device: _.last(row.DeviceID),
         description: row.Caption.join(' '),
         size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
       };

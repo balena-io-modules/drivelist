@@ -41,6 +41,38 @@ describe 'Drivelist WIN32:', ->
 
 					return done()
 
+		describe 'given a USB drive', ->
+
+			beforeEach ->
+				@childProcessStub = sinon.stub(childProcess, 'exec')
+				@childProcessStub.yields null, '''
+					Caption                        DeviceID               Size
+					WDC WD10JPVX-75JC3T0           \\\\.\\PHYSICALDRIVE0  1000202273280
+					Sony Storage Media USB Device  \\\\.\\PHYSICALDRIVE1  7797565440
+				''', undefined
+
+			afterEach ->
+				@childProcessStub.restore()
+
+			it 'should extract the necessary information', (done) ->
+				win32.list (error, drives) ->
+					expect(error).to.not.exist
+
+					expect(drives).to.deep.equal [
+						{
+							device: '\\\\.\\PHYSICALDRIVE0'
+							description: 'WDC WD10JPVX-75JC3T0'
+							size: '1000 GB'
+						}
+						{
+							device: '\\\\.\\PHYSICALDRIVE1'
+							description: 'Sony Storage Media USB Device'
+							size: '7 GB'
+						}
+					]
+
+					return done()
+
 		describe 'given a device with unknown size', ->
 
 			beforeEach ->

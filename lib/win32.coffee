@@ -14,8 +14,11 @@ exports.list = (callback) ->
 		result = _.map result, (row) ->
 			size = _.parseInt(row.Size?[0]) / 1e+9 or undefined
 
+			if row.DeviceID.length > 1
+				row.Caption = row.Caption.concat(_.initial(row.DeviceID))
+
 			return {
-				device: _.first(row.DeviceID)
+				device: _.last(row.DeviceID)
 				description: row.Caption.join(' ')
 				size: "#{Math.floor(size)} GB" if size?
 			}
