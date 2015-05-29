@@ -30,7 +30,7 @@ exports.list = function(callback) {
 
 exports.isSystem = function(drive, callback) {
   return childProcess.exec("lsblk " + drive.device + " -d", {}, function(error, stdout, stderr) {
-    var result, _ref;
+    var result, rmFlag, _ref;
     if (error != null) {
       return callback(false);
     }
@@ -38,6 +38,7 @@ exports.isSystem = function(drive, callback) {
       return callback(false);
     }
     result = tableParser.parse(stdout);
-    return callback(((_ref = result[0].RM) != null ? _ref[0] : void 0) !== '1');
+    rmFlag = ((_ref = result[0].RM) != null ? _ref[0] : void 0) || result[0]['MAJ:MIN'][1];
+    return callback(rmFlag !== '1');
   });
 };
