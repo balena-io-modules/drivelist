@@ -31,4 +31,9 @@ exports.isSystem = (drive, callback) ->
 			return callback(false)
 
 		result = tableParser.parse(stdout)
-		return callback(result[0].RM?[0] isnt '1')
+
+		# In some cases tableParser puts the value of RM
+		# as the second value of MAJ:MIN
+		rmFlag = result[0].RM?[0] or result[0]['MAJ:MIN'][1]
+
+		return callback(rmFlag isnt '1')
