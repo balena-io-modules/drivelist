@@ -148,6 +148,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.2.2
+
+- Fix issue where a removable drive was detected as a system drive in Linux.
+
 ### v1.2.1
 
 Fix win32 issue where DeviceID gets part of the device description.
