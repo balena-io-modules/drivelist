@@ -14,9 +14,9 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                            DeviceID               Size
-					WDC WD10JPVX-75JC3T0               \\\\.\\PHYSICALDRIVE0  1000202273280
-					Generic STORAGE DEVICE USB Device  \\\\.\\PHYSICALDRIVE1  15718510080
+					VolumeName                         DeviceID               Size
+					WDC WD10JPVX-75JC3T0               C:                     1000202273280
+					Generic STORAGE DEVICE USB Device  D:                     15718510080
 				''', undefined
 
 			afterEach ->
@@ -28,12 +28,12 @@ describe 'Drivelist WIN32:', ->
 
 					expect(drives).to.deep.equal [
 						{
-							device: '\\\\.\\PHYSICALDRIVE0'
+							device: 'C:'
 							description: 'WDC WD10JPVX-75JC3T0'
 							size: '1000 GB'
 						}
 						{
-							device: '\\\\.\\PHYSICALDRIVE1'
+							device: 'D:'
 							description: 'Generic STORAGE DEVICE USB Device'
 							size: '15 GB'
 						}
@@ -46,9 +46,9 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                        DeviceID               Size
-					WDC WD10JPVX-75JC3T0           \\\\.\\PHYSICALDRIVE0  1000202273280
-					Sony Storage Media USB Device  \\\\.\\PHYSICALDRIVE1  7797565440
+					VolumeName                     DeviceID               Size
+					WDC WD10JPVX-75JC3T0           C:                     1000202273280
+					Sony Storage Media             D:                     7797565440
 				''', undefined
 
 			afterEach ->
@@ -60,13 +60,13 @@ describe 'Drivelist WIN32:', ->
 
 					expect(drives).to.deep.equal [
 						{
-							device: '\\\\.\\PHYSICALDRIVE0'
+							device: 'C:'
 							description: 'WDC WD10JPVX-75JC3T0'
 							size: '1000 GB'
 						}
 						{
-							device: '\\\\.\\PHYSICALDRIVE1'
-							description: 'Sony Storage Media USB Device'
+							device: 'D:'
+							description: 'Sony Storage Media'
 							size: '7 GB'
 						}
 					]
@@ -78,9 +78,9 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                            DeviceID               Size
-					WDC WD10JPVX-75JC3T0               \\\\.\\PHYSICALDRIVE0  1000202273280
-					Generic STORAGE DEVICE USB Device  \\\\.\\PHYSICALDRIVE1
+					VolumeName                            DeviceID               Size
+					WDC WD10JPVX-75JC3T0                  C:                     1000202273280
+					Generic STORAGE DEVICE USB Device     D:
 				''', undefined
 
 			afterEach ->
@@ -92,12 +92,12 @@ describe 'Drivelist WIN32:', ->
 
 					expect(drives).to.deep.equal [
 						{
-							device: '\\\\.\\PHYSICALDRIVE0'
+							device: 'C:'
 							description: 'WDC WD10JPVX-75JC3T0'
 							size: '1000 GB'
 						}
 						{
-							device: '\\\\.\\PHYSICALDRIVE1'
+							device: 'D:'
 							description: 'Generic STORAGE DEVICE USB Device'
 							size: undefined
 						}
@@ -127,7 +127,7 @@ describe 'Drivelist WIN32:', ->
 
 			beforeEach ->
 				@drive =
-					device: '\\\\.\\PHYSICALDRIVE0'
+					device: 'C:'
 					description: 'WDC WD10JPVX-75JC3T0'
 					size: '1000 GB'
 
@@ -140,7 +140,7 @@ describe 'Drivelist WIN32:', ->
 
 			beforeEach ->
 				@drive =
-					device: '\\\\.\\PHYSICALDRIVE1'
+					device: 'D:'
 					description: 'Generic STORAGE DEVICE USB Device'
 					size: undefined
 

@@ -3,7 +3,7 @@ _ = require('lodash')
 tableParser = require('table-parser')
 
 exports.list = (callback) ->
-	childProcess.exec 'wmic diskdrive get DeviceID, Caption, Size', {}, (error, stdout, stderr) ->
+	childProcess.exec 'wmic logicaldisk get DeviceID, Size, VolumeName', {}, (error, stdout, stderr) ->
 		return callback(error) if error?
 
 		if not _.isEmpty(stderr)
@@ -15,11 +15,11 @@ exports.list = (callback) ->
 			size = _.parseInt(row.Size?[0]) / 1e+9 or undefined
 
 			if row.DeviceID.length > 1
-				row.Caption = row.Caption.concat(_.initial(row.DeviceID))
+				row.Caption = row.VolumeName.concat(_.initial(row.VolumeName))
 
 			return {
-				device: _.last(row.DeviceID)
-				description: row.Caption.join(' ')
+				device: _.first(row.DeviceID)
+				description: row.VolumeName.join(' ')
 				size: "#{Math.floor(size)} GB" if size?
 			}
 
@@ -27,5 +27,5 @@ exports.list = (callback) ->
 
 exports.isSystem = (drive, callback) ->
 
-	# Assume \\.\PHYSICALDRIVE0 is always the system disk
-	return callback(drive.device.toUpperCase() is '\\\\.\\PHYSICALDRIVE0')
+	# Assume C: is always the system disk
+	return callback(drive.device.toUpperCase() is 'C:')
