@@ -7,7 +7,7 @@ _ = require('lodash');
 tableParser = require('table-parser');
 
 exports.list = function(callback) {
-  return childProcess.exec('wmic diskdrive get DeviceID, Caption, Size', {}, function(error, stdout, stderr) {
+  return childProcess.exec('wmic logicaldisk get DeviceID, Size, VolumeName', {}, function(error, stdout, stderr) {
     var result;
     if (error != null) {
       return callback(error);
@@ -20,11 +20,11 @@ exports.list = function(callback) {
       var size, _ref;
       size = _.parseInt((_ref = row.Size) != null ? _ref[0] : void 0) / 1e+9 || void 0;
       if (row.DeviceID.length > 1) {
-        row.Caption = row.Caption.concat(_.initial(row.DeviceID));
+        row.Caption = row.VolumeName.concat(_.initial(row.VolumeName));
       }
       return {
-        device: _.last(row.DeviceID),
-        description: row.Caption.join(' '),
+        device: _.first(row.DeviceID),
+        description: row.VolumeName.join(' '),
         size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
       };
     });
@@ -33,5 +33,5 @@ exports.list = function(callback) {
 };
 
 exports.isSystem = function(drive, callback) {
-  return callback(drive.device.toUpperCase() === '\\\\.\\PHYSICALDRIVE0');
+  return callback(drive.device.toUpperCase() === 'C:');
 };
