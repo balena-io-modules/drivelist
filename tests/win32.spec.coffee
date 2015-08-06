@@ -14,8 +14,7 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	1000202273280
-					Generic STORAGE DEVICE USB Device	\\\\.\\PHYSICALDRIVE1	15718510080
+					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	C:	1000202273280
 				''', undefined
 
 			afterEach ->
@@ -26,16 +25,10 @@ describe 'Drivelist WIN32:', ->
 					expect(error).to.not.exist
 
 					expect(drives).to.deep.equal [
-						{
-							device: '\\\\.\\PHYSICALDRIVE0'
-							description: 'WDC WD10JPVX-75JC3T0'
-							size: '1000 GB'
-						}
-						{
-							device: '\\\\.\\PHYSICALDRIVE1'
-							description: 'Generic STORAGE DEVICE USB Device'
-							size: '15 GB'
-						}
+						device: '\\\\.\\PHYSICALDRIVE0'
+						description: 'WDC WD10JPVX-75JC3T0'
+						size: '1000 GB'
+						mountpoint: 'C:'
 					]
 
 					return done()
@@ -45,8 +38,8 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					WDC WD10JPVX-75JC3T0         	\\\\.\\PHYSICALDRIVE0	1000202273280
-					Sony Storage Media USB Device	\\\\.\\PHYSICALDRIVE1	7797565440
+					WDC WD10JPVX-75JC3T0         	\\\\.\\PHYSICALDRIVE0	C:	1000202273280
+					Sony Storage Media USB Device	\\\\.\\PHYSICALDRIVE1	D:	7797565440
 				''', undefined
 
 			afterEach ->
@@ -61,11 +54,13 @@ describe 'Drivelist WIN32:', ->
 							device: '\\\\.\\PHYSICALDRIVE0'
 							description: 'WDC WD10JPVX-75JC3T0'
 							size: '1000 GB'
+							mountpoint: 'C:'
 						}
 						{
 							device: '\\\\.\\PHYSICALDRIVE1'
 							description: 'Sony Storage Media USB Device'
 							size: '7 GB'
+							mountpoint: 'D:'
 						}
 					]
 
@@ -76,8 +71,8 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	1000202273280
-					Generic STORAGE DEVICE USB Device	\\\\.\\PHYSICALDRIVE1
+					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	C:	1000202273280
+					Generic STORAGE DEVICE USB Device	\\\\.\\PHYSICALDRIVE1	D:
 				''', undefined
 
 			afterEach ->
@@ -92,11 +87,13 @@ describe 'Drivelist WIN32:', ->
 							device: '\\\\.\\PHYSICALDRIVE0'
 							description: 'WDC WD10JPVX-75JC3T0'
 							size: '1000 GB'
+							mountpoint: 'C:'
 						}
 						{
 							device: '\\\\.\\PHYSICALDRIVE1'
 							description: 'Generic STORAGE DEVICE USB Device'
 							size: undefined
+							mountpoint: 'D:'
 						}
 					]
 

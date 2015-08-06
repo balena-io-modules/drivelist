@@ -1,10 +1,32 @@
-var childProcess, tableParser, _;
+var async, childProcess, getMountPoint, path, tableParser, _;
 
 childProcess = require('child_process');
+
+path = require('path');
+
+async = require('async');
 
 _ = require('lodash');
 
 tableParser = require('table-parser');
+
+getMountPoint = function(device, callback) {
+  return childProcess.exec("diskutil info " + device, {}, function(error, stdout, stderr) {
+    var mount, mountPoint, result;
+    if (error != null) {
+      return callback(error);
+    }
+    if (!_.isEmpty(stderr)) {
+      return callback(new Error(stderr));
+    }
+    result = tableParser.parse(stdout);
+    mount = _.findWhere(result, {
+      Device: ['Mount']
+    });
+    mountPoint = (mount != null ? mount['Identifier:'][1] : void 0) || (mount != null ? mount[path.basename(device)][0] : void 0);
+    return callback(null, mountPoint);
+  });
+};
 
 exports.list = function(callback) {
   return childProcess.exec('diskutil list', {}, function(error, stdout, stderr) {
@@ -25,37 +47,34 @@ exports.list = function(callback) {
     result = _.map(result, function(row) {
       return _.rest(row);
     });
-    result = _.map(result, function(row) {
+    return async.map(result, function(row, callback) {
       var device, size, sizeMeasure;
-      device = row.pop();
+      device = "/dev/" + (row.pop());
       sizeMeasure = row.pop();
       size = row.pop();
-      return {
-        device: "/dev/" + device,
-        size: "" + size + " " + sizeMeasure,
-        description: row.join(' ')
-      };
-    });
-    return callback(null, result);
+      return getMountPoint(device, function(error, mountPoint) {
+        if (error != null) {
+          return callback(error);
+        }
+        return callback(null, {
+          device: device,
+          size: "" + size + " " + sizeMeasure,
+          description: row.join(' '),
+          mountpoint: mountPoint
+        });
+      });
+    }, callback);
   });
 };
 
 exports.isSystem = function(drive, callback) {
-  return childProcess.exec("diskutil info " + drive.device, {}, function(error, stdout, stderr) {
-    var mountPoint, result, _ref;
+  return getMountPoint(drive.device, function(error, mountPoint) {
     if (error != null) {
-      return callback(false);
-    }
-    if (!_.isEmpty(stderr)) {
       return callback(false);
     }
     if (drive.device === '/dev/disk0') {
       return callback(true);
     }
-    result = tableParser.parse(stdout);
-    mountPoint = (_ref = _.findWhere(result, {
-      Device: ['Mount']
-    })) != null ? _ref['Identifier:'][1] : void 0;
     return callback(mountPoint === '/');
   });
 };

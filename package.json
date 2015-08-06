@@ -35,6 +35,7 @@
     "sinon-chai": "~2.6.0"
   },
   "dependencies": {
+    "async": "^1.4.0",
     "lodash": "^3.0.1",
     "table-parser": "0.0.3"
   }

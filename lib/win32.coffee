@@ -18,12 +18,13 @@ exports.list = (callback) ->
 			driveInfo = _.map driveInfo, (element) ->
 				return element.trim()
 
-			size = _.parseInt(driveInfo[2]) / 1e+9 or undefined
+			size = _.parseInt(driveInfo[3]) / 1e+9 or undefined
 
 			return {
 				device: driveInfo[1],
 				description: driveInfo[0],
 				size: "#{Math.floor(size)} GB" if size?
+				mountpoint: driveInfo[2]
 			}
 
 		return callback(null, result)
