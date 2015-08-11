@@ -1,25 +1,28 @@
 childProcess = require('child_process')
 _ = require('lodash')
-tableParser = require('table-parser')
+path = require('path')
 
 exports.list = (callback) ->
-	childProcess.exec 'wmic diskdrive get DeviceID, Caption, Size', {}, (error, stdout, stderr) ->
+	script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs')
+
+	childProcess.exec "cscript #{script} //Nologo", {}, (error, stdout, stderr) ->
 		return callback(error) if error?
 
 		if not _.isEmpty(stderr)
 			return callback(new Error(stderr))
 
-		result = tableParser.parse(stdout)
+		output = stdout.trim().replace(/\r/, '').split(/\n/g)
 
-		result = _.map result, (row) ->
-			size = _.parseInt(row.Size?[0]) / 1e+9 or undefined
+		result = _.map output, (row) ->
+			driveInfo = row.split('\t')
+			driveInfo = _.map driveInfo, (element) ->
+				return element.trim()
 
-			if row.DeviceID.length > 1
-				row.Caption = row.Caption.concat(_.initial(row.DeviceID))
+			size = _.parseInt(driveInfo[2]) / 1e+9 or undefined
 
 			return {
-				device: _.last(row.DeviceID)
-				description: row.Caption.join(' ')
+				device: driveInfo[1],
+				description: driveInfo[0],
 				size: "#{Math.floor(size)} GB" if size?
 			}
 

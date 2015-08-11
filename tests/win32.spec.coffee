@@ -9,14 +9,13 @@ describe 'Drivelist WIN32:', ->
 
 	describe '.list()', ->
 
-		describe 'given correct output from wmic', ->
+		describe 'given correct output from win_drives.vbs', ->
 
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                            DeviceID               Size
-					WDC WD10JPVX-75JC3T0               \\\\.\\PHYSICALDRIVE0  1000202273280
-					Generic STORAGE DEVICE USB Device  \\\\.\\PHYSICALDRIVE1  15718510080
+					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	1000202273280
+					Generic STORAGE DEVICE USB Device	\\\\.\\PHYSICALDRIVE1	15718510080
 				''', undefined
 
 			afterEach ->
@@ -46,9 +45,8 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                        DeviceID               Size
-					WDC WD10JPVX-75JC3T0           \\\\.\\PHYSICALDRIVE0  1000202273280
-					Sony Storage Media USB Device  \\\\.\\PHYSICALDRIVE1  7797565440
+					WDC WD10JPVX-75JC3T0         	\\\\.\\PHYSICALDRIVE0	1000202273280
+					Sony Storage Media USB Device	\\\\.\\PHYSICALDRIVE1	7797565440
 				''', undefined
 
 			afterEach ->
@@ -78,9 +76,8 @@ describe 'Drivelist WIN32:', ->
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
 				@childProcessStub.yields null, '''
-					Caption                            DeviceID               Size
-					WDC WD10JPVX-75JC3T0               \\\\.\\PHYSICALDRIVE0  1000202273280
-					Generic STORAGE DEVICE USB Device  \\\\.\\PHYSICALDRIVE1
+					WDC WD10JPVX-75JC3T0             	\\\\.\\PHYSICALDRIVE0	1000202273280
+					Generic STORAGE DEVICE USB Device	\\\\.\\PHYSICALDRIVE1
 				''', undefined
 
 			afterEach ->

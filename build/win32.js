@@ -1,30 +1,33 @@
-var childProcess, tableParser, _;
+var childProcess, path, _;
 
 childProcess = require('child_process');
 
 _ = require('lodash');
 
-tableParser = require('table-parser');
+path = require('path');
 
 exports.list = function(callback) {
-  return childProcess.exec('wmic diskdrive get DeviceID, Caption, Size', {}, function(error, stdout, stderr) {
-    var result;
+  var script;
+  script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs');
+  return childProcess.exec("cscript " + script + " //Nologo", {}, function(error, stdout, stderr) {
+    var output, result;
     if (error != null) {
       return callback(error);
     }
     if (!_.isEmpty(stderr)) {
       return callback(new Error(stderr));
     }
-    result = tableParser.parse(stdout);
-    result = _.map(result, function(row) {
-      var size, _ref;
-      size = _.parseInt((_ref = row.Size) != null ? _ref[0] : void 0) / 1e+9 || void 0;
-      if (row.DeviceID.length > 1) {
-        row.Caption = row.Caption.concat(_.initial(row.DeviceID));
-      }
+    output = stdout.trim().replace(/\r/, '').split(/\n/g);
+    result = _.map(output, function(row) {
+      var driveInfo, size;
+      driveInfo = row.split('\t');
+      driveInfo = _.map(driveInfo, function(element) {
+        return element.trim();
+      });
+      size = _.parseInt(driveInfo[2]) / 1e+9 || void 0;
       return {
-        device: _.last(row.DeviceID),
-        description: row.Caption.join(' '),
+        device: driveInfo[1],
+        description: driveInfo[0],
         size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
       };
     });
