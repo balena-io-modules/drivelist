@@ -38,6 +38,7 @@ Mac OS X:
 		device: '/dev/disk0',
 		description: 'GUID_partition_scheme',
 		size: '*750.2 GB'
+		mountpoint: '/'
 	},
 	{
 		device: '/dev/disk1',
@@ -57,6 +58,7 @@ GNU/Linux
 		device: '/dev/sda',
 		description: 'WDC WD10JPVX-75J',
 		size: '931.5G',
+		mountpoint: '/'
 	},
 	{
 		device: '/dev/sr0',
@@ -76,11 +78,13 @@ Windows
 		device: '\\\\.\\PHYSICALDRIVE0',
 		description: 'WDC WD10JPVX-75JC3T0',
 		size: '1000 GB'
+		mountpoint: 'C:'
 	},
 	{
 		device: '\\\\.\\PHYSICALDRIVE1',
 		description: 'Generic STORAGE DEVICE USB Device',
 		size: '15 GB'
+		mountpoint: 'D:'
 	}
 ]
 ```

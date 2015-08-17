@@ -24,11 +24,12 @@ exports.list = function(callback) {
       driveInfo = _.map(driveInfo, function(element) {
         return element.trim();
       });
-      size = _.parseInt(driveInfo[2]) / 1e+9 || void 0;
+      size = _.parseInt(driveInfo[3]) / 1e+9 || void 0;
       return {
         device: driveInfo[1],
         description: driveInfo[0],
-        size: size != null ? "" + (Math.floor(size)) + " GB" : void 0
+        size: size != null ? "" + (Math.floor(size)) + " GB" : void 0,
+        mountpoint: driveInfo[2]
       };
     });
     return callback(null, result);

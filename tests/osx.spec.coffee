@@ -13,7 +13,8 @@ describe 'Drivelist OSX:', ->
 
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
-				@childProcessStub.yields null, '''
+
+				@childProcessStub.withArgs('diskutil list').yields null, '''
 					/dev/disk0
 						 #:                       TYPE NAME                    SIZE       IDENTIFIER
 						 0:      GUID_partition_scheme                        *750.2 GB   disk0
@@ -31,6 +32,121 @@ describe 'Drivelist OSX:', ->
 						 0:                            elementary OS          *15.7 GB    disk2
 				''', undefined
 
+				@childProcessStub.withArgs('diskutil info /dev/disk0').yields null, '''
+					Device Identifier:        disk0
+					Device Node:              /dev/disk0
+					Part of Whole:            disk0
+					Device / Media Name:      APPLE SSD SM0256G Media
+
+					Volume Name:              Not applicable (no file system)
+
+					Mounted:                  Not applicable (no file system)
+
+					File System:              None
+
+					Content (IOContent):      GUID_partition_scheme
+					OS Can Be Installed:      No
+					Media Type:               Generic
+					Protocol:                 PCI
+					SMART Status:             Verified
+
+					Total Size:               251.0 GB (251000193024 Bytes) (exactly 490234752 512-Byte-Units)
+					Volume Free Space:        Not applicable (no file system)
+					Device Block Size:        512 Bytes
+
+					Read-Only Media:          No
+					Read-Only Volume:         Not applicable (no file system)
+					Ejectable:                No
+
+					Whole:                    Yes
+					Internal:                 Yes
+					Solid State:              Yes
+					OS 9 Drivers:             No
+					Low Level Format:         Not supported
+				''', undefined
+
+				@childProcessStub.withArgs('diskutil info /dev/disk1').yields null, '''
+					Device Identifier:        disk1
+					Device Node:              /dev/disk1
+					Part of Whole:            disk1
+					Device / Media Name:      Macintosh HD
+
+					Volume Name:              Macintosh HD
+
+					Mounted:                  Yes
+					Mount Point:              /
+
+					File System Personality:  Journaled HFS+
+					Type (Bundle):            hfs
+					Name (User Visible):      Mac OS Extended (Journaled)
+					Journal:                  Journal size 24576 KB at offset 0x19502000
+					Owners:                   Enabled
+
+					Content (IOContent):      Apple_HFS
+					OS Can Be Installed:      Yes
+					Recovery Disk:            disk0s3
+					Media Type:               Generic
+					Protocol:                 PCI
+					SMART Status:             Not Supported
+					Volume UUID:              02768F72-AD55-36DD-8EE1-0ADB0590BE56
+					Disk / Partition UUID:    DCD23031-6322-4269-A142-CD36C8FD95D7
+
+					Total Size:               249.8 GB (249779191808 Bytes) (exactly 487849984 512-Byte-Units)
+					Volume Free Space:        201.8 GB (201823002624 Bytes) (exactly 394185552 512-Byte-Units)
+					Device Block Size:        512 Bytes
+					Allocation Block Size:    4096 Bytes
+
+					Read-Only Media:          No
+					Read-Only Volume:         No
+					Ejectable:                No
+
+					Whole:                    Yes
+					Internal:                 Yes
+					Solid State:              Yes
+					OS 9 Drivers:             No
+					Low Level Format:         Not supported
+
+					This disk is a Core Storage Logical Volume (LV).  Core Storage Information:
+					LV UUID:                  DCD23031-6322-4269-A142-CD36C8FD95D7
+					LVF UUID:                 C3BB8BBF-B377-416F-AF8F-07BE6E36B90C
+					LVG UUID:                 BEBAA479-1F77-4691-9911-10A5580850DF
+					Fusion Drive:             No
+					Encrypted:                Yes
+				''', undefined
+
+				@childProcessStub.withArgs('diskutil info /dev/disk2').yields null, '''
+					Device Identifier:        disk2
+					Device Node:              /dev/disk2
+					Part of Whole:            disk2
+					Device / Media Name:      Sony Storage Media Media
+
+					Volume Name:              Not applicable (no file system)
+
+					Mounted:                  Yes
+					Mount Point:              /Volumes/Elementary
+
+					File System:              None
+
+					Content (IOContent):      FDisk_partition_scheme
+					OS Can Be Installed:      No
+					Media Type:               Generic
+					Protocol:                 USB
+					SMART Status:             Not Supported
+
+					Total Size:               7.8 GB (7801405440 Bytes) (exactly 15237120 512-Byte-Units)
+					Volume Free Space:        Not applicable (no file system)
+					Device Block Size:        512 Bytes
+
+					Read-Only Media:          No
+					Read-Only Volume:         Not applicable (no file system)
+					Ejectable:                Yes
+
+					Whole:                    Yes
+					Internal:                 No
+					OS 9 Drivers:             No
+					Low Level Format:         Not supported
+				''', undefined
+
 			afterEach ->
 				@childProcessStub.restore()
 
@@ -43,16 +159,19 @@ describe 'Drivelist OSX:', ->
 							device: '/dev/disk0'
 							description: 'GUID_partition_scheme'
 							size: '*750.2 GB'
+							mountpoint: undefined
 						}
 						{
 							device: '/dev/disk1'
 							description: 'Apple_HFS Macintosh HD'
 							size: '*748.9 GB'
+							mountpoint: '/'
 						}
 						{
 							device: '/dev/disk2'
 							description: 'elementary OS'
 							size: '*15.7 GB'
+							mountpoint: '/Volumes/Elementary'
 						}
 					]
 

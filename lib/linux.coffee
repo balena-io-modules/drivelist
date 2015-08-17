@@ -1,6 +1,16 @@
 childProcess = require('child_process')
+async = require('async')
 _ = require('lodash')
 tableParser = require('table-parser')
+
+getMountPoint = (device, callback) ->
+	childProcess.exec "grep \"^#{device}\" /proc/mounts | cut -d ' ' -f 2", {}, (error, stdout, stderr) ->
+		return callback(error) if error?
+
+		if not _.isEmpty(stderr)
+			return callback(new Error(stderr))
+
+		return callback(null, stdout)
 
 exports.list = (callback) ->
 	childProcess.exec 'lsblk -d --output NAME,MODEL,SIZE', {}, (error, stdout, stderr) ->
@@ -11,14 +21,18 @@ exports.list = (callback) ->
 
 		result = tableParser.parse(stdout)
 
-		result = _.map result, (row) ->
-			return {
-				device: "/dev/#{_.first(row.NAME)}"
-				description: row.MODEL?.join(' ')
-				size: _.first(row.SIZE).replace(/,/g, '.')
-			}
+		async.map result, (row, callback) ->
+			device = "/dev/#{_.first(row.NAME)}"
 
-		return callback(null, result)
+			getMountPoint device, (error, mountPoint) ->
+				return callback(error) if error?
+				return callback null,
+					device: device
+					description: row.MODEL?.join(' ')
+					size: _.first(row.SIZE).replace(/,/g, '.')
+					mountpoint: mountPoint or undefined
+
+		, callback
 
 # We determine if a drive is a system drive
 # by checking the removeable flag.

@@ -13,12 +13,22 @@ describe 'Drivelist LINUX:', ->
 
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
-				@childProcessStub.yields null, '''
+				@childProcessStub.withArgs('lsblk -d --output NAME,MODEL,SIZE').yields null, '''
 					NAME MODEL              SIZE
 					sda  WDC WD10JPVX-75J 931,5G
 					sdb  STORAGE DEVICE    14,7G
 					sr0  DVD+-RW GU90N     1024M
 				''', undefined
+
+				@childProcessStub.withArgs('grep "^/dev/sda" /proc/mounts | cut -d \' \' -f 2').yields null, '''
+					/boot/efi
+				''', undefined
+
+				@childProcessStub.withArgs('grep "^/dev/sdb" /proc/mounts | cut -d \' \' -f 2').yields null, '''
+					/media/johndoe/UNTITLED
+				''', undefined
+
+				@childProcessStub.withArgs('grep "^/dev/sr0" /proc/mounts | cut -d \' \' -f 2').yields null, '', undefined
 
 			afterEach ->
 				@childProcessStub.restore()
@@ -32,16 +42,19 @@ describe 'Drivelist LINUX:', ->
 							device: '/dev/sda'
 							description: 'WDC WD10JPVX-75J'
 							size: '931.5G'
+							mountpoint: '/boot/efi'
 						}
 						{
 							device: '/dev/sdb'
 							description: 'STORAGE DEVICE'
 							size: '14.7G'
+							mountpoint: '/media/johndoe/UNTITLED'
 						}
 						{
 							device: '/dev/sr0'
 							description: 'DVD+-RW GU90N'
 							size: '1024M'
+							mountpoint: undefined
 						}
 					]
 
@@ -51,10 +64,18 @@ describe 'Drivelist LINUX:', ->
 
 			beforeEach ->
 				@childProcessStub = sinon.stub(childProcess, 'exec')
-				@childProcessStub.yields null, '''
+				@childProcessStub.withArgs('lsblk -d --output NAME,MODEL,SIZE').yields null, '''
 					NAME    MODEL           SIZE
 					sda     SD Plus         3.8G
 					mmcblk0                14.4G
+				''', undefined
+
+				@childProcessStub.withArgs('grep "^/dev/sda" /proc/mounts | cut -d \' \' -f 2').yields null, '''
+					/boot/efi
+				''', undefined
+
+				@childProcessStub.withArgs('grep "^/dev/mmcblk0" /proc/mounts | cut -d \' \' -f 2').yields null, '''
+					/media/johndoe/UNTITLED
 				''', undefined
 
 			afterEach ->
@@ -69,11 +90,13 @@ describe 'Drivelist LINUX:', ->
 							device: '/dev/sda'
 							description: 'SD Plus'
 							size: '3.8G'
+							mountpoint: '/boot/efi'
 						}
 						{
 							device: '/dev/mmcblk0'
 							description: undefined
 							size: '14.4G'
+							mountpoint: '/media/johndoe/UNTITLED'
 						}
 					]
 
