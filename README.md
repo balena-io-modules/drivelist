@@ -152,6 +152,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.3.0
+
+- Add `mountpoint` attribute to drives.
+
 ### v1.2.2
 
 - Fix issue where a removable drive was detected as a system drive in Linux.
