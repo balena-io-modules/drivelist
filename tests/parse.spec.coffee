@@ -50,6 +50,33 @@ describe 'Parse:', ->
 			mountpoint: '/Volumes/Elementary'
 		]
 
+	it 'should ignore new lines after the output', ->
+		m.chai.expect parse '''
+			device: /dev/disk1
+			description: Macintosh HD
+			size: 249.8 GB
+			mountpoint: /
+
+			device: /dev/disk2
+			description: elementary OS
+			size: 15.7 GB
+			mountpoint: /Volumes/Elementary
+
+
+
+		'''
+		.to.deep.equal [
+			device: '/dev/disk1'
+			description: 'Macintosh HD'
+			size: '249.8 GB'
+			mountpoint: '/'
+		,
+			device: '/dev/disk2'
+			description: 'elementary OS'
+			size: '15.7 GB'
+			mountpoint: '/Volumes/Elementary'
+		]
+
 	it 'should parse multiple devices that are heterogeneous', ->
 		m.chai.expect parse '''
 			hello: world
