@@ -31,12 +31,15 @@
     "gulp-mocha": "~2.0.0",
     "gulp-util": "~3.0.1",
     "mocha": "~2.0.1",
+    "mochainon": "^1.0.0",
     "sinon": "~1.12.2",
     "sinon-chai": "~2.6.0"
   },
   "dependencies": {
     "async": "^1.4.0",
+    "js-yaml": "^3.4.1",
     "lodash": "^3.0.1",
-    "table-parser": "0.0.3"
+    "table-parser": "0.0.3",
+    "underscore.string": "^3.2.2"
   }
 }
