@@ -152,6 +152,10 @@ If you're having any problem, please [raise an issue](https://github.com/resin-i
 ChangeLog
 ---------
 
+### v1.3.1
+
+- Surround Windows script path in double quotes to avoid issues with paths incuding white space.
+
 ### v1.3.0
 
 - Add `mountpoint` attribute to drives.
