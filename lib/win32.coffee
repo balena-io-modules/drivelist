@@ -5,7 +5,7 @@ path = require('path')
 exports.list = (callback) ->
 	script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs')
 
-	childProcess.exec "cscript #{script} //Nologo", {}, (error, stdout, stderr) ->
+	childProcess.exec "cscript \"#{script}\" //Nologo", {}, (error, stdout, stderr) ->
 		return callback(error) if error?
 
 		if not _.isEmpty(stderr)
