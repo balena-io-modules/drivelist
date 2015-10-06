@@ -9,7 +9,7 @@ path = require('path');
 exports.list = function(callback) {
   var script;
   script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs');
-  return childProcess.exec("cscript " + script + " //Nologo", {}, function(error, stdout, stderr) {
+  return childProcess.exec("cscript \"" + script + "\" //Nologo", {}, function(error, stdout, stderr) {
     var output, result;
     if (error != null) {
       return callback(error);
