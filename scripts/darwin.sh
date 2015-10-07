@@ -18,9 +18,9 @@ for disk in $DISKS; do
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   size=`echo "$diskinfo" | get_key "Total Size" | get_until_paren`
 
-	echo "device: $device"
-	echo "description: $description"
-	echo "size: $size"
-	echo "mountpoint: $mountpoint"
-	echo ""
+  echo "device: $device"
+  echo "description: $description"
+  echo "size: $size"
+  echo "mountpoint: $mountpoint"
+  echo ""
 done
