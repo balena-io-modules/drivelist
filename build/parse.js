@@ -45,12 +45,12 @@ module.exports = function(input) {
   if (_.isEmpty(_.str.trim(input))) {
     return {};
   }
-  return _.map(input.split(/\n\s*\n/), function(device) {
+  return _.compact(_.map(input.split(/\n\s*\n/), function(device) {
     var result;
     result = yaml.safeLoad(device);
     if (_.isString(result)) {
       return _.object([result], [null]);
     }
     return result;
-  });
+  }));
 };
