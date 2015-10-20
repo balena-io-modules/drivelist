@@ -16,7 +16,11 @@ For Each objDrive In colDiskDrives
                 objPartition.DeviceID & """} WHERE AssocClass = " & _
                     "Win32_LogicalDiskToPartition")
         For Each objLogicalDisk In colLogicalDisks
-            Wscript.Echo objDrive.Caption & vbTab & objDrive.DeviceID & vbTab & objLogicalDisk.DeviceID & vbTab & objDrive.Size
+            Wscript.Echo "device: """ & objDrive.DeviceID & """"
+            Wscript.Echo "description: """ & objDrive.Caption & """"
+            Wscript.Echo "size: """ & Int(objDrive.Size / 1e+9) & " GB"""
+            Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
+            Wscript.Echo ""
         Next
     Next
 Next
