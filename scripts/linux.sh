@@ -20,5 +20,17 @@ for disk in $DISKS; do
   echo "description: $description"
   echo "size: $size"
   echo "mountpoint: $mountpoint"
+
+  # We determine if a drive is a system drive
+  # by checking the removeable flag.
+  # There might be a better way in GNU/Linux systems.
+  removable=`lsblk -d $device --output RM | ignore_first_line | trim`
+
+  if [[ "$removable" == "1" ]]; then
+    echo "system: False"
+  else
+    echo "system: True"
+  fi
+
   echo ""
 done

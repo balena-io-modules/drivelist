@@ -38,12 +38,14 @@ Mac OS X:
 		device: '/dev/disk0',
 		description: 'GUID_partition_scheme',
 		size: '*750.2 GB'
-		mountpoint: '/'
+		mountpoint: '/',
+		system: true
 	},
 	{
 		device: '/dev/disk1',
 		description: 'Apple_HFS Macintosh HD',
-		size: '*748.9 GB'
+		size: '*748.9 GB',
+		system: true
 	}
 ]
 ```
@@ -58,12 +60,14 @@ GNU/Linux
 		device: '/dev/sda',
 		description: 'WDC WD10JPVX-75J',
 		size: '931.5G',
-		mountpoint: '/'
+		mountpoint: '/',
+		system: true
 	},
 	{
 		device: '/dev/sr0',
 		description: 'DVD+-RW GU90N',
-		size: '1024M'
+		size: '1024M',
+		system: false
 	}
 ]
 ```
@@ -78,13 +82,15 @@ Windows
 		device: '\\\\.\\PHYSICALDRIVE0',
 		description: 'WDC WD10JPVX-75JC3T0',
 		size: '1000 GB'
-		mountpoint: 'C:'
+		mountpoint: 'C:',
+		system: true
 	},
 	{
 		device: '\\\\.\\PHYSICALDRIVE1',
 		description: 'Generic STORAGE DEVICE USB Device',
 		size: '15 GB'
-		mountpoint: 'D:'
+		mountpoint: 'D:',
+		system: false
 	}
 ]
 ```
@@ -111,15 +117,6 @@ The function will throw an error if you attempt to call it from an unsupported o
 
 - `error` is a possible error.
 - `drives` is an array of objects describing the drives found.
-
-Predicates
-----------
-
-### drivelist.isSystem(drive, callback)
-
-Determines if a drive returned by `drivelist.list()` is a system drive.
-
-The callbacks gets passed a single boolean value.
 
 Tests
 -----
