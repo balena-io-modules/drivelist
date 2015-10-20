@@ -1,51 +1,26 @@
-var async, childProcess, getMountPoint, tableParser, _;
+var childProcess, parse, path, tableParser, _;
 
 childProcess = require('child_process');
 
-async = require('async');
+path = require('path');
 
 _ = require('lodash');
 
 tableParser = require('table-parser');
 
-getMountPoint = function(device, callback) {
-  return childProcess.exec("grep \"^" + device + "\" /proc/mounts | cut -d ' ' -f 2", {}, function(error, stdout, stderr) {
-    if (error != null) {
-      return callback(error);
-    }
-    if (!_.isEmpty(stderr)) {
-      return callback(new Error(stderr));
-    }
-    return callback(null, stdout);
-  });
-};
+parse = require('./parse');
 
 exports.list = function(callback) {
-  return childProcess.exec('lsblk -d --output NAME,MODEL,SIZE', {}, function(error, stdout, stderr) {
-    var result;
+  var script;
+  script = path.join(__dirname, '..', 'scripts', 'linux.sh');
+  return childProcess.exec(script, {}, function(error, stdout, stderr) {
     if (error != null) {
       return callback(error);
     }
     if (!_.isEmpty(stderr)) {
       return callback(new Error(stderr));
     }
-    result = tableParser.parse(stdout);
-    return async.map(result, function(row, callback) {
-      var device;
-      device = "/dev/" + (_.first(row.NAME));
-      return getMountPoint(device, function(error, mountPoint) {
-        var _ref;
-        if (error != null) {
-          return callback(error);
-        }
-        return callback(null, {
-          device: device,
-          description: (_ref = row.MODEL) != null ? _ref.join(' ') : void 0,
-          size: _.first(row.SIZE).replace(/,/g, '.'),
-          mountpoint: mountPoint || void 0
-        });
-      });
-    }, callback);
+    return callback(null, parse(stdout));
   });
 };
 
