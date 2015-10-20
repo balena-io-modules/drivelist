@@ -1,32 +1,34 @@
-var darwin, getOSModule, linux, os, win32;
+var os, parse, scripts, system;
 
 os = require('os');
 
-win32 = require('./win32');
+parse = require('./parse');
 
-darwin = require('./darwin');
+scripts = require('./scripts');
 
-linux = require('./linux');
-
-getOSModule = function() {
-  var operatingSystem;
-  operatingSystem = os.platform();
-  switch (operatingSystem) {
-    case 'darwin':
-      return darwin;
-    case 'win32':
-      return win32;
-    case 'linux':
-      return linux;
-    default:
-      throw new Error("Your OS is not supported by this module: " + operatingSystem);
-  }
-};
+system = require('./system');
 
 exports.list = function(callback) {
-  return getOSModule().list(callback);
+  var operatingSystem, script;
+  operatingSystem = os.platform();
+  script = scripts.paths[operatingSystem];
+  if (script == null) {
+    throw new Error("Your OS is not supported by this module: " + operatingSystem);
+  }
+  return scripts.run(script, function(error, output) {
+    if (error != null) {
+      return callback(error);
+    }
+    return callback(null, parse(output));
+  });
 };
 
 exports.isSystem = function(drive, callback) {
-  return getOSModule().isSystem(drive, callback);
+  var isSystem, operatingSystem;
+  operatingSystem = os.platform();
+  isSystem = system[operatingSystem];
+  if (isSystem == null) {
+    throw new Error("Your OS is not supported by this module: " + operatingSystem);
+  }
+  return isSystem(drive, callback);
 };
