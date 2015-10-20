@@ -10,7 +10,7 @@ parse = require('./parse');
 
 exports.list = function(callback) {
   var script;
-  script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs');
+  script = path.join(__dirname, '..', 'scripts', 'win32.vbs');
   return childProcess.exec("cscript \"" + script + "\" //Nologo", {}, function(error, stdout, stderr) {
     if (error != null) {
       return callback(error);
