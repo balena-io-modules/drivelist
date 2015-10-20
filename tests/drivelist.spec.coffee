@@ -4,149 +4,119 @@ chai = require('chai')
 expect = chai.expect
 sinon = require('sinon')
 chai.use(require('sinon-chai'))
+scripts = require('../lib/scripts')
 drivelist = require('../lib/drivelist')
-
-darwin = require('../lib/darwin')
-win32 = require('../lib/win32')
-linux = require('../lib/linux')
 
 describe 'Drivelist:', ->
 
 	describe '.list()', ->
 
-		beforeEach ->
-			@darwinStub = sinon.stub(darwin, 'list')
-			@win32Stub = sinon.stub(win32, 'list')
-			@linuxStub = sinon.stub(linux, 'list')
-
-		afterEach ->
-			@darwinStub.restore()
-			@win32Stub.restore()
-			@linuxStub.restore()
-
-		describe 'given platform is darwin', ->
+		describe 'given scripts run succesfully', ->
 
 			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('darwin')
+				@scriptsRunStub = sinon.stub(scripts, 'run')
 
-				drivelist.list()
+				@scriptsRunStub.withArgs(scripts.paths.win32).yields null, '''
+					device: "\\\\\\\\.\\\\PHYSICALDRIVE1"
+					description: "My drive"
+					size: "15 GB"
+					mountpoint: "D:"
+				'''
 
-			afterEach ->
-				@osPlatformStub.restore()
+				@scriptsRunStub.withArgs(scripts.paths.linux).yields null, '''
+					device: "/dev/sda"
+					description: "My drive"
+					size: "15 GB"
+					mountpoint: "/mnt/drive"
+				'''
 
-			it 'should only call darwin.list()', ->
-				expect(@darwinStub).to.have.been.calledOnce
-				expect(@win32Stub).to.not.have.been.called
-				expect(@linuxStub).to.not.have.been.called
-
-		describe 'given platform is win32', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('win32')
-
-				drivelist.list()
-
-			afterEach ->
-				@osPlatformStub.restore()
-
-			it 'should only call win32.list()', ->
-				expect(@darwinStub).to.not.have.been.called
-				expect(@win32Stub).to.have.been.calledOnce
-				expect(@linuxStub).to.not.have.been.called
-
-		describe 'given platform is linux', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('linux')
-
-				drivelist.list()
+				@scriptsRunStub.withArgs(scripts.paths.darwin).yields null, '''
+					device: "/dev/disk2"
+					description: "My drive"
+					size: "15 GB"
+					mountpoint: "/Volumes/drive"
+				'''
 
 			afterEach ->
-				@osPlatformStub.restore()
+				@scriptsRunStub.restore()
 
-			it 'should only call linux.list()', ->
-				expect(@darwinStub).to.not.have.been.called
-				expect(@win32Stub).to.not.have.been.called
-				expect(@linuxStub).to.have.been.calledOnce
+			describe 'given win32', ->
 
-		describe 'given platform is unknown', ->
+				beforeEach ->
+					@osPlatformStub = sinon.stub(os, 'platform')
+					@osPlatformStub.returns('win32')
 
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('foobar')
+				afterEach ->
+					@osPlatformStub.restore()
 
-			afterEach ->
-				@osPlatformStub.restore()
+				it 'should execute win32 script', (done) ->
+					drivelist.list (error, drives) ->
+						expect(error).to.not.exist
+						expect(drives).to.deep.equal [
+							device: '\\\\.\\PHYSICALDRIVE1'
+							description: 'My drive'
+							size: '15 GB'
+							mountpoint: 'D:'
+						]
+						done()
 
-			it 'should throw an error', ->
-				expect ->
-					drivelist.list(_.noop)
-				.to.throw('Your OS is not supported by this module: foobar')
+			describe 'given linux', ->
+
+				beforeEach ->
+					@osPlatformStub = sinon.stub(os, 'platform')
+					@osPlatformStub.returns('linux')
+
+				afterEach ->
+					@osPlatformStub.restore()
+
+				it 'should execute linux script', (done) ->
+					drivelist.list (error, drives) ->
+						expect(error).to.not.exist
+						expect(drives).to.deep.equal [
+							device: '/dev/sda'
+							description: 'My drive'
+							size: '15 GB'
+							mountpoint: '/mnt/drive'
+						]
+						done()
+
+			describe 'given darwin', ->
+
+				beforeEach ->
+					@osPlatformStub = sinon.stub(os, 'platform')
+					@osPlatformStub.returns('darwin')
+
+				afterEach ->
+					@osPlatformStub.restore()
+
+				it 'should execute darwin script', (done) ->
+					drivelist.list (error, drives) ->
+						expect(error).to.not.exist
+						expect(drives).to.deep.equal [
+							device: '/dev/disk2'
+							description: 'My drive'
+							size: '15 GB'
+							mountpoint: '/Volumes/drive'
+						]
+						done()
+
+			describe 'given an unsupported os', ->
+
+				beforeEach ->
+					@osPlatformStub = sinon.stub(os, 'platform')
+					@osPlatformStub.returns('foobar')
+
+				afterEach ->
+					@osPlatformStub.restore()
+
+				it 'should yield an unsupported error', ->
+					expect ->
+						drivelist.list(_.noop)
+					.to.throw('Your OS is not supported by this module: foobar')
 
 	describe '.isSystem()', ->
 
-		beforeEach ->
-			@darwinStub = sinon.stub(darwin, 'isSystem')
-			@win32Stub = sinon.stub(win32, 'isSystem')
-			@linuxStub = sinon.stub(linux, 'isSystem')
-
-		afterEach ->
-			@darwinStub.restore()
-			@win32Stub.restore()
-			@linuxStub.restore()
-
-		describe 'given platform is darwin', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('darwin')
-
-				drivelist.isSystem()
-
-			afterEach ->
-				@osPlatformStub.restore()
-
-			it 'should only call darwin.isSystem()', ->
-				expect(@darwinStub).to.have.been.calledOnce
-				expect(@win32Stub).to.not.have.been.called
-				expect(@linuxStub).to.not.have.been.called
-
-		describe 'given platform is win32', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('win32')
-
-				drivelist.isSystem()
-
-			afterEach ->
-				@osPlatformStub.restore()
-
-			it 'should only call win32.isSystem()', ->
-				expect(@darwinStub).to.not.have.been.called
-				expect(@win32Stub).to.have.been.calledOnce
-				expect(@linuxStub).to.not.have.been.called
-
-		describe 'given platform is linux', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('linux')
-
-				drivelist.isSystem()
-
-			afterEach ->
-				@osPlatformStub.restore()
-
-			it 'should only call linux.isSystem()', ->
-				expect(@darwinStub).to.not.have.been.called
-				expect(@win32Stub).to.not.have.been.called
-				expect(@linuxStub).to.have.been.calledOnce
-
-		describe 'given platform is unknown', ->
+		describe 'given an unsupported os', ->
 
 			beforeEach ->
 				@osPlatformStub = sinon.stub(os, 'platform')
@@ -155,7 +125,11 @@ describe 'Drivelist:', ->
 			afterEach ->
 				@osPlatformStub.restore()
 
-			it 'should throw an error', ->
+			it 'should yield an unsupported error', ->
 				expect ->
-					drivelist.isSystem(_.noop)
+					drivelist.isSystem
+						device: '/dev/disk2'
+						description: 'My drive'
+						size: '15 GB'
+						mountpoint: '/Volumes/drive'
 				.to.throw('Your OS is not supported by this module: foobar')
