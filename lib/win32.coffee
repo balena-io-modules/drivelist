@@ -4,7 +4,7 @@ path = require('path')
 parse = require('./parse')
 
 exports.list = (callback) ->
-	script = path.join(__dirname, '..', 'scripts', 'win_drives.vbs')
+	script = path.join(__dirname, '..', 'scripts', 'win32.vbs')
 
 	childProcess.exec "cscript \"#{script}\" //Nologo", {}, (error, stdout, stderr) ->
 		return callback(error) if error?
