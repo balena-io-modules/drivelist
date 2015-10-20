@@ -1,8 +1,8 @@
 chai = require('chai')
 expect = chai.expect
-osx = require('../lib/osx')
+darwin = require('../lib/darwin')
 
-describe 'Drivelist OSX:', ->
+describe 'Drivelist Darwin:', ->
 
 	describe '.isSystem()', ->
 
@@ -18,7 +18,7 @@ describe 'Drivelist OSX:', ->
 						mountpoint: '/'
 
 				it 'should return true', (done) ->
-					osx.isSystem @drive, (isSystem) ->
+					darwin.isSystem @drive, (isSystem) ->
 						expect(isSystem).to.be.true
 						done()
 
@@ -32,6 +32,6 @@ describe 'Drivelist OSX:', ->
 						mountpoint: '/Volumes/Elementary'
 
 				it 'should return false', (done) ->
-					osx.isSystem @drive, (isSystem) ->
+					darwin.isSystem @drive, (isSystem) ->
 						expect(isSystem).to.be.false
 						done()

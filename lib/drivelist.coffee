@@ -1,14 +1,14 @@
 os = require('os')
 
 win32 = require('./win32')
-osx = require('./osx')
+darwin = require('./darwin')
 linux = require('./linux')
 
 getOSModule = ->
 	operatingSystem = os.platform()
 
 	switch operatingSystem
-		when 'darwin' then osx
+		when 'darwin' then darwin
 		when 'win32' then win32
 		when 'linux' then linux
 		else
