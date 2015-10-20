@@ -36,7 +36,6 @@
     "sinon-chai": "~2.6.0"
   },
   "dependencies": {
-    "async": "^1.4.0",
     "js-yaml": "^3.4.1",
     "lodash": "^3.0.1",
     "table-parser": "0.0.3",
