@@ -1,10 +1,10 @@
-var getOSModule, linux, os, osx, win32;
+var darwin, getOSModule, linux, os, win32;
 
 os = require('os');
 
 win32 = require('./win32');
 
-osx = require('./osx');
+darwin = require('./darwin');
 
 linux = require('./linux');
 
@@ -13,7 +13,7 @@ getOSModule = function() {
   operatingSystem = os.platform();
   switch (operatingSystem) {
     case 'darwin':
-      return osx;
+      return darwin;
     case 'win32':
       return win32;
     case 'linux':
