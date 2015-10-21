@@ -113,23 +113,3 @@ describe 'Drivelist:', ->
 					expect ->
 						drivelist.list(_.noop)
 					.to.throw('Your OS is not supported by this module: foobar')
-
-	describe '.isSystem()', ->
-
-		describe 'given an unsupported os', ->
-
-			beforeEach ->
-				@osPlatformStub = sinon.stub(os, 'platform')
-				@osPlatformStub.returns('foobar')
-
-			afterEach ->
-				@osPlatformStub.restore()
-
-			it 'should yield an unsupported error', ->
-				expect ->
-					drivelist.isSystem
-						device: '/dev/disk2'
-						description: 'My drive'
-						size: '15 GB'
-						mountpoint: '/Volumes/drive'
-				.to.throw('Your OS is not supported by this module: foobar')

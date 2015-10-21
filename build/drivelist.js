@@ -1,12 +1,10 @@
-var os, parse, scripts, system;
+var os, parse, scripts;
 
 os = require('os');
 
 parse = require('./parse');
 
 scripts = require('./scripts');
-
-system = require('./system');
 
 exports.list = function(callback) {
   var operatingSystem, script;
@@ -21,14 +19,4 @@ exports.list = function(callback) {
     }
     return callback(null, parse(output));
   });
-};
-
-exports.isSystem = function(drive, callback) {
-  var isSystem, operatingSystem;
-  operatingSystem = os.platform();
-  isSystem = system[operatingSystem];
-  if (isSystem == null) {
-    throw new Error("Your OS is not supported by this module: " + operatingSystem);
-  }
-  return isSystem(drive, callback);
 };
