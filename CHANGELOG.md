@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.1
+
+- Escape backslashes in Windows devices to avoid weird characters.
+
 ### v2.0.0
 
 - Add example file for easy testing.
