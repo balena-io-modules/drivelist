@@ -12,8 +12,8 @@ scriptsPath = path.join(__dirname, '..', 'scripts');
 
 exports.paths = {
   win32: "cscript \"" + (path.join(scriptsPath, 'win32.vbs')) + "\" //Nologo",
-  darwin: path.join(scriptsPath, 'darwin.sh'),
-  linux: path.join(scriptsPath, 'linux.sh')
+  darwin: path.join("\"" + scriptsPath + "\"", 'darwin.sh'),
+  linux: path.join("\"" + scriptsPath + "\"", 'linux.sh')
 };
 
 exports.run = function(script, callback) {
