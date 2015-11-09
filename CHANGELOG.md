@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.2
+
+- Escape paths including spaces in unix based operating systems.
+
 ### v2.0.1
 
 - Escape backslashes in Windows devices to avoid weird characters.
