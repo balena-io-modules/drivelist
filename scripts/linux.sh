@@ -14,7 +14,7 @@ for disk in $DISKS; do
   device="/dev/$disk"
   description=`lsblk -d $device --output MODEL | ignore_first_line`
   size=`lsblk -d $device --output SIZE | ignore_first_line | trim`
-  mountpoint=`grep "^$device" /proc/mounts | cut -d ' ' -f 2`
+  mountpoint=`grep "^$device" /proc/mounts | cut -d ' ' -f 2 | tr '\n' ','`
 
   echo "device: $device"
   echo "description: $description"
