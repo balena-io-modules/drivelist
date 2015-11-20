@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.3
+
+- Treat multiple mountpoint as a comma separated list of paths in GNU/Linux.
+
 ### v2.0.2
 
 - Escape paths including spaces in unix based operating systems.
