@@ -27,11 +27,11 @@ describe 'Scripts:', ->
 		describe 'given an error when running the script', ->
 
 			beforeEach ->
-				@childProcessExecStub = sinon.stub(child_process, 'exec')
-				@childProcessExecStub.yields(new Error('script error'))
+				@childProcessExecFileStub = sinon.stub(child_process, 'execFile')
+				@childProcessExecFileStub.yields(new Error('script error'))
 
 			afterEach ->
-				@childProcessExecStub.restore()
+				@childProcessExecFileStub.restore()
 
 			it 'should yield the error', (done) ->
 				scripts.run 'foo', (error, output) ->
@@ -43,11 +43,11 @@ describe 'Scripts:', ->
 		describe 'given the script outputs to stderr', ->
 
 			beforeEach ->
-				@childProcessExecStub = sinon.stub(child_process, 'exec')
-				@childProcessExecStub.yields(null, '', 'script error')
+				@childProcessExecFileStub = sinon.stub(child_process, 'execFile')
+				@childProcessExecFileStub.yields(null, '', 'script error')
 
 			afterEach ->
-				@childProcessExecStub.restore()
+				@childProcessExecFileStub.restore()
 
 			it 'should yield an error', (done) ->
 				scripts.run 'foo', (error, output) ->
@@ -59,11 +59,11 @@ describe 'Scripts:', ->
 		describe 'given the script outputs to stdout and a blank string to stderr', ->
 
 			beforeEach ->
-				@childProcessExecStub = sinon.stub(child_process, 'exec')
-				@childProcessExecStub.yields(null, 'foo bar', '   ')
+				@childProcessExecFileStub = sinon.stub(child_process, 'execFile')
+				@childProcessExecFileStub.yields(null, 'foo bar', '   ')
 
 			afterEach ->
-				@childProcessExecStub.restore()
+				@childProcessExecFileStub.restore()
 
 			it 'should yield the result', (done) ->
 				scripts.run 'foo', (error, output) ->
@@ -74,11 +74,11 @@ describe 'Scripts:', ->
 		describe 'given the script outputs to stdout', ->
 
 			beforeEach ->
-				@childProcessExecStub = sinon.stub(child_process, 'exec')
-				@childProcessExecStub.yields(null, 'foo bar', '')
+				@childProcessExecFileStub = sinon.stub(child_process, 'execFile')
+				@childProcessExecFileStub.yields(null, 'foo bar', '')
 
 			afterEach ->
-				@childProcessExecStub.restore()
+				@childProcessExecFileStub.restore()
 
 			it 'should yield the result', (done) ->
 				scripts.run 'foo', (error, output) ->
