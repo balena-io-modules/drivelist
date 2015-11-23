@@ -6,12 +6,23 @@ path = require('path')
 scriptsPath = path.join(__dirname, '..', 'scripts')
 
 exports.paths =
-	win32: "cscript \"#{path.join(scriptsPath, 'win32.vbs')}\" //Nologo"
-	darwin: path.join("\"#{scriptsPath}\"", 'darwin.sh')
-	linux: path.join("\"#{scriptsPath}\"", 'linux.sh')
+
+	# Passing the full patch to the .bat file to
+	# execFile doesn't seem to work.
+	# Passing just the file name with the correct `cwd`
+	# do work for some reason.
+	win32: 'win32.bat',
+
+	darwin: path.join(scriptsPath, 'darwin.sh')
+	linux: path.join(scriptsPath, 'linux.sh')
 
 exports.run = (script, callback) ->
-	child_process.exec script, (error, stdout, stderr) ->
+	child_process.execFile script,
+
+		# Needed for execFile to run .bat files
+		cwd: scriptsPath
+
+	, (error, stdout, stderr) ->
 		return callback(error) if error?
 
 		if not _.str.isBlank(stderr)

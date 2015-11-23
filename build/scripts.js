@@ -11,13 +11,15 @@ path = require('path');
 scriptsPath = path.join(__dirname, '..', 'scripts');
 
 exports.paths = {
-  win32: "cscript \"" + (path.join(scriptsPath, 'win32.vbs')) + "\" //Nologo",
-  darwin: path.join("\"" + scriptsPath + "\"", 'darwin.sh'),
-  linux: path.join("\"" + scriptsPath + "\"", 'linux.sh')
+  win32: 'win32.bat',
+  darwin: path.join(scriptsPath, 'darwin.sh'),
+  linux: path.join(scriptsPath, 'linux.sh')
 };
 
 exports.run = function(script, callback) {
-  return child_process.exec(script, function(error, stdout, stderr) {
+  return child_process.execFile(script, {
+    cwd: scriptsPath
+  }, function(error, stdout, stderr) {
     if (error != null) {
       return callback(error);
     }
