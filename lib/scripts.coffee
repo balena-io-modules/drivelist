@@ -2,6 +2,7 @@ _ = require('lodash')
 _.str = require('underscore.string')
 child_process = require('child_process')
 path = require('path')
+os = require('os')
 
 scriptsPath = path.join(__dirname, '..', 'scripts')
 
@@ -20,7 +21,7 @@ exports.run = (script, callback) ->
 	child_process.execFile script,
 
 		# Needed for execFile to run .bat files
-		cwd: scriptsPath
+		cwd: scriptsPath if os.platform() is 'win32'
 
 	, (error, stdout, stderr) ->
 		return callback(error) if error?

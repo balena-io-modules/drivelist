@@ -1,4 +1,4 @@
-var child_process, path, scriptsPath, _;
+var child_process, os, path, scriptsPath, _;
 
 _ = require('lodash');
 
@@ -7,6 +7,8 @@ _.str = require('underscore.string');
 child_process = require('child_process');
 
 path = require('path');
+
+os = require('os');
 
 scriptsPath = path.join(__dirname, '..', 'scripts');
 
@@ -17,9 +19,9 @@ exports.paths = {
 };
 
 exports.run = function(script, callback) {
-  return child_process.execFile(script, {
+  return child_process.execFile(script, os.platform() === 'win32' ? {
     cwd: scriptsPath
-  }, function(error, stdout, stderr) {
+  } : void 0, function(error, stdout, stderr) {
     if (error != null) {
       return callback(error);
     }
