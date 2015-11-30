@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.4
+
+- Support running inside Electron.
+
 ### v2.0.3
 
 - Treat multiple mountpoint as a comma separated list of paths in GNU/Linux.
