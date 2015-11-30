@@ -13,15 +13,13 @@ os = require('os');
 scriptsPath = path.join(__dirname, '..', 'scripts');
 
 exports.paths = {
-  win32: 'win32.bat',
+  win32: path.join(scriptsPath, 'win32.bat'),
   darwin: path.join(scriptsPath, 'darwin.sh'),
   linux: path.join(scriptsPath, 'linux.sh')
 };
 
 exports.run = function(script, callback) {
-  return child_process.execFile(script, os.platform() === 'win32' ? {
-    cwd: scriptsPath
-  } : void 0, function(error, stdout, stderr) {
+  return child_process.execFile(script, function(error, stdout, stderr) {
     if (error != null) {
       return callback(error);
     }
