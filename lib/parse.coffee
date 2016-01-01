@@ -44,4 +44,5 @@ module.exports = (input) ->
 		return if not result?
 
 		return _.mapValues result, (value, key) ->
+			return value if not _.isString(value)
 			return _.str.rtrim(value, ',') or null

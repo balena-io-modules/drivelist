@@ -55,6 +55,9 @@ module.exports = function(input) {
       return;
     }
     return _.mapValues(result, function(value, key) {
+      if (!_.isString(value)) {
+        return value;
+      }
       return _.str.rtrim(value, ',') || null;
     });
   }));

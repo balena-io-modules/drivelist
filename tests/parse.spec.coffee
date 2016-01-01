@@ -85,6 +85,22 @@ describe 'Parse:', ->
 			hello: 'foo,bar,baz'
 		]
 
+	it 'should parse a truthy boolean', ->
+		m.chai.expect parse '''
+			hello: True
+		'''
+		.to.deep.equal [
+			hello: true
+		]
+
+	it 'should parse a falsy boolean', ->
+		m.chai.expect parse '''
+			hello: False
+		'''
+		.to.deep.equal [
+			hello: false
+		]
+
 	it 'should parse multiple devices that are heterogeneous', ->
 		m.chai.expect parse '''
 			hello: world
