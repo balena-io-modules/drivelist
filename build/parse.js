@@ -51,6 +51,11 @@ module.exports = function(input) {
     if (_.isString(result)) {
       return _.object([result], [null]);
     }
-    return result;
+    if (result == null) {
+      return;
+    }
+    return _.mapValues(result, function(value, key) {
+      return _.str.rtrim(value, ',') || null;
+    });
   }));
 };
