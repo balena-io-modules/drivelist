@@ -77,6 +77,14 @@ describe 'Parse:', ->
 			mountpoint: '/Volumes/Elementary'
 		]
 
+	it 'should discard trailing commas', ->
+		m.chai.expect parse '''
+			hello: foo,bar,baz,
+		'''
+		.to.deep.equal [
+			hello: 'foo,bar,baz'
+		]
+
 	it 'should parse multiple devices that are heterogeneous', ->
 		m.chai.expect parse '''
 			hello: world

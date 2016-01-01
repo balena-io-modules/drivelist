@@ -41,4 +41,7 @@ module.exports = (input) ->
 		result = yaml.safeLoad(device)
 		if _.isString(result)
 			return _.object([ result ], [ null ])
-		return result
+		return if not result?
+
+		return _.mapValues result, (value, key) ->
+			return _.str.rtrim(value, ',') or null
