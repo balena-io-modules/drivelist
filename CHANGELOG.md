@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.5
+
+- Trim trailing commas on GNU/Linux mountpoints.
+
 ### v2.0.4
 
 - Support running inside Electron.
