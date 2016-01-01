@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.6
+
+- Fix boolean values being surrounded by quotes.
+
 ### v2.0.5
 
 - Trim trailing commas on GNU/Linux mountpoints.
