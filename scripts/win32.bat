@@ -27,6 +27,7 @@ For Each objDrive In colDiskDrives
             Wscript.Echo "description: """ & objDrive.Caption & """"
             Wscript.Echo "size: """ & Int(objDrive.Size / 1e+9) & " GB"""
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
+            Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
             If objDrive.DeviceID = "\\.\PHYSICALDRIVE0" Then
               Wscript.Echo "system: True"

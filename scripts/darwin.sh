@@ -22,6 +22,7 @@ for disk in $DISKS; do
   echo "description: $description"
   echo "size: $size"
   echo "mountpoint: $mountpoint"
+  echo "name: $device"
 
   if [[ "$device" == "/dev/disk0" ]] || [[ "$mountpoint" == "/" ]]; then
     echo "system: True"
