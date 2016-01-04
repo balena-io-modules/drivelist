@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.7
+
+- Add a display name property called `name`.
+
 ### v2.0.6
 
 - Fix boolean values being surrounded by quotes.
