@@ -20,6 +20,7 @@ for disk in $DISKS; do
   echo "description: $description"
   echo "size: $size"
   echo "mountpoint: $mountpoint"
+  echo "name: $device"
 
   # We determine if a drive is a system drive
   # by checking the removeable flag.
