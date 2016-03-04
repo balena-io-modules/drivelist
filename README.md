@@ -1,14 +1,13 @@
 drivelist
----------
+=========
+
+> List all connected drives in your computer, in all major operating systems.
 
 [![npm version](https://badge.fury.io/js/drivelist.svg)](http://badge.fury.io/js/drivelist)
-[![dependencies](https://david-dm.org/resin-io/drivelist.png)](https://david-dm.org/resin-io/drivelist.png)
+[![dependencies](https://david-dm.org/resin-io/drivelist.svg)](https://david-dm.org/resin-io/drivelist.svg)
 [![Build Status](https://travis-ci.org/resin-io/drivelist.svg?branch=master)](https://travis-ci.org/resin-io/drivelist)
 [![Build status](https://ci.appveyor.com/api/projects/status/63x4eai5c8qiyvwh?svg=true)](https://ci.appveyor.com/project/jviotti/drivelist)
-
-Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
-
-List all connected drives in your computer, in all major operating systems.
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 
 Notice that this module **does not require** admin privileges to get the drives in any operating system supported.
 
