@@ -18,6 +18,11 @@ for disk in $DISKS; do
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   size=`echo "$diskinfo" | get_key "Total Size" | get_until_paren`
 
+  # Omit mounted DMG images
+  if [ "$description" == "Disk Image" ]; then
+    continue
+  fi
+
   echo "device: $device"
   echo "description: $description"
   echo "size: $size"
