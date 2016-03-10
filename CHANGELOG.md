@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.8
+
+- Omit mounted DMG images in OS X.
+
 ### v2.0.7
 
 - Add a display name property called `name`.
