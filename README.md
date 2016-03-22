@@ -14,7 +14,7 @@ Notice that this module **does not require** admin privileges to get the drives 
 Supports:
 
 - Windows.
-- GNU/Linux distributions that include [util-linux](https://github.com/karelzak/util-linux).
+- GNU/Linux distributions that include [util-linux](https://github.com/karelzak/util-linux) and [udev](https://wiki.archlinux.org/index.php/udev).
 - Mac OS X.
 
 Examples (the output will vary depending on your machine):
