@@ -11,6 +11,12 @@ function trim {
 DISKS="`lsblk -d --output NAME | ignore_first_line`"
 
 for disk in $DISKS; do
+
+  # Omit loop devices and CD/DVD drives
+  if [[ $disk == loop* ]] || [[ $disk == sr* ]]; then
+    continue
+  fi
+
   device="/dev/$disk"
   description=`lsblk -d $device --output MODEL | ignore_first_line`
   size=`lsblk -d $device --output SIZE | ignore_first_line | trim`

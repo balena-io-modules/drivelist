@@ -65,9 +65,11 @@ GNU/Linux
 		system: true
 	},
 	{
-		device: '/dev/sr0',
-		description: 'DVD+-RW GU90N',
-		size: '1024M',
+		device: '/dev/sdb',
+		description: 'DataTraveler 2.0',
+		size: '7.3G',
+		mountpoint: '/media/UNTITLED',
+		name: '/dev/sdb',
 		system: false
 	}
 ]
