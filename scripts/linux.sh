@@ -28,16 +28,22 @@ for disk in $DISKS; do
   echo "mountpoint: $mountpoint"
   echo "name: $device"
 
-  # We determine if a drive is a system drive
-  # by checking the removeable flag.
-  # There might be a better way in GNU/Linux systems.
-  removable=`lsblk -d $device --output RM | ignore_first_line | trim`
-
-  if [[ "$removable" == "1" ]]; then
+  eval "`udevadm info --query=property --export --export-prefix=UDEV_ --name=$disk`"
+  if [[ "`lsblk -d $device --output RM | ignore_first_line | trim`" == "1" ]] || \
+     [[ "$UDEV_ID_DRIVE_FLASH_SD" == "1" ]] || \
+     [[ "$UDEV_ID_DRIVE_MEDIA_FLASH_SD" == "1" ]] || \
+     [[ "$UDEV_ID_BUS" == "usb" ]]
+  then
     echo "system: False"
   else
     echo "system: True"
   fi
+
+  # Unset UDEV variables used above to prevent them from
+  # being interpreted as properties of another drive
+  unset UDEV_ID_DRIVE_FLASH_SD
+  unset UDEV_ID_DRIVE_MEDIA_FLASH_SD
+  unset UDEV_ID_BUS
 
   echo ""
 done
