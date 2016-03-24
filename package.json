@@ -1,6 +1,6 @@
 {
   "name": "drivelist",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "build/drivelist.js",
   "homepage": "https://github.com/resin-io-modules/drivelist",

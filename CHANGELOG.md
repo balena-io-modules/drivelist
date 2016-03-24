@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+### v2.0.9
+
+- Use `udev` to determine if a drive is removable on GNU/Linux.
+- Mark internal and non-removable drives as system drives in OS X.
+- Omit loop devices in GNU/Linux.
+- Omit CD/DVD drives in GNU/Linux.
+
 ### v2.0.8
 
 - Omit mounted DMG images in OS X.
