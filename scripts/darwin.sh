@@ -16,6 +16,8 @@ for disk in $DISKS; do
   device=`echo "$diskinfo" | get_key "Device Node"`
   description=`echo "$diskinfo" | get_key "Device / Media Name"`
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
+  removable=`echo "$diskinfo" | get_key "Removable Media"`
+  location=`echo "$diskinfo" | get_key "Device Location"`
   size=`echo "$diskinfo" | get_key "Total Size" | get_until_paren`
 
   # Omit mounted DMG images
@@ -29,7 +31,11 @@ for disk in $DISKS; do
   echo "mountpoint: $mountpoint"
   echo "name: $device"
 
-  if [[ "$device" == "/dev/disk0" ]] || [[ "$mountpoint" == "/" ]]; then
+  if [[ "$device" == "/dev/disk0" ]] || \
+     [[ "$removable" == "No" ]] || \
+     [[ "$location" == "Internal" ]] || \
+     [[ "$mountpoint" == "/" ]]
+  then
     echo "system: True"
   else
     echo "system: False"
