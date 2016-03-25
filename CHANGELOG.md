@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.10
+
+- Improve the way we detect system drives in Windows.
+
 ### v2.0.9
 
 - Use `udev` to determine if a drive is removable on GNU/Linux.
