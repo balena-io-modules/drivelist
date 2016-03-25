@@ -9,7 +9,7 @@ drivelist
 [![Build status](https://ci.appveyor.com/api/projects/status/8jn2em9gtkbxeen3/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/drivelist/branch/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 
-Notice that this module **does not require** admin privileges to get the drives in any operating system supported.
+Notice that this module **does not require** admin privileges to get the drives in any supported operating system.
 
 Supports:
 
