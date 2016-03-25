@@ -14,7 +14,7 @@ Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
 
 Set colDiskDrives = objWMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
 
-Set colOperatingSystems = objWMIService.ExecQuery ("Select SystemDrive from Win32_OperatingSystem")
+Set colOperatingSystems = objWMIService.ExecQuery ("SELECT SystemDrive FROM Win32_OperatingSystem")
 
 For Each objOperatingSystem in colOperatingSystems
     On Error Resume Next
