@@ -5,11 +5,27 @@ exit /b
 
 ----- Begin wsf script --->
 <job><script language="VBScript">
+
+Private OSDrive
+
 strComputer = "."
 
 Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
 
 Set colDiskDrives = objWMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
+
+Set colOperatingSystems = objWMIService.ExecQuery ("SELECT SystemDrive FROM Win32_OperatingSystem")
+
+Err.Clear
+For Each objOperatingSystem in colOperatingSystems
+    On Error Resume Next
+    '' get the OS System Drive if exists
+    OSDrive = objOperatingSystem.Properties_("SystemDrive")   
+    If Err.Number <> 0 Then
+        OSDrive = False
+        Err.Clear
+    End If
+Next
 
 For Each objDrive In colDiskDrives
     strDeviceID = Replace(objDrive.DeviceID, "\", "\\")
@@ -29,7 +45,7 @@ For Each objDrive In colDiskDrives
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
-            If objDrive.DeviceID = "\\.\PHYSICALDRIVE0" Then
+            If objLogicalDisk.DeviceID = OSDrive Then
               Wscript.Echo "system: True"
             Else
               Wscript.Echo "system: False"
