@@ -47,6 +47,14 @@ module.exports = function(input) {
   }
   return _.compact(_.map(input.split(/\n\s*\n/), function(device) {
     var result;
+    device = _.chain(device).split('\n').map(function(line) {
+      return line.replace(/"/g, function(match, index, string) {
+        if (_.any([string.indexOf('"') === index, string.lastIndexOf('"') === index])) {
+          return match;
+        }
+        return '\\"';
+      });
+    }).join('\n').value();
     result = yaml.safeLoad(device);
     if (_.isString(result)) {
       return _.object([result], [null]);
