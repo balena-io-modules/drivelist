@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.11
+
+- Escape double quotes in description to prevent YAML errors.
+
 ### v2.0.10
 
 - Improve the way we detect system drives in Windows.
