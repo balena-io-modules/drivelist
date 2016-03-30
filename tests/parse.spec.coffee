@@ -138,3 +138,19 @@ describe 'Parse:', ->
 		.to.deep.equal [
 			'hello world': null
 		]
+
+	it 'should handle a double quote inside a value', ->
+		m.chai.expect parse '''
+			description: "SAMSUNG SSD PM810 2.5" 7mm 256GB"
+		'''
+		.to.deep.equal [
+			description: 'SAMSUNG SSD PM810 2.5" 7mm 256GB'
+		]
+
+	it 'should handle multiple double quotes inside a value', ->
+		m.chai.expect parse '''
+			description: "SAMSUNG "SSD" PM810 2.5" 7mm 256GB"
+		'''
+		.to.deep.equal [
+			description: 'SAMSUNG "SSD" PM810 2.5" 7mm 256GB'
+		]

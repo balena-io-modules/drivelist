@@ -38,6 +38,20 @@ yaml = require('js-yaml')
 module.exports = (input) ->
 	return {} if _.isEmpty(_.str.trim(input))
 	return _.compact _.map input.split(/\n\s*\n/), (device) ->
+
+		device = _.chain(device)
+			.split('\n')
+			.map (line) ->
+				return line.replace /"/g, (match, index, string) ->
+					if _.any [
+						string.indexOf('"') is index
+						string.lastIndexOf('"') is index
+					]
+						return match
+					return '\\"'
+			.join('\n')
+			.value()
+
 		result = yaml.safeLoad(device)
 		if _.isString(result)
 			return _.object([ result ], [ null ])
