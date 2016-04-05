@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.12
+
+- Make sure MacBook's internal SDCard readers are marked as removable.
+
 ### v2.0.11
 
 - Escape double quotes in description to prevent YAML errors.
