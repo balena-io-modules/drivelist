@@ -33,7 +33,7 @@ for disk in $DISKS; do
 
   if [[ "$device" == "/dev/disk0" ]] || \
      [[ "$removable" == "No" ]] || \
-     [[ "$location" == "Internal" ]] || \
+     [[ ( "$location" == "Internal" ) && ( "$removable" != "Yes" ) ]] || \
      [[ "$mountpoint" == "/" ]]
   then
     echo "system: True"
