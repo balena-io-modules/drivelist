@@ -41,7 +41,7 @@ For Each objDrive In colDiskDrives
         For Each objLogicalDisk In colLogicalDisks
             Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
             Wscript.Echo "description: """ & objDrive.Caption & """"
-            Wscript.Echo "size: """ & Int(objDrive.Size / 1e+9) & " GB"""
+            Wscript.Echo "size: """ & Round(objDrive.Size / 1e+9, 1) & " GB"""
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
