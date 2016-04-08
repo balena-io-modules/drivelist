@@ -40,12 +40,14 @@ Mac OS X:
 		description: 'GUID_partition_scheme',
 		size: '*750.2 GB'
 		mountpoint: '/',
+		name: /dev/disk0,
 		system: true
 	},
 	{
 		device: '/dev/disk1',
 		description: 'Apple_HFS Macintosh HD',
 		size: '*748.9 GB',
+		name: /dev/disk1,
 		system: true
 	}
 ]
@@ -62,6 +64,7 @@ GNU/Linux
 		description: 'WDC WD10JPVX-75J',
 		size: '931.5G',
 		mountpoint: '/',
+		name: '/dev/sda',
 		system: true
 	},
 	{
@@ -86,6 +89,7 @@ Windows
 		description: 'WDC WD10JPVX-75JC3T0',
 		size: '1000 GB'
 		mountpoint: 'C:',
+		name: 'C:',
 		system: true
 	},
 	{
@@ -93,6 +97,7 @@ Windows
 		description: 'Generic STORAGE DEVICE USB Device',
 		size: '15 GB'
 		mountpoint: 'D:',
+		name: 'D:',
 		system: false
 	}
 ]
