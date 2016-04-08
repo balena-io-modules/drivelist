@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.13
+
+- Keep once decimal in Windows drive sizes.
+
 ### v2.0.12
 
 - Make sure MacBook's internal SDCard readers are marked as removable.
