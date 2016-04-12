@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v2.0.14
+
+- Detect mount points of drives mounted by UUID on GNU/Linux.
+
 ### v2.0.13
 
 - Keep once decimal in Windows drive sizes.
