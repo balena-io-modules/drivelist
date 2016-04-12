@@ -8,6 +8,14 @@ function trim {
   sed -e 's/^[[:space:]]*//'
 }
 
+function get_uuids {
+  blkid -s UUID -o value $1*
+}
+
+function get_mountpoint {
+  grep "^$1" /proc/mounts | cut -d ' ' -f 2 | tr '\n' ','
+}
+
 DISKS="`lsblk -d --output NAME | ignore_first_line`"
 
 for disk in $DISKS; do
@@ -20,7 +28,15 @@ for disk in $DISKS; do
   device="/dev/$disk"
   description=`lsblk -d $device --output MODEL | ignore_first_line`
   size=`lsblk -d $device --output SIZE | ignore_first_line | trim`
-  mountpoint=`grep "^$device" /proc/mounts | cut -d ' ' -f 2 | tr '\n' ','`
+  mountpoint=`get_mountpoint $device`
+
+  # If we couldn't get the mount points as `/dev/$disk`,
+  # get the disk UUIDs, and check as `/dev/disk/by-uuid/$uuid`
+  if [ -z "$mountpoint" ]; then
+    for uuid in `get_uuids $device`; do
+      mountpoint=$mountpoint`get_mountpoint /dev/disk/by-uuid/$uuid`
+    done
+  fi
 
   echo "device: $device"
   echo "description: $description"
