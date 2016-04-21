@@ -38,7 +38,7 @@ Mac OS X:
 	{
 		device: '/dev/disk0',
 		description: 'GUID_partition_scheme',
-		size: '*750.2 GB'
+		size: 68719476736,
 		mountpoint: '/',
 		name: /dev/disk0,
 		system: true
@@ -46,7 +46,7 @@ Mac OS X:
 	{
 		device: '/dev/disk1',
 		description: 'Apple_HFS Macintosh HD',
-		size: '*748.9 GB',
+		size: 68719476736,
 		name: /dev/disk1,
 		system: true
 	}
@@ -62,7 +62,7 @@ GNU/Linux
 	{
 		device: '/dev/sda',
 		description: 'WDC WD10JPVX-75J',
-		size: '931.5G',
+		size: 68719476736,
 		mountpoint: '/',
 		name: '/dev/sda',
 		system: true
@@ -70,7 +70,7 @@ GNU/Linux
 	{
 		device: '/dev/sdb',
 		description: 'DataTraveler 2.0',
-		size: '7.3G',
+		size: 7823458304,
 		mountpoint: '/media/UNTITLED',
 		name: '/dev/sdb',
 		system: false
@@ -87,7 +87,7 @@ Windows
 	{
 		device: '\\\\.\\PHYSICALDRIVE0',
 		description: 'WDC WD10JPVX-75JC3T0',
-		size: '1000 GB'
+		size: 68719476736,
 		mountpoint: 'C:',
 		name: 'C:',
 		system: true
@@ -95,7 +95,7 @@ Windows
 	{
 		device: '\\\\.\\PHYSICALDRIVE1',
 		description: 'Generic STORAGE DEVICE USB Device',
-		size: '15 GB'
+		size: 7823458304,
 		mountpoint: 'D:',
 		name: 'D:',
 		system: false

@@ -27,7 +27,7 @@ for disk in $DISKS; do
 
   device="/dev/$disk"
   description=`lsblk -d $device --output MODEL | ignore_first_line`
-  size=`lsblk -d $device --output SIZE | ignore_first_line | trim`
+  size=`lsblk -b -d $device --output SIZE | ignore_first_line | trim`
   mountpoint=`get_mountpoint $device`
 
   # If we couldn't get the mount points as `/dev/$disk`,

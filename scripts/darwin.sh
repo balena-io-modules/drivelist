@@ -18,7 +18,7 @@ for disk in $DISKS; do
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   removable=`echo "$diskinfo" | get_key "Removable Media"`
   location=`echo "$diskinfo" | get_key "Device Location"`
-  size=`echo "$diskinfo" | get_key "Total Size" | get_until_paren`
+  size=`echo "$diskinfo" | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
   # Omit mounted DMG images
   if [ "$description" == "Disk Image" ]; then

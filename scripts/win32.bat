@@ -20,7 +20,7 @@ Err.Clear
 For Each objOperatingSystem in colOperatingSystems
     On Error Resume Next
     '' get the OS System Drive if exists
-    OSDrive = objOperatingSystem.Properties_("SystemDrive")   
+    OSDrive = objOperatingSystem.Properties_("SystemDrive")
     If Err.Number <> 0 Then
         OSDrive = False
         Err.Clear
@@ -41,7 +41,7 @@ For Each objDrive In colDiskDrives
         For Each objLogicalDisk In colLogicalDisks
             Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
             Wscript.Echo "description: """ & objDrive.Caption & """"
-            Wscript.Echo "size: """ & Round(objDrive.Size / 1e+9, 1) & " GB"""
+            Wscript.Echo "size: " & objDrive.Size
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
