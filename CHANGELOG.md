@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.0.0
+
+- Parse size as a number representing bytes.
+
 ### v2.0.14
 
 - Detect mount points of drives mounted by UUID on GNU/Linux.
