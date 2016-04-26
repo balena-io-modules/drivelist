@@ -29,6 +29,7 @@ Next
 
 For Each objDrive In colDiskDrives
     strDeviceID = Replace(objDrive.DeviceID, "\", "\\")
+    foundLDs = 0
     Set colPartitions = objWMIService.ExecQuery _
         ("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
             strDeviceID & """} WHERE AssocClass = " & _
@@ -39,6 +40,7 @@ For Each objDrive In colDiskDrives
                 objPartition.DeviceID & """} WHERE AssocClass = " & _
                     "Win32_LogicalDiskToPartition")
         For Each objLogicalDisk In colLogicalDisks
+            foundLDs = foundLDs + 1
             Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
             Wscript.Echo "description: """ & objDrive.Caption & """"
             Wscript.Echo "size: " & objDrive.Size
@@ -54,5 +56,14 @@ For Each objDrive In colDiskDrives
             Wscript.Echo ""
         Next
     Next
+    If foundLDs = 0 Then
+      Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
+      Wscript.Echo "description: """ & objDrive.Caption & """"
+      Wscript.Echo "size: " & objDrive.Size
+      Wscript.Echo "mountpoint: Null"
+      Wscript.Echo "name: Null"
+      Wscript.Echo "system: False"
+      Wscript.Echo ""
+    End If
 Next
 </script></job>
