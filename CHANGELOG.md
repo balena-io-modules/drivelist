@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.1.0
+
+- Show non-mountable disk drives in Windows.
+
 ### v3.0.0
 
 - Parse size as a number representing bytes.
