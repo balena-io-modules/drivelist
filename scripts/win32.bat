@@ -56,7 +56,7 @@ For Each objDrive In colDiskDrives
             Wscript.Echo ""
         Next
     Next
-    If containsLogicalDisk = True Then
+    If containsLogicalDisk = False Then
       Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
       Wscript.Echo "description: """ & objDrive.Caption & """"
       Wscript.Echo "size: " & objDrive.Size
