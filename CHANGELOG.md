@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.1.1
+
+- Fix issue that caused some hard drives to be listed as removable drives.
+
 ### v3.1.0
 
 - Show non-mountable disk drives in Windows.
