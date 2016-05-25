@@ -47,7 +47,7 @@ For Each objDrive In colDiskDrives
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
-            If objLogicalDisk.DeviceID = OSDrive Then
+            If (objLogicalDisk.DeviceID = OSDrive) Or Not (InStr(objDrive.MediaType, "Removable") = 1) Then
               Wscript.Echo "system: True"
             Else
               Wscript.Echo "system: False"
