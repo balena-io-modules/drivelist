@@ -45,7 +45,7 @@ for disk in $DISKS; do
   echo "name: $device"
 
   eval "`udevadm info --query=property --export --export-prefix=UDEV_ --name=$disk`"
-  if [[ "`lsblk -d $device --output RM | ignore_first_line | trim`" == "1" ]] || \
+  if [[ "`lsblk -d $device --output RM | ignore_first_line | trim`" == "1" ]] && \
      [[ "$UDEV_ID_DRIVE_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_DRIVE_MEDIA_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_BUS" == "usb" ]]
