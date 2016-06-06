@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.1.2
+
+- Prevent certain system drives to be detected as removable in GNU/Linux.
+
 ### v3.1.1
 
 - Fix issue that caused some hard drives to be listed as removable drives.
