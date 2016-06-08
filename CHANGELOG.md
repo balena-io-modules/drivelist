@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.0
+
+- Add a property called `protected`.
+
 ### v3.1.2
 
 - Prevent certain system drives to be detected as removable in GNU/Linux.
