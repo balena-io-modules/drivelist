@@ -28,6 +28,7 @@ for disk in $DISKS; do
   device="/dev/$disk"
   description=`lsblk -d $device --output MODEL | ignore_first_line`
   size=`lsblk -b -d $device --output SIZE | ignore_first_line | trim`
+  protected=`lsblk -b -d $device --output RO | ignore_first_line | trim`
   mountpoint=`get_mountpoint $device`
 
   # If we couldn't get the mount points as `/dev/$disk`,
@@ -43,6 +44,12 @@ for disk in $DISKS; do
   echo "size: $size"
   echo "mountpoint: $mountpoint"
   echo "name: $device"
+
+  if [[ "$protected" == "1" ]]; then
+    echo "protected: True"
+  else
+    echo "protected: False"
+  fi
 
   eval "`udevadm info --query=property --export --export-prefix=UDEV_ --name=$disk`"
   if [[ "`lsblk -d $device --output RM | ignore_first_line | trim`" == "1" ]] && \

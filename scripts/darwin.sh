@@ -17,6 +17,7 @@ for disk in $DISKS; do
   description=`echo "$diskinfo" | get_key "Device / Media Name"`
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   removable=`echo "$diskinfo" | get_key "Removable Media"`
+  protected=`echo "$diskinfo" | get_key "Read-Only Media"`
   location=`echo "$diskinfo" | get_key "Device Location"`
   size=`echo "$diskinfo" | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
@@ -30,6 +31,12 @@ for disk in $DISKS; do
   echo "size: $size"
   echo "mountpoint: $mountpoint"
   echo "name: $device"
+
+  if [[ "$protected" == "Yes" ]]; then
+    echo "protected: True"
+  else
+    echo "protected: False"
+  fi
 
   if [[ "$device" == "/dev/disk0" ]] || \
      [[ "$removable" == "No" ]] || \

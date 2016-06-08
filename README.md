@@ -41,6 +41,7 @@ Mac OS X:
 		size: 68719476736,
 		mountpoint: '/',
 		name: /dev/disk0,
+		protected: false,
 		system: true
 	},
 	{
@@ -48,6 +49,7 @@ Mac OS X:
 		description: 'Apple_HFS Macintosh HD',
 		size: 68719476736,
 		name: /dev/disk1,
+		protected: false,
 		system: true
 	}
 ]
@@ -65,6 +67,7 @@ GNU/Linux
 		size: 68719476736,
 		mountpoint: '/',
 		name: '/dev/sda',
+		protected: false,
 		system: true
 	},
 	{
@@ -73,6 +76,7 @@ GNU/Linux
 		size: 7823458304,
 		mountpoint: '/media/UNTITLED',
 		name: '/dev/sdb',
+		protected: true,
 		system: false
 	}
 ]
@@ -90,6 +94,7 @@ Windows
 		size: 68719476736,
 		mountpoint: 'C:',
 		name: 'C:',
+		protected: false,
 		system: true
 	},
 	{
@@ -98,6 +103,7 @@ Windows
 		size: 7823458304,
 		mountpoint: 'D:',
 		name: 'D:',
+		protected: true,
 		system: false
 	}
 ]
