@@ -47,6 +47,12 @@ For Each objDrive In colDiskDrives
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
 
+            If objLogicalDisk.Access = 1 Then
+              Wscript.Echo "protected: True"
+            Else 
+              Wscript.Echo "protected: False"
+            End If
+
             If (objLogicalDisk.DeviceID = OSDrive) Or Not (InStr(objDrive.MediaType, "Removable") = 1) Then
               Wscript.Echo "system: True"
             Else
