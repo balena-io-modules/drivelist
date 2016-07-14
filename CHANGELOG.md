@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.1
+
+- Make use of `df` to determine mountpoints in GNU/Linux.
+
 ### v3.2.0
 
 - Add a property called `protected`.
