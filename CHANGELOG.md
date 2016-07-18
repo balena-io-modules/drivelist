@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.2
+
+- Check if drive is removable when the drive has no file system in Windows.
+
 ### v3.2.1
 
 - Make use of `df` to determine mountpoints in GNU/Linux.
