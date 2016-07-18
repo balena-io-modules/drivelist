@@ -68,8 +68,13 @@ For Each objDrive In colDiskDrives
       Wscript.Echo "size: " & objDrive.Size
       Wscript.Echo "mountpoint: Null"
       Wscript.Echo "name: Null"
-      ' We cannot infer the drive status, so assume it is a system drive
-      Wscript.Echo "system: True"
+
+      If InStr(objDrive.MediaType, "Removable") = 1 Then
+        Wscript.Echo "system: False"
+      Else
+        Wscript.Echo "system: True"
+      End If
+
       Wscript.Echo ""
     End If
 Next
