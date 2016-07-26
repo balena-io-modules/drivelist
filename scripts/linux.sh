@@ -13,7 +13,7 @@ function get_uuids {
 }
 
 function get_mountpoint {
-  df --output=source,target | grep "^$1" | awk -F ' ' '{print $2}' | tr '\n' ','
+  df --output=source,target | grep "^$1" | awk '!($1="")&&gsub(/^ /,"")' | tr '\n' ','
 }
 
 DISKS="`lsblk -d --output NAME | ignore_first_line`"
