@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.3
+
+- Handle mountpoints with spaces in GNU/Linux.
+
 ### v3.2.2
 
 - Check if drive is removable when the drive has no file system in Windows.
