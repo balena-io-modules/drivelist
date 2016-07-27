@@ -19,7 +19,7 @@ for disk in $DISKS; do
   removable=`echo "$diskinfo" | get_key "Removable Media"`
   protected=`echo "$diskinfo" | get_key "Read-Only Media"`
   location=`echo "$diskinfo" | get_key "Device Location"`
-  size=`echo "$diskinfo" | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+  size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
   # Omit mounted DMG images
   if [ "$description" == "Disk Image" ]; then
