@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.4
+
+- Fix missing sizes in macOS Sierra.
+
 ### v3.2.3
 
 - Handle mountpoints with spaces in GNU/Linux.
