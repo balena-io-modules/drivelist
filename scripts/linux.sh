@@ -26,7 +26,8 @@ for disk in $DISKS; do
   fi
 
   device="/dev/$disk"
-  description=`lsblk -d $device --output MODEL | ignore_first_line`
+  description="$(lsblk -d $device --output MODEL | ignore_first_line | trim)"
+  description="\"${description//"/\\"}\""
   size=`lsblk -b -d $device --output SIZE | ignore_first_line | trim`
   protected=`lsblk -b -d $device --output RO | ignore_first_line | trim`
   mountpoint=`get_mountpoint $device`
