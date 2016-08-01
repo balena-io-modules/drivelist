@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.5
+
+- Fix YAML error when a description contains question marks in GNU/Linux.
+
 ### v3.2.4
 
 - Fix missing sizes in macOS Sierra.
