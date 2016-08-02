@@ -40,7 +40,7 @@ for disk in $DISKS; do
 
   if [[ "$device" == "/dev/disk0" ]] || \
      [[ "$removable" == "No" ]] || \
-     [[ ( "$location" == "Internal" ) && ( "$removable" != "Yes" ) ]] || \
+     [[ ( "$location" == "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
      [[ "$mountpoint" == "/" ]]
   then
     echo "system: True"
