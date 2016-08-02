@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.2.6
+
+- Fix internal removable drives being considered "system" in macOS Sierra.
+
 ### v3.2.5
 
 - Fix YAML error when a description contains question marks in GNU/Linux.
