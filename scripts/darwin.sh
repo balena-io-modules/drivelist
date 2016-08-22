@@ -15,6 +15,7 @@ for disk in $DISKS; do
 
   device=`echo "$diskinfo" | get_key "Device Node"`
   description=`echo "$diskinfo" | get_key "Device / Media Name"`
+  volume_name=`echo "$diskinfo" | get_key "Volume Name"`
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   removable=`echo "$diskinfo" | get_key "Removable Media"`
   protected=`echo "$diskinfo" | get_key "Read-Only Media"`
@@ -27,7 +28,15 @@ for disk in $DISKS; do
   fi
 
   echo "device: $device"
-  echo "description: $description"
+
+  # Attempt to use the volume name if applicable,
+  # since it provides a much more readable name.
+  if [[ $volume_name =~ .*Not\ applicable.* ]]; then
+    echo "description: $description"
+  else
+    echo "description: $volume_name"
+  fi
+
   echo "size: $size"
   echo "mountpoint: $mountpoint"
   echo "name: $device"
