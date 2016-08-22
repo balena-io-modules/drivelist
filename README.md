@@ -23,8 +23,8 @@ Examples (the output will vary depending on your machine):
 var drivelist = require('drivelist');
 
 drivelist.list(function(error, disks) {
-		if (error) throw error;
-		console.log(disks);
+    if (error) throw error;
+    console.log(disks);
 });
 
 ```
@@ -35,23 +35,25 @@ Mac OS X:
 
 ```sh
 [
-	{
-		device: '/dev/disk0',
-		description: 'GUID_partition_scheme',
-		size: 68719476736,
-		mountpoint: '/',
-		name: /dev/disk0,
-		protected: false,
-		system: true
-	},
-	{
-		device: '/dev/disk1',
-		description: 'Apple_HFS Macintosh HD',
-		size: 68719476736,
-		name: /dev/disk1,
-		protected: false,
-		system: true
-	}
+  {
+    device: '/dev/disk0',
+    description: 'GUID_partition_scheme',
+    size: 68719476736,
+    mountpoint: '/',
+    name: /dev/disk0,
+    raw: /dev/rdisk0,
+    protected: false,
+    system: true
+  },
+  {
+    device: '/dev/disk1',
+    description: 'Apple_HFS Macintosh HD',
+    size: 68719476736,
+    name: /dev/disk1,
+    raw: /dev/rdisk0,
+    protected: false,
+    system: true
+  }
 ]
 ```
 
@@ -61,24 +63,26 @@ GNU/Linux
 
 ```sh
 [
-	{
-		device: '/dev/sda',
-		description: 'WDC WD10JPVX-75J',
-		size: 68719476736,
-		mountpoint: '/',
-		name: '/dev/sda',
-		protected: false,
-		system: true
-	},
-	{
-		device: '/dev/sdb',
-		description: 'DataTraveler 2.0',
-		size: 7823458304,
-		mountpoint: '/media/UNTITLED',
-		name: '/dev/sdb',
-		protected: true,
-		system: false
-	}
+  {
+    device: '/dev/sda',
+    description: 'WDC WD10JPVX-75J',
+    size: 68719476736,
+    mountpoint: '/',
+    name: '/dev/sda',
+    raw: '/dev/sda',
+    protected: false,
+    system: true
+  },
+  {
+    device: '/dev/sdb',
+    description: 'DataTraveler 2.0',
+    size: 7823458304,
+    mountpoint: '/media/UNTITLED',
+    name: '/dev/sdb',
+    raw: '/dev/sdb',
+    protected: true,
+    system: false
+  }
 ]
 ```
 
@@ -88,24 +92,26 @@ Windows
 
 ```sh
 [
-	{
-		device: '\\\\.\\PHYSICALDRIVE0',
-		description: 'WDC WD10JPVX-75JC3T0',
-		size: 68719476736,
-		mountpoint: 'C:',
-		name: 'C:',
-		protected: false,
-		system: true
-	},
-	{
-		device: '\\\\.\\PHYSICALDRIVE1',
-		description: 'Generic STORAGE DEVICE USB Device',
-		size: 7823458304,
-		mountpoint: 'D:',
-		name: 'D:',
-		protected: true,
-		system: false
-	}
+  {
+    device: '\\\\.\\PHYSICALDRIVE0',
+    description: 'WDC WD10JPVX-75JC3T0',
+    size: 68719476736,
+    mountpoint: 'C:',
+    name: 'C:',
+    raw: '\\\\.\\PHYSICALDRIVE0',
+    protected: false,
+    system: true
+  },
+  {
+    device: '\\\\.\\PHYSICALDRIVE1',
+    description: 'Generic STORAGE DEVICE USB Device',
+    size: 7823458304,
+    mountpoint: 'D:',
+    name: 'D:',
+    raw: '\\\\.\\PHYSICALDRIVE1',
+    protected: true,
+    system: false
+  }
 ]
 ```
 

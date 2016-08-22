@@ -14,6 +14,10 @@ for disk in $DISKS; do
   diskinfo="`diskutil info $disk`"
 
   device=`echo "$diskinfo" | get_key "Device Node"`
+
+  # See http://superuser.com/q/631592
+  raw_device=`echo "$device" | sed "s/disk/rdisk/g"`
+
   description=`echo "$diskinfo" | get_key "Device / Media Name"`
   volume_name=`echo "$diskinfo" | get_key "Volume Name"`
   mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
@@ -40,6 +44,7 @@ for disk in $DISKS; do
   echo "size: $size"
   echo "mountpoint: $mountpoint"
   echo "name: $device"
+  echo "raw: $raw_device"
 
   if [[ "$protected" == "Yes" ]]; then
     echo "protected: True"
