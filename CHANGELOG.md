@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### v3.3.0
+
+- Fix `null` device when unplugging a device while detecting drives.
+- Expose a "raw" property in all devices.
+- Attempt to display the volume name as description in OS X.
+
 ### v3.2.6
 
 - Fix internal removable drives being considered "system" in macOS Sierra.
