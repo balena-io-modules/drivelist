@@ -59,7 +59,7 @@ module.exports = function(input) {
     if (_.isString(result)) {
       return _.object([result], [null]);
     }
-    if (result == null) {
+    if ((result == null) || (result.device == null)) {
       return;
     }
     return _.mapValues(result, function(value, key) {
