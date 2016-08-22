@@ -55,7 +55,7 @@ module.exports = (input) ->
 		result = yaml.safeLoad(device)
 		if _.isString(result)
 			return _.object([ result ], [ null ])
-		return if not result?
+		return if not result? or not result.device?
 
 		return _.mapValues result, (value, key) ->
 			return value if not _.isString(value)
