@@ -46,10 +46,11 @@ For Each objDrive In colDiskDrives
             Wscript.Echo "size: " & objDrive.Size
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
+            Wscript.Echo "raw: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
 
             If objLogicalDisk.Access = 1 Then
               Wscript.Echo "protected: True"
-            Else 
+            Else
               Wscript.Echo "protected: False"
             End If
 
@@ -68,6 +69,7 @@ For Each objDrive In colDiskDrives
       Wscript.Echo "size: " & objDrive.Size
       Wscript.Echo "mountpoint: Null"
       Wscript.Echo "name: Null"
+      Wscript.Echo "raw: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
 
       If InStr(objDrive.MediaType, "Removable") = 1 Then
         Wscript.Echo "system: False"
