@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.3.1
+
+- Fix `blkid: command not found` in GNU/Linux.
+
 ### v3.3.0
 
 - Fix `null` device when unplugging a device while detecting drives.
