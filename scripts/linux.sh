@@ -9,7 +9,7 @@ function trim {
 }
 
 function get_uuids {
-  blkid -s UUID -o value $1*
+  /sbin/blkid -s UUID -o value $1*
 }
 
 function get_mountpoint {
