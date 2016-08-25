@@ -8,10 +8,6 @@ function get_until_paren {
   awk 'match($0, "\\(|$"){ print substr($0, 0, RSTART - 1) }'
 }
 
-function get_device_identifiers {
-  awk 'match($0, /disk[0-9]+(s[0-9]+)?$/, arr){ print "/dev/" arr[0] }'
-}
-
 DISKS="`diskutil list | grep '^\/' | get_until_paren`"
 mount_output="`mount`"
 
