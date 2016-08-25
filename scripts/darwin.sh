@@ -13,6 +13,7 @@ function get_device_identifiers {
 }
 
 DISKS="`diskutil list | grep '^\/' | get_until_paren`"
+mount_output="`mount`"
 
 for disk in $DISKS; do
   diskinfo="`diskutil info $disk`"
@@ -24,11 +25,14 @@ for disk in $DISKS; do
 
   description=`echo "$diskinfo" | get_key "Device / Media Name"`
   volume_name=`echo "$diskinfo" | get_key "Volume Name"`
-  mountpoint=`echo "$diskinfo" | get_key "Mount Point"`
   removable=`echo "$diskinfo" | get_key "Removable Media"`
   protected=`echo "$diskinfo" | get_key "Read-Only Media"`
   location=`echo "$diskinfo" | get_key "Device Location"`
   size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+
+  mountpoint=`echo "$mount_output" | perl -n -e'm{'"^${disk}(s[0-9]+)? on (.*) \(.*\)$"'} && print ",$2"'`
+  # trim leading ,
+  mountpoint=${mountpoint#,}
 
   # Omit mounted DMG images
   if [ "$description" == "Disk Image" ]; then
@@ -65,24 +69,6 @@ for disk in $DISKS; do
   else
     echo "system: False"
   fi
-
-  partitions="`diskutil list $disk | get_device_identifiers`"
-  partitionmountpoints=""
-
-  for partition in $partitions; do 
-    partitioninfo="`diskutil info $partition`"
-
-    partitionmountpoint=`echo "$partitioninfo" | get_key "Mount Point"`
-
-    if [ "$partitionmountpoint" ]; then
-      partitionmountpoints=$partitionmountpoints,$partitionmountpoint
-    fi
-  done
-  
-  # trim leading ,
-  partitionmountpoints=${partitionmountpoints#,}
-
-  echo "mountpoints: [ $partitionmountpoints ]"
 
   echo ""
 done
