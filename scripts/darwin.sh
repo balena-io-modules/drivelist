@@ -8,6 +8,10 @@ function get_until_paren {
   awk 'match($0, "\\(|$"){ print substr($0, 0, RSTART - 1) }'
 }
 
+function get_device_identifiers {
+  awk 'match($0, /disk[0-9]+(s[0-9]+)?$/, arr){ print "/dev/" arr[0] }'
+}
+
 DISKS="`diskutil list | grep '^\/' | get_until_paren`"
 
 for disk in $DISKS; do
@@ -61,6 +65,24 @@ for disk in $DISKS; do
   else
     echo "system: False"
   fi
+
+  partitions="`diskutil list $disk | get_device_identifiers`"
+  partitionmountpoints=""
+
+  for partition in $partitions; do 
+    partitioninfo="`diskutil info $partition`"
+
+    partitionmountpoint=`echo "$partitioninfo" | get_key "Mount Point"`
+
+    if [ "$partitionmountpoint" ]; then
+      partitionmountpoints=$partitionmountpoints,$partitionmountpoint
+    fi
+  done
+  
+  # trim leading ,
+  partitionmountpoints=${partitionmountpoints#,}
+
+  echo "mountpoints: [ $partitionmountpoints ]"
 
   echo ""
 done
