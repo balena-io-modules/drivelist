@@ -26,7 +26,7 @@ for disk in $DISKS; do
   location=`echo "$diskinfo" | get_key "Device Location"`
   size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
-  mountpoint=`echo "$mount_output" | perl -n -e'm{'"^${disk}(s[0-9]+)? on (.*) \(.*\)$"'} && print ",$2"'`
+  mountpoint=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print ",$2"'`
   # trim leading ,
   mountpoint=${mountpoint#,}
 
