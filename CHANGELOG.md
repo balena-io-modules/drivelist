@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.3.2
+
+- List all partition's mountpoints in OS X.
+
 ### v3.3.1
 
 - Fix `blkid: command not found` in GNU/Linux.
