@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.3.3
+
+- Default device name to device id if drive doesn't have an assigned letter in Windows.
+
 ### v3.3.2
 
 - List all partition's mountpoints in OS X.
