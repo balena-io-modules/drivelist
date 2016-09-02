@@ -28,11 +28,11 @@ For Each objOperatingSystem in colOperatingSystems
 Next
 
 For Each objDrive In colDiskDrives
-    strDeviceID = Replace(objDrive.DeviceID, "\", "\\")
+    DeviceID = Replace(objDrive.DeviceID, "\", "\\")
     containsLogicalDisk = False
     Set colPartitions = objWMIService.ExecQuery _
         ("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
-            strDeviceID & """} WHERE AssocClass = " & _
+            DeviceID & """} WHERE AssocClass = " & _
                 "Win32_DiskDriveToDiskPartition")
     For Each objPartition In colPartitions
         Set colLogicalDisks = objWMIService.ExecQuery _
@@ -41,12 +41,12 @@ For Each objDrive In colDiskDrives
                     "Win32_LogicalDiskToPartition")
         For Each objLogicalDisk In colLogicalDisks
             containsLogicalDisk = True
-            Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
+            Wscript.Echo "device: """ & DeviceID & """"
             Wscript.Echo "description: """ & objDrive.Caption & """"
             Wscript.Echo "size: " & objDrive.Size
             Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
             Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
-            Wscript.Echo "raw: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
+            Wscript.Echo "raw: """ & DeviceID & """"
 
             If objLogicalDisk.Access = 1 Then
               Wscript.Echo "protected: True"
@@ -64,12 +64,12 @@ For Each objDrive In colDiskDrives
         Next
     Next
     If containsLogicalDisk = False Then
-      Wscript.Echo "device: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
+      Wscript.Echo "device: """ & DeviceID & """"
       Wscript.Echo "description: """ & objDrive.Caption & """"
       Wscript.Echo "size: " & objDrive.Size
       Wscript.Echo "mountpoint: Null"
-      Wscript.Echo "name: Null"
-      Wscript.Echo "raw: """ & Replace(objDrive.DeviceID, "\", "\\") & """"
+      Wscript.Echo "name: """ & DeviceID & """"
+      Wscript.Echo "raw: """ & DeviceID & """"
 
       If InStr(objDrive.MediaType, "Removable") = 1 Then
         Wscript.Echo "system: False"
