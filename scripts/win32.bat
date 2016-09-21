@@ -1,5 +1,10 @@
 <!-- : Begin batch script
 @echo off
+
+:: Ensure System32 is in the PATH, to avoid weird
+:: 'cscript' is not recognized as an internal or external command"" errors.
+set PATH=%PATH%;%SYSTEMROOT%\System32
+
 cscript //nologo "%~f0?.wsf"
 exit /b
 
