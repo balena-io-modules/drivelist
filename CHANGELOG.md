@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+### v3.3.4
+
+- Ensure `%SYSTEMROOT%\System32` is in the `%PATH%` before calling `cscript.exe` on Windows.
+
 ### v3.3.3
 
 - Default device name to device id if drive doesn't have an assigned letter in Windows.
