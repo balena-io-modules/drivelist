@@ -37,8 +37,7 @@
   },
   "dependencies": {
     "js-yaml": "^3.4.1",
-    "lodash": "^3.0.1",
-    "table-parser": "0.0.3",
+    "lodash": "^4.16.4",
     "underscore.string": "^3.2.2"
   }
 }

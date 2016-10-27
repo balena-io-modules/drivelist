@@ -41,9 +41,11 @@ module.exports = (input) ->
 
 		device = _.chain(device)
 			.split('\n')
+			.filter (line) ->
+				return /^[a-z]+:/g.test(line)
 			.map (line) ->
 				return line.replace /"/g, (match, index, string) ->
-					if _.any [
+					if _.some [
 						string.indexOf('"') is index
 						string.lastIndexOf('"') is index
 					]

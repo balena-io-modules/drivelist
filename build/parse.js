@@ -47,9 +47,11 @@ module.exports = function(input) {
   }
   return _.compact(_.map(input.split(/\n\s*\n/), function(device) {
     var result;
-    device = _.chain(device).split('\n').map(function(line) {
+    device = _.chain(device).split('\n').filter(function(line) {
+      return /^[a-z]+:/g.test(line);
+    }).map(function(line) {
       return line.replace(/"/g, function(match, index, string) {
-        if (_.any([string.indexOf('"') === index, string.lastIndexOf('"') === index])) {
+        if (_.some([string.indexOf('"') === index, string.lastIndexOf('"') === index])) {
           return match;
         }
         return '\\"';

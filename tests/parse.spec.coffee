@@ -126,6 +126,20 @@ describe 'Parse:', ->
 			hello: false
 		]
 
+	it 'should ignore invalid keys', ->
+		m.chai.expect parse '''
+			[0x7FFAC9E570E3] ANOMALY: use of REX.w
+			device: /dev/disk2
+			foo: foo
+			this is a warning
+			bar: bar
+		'''
+		.to.deep.equal [
+			device: '/dev/disk2'
+			foo: 'foo'
+			bar: 'bar'
+		]
+
 	it 'should parse multiple devices that are heterogeneous', ->
 		m.chai.expect parse '''
 			device: /dev/disk1
@@ -154,21 +168,17 @@ describe 'Parse:', ->
 			hello: null
 		]
 
-	it 'should interpret a word without colon as a key without value', ->
+	it 'should not interpret a word without colon as a key without value', ->
 		m.chai.expect parse '''
 			hello
 		'''
-		.to.deep.equal [
-			hello: null
-		]
+		.to.deep.equal []
 
-	it 'should interpret multiple words without colon as a key without value', ->
+	it 'should not interpret multiple words without colon as a key without value', ->
 		m.chai.expect parse '''
 			hello world
 		'''
-		.to.deep.equal [
-			'hello world': null
-		]
+		.to.deep.equal []
 
 	it 'should handle a double quote inside a value', ->
 		m.chai.expect parse '''
