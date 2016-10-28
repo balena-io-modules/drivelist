@@ -11,78 +11,105 @@ exit /b
 ----- Begin wsf script --->
 <job><script language="VBScript">
 
-Private OSDrive
+Set WMIService = GetObject("winmgmts:\\.\root\cimv2")
 
-strComputer = "."
+Function BooleanToString(ByVal Value)
+	If Value Then
+		BooleanToString = "True"
+	Else
+		BooleanToString = "False"
+	End If
+End Function
 
-Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+Function GetOperatingSystemDevice()
+	Set OperatingSystemsColumn = WMIService.ExecQuery("SELECT SystemDrive FROM Win32_OperatingSystem")
+	Err.Clear
+	For Each OperatingSystem in OperatingSystemsColumn
+		On Error Resume Next
+		GetOperatingSystemDevice = OperatingSystem.Properties_("SystemDrive")
+		If Err.Number <> 0 Then
+			GetOperatingSystemDevice = Nothing
+			Err.Clear
+		End If
+	Next
+End Function
 
-Set colDiskDrives = objWMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
+Function GetLogicalDisks(ByVal DriveDevice)
+	Set GetLogicalDisks = CreateObject("System.Collections.ArrayList")
+	Set DrivePartitionsColumn = WMIService.ExecQuery _
+		("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
+			DriveDevice & """} WHERE AssocClass = " & _
+				"Win32_DiskDriveToDiskPartition")
 
-Set colOperatingSystems = objWMIService.ExecQuery ("SELECT SystemDrive FROM Win32_OperatingSystem")
+	For Each DrivePartition In DrivePartitionsColumn
+		Set DriveLogicalDisksColumn = WMIService.ExecQuery _
+			("ASSOCIATORS OF {Win32_DiskPartition.DeviceID=""" & _
+				DrivePartition.DeviceID & """} WHERE AssocClass = " & _
+					"Win32_LogicalDiskToPartition")
 
-Err.Clear
-For Each objOperatingSystem in colOperatingSystems
-    On Error Resume Next
-    '' get the OS System Drive if exists
-    OSDrive = objOperatingSystem.Properties_("SystemDrive")
-    If Err.Number <> 0 Then
-        OSDrive = False
-        Err.Clear
-    End If
-Next
+		For Each DriveLogicalDisk In DriveLogicalDisksColumn
+			Set LogicalDisk = CreateObject("Scripting.Dictionary")
+			LogicalDisk.Add "Device", DriveLogicalDisk.DeviceID
+			LogicalDisk.Add "IsProtected", DriveLogicalDisk.Access = 1
+			GetLogicalDisks.Add(LogicalDisk)
+		Next
+	Next
+End Function
 
-For Each objDrive In colDiskDrives
-    DeviceID = Replace(objDrive.DeviceID, "\", "\\")
-    containsLogicalDisk = False
-    Set colPartitions = objWMIService.ExecQuery _
-        ("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
-            DeviceID & """} WHERE AssocClass = " & _
-                "Win32_DiskDriveToDiskPartition")
-    For Each objPartition In colPartitions
-        Set colLogicalDisks = objWMIService.ExecQuery _
-            ("ASSOCIATORS OF {Win32_DiskPartition.DeviceID=""" & _
-                objPartition.DeviceID & """} WHERE AssocClass = " & _
-                    "Win32_LogicalDiskToPartition")
-        For Each objLogicalDisk In colLogicalDisks
-            containsLogicalDisk = True
-            Wscript.Echo "device: """ & DeviceID & """"
-            Wscript.Echo "description: """ & objDrive.Caption & """"
-            Wscript.Echo "size: " & objDrive.Size
-            Wscript.Echo "mountpoint: """ & objLogicalDisk.DeviceID & """"
-            Wscript.Echo "name: """ & objLogicalDisk.DeviceID & """"
-            Wscript.Echo "raw: """ & DeviceID & """"
+Function GetTopLevelDrives()
+	OperatingSystemDevice = GetOperatingSystemDevice()
+	Set GetTopLevelDrives = CreateObject("System.Collections.ArrayList")
+	Set TopLevelDrivesColumn = WMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
+	For Each TopLevelDrive In TopLevelDrivesColumn
+		Set Summary = CreateObject("Scripting.Dictionary")
 
-            If objLogicalDisk.Access = 1 Then
-              Wscript.Echo "protected: True"
-            Else
-              Wscript.Echo "protected: False"
-            End If
+		DeviceID = Replace(TopLevelDrive.DeviceID, "\", "\\")
+		Summary.Add "Device", DeviceID
 
-            If (objLogicalDisk.DeviceID = OSDrive) Or Not (InStr(objDrive.MediaType, "Removable") = 1) Then
-              Wscript.Echo "system: True"
-            Else
-              Wscript.Echo "system: False"
-            End If
+		Summary.Add "Description", TopLevelDrive.Caption
+		Summary.Add "Size", TopLevelDrive.Size
 
-            Wscript.Echo ""
-        Next
-    Next
-    If containsLogicalDisk = False Then
-      Wscript.Echo "device: """ & DeviceID & """"
-      Wscript.Echo "description: """ & objDrive.Caption & """"
-      Wscript.Echo "size: " & objDrive.Size
-      Wscript.Echo "mountpoint: Null"
-      Wscript.Echo "name: """ & DeviceID & """"
-      Wscript.Echo "raw: """ & DeviceID & """"
+		Set Mountpoints = CreateObject("System.Collections.ArrayList")
+		IsRemovable = InStr(TopLevelDrive.MediaType, "Removable") = 1
+		IsProtected = False
 
-      If InStr(objDrive.MediaType, "Removable") = 1 Then
-        Wscript.Echo "system: False"
-      Else
-        Wscript.Echo "system: True"
-      End If
+		Set LogicalDisks = GetLogicalDisks(DeviceID)
 
-      Wscript.Echo ""
-    End If
+		For Each LogicalDisk In LogicalDisks
+			Mountpoints.Add(LogicalDisk.Item("Device"))
+
+			If LogicalDisk.Item("IsProtected") Then
+				IsProtected = True
+			End If
+
+			If LogicalDisk.Item("Device") = OperatingSystemDevice Then
+				IsRemovable = False
+			End If
+		Next
+
+		Summary.Add "Mountpoints", Mountpoints
+		Summary.Add "IsRemovable", IsRemovable
+		Summary.Add "IsProtected", IsProtected
+
+		GetTopLevelDrives.Add(Summary)
+	Next
+End Function
+
+For Each TopLevelDrive In GetTopLevelDrives()
+	Wscript.Echo "device: """ & TopLevelDrive.Item("Device") & """"
+	Wscript.Echo "description: """ & TopLevelDrive.Item("Description") & """"
+	Wscript.Echo "size: " & TopLevelDrive.Item("Size")
+	Wscript.Echo "raw: """ & TopLevelDrive.Item("Device") & """"
+	Wscript.Echo "name: """ & TopLevelDrive.Item("Device") & """"
+	Wscript.Echo "system: " & BooleanToString(Not TopLevelDrive.Item("IsRemovable"))
+	Wscript.Echo "protected: " & BooleanToString(TopLevelDrive.Item("IsProtected"))
+
+	If TopLevelDrive.Item("Mountpoints").Count = 0 Then
+		Wscript.Echo "mountpoint: Null"
+	Else
+		Wscript.Echo "mountpoint: """ & join(TopLevelDrive.Item("Mountpoints").ToArray(), ",") & """"
+	End If
+
+	Wscript.Echo ""
 Next
 </script></job>
