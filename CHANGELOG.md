@@ -4,6 +4,12 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v4.0.0
+
+- Ignore invalid YAML output from platform scripts.
+- Group mount points of drives with multiple partitions in Windows.
+- Switch project to JavaScript.
+
 ### v3.3.4
 
 - Ensure `%SYSTEMROOT%\System32` is in the `%PATH%` before calling `cscript.exe` on Windows.
