@@ -1,5 +1,0 @@
-coffee_script:
-  config_file: coffeelint.json
-
-javascript:
-  enabled: false
