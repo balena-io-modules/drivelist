@@ -19,14 +19,16 @@ Supports:
 
 Examples (the output will vary depending on your machine):
 
-```coffee
-var drivelist = require('drivelist');
+```js
+const drivelist = require('drivelist');
 
-drivelist.list(function(error, disks) {
-    if (error) throw error;
-    console.log(disks);
+drivelist.list((error, drives) => {
+  if (error) {
+    throw error;
+  }
+
+  console.log(drives);
 });
-
 ```
 
 ***
