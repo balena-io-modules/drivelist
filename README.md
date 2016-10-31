@@ -164,10 +164,10 @@ We're looking forward to support more operating systems. Please raise an issue o
 - Issue Tracker: [github.com/resin-io-modules/drivelist/issues](https://github.com/resin-io-modules/drivelist/issues)
 - Source Code: [github.com/resin-io-modules/drivelist](https://github.com/resin-io-modules/drivelist)
 
-Before submitting a PR, please make sure that you include tests, and that [coffeelint](http://www.coffeelint.org/) runs without any warning:
+Before submitting a PR, please make sure that you include tests, and that the linter runs without any warning:
 
 ```sh
-$ gulp lint
+$ npm run lint
 ```
 
 Support
