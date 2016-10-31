@@ -44,7 +44,6 @@ for disk in $DISKS; do
   echo "description: $description"
   echo "size: $size"
   echo "mountpoint: $mountpoint"
-  echo "name: $device"
   echo "raw: $device"
 
   if [[ "$protected" == "1" ]]; then
