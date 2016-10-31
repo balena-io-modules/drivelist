@@ -2,7 +2,7 @@
   "name": "drivelist",
   "version": "3.3.4",
   "description": "List all connected drives in your computer, in all major operating systems",
-  "main": "build/drivelist.js",
+  "main": "lib/drivelist.js",
   "homepage": "https://github.com/resin-io-modules/drivelist",
   "repository": {
     "type": "git",
@@ -10,6 +10,9 @@
   },
   "keywords": [
     "disk",
+    "cross",
+    "platform",
+    "physical",
     "drive",
     "list"
   ],
@@ -17,27 +20,20 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "gulp test",
-    "prepublish": "gulp build"
+    "test": "npm run lint && mocha --recursive tests -R spec",
+    "lint": "eslint lib tests example.js",
+    "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md"
   },
-  "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
-  "license": "MIT",
+  "author": "Juan Cruz Viotti <juan@resin.io>",
+  "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "~1.10.0",
-    "coffee-script": "~1.8.0",
-    "gulp": "~3.8.10",
-    "gulp-coffee": "~2.2.0",
-    "gulp-coffeelint": "~0.4.0",
-    "gulp-mocha": "~2.0.0",
-    "gulp-util": "~3.0.1",
-    "mocha": "~2.0.1",
-    "mochainon": "^1.0.0",
-    "sinon": "~1.12.2",
-    "sinon-chai": "~2.6.0"
+    "eslint": "^3.9.0",
+    "jsdoc-to-markdown": "^2.0.1",
+    "mocha": "^2.4.5",
+    "mochainon": "^1.0.0"
   },
   "dependencies": {
     "js-yaml": "^3.4.1",
-    "lodash": "^4.16.4",
-    "underscore.string": "^3.2.2"
+    "lodash": "^4.16.4"
   }
 }

@@ -127,31 +127,12 @@ $ npm install --save drivelist
 Documentation
 -------------
 
-<a name="module_drivelist.list"></a>
-
-### drivelist.list(callback)
-**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
-**Summary**: List available drives  
-**Access:** public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| callback | <code>function</code> | callback (error, drives) |
-
-**Example**  
-```js
-const drivelist = require('drivelist');
-
-drivelist.list((error, drives) => {
-  if (error) {
-    throw error;
-  }
-
-  drives.forEach((drive) => {
-    console.log(drive);
-  });
-});
-```
+{{#module name="drivelist"}}
+{{>body~}}
+{{>member-index~}}
+{{>separator~}}
+{{>members~}}
+{{/module}}
 
 Tests
 -----
