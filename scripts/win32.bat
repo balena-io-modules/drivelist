@@ -100,7 +100,6 @@ For Each TopLevelDrive In GetTopLevelDrives()
 	Wscript.Echo "description: """ & TopLevelDrive.Item("Description") & """"
 	Wscript.Echo "size: " & TopLevelDrive.Item("Size")
 	Wscript.Echo "raw: """ & TopLevelDrive.Item("Device") & """"
-	Wscript.Echo "name: """ & TopLevelDrive.Item("Device") & """"
 	Wscript.Echo "system: " & BooleanToString(Not TopLevelDrive.Item("IsRemovable"))
 	Wscript.Echo "protected: " & BooleanToString(TopLevelDrive.Item("IsProtected"))
 
