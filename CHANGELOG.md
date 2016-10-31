@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Ignore invalid YAML output from platform scripts.
 - Group mount points of drives with multiple partitions in Windows.
 - Switch project to JavaScript.
+- Switch license to Apache 2.0.
 
 ### v3.3.4
 
