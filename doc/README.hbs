@@ -41,7 +41,11 @@ Mac OS X:
     device: '/dev/disk0',
     description: 'GUID_partition_scheme',
     size: 68719476736,
-    mountpoint: '/',
+    mountpoints: [
+      {
+        path: '/'
+      }
+    ],
     raw: '/dev/rdisk0',
     protected: false,
     system: true
@@ -50,6 +54,7 @@ Mac OS X:
     device: '/dev/disk1',
     description: 'Apple_HFS Macintosh HD',
     size: 68719476736,
+    mountpoints: [],
     raw: '/dev/rdisk0',
     protected: false,
     system: true
@@ -67,7 +72,11 @@ GNU/Linux
     device: '/dev/sda',
     description: 'WDC WD10JPVX-75J',
     size: 68719476736,
-    mountpoint: '/',
+    mountpoints: [
+      {
+        path: '/'
+      }
+    ],
     raw: '/dev/sda',
     protected: false,
     system: true
@@ -76,7 +85,11 @@ GNU/Linux
     device: '/dev/sdb',
     description: 'DataTraveler 2.0',
     size: 7823458304,
-    mountpoint: '/media/UNTITLED',
+    mountpoints: [
+      {
+        path: '/media/UNTITLED'
+      }
+    ],
     raw: '/dev/sdb',
     protected: true,
     system: false
@@ -94,7 +107,11 @@ Windows
     device: '\\\\.\\PHYSICALDRIVE0',
     description: 'WDC WD10JPVX-75JC3T0',
     size: 68719476736,
-    mountpoint: 'C:',
+    mountpoints: [
+      {
+        path: 'C:'
+      }
+    ],
     raw: '\\\\.\\PHYSICALDRIVE0',
     protected: false,
     system: true
@@ -103,7 +120,11 @@ Windows
     device: '\\\\.\\PHYSICALDRIVE1',
     description: 'Generic STORAGE DEVICE USB Device',
     size: 7823458304,
-    mountpoint: 'D:',
+    mountpoints: [
+      {
+        path: 'D:'
+      }
+    ],
     raw: '\\\\.\\PHYSICALDRIVE1',
     protected: true,
     system: false

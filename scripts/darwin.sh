@@ -26,9 +26,7 @@ for disk in $DISKS; do
   location=`echo "$diskinfo" | get_key "Device Location"`
   size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
-  mountpoint=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print ",$2"'`
-  # trim leading ,
-  mountpoint=${mountpoint#,}
+  mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"'`
 
   # Omit mounted DMG images
   if [ "$description" == "Disk Image" ]; then
@@ -46,7 +44,16 @@ for disk in $DISKS; do
   fi
 
   echo "size: $size"
-  echo "mountpoint: $mountpoint"
+
+  if [ -z "$mountpoints" ]; then
+    echo "mountpoints: []"
+  else
+    echo "mountpoints:"
+    echo "$mountpoints" | while read mountpoint ; do
+      echo "  - path: $mountpoint"
+    done
+  fi
+
   echo "raw: $raw_device"
 
   if [[ "$protected" == "Yes" ]]; then
@@ -58,7 +65,7 @@ for disk in $DISKS; do
   if [[ "$device" == "/dev/disk0" ]] || \
      [[ "$removable" == "No" ]] || \
      [[ ( "$location" == "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
-     [[ "$mountpoint" == "/" ]]
+     echo "$mountpoints" | grep "^/$"
   then
     echo "system: True"
   else

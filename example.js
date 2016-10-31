@@ -24,5 +24,5 @@ drivelist.list((error, drives) => {
     process.exit(1);
   }
 
-  console.log(drives);
+  console.log(JSON.stringify(drives, null, 2));
 });
