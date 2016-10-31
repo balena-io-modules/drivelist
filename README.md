@@ -42,7 +42,7 @@ Mac OS X:
     description: 'GUID_partition_scheme',
     size: 68719476736,
     mountpoint: '/',
-    raw: /dev/rdisk0,
+    raw: '/dev/rdisk0',
     protected: false,
     system: true
   },
@@ -50,7 +50,7 @@ Mac OS X:
     device: '/dev/disk1',
     description: 'Apple_HFS Macintosh HD',
     size: 68719476736,
-    raw: /dev/rdisk0,
+    raw: '/dev/rdisk0',
     protected: false,
     system: true
   }
