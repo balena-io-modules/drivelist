@@ -4,10 +4,6 @@ function ignore_first_line {
   tail -n +2
 }
 
-function trim {
-  sed -e 's/^[[:space:]]*//'
-}
-
 function get_uuids {
   /sbin/blkid -s UUID -o value $1*
 }
@@ -26,10 +22,12 @@ for disk in $DISKS; do
   fi
 
   device="/dev/$disk"
-  description="$(lsblk -d $device --output MODEL | ignore_first_line | trim)"
+  diskinfo="$(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line)"
+  size=${diskinfo[0]}
+  protected=${diskinfo[1]}
+  removable=${diskinfo[2]}
+  description=${diskinfo[@]:3}
   description="\"${description//"/\\"}\""
-  size=`lsblk -b -d $device --output SIZE | ignore_first_line | trim`
-  protected=`lsblk -b -d $device --output RO | ignore_first_line | trim`
   mountpoint=`get_mountpoint $device`
 
   # If we couldn't get the mount points as `/dev/$disk`,
@@ -53,7 +51,7 @@ for disk in $DISKS; do
   fi
 
   eval "`udevadm info --query=property --export --export-prefix=UDEV_ --name=$disk`"
-  if [[ "`lsblk -d $device --output RM | ignore_first_line | trim`" == "1" ]] && \
+  if [[ "$removable" == "1" ]] && \
      [[ "$UDEV_ID_DRIVE_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_DRIVE_MEDIA_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_BUS" == "usb" ]]
