@@ -23,10 +23,10 @@ for disk in $DISKS; do
 
   device="/dev/$disk"
   diskinfo="$(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line)"
-  size=${diskinfo[0]}
-  protected=${diskinfo[1]}
-  removable=${diskinfo[2]}
-  description=${diskinfo[@]:3}
+  size=$(echo $diskinfo | awk '{ print $1 }')
+  protected=$(echo $diskinfo | awk '{ print $2 }')
+  removable=$(echo $diskinfo | awk '{ print $3 }')
+  description=$(echo $diskinfo | awk '{ $1=$2=$3=""; print substr($0, 4) }')
   description="\"${description//"/\\"}\""
   mountpoint=`get_mountpoint $device`
 
