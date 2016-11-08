@@ -27,7 +27,6 @@ for disk in $DISKS; do
   protected=${diskinfo[1]}
   removable=${diskinfo[2]}
   description=${diskinfo[@]:3}
-  description="\"${description//"/\\"}\""
   mountpoint=`get_mountpoint $device`
 
   # If we couldn't get the mount points as `/dev/$disk`,
@@ -37,6 +36,16 @@ for disk in $DISKS; do
       mountpoint=$mountpoint`get_mountpoint /dev/disk/by-uuid/$uuid`
     done
   fi
+
+  # If we couldn't get the description from `lsblk`, see if we can get it
+  # from sysfs (e.g. PCI-connected SD cards that appear as `/dev/mmcblk0`)
+  if [ -z "$description" ]; then
+    subdevice=`echo "$device" | cut -d'/' -f3`
+    if [ -f "/sys/class/block/$subdevice/device/name" ]; then
+      description=`cat "/sys/class/block/$subdevice/device/name"`
+    fi
+  fi
+  description="\"${description//"/\\"}\""
 
   echo "device: $device"
   echo "description: $description"
