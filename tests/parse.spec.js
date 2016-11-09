@@ -127,25 +127,6 @@ describe('Parse', function() {
     ]);
   });
 
-  it('should discard trailing commas', function() {
-    m.chai.expect(parse([
-      'device: /dev/disk1',
-      'hello: foo,bar,baz,',
-      '',
-      'device: /dev/disk2',
-      'hello: foo,bar,baz,'
-    ].join('\n'))).to.deep.equal([
-      {
-        device: '/dev/disk1',
-        hello: 'foo,bar,baz'
-      },
-      {
-        device: '/dev/disk2',
-        hello: 'foo,bar,baz'
-      }
-    ]);
-  });
-
   it('should parse a truthy boolean', function() {
     m.chai.expect(parse([
       'device: /dev/disk1',
