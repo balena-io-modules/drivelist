@@ -4,6 +4,12 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.0
+
+- Transform `mountpoint` into an array of objects called `mountpoints`.
+- Improve GNU/Linux detection performance.
+- Correctly get SD Card readers descriptions in GNU/Linux.
+
 ### v4.0.0
 
 - Ignore invalid YAML output from platform scripts.
