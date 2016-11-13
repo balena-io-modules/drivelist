@@ -103,12 +103,13 @@ For Each TopLevelDrive In GetTopLevelDrives()
 	Wscript.Echo "system: " & BooleanToString(Not TopLevelDrive.Item("IsRemovable"))
 	Wscript.Echo "protected: " & BooleanToString(TopLevelDrive.Item("IsProtected"))
 
+	
 	If TopLevelDrive.Item("Mountpoints").Count = 0 Then
 		Wscript.Echo "mountpoints: []"
 	Else
 		Wscript.Echo "mountpoints:"
 		For Each Mountpoint In TopLevelDrive.Item("Mountpoints")
-			Wscript.Echo "  - path: " & Mountpoint
+			Wscript.Echo "  - path: " & Mid(Mountpoint,1,1)
 		Next
 	End If
 
