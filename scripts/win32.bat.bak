@@ -106,10 +106,14 @@ For Each TopLevelDrive In GetTopLevelDrives()
 	
 	If TopLevelDrive.Item("Mountpoints").Count = 0 Then
 		Wscript.Echo "mountpoints: []"
+	ElseIf TopLevelDrive.Item("Mountpoints").Count = 1 Then
+		For Each Mountpoint In TopLevelDrive.Item("Mountpoints")
+			Wscript.Echo "mountpoints: " &Mid(Mountpoint,1,1)&""
+		Next
 	Else
 		Wscript.Echo "mountpoints:"
 		For Each Mountpoint In TopLevelDrive.Item("Mountpoints")
-			Wscript.Echo "  - path: " & Mid(Mountpoint,1,1)
+			Wscript.Echo " - path: " & Mid(Mountpoint,1,1)
 		Next
 	End If
 
