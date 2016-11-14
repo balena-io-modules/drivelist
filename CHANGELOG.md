@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.1
+
+- Fix `YAMLException: bad indentation of a sequence entry` Windows error.
+
 ### v5.0.0
 
 - Transform `mountpoint` into an array of objects called `mountpoints`.
