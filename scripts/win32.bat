@@ -108,7 +108,7 @@ For Each TopLevelDrive In GetTopLevelDrives()
 	Else
 		Wscript.Echo "mountpoints:"
 		For Each Mountpoint In TopLevelDrive.Item("Mountpoints")
-			Wscript.Echo "  - path: " & Mountpoint
+			Wscript.Echo "  - path: """ & Mountpoint & """"
 		Next
 	End If
 
