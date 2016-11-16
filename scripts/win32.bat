@@ -128,7 +128,7 @@ For Each TopLevelDrive In GetTopLevelDrives().GetArray()
 	Else
 		Wscript.Echo "mountpoints:"
 		For Each Mountpoint In TopLevelDrive.Item("Mountpoints").GetArray()
-			Wscript.Echo "	- path: """ & Mountpoint & """"
+			Wscript.Echo "  - path: """ & Mountpoint & """"
 		Next
 	End If
 
