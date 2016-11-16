@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.2
+
+- Don't require .NET VBScript classes in Windows platform script.
+
 ### v5.0.1
 
 - Fix `YAMLException: bad indentation of a sequence entry` Windows error.
