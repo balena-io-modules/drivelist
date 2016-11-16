@@ -11,6 +11,26 @@ exit /b
 ----- Begin wsf script --->
 <job><script language="VBScript">
 
+Class List
+	Private Dictionary
+
+	Private Sub Class_Initialize()
+		Set Dictionary = CreateObject("Scripting.Dictionary")
+	End Sub
+
+	Public Sub Add(element)
+		Dictionary.Add element, ""
+	End Sub
+
+	Public Function GetArray()
+		GetArray = Dictionary.Keys()
+	End Function
+
+	Public Function Count
+		Count = UBound(Dictionary.Keys()) + 1
+	End Function
+End Class
+
 Set WMIService = GetObject("winmgmts:\\.\root\cimv2")
 
 Function BooleanToString(ByVal Value)
@@ -35,7 +55,7 @@ Function GetOperatingSystemDevice()
 End Function
 
 Function GetLogicalDisks(ByVal DriveDevice)
-	Set GetLogicalDisks = CreateObject("System.Collections.ArrayList")
+	Set GetLogicalDisks = new List
 	Set DrivePartitionsColumn = WMIService.ExecQuery _
 		("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
 			DriveDevice & """} WHERE AssocClass = " & _
@@ -58,7 +78,7 @@ End Function
 
 Function GetTopLevelDrives()
 	OperatingSystemDevice = GetOperatingSystemDevice()
-	Set GetTopLevelDrives = CreateObject("System.Collections.ArrayList")
+	Set GetTopLevelDrives = new List
 	Set TopLevelDrivesColumn = WMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
 	For Each TopLevelDrive In TopLevelDrivesColumn
 		Set Summary = CreateObject("Scripting.Dictionary")
@@ -69,13 +89,13 @@ Function GetTopLevelDrives()
 		Summary.Add "Description", TopLevelDrive.Caption
 		Summary.Add "Size", TopLevelDrive.Size
 
-		Set Mountpoints = CreateObject("System.Collections.ArrayList")
+		Set Mountpoints = new List
 		IsRemovable = InStr(TopLevelDrive.MediaType, "Removable") = 1
 		IsProtected = False
 
 		Set LogicalDisks = GetLogicalDisks(DeviceID)
 
-		For Each LogicalDisk In LogicalDisks
+		For Each LogicalDisk In LogicalDisks.GetArray()
 			Mountpoints.Add(LogicalDisk.Item("Device"))
 
 			If LogicalDisk.Item("IsProtected") Then
@@ -95,7 +115,7 @@ Function GetTopLevelDrives()
 	Next
 End Function
 
-For Each TopLevelDrive In GetTopLevelDrives()
+For Each TopLevelDrive In GetTopLevelDrives().GetArray()
 	Wscript.Echo "device: """ & TopLevelDrive.Item("Device") & """"
 	Wscript.Echo "description: """ & TopLevelDrive.Item("Description") & """"
 	Wscript.Echo "size: " & TopLevelDrive.Item("Size")
@@ -107,8 +127,8 @@ For Each TopLevelDrive In GetTopLevelDrives()
 		Wscript.Echo "mountpoints: []"
 	Else
 		Wscript.Echo "mountpoints:"
-		For Each Mountpoint In TopLevelDrive.Item("Mountpoints")
-			Wscript.Echo "  - path: """ & Mountpoint & """"
+		For Each Mountpoint In TopLevelDrive.Item("Mountpoints").GetArray()
+			Wscript.Echo "	- path: """ & Mountpoint & """"
 		Next
 	End If
 
