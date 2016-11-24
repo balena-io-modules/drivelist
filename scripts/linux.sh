@@ -68,7 +68,13 @@ for disk in $DISKS; do
     echo "protected: False"
   fi
 
-  eval "`udevadm info --query=property --export --export-prefix=UDEV_ --name=$disk`"
+  eval "`udevadm info \
+    --query=property \
+    --export \
+    --export-prefix=UDEV_ \
+    --name=$disk \
+    | awk -F= '{gsub("\\\\.","_",$1); print $1 "=" $2}'`"
+
   if [[ "$removable" == "1" ]] && \
      [[ "$UDEV_ID_DRIVE_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_DRIVE_MEDIA_FLASH_SD" == "1" ]] || \
