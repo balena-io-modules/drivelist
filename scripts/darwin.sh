@@ -38,9 +38,9 @@ for disk in $DISKS; do
   # Attempt to use the volume name if applicable,
   # since it provides a much more readable name.
   if [[ $volume_name =~ .*Not\ applicable.* ]]; then
-    echo "description: $description"
+    echo "description: \"$description\""
   else
-    echo "description: $volume_name"
+    echo "description: \"$volume_name\""
   fi
 
   echo "size: $size"
