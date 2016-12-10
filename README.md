@@ -144,6 +144,16 @@ $ npm install --save drivelist
 Documentation
 -------------
 
+
+* [drivelist](#module_drivelist)
+    * _static_
+        * [.list(callback)](#module_drivelist.list)
+    * _inner_
+        * [~IntervalDrivesEmitter](#module_drivelist..IntervalDrivesEmitter) ⇐ <code>EventEmitter</code>
+            * [new IntervalDrivesEmitter(scanInterval)](#new_module_drivelist..IntervalDrivesEmitter_new)
+            * [.start()](#module_drivelist..IntervalDrivesEmitter+start)
+            * [.stop()](#module_drivelist..IntervalDrivesEmitter+stop)
+
 <a name="module_drivelist.list"></a>
 
 ### drivelist.list(callback)
@@ -168,6 +178,64 @@ drivelist.list((error, drives) => {
     console.log(drive);
   });
 });
+```
+<a name="module_drivelist..IntervalDrivesEmitter"></a>
+
+### drivelist~IntervalDrivesEmitter ⇐ <code>EventEmitter</code>
+Emitter that scans the drives every `scanInterval`ms.
+
+Emits the following events:
+- `drives (Object[])`
+- `error (Error)`
+
+**Kind**: inner class of <code>[drivelist](#module_drivelist)</code>  
+**Extends:** <code>EventEmitter</code>  
+**Access:** public  
+
+* [~IntervalDrivesEmitter](#module_drivelist..IntervalDrivesEmitter) ⇐ <code>EventEmitter</code>
+    * [new IntervalDrivesEmitter(scanInterval)](#new_module_drivelist..IntervalDrivesEmitter_new)
+    * [.start()](#module_drivelist..IntervalDrivesEmitter+start)
+    * [.stop()](#module_drivelist..IntervalDrivesEmitter+stop)
+
+<a name="new_module_drivelist..IntervalDrivesEmitter_new"></a>
+
+#### new IntervalDrivesEmitter(scanInterval)
+Create an instance.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| scanInterval | <code>number</code> | Interval between scans. |
+
+**Example**  
+```js
+const scanner = new IntervalDriveScanner(2000);
+
+scanner.on('drives', (drives) => {
+  console.log(drives);
+});
+
+scanner.on('error', (error) => {
+  throw error;
+});
+```
+<a name="module_drivelist..IntervalDrivesEmitter+start"></a>
+
+#### intervalDrivesEmitter.start()
+**Kind**: instance method of <code>[IntervalDrivesEmitter](#module_drivelist..IntervalDrivesEmitter)</code>  
+**Summary**: Start scanning drives.  
+**Example**  
+```js
+new IntervalDrivesEmitter().start();
+```
+<a name="module_drivelist..IntervalDrivesEmitter+stop"></a>
+
+#### intervalDrivesEmitter.stop()
+**Kind**: instance method of <code>[IntervalDrivesEmitter](#module_drivelist..IntervalDrivesEmitter)</code>  
+**Summary**: Stop scanning drives.  
+**Example**  
+```js
+new IntervalDrivesEmitter().stop();
 ```
 
 Tests
