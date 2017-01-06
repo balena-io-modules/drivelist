@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.5
+
+- Fix system drives being detected as removable drives on Mac Mini.
+
 ### v5.0.4
 
 - Replace periods with underscores before evaluating `udevadm` output in GNU/Linux.
