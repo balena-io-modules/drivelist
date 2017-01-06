@@ -1,7 +1,17 @@
 #!/bin/sh
 
 function get_key {
-  grep "$1" | awk -F "  +" '{ print $3 }'
+  awk -F "  +" "
+    /${1/\//\/}/ {
+      if (values) {
+        values = values \" \" \$3
+      } else {
+        values = \$3
+      }
+    }
+
+    END { print values }
+  "
 }
 
 function get_until_paren {
@@ -64,7 +74,7 @@ for disk in $DISKS; do
 
   if [[ "$device" == "/dev/disk0" ]] || \
      [[ "$removable" == "No" ]] || \
-     [[ ( "$location" == "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
+     [[ ( "$location" =~ "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
      echo "$mountpoints" | grep "^/$"
   then
     echo "system: True"
