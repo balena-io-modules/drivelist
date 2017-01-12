@@ -29,6 +29,17 @@ Class List
 	Public Function Count
 		Count = UBound(Dictionary.Keys()) + 1
 	End Function
+
+	' Only works for simple types (e.g: not objects)
+	Public Function Has(element)
+		Result = False
+		For Each Key In Dictionary.Keys()
+			If Key = Element Then
+				Result = True
+			End If
+		Next
+		Has = Result
+	End Function
 End Class
 
 Set WMIService = GetObject("winmgmts:\\.\root\cimv2")
@@ -96,7 +107,9 @@ Function GetTopLevelDrives()
 		Set LogicalDisks = GetLogicalDisks(DeviceID)
 
 		For Each LogicalDisk In LogicalDisks.GetArray()
-			Mountpoints.Add(LogicalDisk.Item("Device"))
+			If Not Mountpoints.Has(LogicalDisk.Item("Device")) Then
+				Mountpoints.Add(LogicalDisk.Item("Device"))
+			End If
 
 			If LogicalDisk.Item("IsProtected") Then
 				IsProtected = True
