@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.6
+
+- Fix uncaught error caused by a weird Windows configuration edge where multiple partitions were reported to have the same drive letter.
+
 ### v5.0.5
 
 - Fix system drives being detected as removable drives on Mac Mini.
