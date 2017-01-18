@@ -1,17 +1,7 @@
 #!/bin/sh
 
 function get_key {
-  awk -F "  +" "
-    /${1/\//\/}/ {
-      if (values) {
-        values = values \" \" \$3
-      } else {
-        values = \$3
-      }
-    }
-
-    END { print values }
-  "
+  echo $(grep "$1" | awk -F "  +" '{ print $3 }')
 }
 
 function get_until_paren {
