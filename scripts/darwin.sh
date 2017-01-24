@@ -63,7 +63,7 @@ for disk in $DISKS; do
   fi
 
   if [[ "$device" == "/dev/disk0" ]] || \
-     [[ "$removable" == "No" ]] || \
+     [[ ( "$removable" == "No" ) || ("$removable" == "Fixed") ]] || \
      [[ ( "$location" =~ "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
      echo "$mountpoints" | grep "^/$"
   then
