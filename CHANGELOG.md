@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.8
+
+- Fix "is not recognised as an internal or external command" errors on Windows.
+
 ### v5.0.7
 
 - Interpret "Fixed" drives as system drives in macOS.
