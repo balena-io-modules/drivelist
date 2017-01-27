@@ -3,7 +3,11 @@
 
 :: Ensure System32 is in the PATH, to avoid weird
 :: 'cscript' is not recognized as an internal or external command"" errors.
-set PATH=%PATH%;%SYSTEMROOT%\System32
+
+:: We double quote the whole thing to prevent file
+:: name spaces from messing up the PATH variable.
+:: See https://github.com/cmderdev/cmder/issues/443#issuecomment-150202124
+set "PATH=%PATH%;%SYSTEMROOT%\System32"
 
 cscript //nologo "%~f0?.wsf"
 exit /b
