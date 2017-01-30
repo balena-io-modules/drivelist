@@ -11,8 +11,8 @@ get_uuids() {
   /sbin/blkid -s UUID -o value "$1"*
 }
 
-get_mountpoint() {
-  df --output=source,target | grep "^$1" | awk '!($1="")&&gsub(/^ /,"")'
+get_mountpoints() {
+  grep "^$1" /proc/mounts | cut -d ' ' -f 2
 }
 
 DISKS="$(lsblk -d --output NAME | ignore_first_line)"
@@ -30,13 +30,13 @@ for disk in $DISKS; do
   protected=${diskinfo[1]}
   removable=${diskinfo[2]}
   description=${diskinfo[*]:3}
-  mountpoints="$(get_mountpoint "$device")"
+  mountpoints="$(get_mountpoints "$device")"
 
   # If we couldn't get the mount points as `/dev/$disk`,
   # get the disk UUIDs, and check as `/dev/disk/by-uuid/$uuid`
   if [ -z "$mountpoints" ]; then
     for uuid in $(get_uuids "$device"); do
-      mountpoints="$mountpoints$(get_mountpoint "/dev/disk/by-uuid/$uuid")"
+      mountpoints="$mountpoints$(get_mountpoints "/dev/disk/by-uuid/$uuid")"
     done
   fi
 
