@@ -67,22 +67,21 @@ describe('Scripts', function() {
 
     });
 
-    describe('given the script outputs to stderr', function() {
+    describe('given the script outputs to stderr with exit code 0', function() {
 
       beforeEach(function() {
         this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        this.childProcessExecFileStub.yields(null, '', 'script error');
+        this.childProcessExecFileStub.yields(null, 'foo bar', 'script error');
       });
 
       afterEach(function() {
         this.childProcessExecFileStub.restore();
       });
 
-      it('should yield an error', function(done) {
+      it('should ignore stderr', function(done) {
         scripts.run('foo', (error, output) => {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('script error');
-          m.chai.expect(output).to.not.exist;
+          m.chai.expect(error).to.not.exist;
+          m.chai.expect(output).to.equal('foo bar');
           done();
         });
       });
