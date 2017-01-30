@@ -1,18 +1,21 @@
 #!/bin/bash
 
-function ignore_first_line {
+set -u
+set -e
+
+ignore_first_line() {
   tail -n +2
 }
 
-function get_uuids {
-  /sbin/blkid -s UUID -o value $1*
+get_uuids() {
+  /sbin/blkid -s UUID -o value "$1"*
 }
 
-function get_mountpoint {
+get_mountpoint() {
   df --output=source,target | grep "^$1" | awk '!($1="")&&gsub(/^ /,"")'
 }
 
-DISKS="`lsblk -d --output NAME | ignore_first_line`"
+DISKS="$(lsblk -d --output NAME | ignore_first_line)"
 
 for disk in $DISKS; do
 
@@ -22,27 +25,27 @@ for disk in $DISKS; do
   fi
 
   device="/dev/$disk"
-  diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line))
+  diskinfo=($(lsblk -b -d "$device" --output SIZE,RO,RM,MODEL | ignore_first_line))
   size=${diskinfo[0]}
   protected=${diskinfo[1]}
   removable=${diskinfo[2]}
-  description=${diskinfo[@]:3}
-  mountpoints=`get_mountpoint $device`
+  description=${diskinfo[*]:3}
+  mountpoints="$(get_mountpoint "$device")"
 
   # If we couldn't get the mount points as `/dev/$disk`,
   # get the disk UUIDs, and check as `/dev/disk/by-uuid/$uuid`
   if [ -z "$mountpoints" ]; then
-    for uuid in `get_uuids $device`; do
-      mountpoints=$mountpoints`get_mountpoint /dev/disk/by-uuid/$uuid`
+    for uuid in $(get_uuids "$device"); do
+      mountpoints="$mountpoints$(get_mountpoint "/dev/disk/by-uuid/$uuid")"
     done
   fi
 
   # If we couldn't get the description from `lsblk`, see if we can get it
   # from sysfs (e.g. PCI-connected SD cards that appear as `/dev/mmcblk0`)
   if [ -z "$description" ]; then
-    subdevice=`echo "$device" | cut -d'/' -f3`
+    subdevice="$(echo "$device" | cut -d '/' -f 3)"
     if [ -f "/sys/class/block/$subdevice/device/name" ]; then
-      description=`cat "/sys/class/block/$subdevice/device/name"`
+      description="$(cat "/sys/class/block/$subdevice/device/name")"
     fi
   fi
   description="\"${description//"/\\"}\""
@@ -55,7 +58,7 @@ for disk in $DISKS; do
     echo "mountpoints: []"
   else
     echo "mountpoints:"
-    echo "$mountpoints" | while read mountpoint ; do
+    echo "$mountpoints" | while read -r mountpoint ; do
       echo "  - path: $mountpoint"
     done
   fi
@@ -68,12 +71,14 @@ for disk in $DISKS; do
     echo "protected: False"
   fi
 
-  eval "`udevadm info \
+  eval "$(udevadm info \
     --query=property \
     --export \
     --export-prefix=UDEV_ \
-    --name=$disk \
-    | awk -F= '{gsub("\\\\.","_",$1); print $1 "=" $2}'`"
+    --name="$disk" \
+    | awk -F= '{gsub("\\\\.","_",$1); print $1 "=" $2}')"
+
+  set +u
 
   if [[ "$removable" == "1" ]] && \
      [[ "$UDEV_ID_DRIVE_FLASH_SD" == "1" ]] || \
@@ -84,6 +89,8 @@ for disk in $DISKS; do
   else
     echo "system: True"
   fi
+
+  set -u
 
   # Unset UDEV variables used above to prevent them from
   # being interpreted as properties of another drive
