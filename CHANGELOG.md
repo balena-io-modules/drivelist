@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.10
+
+- Don't include drive letters assigned to no file system in Windows mount points.
+
 ### v5.0.9
 
 - Print platform scripts `stderr` output to a debug channel instead of throwing if the script exitted with code zero.
