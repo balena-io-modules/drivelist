@@ -135,7 +135,13 @@ Function GetTopLevelDrives()
 		Summary.Add "IsRemovable", IsRemovable
 		Summary.Add "IsProtected", IsProtected
 
-		GetTopLevelDrives.Add(Summary)
+		' Windows might always list internal SD Card
+		' readers, even when there are no cards inserted.
+		' A realiable way to omit these drives is to
+		' check whether the size is null
+		If Not IsNull(Summary.Item("Size")) Then
+			GetTopLevelDrives.Add(Summary)
+		End If
 	Next
 End Function
 
