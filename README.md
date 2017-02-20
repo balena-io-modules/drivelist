@@ -191,18 +191,23 @@ $ npm install --save drivelist
 Documentation
 -------------
 
+
+* [drivelist](#module_drivelist)
+    * [.list(callback)](#module_drivelist.list)
+    * [.get(device, callback)](#module_drivelist.get)
+
 <a name="module_drivelist.list"></a>
 
 ### drivelist.list(callback)
-**Kind**: static method of <code>[drivelist](#module_drivelist)</code>
-**Summary**: List available drives
-**Access:** public
+**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
+**Summary**: List available drives  
+**Access:** public  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | callback (error, drives) |
 
-**Example**
+**Example**  
 ```js
 const drivelist = require('drivelist');
 
@@ -214,6 +219,30 @@ drivelist.list((error, drives) => {
   drives.forEach((drive) => {
     console.log(drive);
   });
+});
+```
+<a name="module_drivelist.get"></a>
+
+### drivelist.get(device, callback)
+**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
+**Summary**: Get information about a drive  
+**Access:** public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| device | <code>String</code> | drive device |
+| callback | <code>function</code> | callback (error, drive) |
+
+**Example**  
+```js
+const drivelist = require('drivelist');
+
+drivelist.get('\\\\.\\PHYSICALDRIVE2', (error, drive) => {
+  if (error) {
+    throw error;
+  }
+
+  console.log(drive);
 });
 ```
 
