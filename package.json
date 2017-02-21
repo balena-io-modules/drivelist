@@ -24,6 +24,11 @@
     "lint": "eslint lib tests example.js",
     "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md"
   },
+  "bin": {
+    "drivelist-darwin": "scripts/darwin.sh",
+    "drivelist-linux": "scripts/linux.sh",
+    "drivelist-win32": "scripts/win32.bat"
+  },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
   "devDependencies": {
