@@ -4,11 +4,19 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-### v5.0.12
+### v5.0.13
+
+**Important:** v5.0.11 and v5.0.12 were both published to NPM from a Windows
+machine. This messed up the execution permissions of the drive detection
+scripts, causing `EACCES` errors.
+
+This version is equal to v5.0.12, but was released from a UNIX based system.
+
+### v5.0.12 [BROKEN]
 
 - Ensure the Windows script has execution permissions.
 
-### v5.0.11
+### v5.0.11 [BROKEN]
 
 - Omit empty SD Card readers on Windows.
 
