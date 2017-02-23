@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.14
+
+- Catch the exit code of the wrapped VBScript on Windows.
+
 ### v5.0.13
 
 **Important:** v5.0.11 and v5.0.12 were both published to NPM from a Windows
