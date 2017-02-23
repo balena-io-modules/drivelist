@@ -10,7 +10,7 @@
 set "PATH=%PATH%;%SYSTEMROOT%\System32"
 
 cscript //nologo "%~f0?.wsf"
-exit /b
+exit /b %ERRORLEVEL%
 
 ----- Begin wsf script --->
 <job><script language="VBScript">
