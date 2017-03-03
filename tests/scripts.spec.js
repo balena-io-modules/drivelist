@@ -49,7 +49,9 @@ describe('Scripts', function() {
 
       beforeEach(function() {
         this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        this.childProcessExecFileStub.yields(new Error('script error'));
+        const error = new Error('script error');
+        error.code = 27;
+        this.childProcessExecFileStub.yields(error);
       });
 
       afterEach(function() {
@@ -59,7 +61,7 @@ describe('Scripts', function() {
       it('should yield the error', function(done) {
         scripts.run('foo', (error, output) => {
           m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('script error');
+          m.chai.expect(error.message).to.equal('script error (code 27)');
           m.chai.expect(output).to.not.exist;
           done();
         });
