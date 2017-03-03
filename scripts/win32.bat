@@ -69,78 +69,93 @@ Function GetOperatingSystemDevice()
 	Next
 End Function
 
+Function IsWMIObjectValid(WMIObject)
+	On Error Resume Next
+	Columns = WMIObject.Count
+	IsWMIObjectValid = True
+	If (Err.Number <> 0) Then
+		IsWMIobjectValid = False
+	End If
+	On Error Goto 0
+End Function
+
 Function GetLogicalDisks(ByVal DriveDevice)
-	Set GetLogicalDisks = new List
 	Set DrivePartitionsColumn = WMIService.ExecQuery _
 		("ASSOCIATORS OF {Win32_DiskDrive.DeviceID=""" & _
 			DriveDevice & """} WHERE AssocClass = " & _
 				"Win32_DiskDriveToDiskPartition")
 
-	For Each DrivePartition In DrivePartitionsColumn
-		Set DriveLogicalDisksColumn = WMIService.ExecQuery _
-			("ASSOCIATORS OF {Win32_DiskPartition.DeviceID=""" & _
-				DrivePartition.DeviceID & """} WHERE AssocClass = " & _
-					"Win32_LogicalDiskToPartition")
+	If Not IsWMIObjectValid(DrivePartitionsColumn) Then
+		Set GetLogicalDisks = Nothing
+	Else
+		Set GetLogicalDisks = new List
+		For Each DrivePartition In DrivePartitionsColumn
+			Set DriveLogicalDisksColumn = WMIService.ExecQuery _
+				("ASSOCIATORS OF {Win32_DiskPartition.DeviceID=""" & _
+					DrivePartition.DeviceID & """} WHERE AssocClass = " & _
+						"Win32_LogicalDiskToPartition")
 
-		For Each DriveLogicalDisk In DriveLogicalDisksColumn
-			Set LogicalDisk = CreateObject("Scripting.Dictionary")
+			For Each DriveLogicalDisk In DriveLogicalDisksColumn
+				Set LogicalDisk = CreateObject("Scripting.Dictionary")
 
-			' Windows might assign a drive letter to partitions that
-			' don't contain a file-system for some reason.
-			' After some experimentation, it seems that we can filter
-			' those out by checking if the partition size is null
-			If Not IsNull(DriveLogicalDisk.Size) Then
-				LogicalDisk.Add "Device", DriveLogicalDisk.DeviceID
-				LogicalDisk.Add "IsProtected", DriveLogicalDisk.Access = 1
-				GetLogicalDisks.Add(LogicalDisk)
-			End If
+				' Windows might assign a drive letter to partitions that
+				' don't contain a file-system for some reason.
+				' After some experimentation, it seems that we can filter
+				' those out by checking if the partition size is null
+				If Not IsNull(DriveLogicalDisk.Size) Then
+					LogicalDisk.Add "Device", DriveLogicalDisk.DeviceID
+					LogicalDisk.Add "IsProtected", DriveLogicalDisk.Access = 1
+					GetLogicalDisks.Add(LogicalDisk)
+				End If
+			Next
 		Next
-	Next
+	End If
 End Function
 
 Function GetTopLevelDrives()
 	OperatingSystemDevice = GetOperatingSystemDevice()
 	Set GetTopLevelDrives = new List
 	Set TopLevelDrivesColumn = WMIService.ExecQuery("SELECT * FROM Win32_DiskDrive")
+
 	For Each TopLevelDrive In TopLevelDrivesColumn
 		Set Summary = CreateObject("Scripting.Dictionary")
-
 		DeviceID = Replace(TopLevelDrive.DeviceID, "\", "\\")
-		Summary.Add "Device", DeviceID
-
-		Summary.Add "Description", TopLevelDrive.Caption
-		Summary.Add "Size", TopLevelDrive.Size
-
-		Set Mountpoints = new List
-		IsRemovable = InStr(TopLevelDrive.MediaType, "Removable") = 1
-		IsProtected = False
-
 		Set LogicalDisks = GetLogicalDisks(DeviceID)
 
-		For Each LogicalDisk In LogicalDisks.GetArray()
-			If Not Mountpoints.Has(LogicalDisk.Item("Device")) Then
-				Mountpoints.Add(LogicalDisk.Item("Device"))
+		If Not LogicalDisks Is Nothing Then
+			Summary.Add "Device", DeviceID
+			Summary.Add "Description", TopLevelDrive.Caption
+			Summary.Add "Size", TopLevelDrive.Size
+
+			Set Mountpoints = new List
+			IsRemovable = InStr(TopLevelDrive.MediaType, "Removable") = 1
+			IsProtected = False
+
+			For Each LogicalDisk In LogicalDisks.GetArray()
+				If Not Mountpoints.Has(LogicalDisk.Item("Device")) Then
+					Mountpoints.Add(LogicalDisk.Item("Device"))
+				End If
+
+				If LogicalDisk.Item("IsProtected") Then
+					IsProtected = True
+				End If
+
+				If LogicalDisk.Item("Device") = OperatingSystemDevice Then
+					IsRemovable = False
+				End If
+			Next
+
+			Summary.Add "Mountpoints", Mountpoints
+			Summary.Add "IsRemovable", IsRemovable
+			Summary.Add "IsProtected", IsProtected
+
+			' Windows might always list internal SD Card
+			' readers, even when there are no cards inserted.
+			' A realiable way to omit these drives is to
+			' check whether the size is null
+			If Not IsNull(Summary.Item("Size")) Then
+				GetTopLevelDrives.Add(Summary)
 			End If
-
-			If LogicalDisk.Item("IsProtected") Then
-				IsProtected = True
-			End If
-
-			If LogicalDisk.Item("Device") = OperatingSystemDevice Then
-				IsRemovable = False
-			End If
-		Next
-
-		Summary.Add "Mountpoints", Mountpoints
-		Summary.Add "IsRemovable", IsRemovable
-		Summary.Add "IsProtected", IsProtected
-
-		' Windows might always list internal SD Card
-		' readers, even when there are no cards inserted.
-		' A realiable way to omit these drives is to
-		' check whether the size is null
-		If Not IsNull(Summary.Item("Size")) Then
-			GetTopLevelDrives.Add(Summary)
 		End If
 	Next
 End Function

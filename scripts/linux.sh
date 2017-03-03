@@ -26,6 +26,13 @@ for disk in $DISKS; do
 
   device="/dev/$disk"
   diskinfo=($(lsblk -b -d "$device" --output SIZE,RO,RM,MODEL | ignore_first_line))
+
+  # Omit drives for which `lsblk` failed, which means they
+  # were unplugged right after we got the list of all drives
+  if [ -z "${diskinfo-}" ]; then
+    continue
+  fi
+
   size=${diskinfo[0]}
   protected=${diskinfo[1]}
   removable=${diskinfo[2]}
