@@ -20,7 +20,11 @@ DISKS="$(diskutil list | grep '^\/' | get_until_paren)"
 mount_output="$(mount)"
 
 for disk in $DISKS; do
-  diskinfo="$(diskutil info "$disk")"
+
+  # Ignore drives that were just unplugged
+  if ! diskinfo="$(diskutil info "$disk")"; then
+    continue
+  fi
 
   device="$(echo "$diskinfo" | get_key "Device Node")"
 
