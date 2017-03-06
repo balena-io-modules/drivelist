@@ -4,6 +4,11 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.15
+
+- Increase debug logging in the case of script errors
+- Prevent errors when unplugging drives while the scripts are running
+
 ### v5.0.14
 
 - Catch the exit code of the wrapped VBScript on Windows.
