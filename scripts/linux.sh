@@ -83,7 +83,7 @@ for disk in $DISKS; do
     --export \
     --export-prefix=UDEV_ \
     --name="$disk" \
-    | awk -F= '{gsub("\\\\.","_",$1); print $1 "=" $2}')"
+    | awk -F= '{gsub("\\.","_",$1); print $1 "=" $2}')"
 
   set +u
 
