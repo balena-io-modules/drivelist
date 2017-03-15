@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.17
+
+- Fix literal `040` on mountpoints that contain spaces in GNU/Linux
+
 ### v5.0.16
 
 - Fix awk expression that replaces periods with underscores before evaluating
