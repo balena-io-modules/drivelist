@@ -12,7 +12,7 @@ get_uuids() {
 }
 
 get_mountpoints() {
-  grep "^$1" /proc/mounts | cut -d ' ' -f 2 | sed 's,\\040, ,g'
+  grep "^$1" /proc/mounts | cut -d ' ' -f 2 | sed 's,\\040, ,g' | sed 's,\\011,\t,g' | sed 's,\\012,\\n,g' | sed 's,\\134,\\\\,g'
 }
 
 DISKS="$(lsblk -d --output NAME | ignore_first_line)"
