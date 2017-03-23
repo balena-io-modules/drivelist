@@ -55,10 +55,9 @@ for disk in $DISKS; do
       description="$(cat "/sys/class/block/$subdevice/device/name")"
     fi
   fi
-  description="\"${description//"/\\"}\""
 
   echo "device: $device"
-  echo "description: $description"
+  echo "description: \"$description\""
   echo "size: $size"
 
   if [ -z "$mountpoints" ]; then
