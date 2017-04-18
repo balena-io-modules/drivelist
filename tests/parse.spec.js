@@ -232,4 +232,45 @@ describe('Parse', function() {
     ]);
   });
 
+  it('should remove the backslash of unknown escape sequences inside values', function() {
+    m.chai.expect(parse([
+      'device: /dev/disk1',
+      'description: "\\]=-01`23456\\78\\90\\=\\-0\\98e"'
+    ].join('\n'))).to.deep.equal([
+      {
+        device: '/dev/disk1',
+        description: ']=-01`234567890=-098e'
+      }
+    ]);
+  });
+
+  it('should maintain known escape sequences', function() {
+    m.chai.expect(parse([
+      'device: /dev/disk1',
+      'description: "foo\\bbar\\f\\nbaz\\r\\tqux\\v"'
+    ].join('\n'))).to.deep.equal([
+      {
+        device: '/dev/disk1',
+        description: 'foo\bbar\f\nbaz\r\tqux\v'
+      }
+    ]);
+  });
+
+  it('should delete unicode characters inside a value', function() {
+    m.chai.expect(parse([
+      'device: /dev/disk1',
+      'description: ""HCG8e\u0005"             ^"',
+      'foo: "StoreJet  Transce\u0007\ufffd"',
+      'printable: "\u0900\u04F5hello"'
+
+    ].join('\n'))).to.deep.equal([
+      {
+        device: '/dev/disk1',
+        description: '"HCG8e"             ^',
+        foo: 'StoreJet  Transce',
+        printable: 'hello'
+      }
+    ]);
+  });
+
 });
