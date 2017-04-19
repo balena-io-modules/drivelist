@@ -4,6 +4,11 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.19
+
+- Correctly deal with unicode characters coming from drive descriptions
+- Correctly deal with invalid escape sequences coming from drive descriptions
+
 ### v5.0.18
 
 - Fix mountpoints getting cut if they contain a `#` in GNU/Linux and macOS
