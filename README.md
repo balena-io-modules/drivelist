@@ -1,3 +1,5 @@
+<!-- Make sure you edit doc/README.hbs rather than README.md because the latter is auto-generated -->
+
 drivelist
 =========
 
@@ -194,15 +196,15 @@ Documentation
 <a name="module_drivelist.list"></a>
 
 ### drivelist.list(callback)
-**Kind**: static method of <code>[drivelist](#module_drivelist)</code>
-**Summary**: List available drives
-**Access:** public
+**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
+**Summary**: List available drives  
+**Access:** public  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | callback (error, drives) |
 
-**Example**
+**Example**  
 ```js
 const drivelist = require('drivelist');
 
@@ -238,6 +240,12 @@ Before submitting a PR, please make sure that you include tests, and that the li
 
 ```sh
 $ npm run lint
+```
+
+Execute the following command after making any changes to the platform scripts:
+
+```sh
+npm run compile-scripts
 ```
 
 Support
