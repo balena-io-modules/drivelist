@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 Resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,121 +17,39 @@
 'use strict';
 
 const m = require('mochainon');
-const childProcess = require('child_process');
-const _ = require('lodash');
-const scripts = require('../lib/scripts');
+const fs = require('fs');
+const path = require('path');
+const scripts = require('../lib/scripts.json');
 
 describe('Scripts', function() {
 
-  describe('.paths', function() {
+  const checkCompiledScript = (script, scriptPath) => {
+    it(`should match ${path.basename(scriptPath)}`, function(done) {
+      fs.readFile(scriptPath, {
+        encoding: 'utf8'
+      }, (error, content) => {
+        m.chai.expect(error).to.not.exist;
+        m.chai.expect(script).to.deep.equal({
+          originalFilename: path.basename(scriptPath),
+          content,
+          type: 'text'
+        });
 
-    it('should be a plain object', function() {
-      m.chai.expect(_.isPlainObject(scripts.paths)).to.be.true;
+        done();
+      });
     });
+  };
 
-    it('should have a win32 string property', function() {
-      m.chai.expect(scripts.paths.win32).to.be.a('string');
-    });
-
-    it('should have a linux string property', function() {
-      m.chai.expect(scripts.paths.linux).to.be.a('string');
-    });
-
-    it('should have a darwin string property', function() {
-      m.chai.expect(scripts.paths.darwin).to.be.a('string');
-    });
-
+  describe('.win32', function() {
+    checkCompiledScript(scripts.win32, path.join(__dirname, '..', 'scripts', 'win32.bat'));
   });
 
-  describe('.run()', function() {
+  describe('.linux', function() {
+    checkCompiledScript(scripts.linux, path.join(__dirname, '..', 'scripts', 'linux.sh'));
+  });
 
-    describe('given an error when running the script', function() {
-
-      beforeEach(function() {
-        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        const error = new Error('script error');
-        error.code = 27;
-        this.childProcessExecFileStub.yields(error);
-      });
-
-      afterEach(function() {
-        this.childProcessExecFileStub.restore();
-      });
-
-      it('should yield the error', function(done) {
-        scripts.run('foo', (error, output) => {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('script error (code 27)');
-          m.chai.expect(output).to.not.exist;
-          done();
-        });
-      });
-
-    });
-
-    describe('given the script outputs to stderr with exit code 0', function() {
-
-      beforeEach(function() {
-        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        this.childProcessExecFileStub.yields(null, 'foo bar', 'script error');
-      });
-
-      afterEach(function() {
-        this.childProcessExecFileStub.restore();
-      });
-
-      it('should ignore stderr', function(done) {
-        scripts.run('foo', (error, output) => {
-          m.chai.expect(error).to.not.exist;
-          m.chai.expect(output).to.equal('foo bar');
-          done();
-        });
-      });
-
-    });
-
-    describe('given the script outputs to stdout and a blank string to stderr', function() {
-
-      beforeEach(function() {
-        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        this.childProcessExecFileStub.yields(null, 'foo bar', '   ');
-      });
-
-      afterEach(function() {
-        this.childProcessExecFileStub.restore();
-      });
-
-      it('should yield the result', function(done) {
-        scripts.run('foo', (error, output) => {
-          m.chai.expect(error).to.not.exist;
-          m.chai.expect(output).to.equal('foo bar');
-          done();
-        });
-      });
-
-    });
-
-    describe('given the script outputs to stdout', function() {
-
-      beforeEach(function() {
-        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
-        this.childProcessExecFileStub.yields(null, 'foo bar', '');
-      });
-
-      afterEach(function() {
-        this.childProcessExecFileStub.restore();
-      });
-
-      it('should yield the result', function(done) {
-        scripts.run('foo', (error, output) => {
-          m.chai.expect(error).to.not.exist;
-          m.chai.expect(output).to.equal('foo bar');
-          done();
-        });
-      });
-
-    });
-
+  describe('.darwin', function() {
+    checkCompiledScript(scripts.darwin, path.join(__dirname, '..', 'scripts', 'darwin.sh'));
   });
 
 });

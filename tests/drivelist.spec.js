@@ -18,8 +18,9 @@
 
 const m = require('mochainon');
 const os = require('os');
-const scripts = require('../lib/scripts');
+const execute = require('../lib/execute');
 const drivelist = require('../lib/drivelist');
+const scripts = require('../lib/scripts.json');
 
 describe('Drivelist', function() {
 
@@ -28,23 +29,23 @@ describe('Drivelist', function() {
     describe('given scripts run succesfully', function() {
 
       beforeEach(function() {
-        this.scriptsRunStub = m.sinon.stub(scripts, 'run');
+        this.executeExtractAndRunStub = m.sinon.stub(execute, 'extractAndRun');
 
-        this.scriptsRunStub.withArgs(scripts.paths.win32).yields(null, [
+        this.executeExtractAndRunStub.withArgs(scripts.win32).yields(null, [
           'device: "\\\\\\\\.\\\\PHYSICALDRIVE1"',
           'description: "My drive"',
           'size: "15 GB"',
           'mountpoint: "D:"'
         ].join('\n'));
 
-        this.scriptsRunStub.withArgs(scripts.paths.linux).yields(null, [
+        this.executeExtractAndRunStub.withArgs(scripts.linux).yields(null, [
           'device: "/dev/sda"',
           'description: "My drive"',
           'size: "15 GB"',
           'mountpoint: "/mnt/drive"'
         ].join('\n'));
 
-        this.scriptsRunStub.withArgs(scripts.paths.darwin).yields(null, [
+        this.executeExtractAndRunStub.withArgs(scripts.darwin).yields(null, [
           'device: "/dev/disk2"',
           'description: "My drive"',
           'size: "15 GB"',
@@ -53,7 +54,7 @@ describe('Drivelist', function() {
       });
 
       afterEach(function() {
-        this.scriptsRunStub.restore();
+        this.executeExtractAndRunStub.restore();
       });
 
       describe('given win32', function() {

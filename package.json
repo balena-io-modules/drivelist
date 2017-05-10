@@ -21,6 +21,7 @@
   },
   "scripts": {
     "test": "npm run lint && mocha --recursive tests -R spec",
+    "compile-scripts": "node scripts/compile.js",
     "lint": "eslint lib tests example.js",
     "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md"
   },
@@ -38,8 +39,10 @@
     "mochainon": "^1.0.0"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "debug": "^2.6.0",
     "js-yaml": "^3.4.1",
-    "lodash": "^4.16.4"
+    "lodash": "^4.16.4",
+    "tmp": "0.0.31"
   }
 }
