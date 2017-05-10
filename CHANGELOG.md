@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.20
+
+- Inline platform scripts as a JSON file.
+
 ### v5.0.19
 
 - Correctly deal with unicode characters coming from drive descriptions
