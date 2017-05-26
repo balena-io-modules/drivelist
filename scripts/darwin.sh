@@ -46,7 +46,13 @@ for disk in $DISKS; do
   fi
 
   echo "device: $device"
-  echo "description: \"$description\""
+
+  if [[ $volume_name =~ .*Not\ applicable.* ]]; then
+    echo "description: \"$description\""
+  else
+    echo "description: \"$volume_name - $description\""
+  fi
+
   echo "size: $size"
 
   if [[ -z "$mountpoints" ]]; then
