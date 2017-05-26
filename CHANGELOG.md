@@ -4,6 +4,10 @@ ChangeLog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v5.0.21
+
+- Join volume and device names as descriptions if they both exists on macOS
+
 ### v5.0.20
 
 - Inline platform scripts as a JSON file.
