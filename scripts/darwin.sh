@@ -47,12 +47,10 @@ for disk in $DISKS; do
 
   echo "device: $device"
 
-  # Attempt to use the volume name if applicable,
-  # since it provides a much more readable name.
   if [[ $volume_name =~ .*Not\ applicable.* ]]; then
     echo "description: \"$description\""
   else
-    echo "description: \"$volume_name\""
+    echo "description: \"$volume_name - $description\""
   fi
 
   echo "size: $size"
