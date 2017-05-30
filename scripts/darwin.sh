@@ -40,6 +40,10 @@ for disk in $DISKS; do
 
   mountpoints="$(echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"')"
 
+  if [ "$volume_name" == ":" ]; then
+      volume_name=""
+  fi
+
   # Omit mounted DMG images
   if [[ "$description" == "Disk Image" ]]; then
     continue
