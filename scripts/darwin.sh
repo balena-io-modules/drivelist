@@ -36,7 +36,7 @@ for disk in $DISKS; do
   removable="$(echo "$diskinfo" | get_key "Removable Media")"
   protected="$(echo "$diskinfo" | get_key "Read-Only Media")"
   location="$(echo "$diskinfo" | get_key "Device Location")"
-  size="$(echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1')"
+  size="$(echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | cut -d '(' -f 2 | cut -d ' ' -f 1)"
 
   mountpoints="$(echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"')"
 
