@@ -1,6 +1,9 @@
 <!-- : Begin batch script
 @echo off
 
+:: Reset ERRORLEVEL. See http://stackoverflow.com/a/1113735/1641422
+ver > nul
+
 :: Ensure System32 is in the PATH, to avoid weird
 :: 'cscript' is not recognized as an internal or external command"" errors.
 
