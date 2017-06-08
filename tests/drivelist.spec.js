@@ -167,4 +167,105 @@ describe('Drivelist', function() {
 
   });
 
+  describe('.get()', function() {
+
+    describe('given scripts run succesfully', function() {
+
+      beforeEach(function() {
+        this.scriptsRunStub = m.sinon.stub(scripts, 'run');
+
+        this.scriptsRunStub.yields(null, [
+          'device: "\\\\\\\\.\\\\PHYSICALDRIVE1"',
+          'description: "My system drive"',
+          'size: 1073741824',
+          'mountpoints:',
+          '  - path: "C:"',
+          '',
+          'device: "\\\\\\\\.\\\\PHYSICALDRIVE2"',
+          'description: "My drive"',
+          'size: 33554432',
+          'mountpoints:',
+          '  - path: "D:"',
+          '  - path: "F:"'
+        ].join('\n'));
+      });
+
+      afterEach(function() {
+        this.scriptsRunStub.restore();
+      });
+
+      it('should find a drive', function(done) {
+        drivelist.get('\\\\.\\PHYSICALDRIVE1', function(error, drive) {
+          m.chai.expect(error).to.not.exist;
+          m.chai.expect(drive).to.deep.equal({
+            device: '\\\\.\\PHYSICALDRIVE1',
+            description: 'My system drive',
+            size: 1073741824,
+            mountpoints: [
+              {
+                path: 'C:'
+              }
+            ]
+          });
+
+          done();
+        });
+      });
+
+      it('should ignore casing', function(done) {
+        drivelist.get('\\\\.\\physicalDrive2', function(error, drive) {
+          m.chai.expect(error).to.not.exist;
+          m.chai.expect(drive).to.deep.equal({
+            device: '\\\\.\\PHYSICALDRIVE2',
+            description: 'My drive',
+            size: 33554432,
+            mountpoints: [
+              {
+                path: 'D:'
+              },
+              {
+                path: 'F:'
+              }
+            ]
+          });
+
+          done();
+        });
+      });
+
+      it('should throw if the drive was not found', function(done) {
+        drivelist.get('\\\\.\\PHYSICALDRIVE3', function(error, drive) {
+          m.chai.expect(error).to.be.an.instanceof(Error);
+          m.chai.expect(error.message).to.equal('Drive not found: \\\\.\\PHYSICALDRIVE3');
+          m.chai.expect(drive).to.not.exist;
+          done();
+        });
+      });
+
+    });
+
+    describe('given an unsupported os', function() {
+
+      beforeEach(function() {
+        this.osPlatformStub = m.sinon.stub(os, 'platform');
+        this.osPlatformStub.returns('foobar');
+      });
+
+      afterEach(function() {
+        this.osPlatformStub.restore();
+      });
+
+      it('should yield an unsupported error', function(done) {
+        drivelist.get('\\\\.\\PHYSICALDRIVE1', (error, drive) => {
+          m.chai.expect(error).to.be.an.instanceof(Error);
+          m.chai.expect(error.message).to.equal('Your OS is not supported by this module: foobar');
+          m.chai.expect(drive).to.not.exist;
+          done();
+        });
+      });
+
+    });
+
+  });
+
 });
