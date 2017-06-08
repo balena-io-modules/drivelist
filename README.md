@@ -7,10 +7,10 @@ drivelist
 
 [![Current Release](https://img.shields.io/npm/v/drivelist.svg?style=flat-square)](https://npmjs.com/package/drivelist)
 [![License](https://img.shields.io/npm/l/drivelist.svg?style=flat-square)](https://npmjs.com/package/drivelist)
-[![Travis CI status](https://img.shields.io/travis/resin-io-modules/drivelist/master.svg?style=flat-square&label=linux)](https://travis-ci.org/resin-io/drivelist/branches)
+[![Travis CI status](https://img.shields.io/travis/resin-io-modules/drivelist/master.svg?style=flat-square&label=linux)](https://travis-ci.org/resin-io-modules/drivelist/branches)
 [![AppVeyor status](https://img.shields.io/appveyor/ci/resin-io/drivelist/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/resin-io/drivelist/branch/master)
 [![Dependency status](https://img.shields.io/david/resin-io-modules/drivelist.svg?style=flat-square)](https://david-dm.org/resin-io-modules/drivelist)
-[![Gitter Chat](https://img.shields.io/gitter/room/resin-io/chat.svg?style=flat-square)](https://gitter.im/resin-io/chat)
+[![Gitter Chat](https://img.shields.io/gitter/room/resin-io/etcher.svg?style=flat-square)](https://gitter.im/resin-io/etcher)
 
 Notice that this module **does not require** admin privileges to get the drives in any supported operating system.
 
@@ -197,15 +197,15 @@ Documentation
 <a name="module_drivelist.list"></a>
 
 ### drivelist.list(callback)
-**Kind**: static method of <code>[drivelist](#module_drivelist)</code>
-**Summary**: List available drives
-**Access:** public
+**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
+**Summary**: List available drives  
+**Access:** public  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | callback | <code>function</code> | callback (error, drives) |
 
-**Example**
+**Example**  
 ```js
 const drivelist = require('drivelist');
 
