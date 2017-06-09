@@ -7,6 +7,7 @@ drivelist
 
 [![Current Release](https://img.shields.io/npm/v/drivelist.svg?style=flat-square)](https://npmjs.com/package/drivelist)
 [![License](https://img.shields.io/npm/l/drivelist.svg?style=flat-square)](https://npmjs.com/package/drivelist)
+[![Downloads](https://img.shields.io/npm/dm/drivelist.svg?style=flat-square)](https://npmjs.com/package/drivelist)
 [![Travis CI status](https://img.shields.io/travis/resin-io-modules/drivelist/master.svg?style=flat-square&label=linux)](https://travis-ci.org/resin-io-modules/drivelist/branches)
 [![AppVeyor status](https://img.shields.io/appveyor/ci/resin-io/drivelist/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/resin-io/drivelist/branch/master)
 [![Dependency status](https://img.shields.io/david/resin-io-modules/drivelist.svg?style=flat-square)](https://david-dm.org/resin-io-modules/drivelist)
