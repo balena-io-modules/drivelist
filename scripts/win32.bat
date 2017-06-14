@@ -105,6 +105,7 @@ Function GetLogicalDisks(ByVal DriveDevice)
 				If Not IsNull(DriveLogicalDisk.Size) Then
 					LogicalDisk.Add "Device", DriveLogicalDisk.DeviceID
 					LogicalDisk.Add "IsProtected", DriveLogicalDisk.Access = 1
+					LogicalDisk.Add "VolumeName", DriveLogicalDisk.VolumeName
 					GetLogicalDisks.Add(LogicalDisk)
 				End If
 			Next
@@ -128,12 +129,14 @@ Function GetTopLevelDrives()
 			Summary.Add "Size", TopLevelDrive.Size
 
 			Set Mountpoints = new List
+			Set MountpointObjects = new List
 			IsRemovable = InStr(TopLevelDrive.MediaType, "Removable") = 1
 			IsProtected = False
 
 			For Each LogicalDisk In LogicalDisks.GetArray()
 				If Not Mountpoints.Has(LogicalDisk.Item("Device")) Then
 					Mountpoints.Add(LogicalDisk.Item("Device"))
+					MountpointObjects.Add(LogicalDisk)
 				End If
 
 				If LogicalDisk.Item("IsProtected") Then
@@ -145,7 +148,7 @@ Function GetTopLevelDrives()
 				End If
 			Next
 
-			Summary.Add "Mountpoints", Mountpoints
+			Summary.Add "Mountpoints", MountpointObjects
 			Summary.Add "IsRemovable", IsRemovable
 			Summary.Add "IsProtected", IsProtected
 
@@ -173,7 +176,8 @@ For Each TopLevelDrive In GetTopLevelDrives().GetArray()
 	Else
 		Wscript.Echo "mountpoints:"
 		For Each Mountpoint In TopLevelDrive.Item("Mountpoints").GetArray()
-			Wscript.Echo "  - path: """ & Mountpoint & """"
+			Wscript.Echo "  - path: """ & Mountpoint.Item("Device") & """"
+			Wscript.Echo "    volumeName: """ & Mountpoint.Item("VolumeName") & """"
 		Next
 	End If
 

@@ -61,6 +61,7 @@ for disk in $DISKS; do
     echo "mountpoints:"
     echo "$mountpoints" | while read -r mountpoint ; do
       echo "  - path: \"$mountpoint\""
+      echo "    volumeName: \"$mountpoint\""
     done
   fi
 
