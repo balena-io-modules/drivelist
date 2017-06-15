@@ -198,9 +198,9 @@ Documentation
 <a name="module_drivelist.list"></a>
 
 ### drivelist.list(callback)
-**Kind**: static method of <code>[drivelist](#module_drivelist)</code>  
+**Kind**: static method of [<code>drivelist</code>](#module_drivelist)  
 **Summary**: List available drives  
-**Access:** public  
+**Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
