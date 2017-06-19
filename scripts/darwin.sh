@@ -60,8 +60,11 @@ for disk in $DISKS; do
   else
     echo "mountpoints:"
     echo "$mountpoints" | while read -r mountpoint ; do
+      volume="$(echo "$mount_output" | perl -n -e'm{^('"${disk}"'(s[0-9]+)?) on (.*) \(.*\)$} && print "$1\n"')"
+      volume_info="$(diskutil info "$volume")"
+      volume_name="$(echo "$volume_info" | get_key "Volume Name")"
       echo "  - path: \"$mountpoint\""
-      echo "    volumeName: \"$mountpoint\""
+      echo "    volumeName: \"$volume_name\""
     done
   fi
 
