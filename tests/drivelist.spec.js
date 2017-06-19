@@ -16,12 +16,9 @@
 
 'use strict';
 
-const m = require('mochainon');
-const os = require('os');
-const execute = require('../lib/execute');
-const drivelist = require('../lib/drivelist');
-const scripts = require('../lib/scripts.json');
+const drivelist = require('..');
 
+// TODO(jhermsmeier): Mend tests
 describe('Drivelist', function() {
 
   describe('.list()', function() {
