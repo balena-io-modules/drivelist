@@ -1,5 +1,25 @@
 language: node_js
 node_js:
-  - "6"
+  - 8
+  - 6
+  - 4
+script:
+  - npm test
+os:
+  - linux
+  - osx
+compiler: clang-4.0
+env:
+  global:
+    - CCACHE_TEMPDIR=/tmp/.ccache-temp
+    - CCACHE_COMPRESS=1
+    - CC="clang"
+    - CXX="clang++"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-5-dev
 notifications:
   email: false

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-'use strict';
+// See https://support.microsoft.com/en-us/kb/165721
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
 
-const drivelist = require('./lib/drivelist');
+#include <nan.h>
+#include "../drivelist.hpp"
 
-drivelist.list((error, drives) => {
-  if (error) {
-    console.error(error);
-    process.exit(1);
-  }
-
-  console.log(JSON.stringify(drives, null, 2));
-});
+// TODO(jhermsmeier): Implement
+std::vector<DriveDescriptor> list_storage_devices() {
+  std::vector<DriveDescriptor> drivelist;
+  return drivelist;
+}

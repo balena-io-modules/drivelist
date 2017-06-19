@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 Resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,30 +16,17 @@
 
 'use strict';
 
-/**
- * @module drivelist
- */
+const drivelist = require('..');
+const util = require('util');
 
-const bindings = require('bindings')('drivelist');
+drivelist.list((error, drives) => {
+  if (error) {
+    console.error(error);
+    process.exit(1);
+  }
 
-/**
- * @summary List available drives
- * @function
- * @public
- *
- * @param {Function} callback - callback (error, drives)
- *
- * @example
- * const drivelist = require('drivelist');
- *
- * drivelist.list((error, drives) => {
- *   if (error) {
- *     throw error;
- *   }
- *
- *   drives.forEach((drive) => {
- *     console.log(drive);
- *   });
- * });
- */
-exports.list = bindings.list;
+  console.log(util.inspect(drives, {
+    colors: process.stdout.isTTY,
+    depth: null
+  }));
+});

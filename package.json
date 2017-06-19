@@ -21,28 +21,22 @@
   },
   "scripts": {
     "test": "npm run lint && mocha --recursive tests -R spec",
-    "compile-scripts": "node scripts/compile.js",
-    "lint": "eslint lib tests example.js",
-    "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md"
-  },
-  "bin": {
-    "drivelist-darwin": "scripts/darwin.sh",
-    "drivelist-linux": "scripts/linux.sh",
-    "drivelist-win32": "scripts/win32.bat"
+    "lint": "eslint lib tests example && cpplint --recursive src",
+    "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md",
+    "configure": "node-gyp configure",
+    "build": "node-gyp build",
+    "rebuild": "node-gyp rebuild",
+    "install": "node-gyp rebuild"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
   "devDependencies": {
     "eslint": "^4.0.0",
     "jsdoc-to-markdown": "^3.0.0",
-    "mocha": "^3.4.2",
-    "mochainon": "^1.0.0"
+    "mocha": "^3.4.2"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "debug": "^2.6.0",
-    "js-yaml": "^3.4.1",
-    "lodash": "^4.16.4",
-    "tmp": "0.0.31"
+    "bindings": "^1.2.1",
+    "nan": "^2.6.2"
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-'use strict';
+#ifndef SRC_DRIVELIST_HPP_
+#define SRC_DRIVELIST_HPP_
 
-/**
- * @module drivelist
- */
+#include <nan.h>
+#include <string>
+#include <vector>
 
-const bindings = require('bindings')('drivelist');
+struct MountPoint {
+  std::string path;
+};
 
-/**
- * @summary List available drives
- * @function
- * @public
- *
- * @param {Function} callback - callback (error, drives)
- *
- * @example
- * const drivelist = require('drivelist');
- *
- * drivelist.list((error, drives) => {
- *   if (error) {
- *     throw error;
- *   }
- *
- *   drives.forEach((drive) => {
- *     console.log(drive);
- *   });
- * });
- */
-exports.list = bindings.list;
+struct DriveDescriptor {
+  std::string device;
+  std::string raw;
+  std::string description;
+  uint64_t size;
+  std::vector<MountPoint> mountpoints;
+  bool isProtected;
+  bool isSystem;
+};
+
+std::vector<DriveDescriptor> list_storage_devices();
+v8::Local<v8::Object> pack_drive_descriptor(const DriveDescriptor *instance);
+
+NAN_METHOD(list);
+
+#endif  // SRC_DRIVELIST_HPP_

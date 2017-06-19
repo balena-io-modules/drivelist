@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,11 @@
  * limitations under the License.
  */
 
-'use strict';
+#include <nan.h>
+#include "../drivelist.hpp"
 
-/**
- * @module drivelist
- */
-
-const bindings = require('bindings')('drivelist');
-
-/**
- * @summary List available drives
- * @function
- * @public
- *
- * @param {Function} callback - callback (error, drives)
- *
- * @example
- * const drivelist = require('drivelist');
- *
- * drivelist.list((error, drives) => {
- *   if (error) {
- *     throw error;
- *   }
- *
- *   drives.forEach((drive) => {
- *     console.log(drive);
- *   });
- * });
- */
-exports.list = bindings.list;
+// TODO(jhermsmeier): Implement
+std::vector<DriveDescriptor> list_storage_devices() {
+  std::vector<DriveDescriptor> drivelist;
+  return drivelist;
+}
