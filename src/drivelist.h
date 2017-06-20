@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-#include <nan.h>
-#include "../drivelist.hpp"
+#ifndef SRC_DRIVELIST_H_
+#define SRC_DRIVELIST_H_
 
-// TODO(jhermsmeier): Implement
-std::vector<DriveDescriptor> list_storage_devices() {
-  std::vector<DriveDescriptor> drivelist;
-  return drivelist;
-}
+#include <nan.h>
+
+NAN_METHOD(list);
+
+#endif  // SRC_DRIVELIST_H_

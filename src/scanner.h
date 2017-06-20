@@ -1,3 +1,6 @@
+#ifndef SRC_SCANNER_H_
+#define SRC_SCANNER_H_
+
 /*
  * Copyright 2017 resin.io
  *
@@ -14,30 +17,23 @@
  * limitations under the License.
  */
 
-#ifndef SRC_DRIVELIST_HPP_
-#define SRC_DRIVELIST_HPP_
-
-#include <nan.h>
-#include <string>
 #include <vector>
+#include "src/code.h"
+#include "src/disk.h"
+#include "src/mountpoint.h"
 
-struct MountPoint {
-  std::string path;
+namespace drivelist {
+
+class Scanner {
+ public:
+  drivelist::Code Initialize();
+  drivelist::Code Uninitialize();
+  drivelist::Code Scan(std::vector<drivelist::disk_s> *const output);
+
+ private:
+  void *context;
 };
 
-struct DriveDescriptor {
-  std::string device;
-  std::string raw;
-  std::string description;
-  uint64_t size;
-  std::vector<MountPoint> mountpoints;
-  bool isProtected;
-  bool isSystem;
-};
+}  // namespace drivelist
 
-std::vector<DriveDescriptor> list_storage_devices();
-v8::Local<v8::Object> pack_drive_descriptor(const DriveDescriptor *instance);
-
-NAN_METHOD(list);
-
-#endif  // SRC_DRIVELIST_HPP_
+#endif  // SRC_SCANNER_H_

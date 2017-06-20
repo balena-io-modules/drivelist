@@ -40,10 +40,6 @@ describe('Scripts', function() {
     });
   };
 
-  describe('.win32', function() {
-    checkCompiledScript(scripts.win32, path.join(__dirname, '..', 'scripts', 'win32.bat'));
-  });
-
   describe('.linux', function() {
     checkCompiledScript(scripts.linux, path.join(__dirname, '..', 'scripts', 'linux.sh'));
   });

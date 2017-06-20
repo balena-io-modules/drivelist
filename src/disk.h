@@ -1,3 +1,6 @@
+#ifndef SRC_DISK_H_
+#define SRC_DISK_H_
+
 /*
  * Copyright 2017 resin.io
  *
@@ -14,11 +17,21 @@
  * limitations under the License.
  */
 
-#include <nan.h>
-#include "../drivelist.hpp"
+#include <string>
+#include <vector>
+#include <cstdint>
+#include "src/mountpoint.h"
 
-// TODO(jhermsmeier): Implement
-std::vector<DriveDescriptor> list_storage_devices() {
-  std::vector<DriveDescriptor> drivelist;
-  return drivelist;
-}
+namespace drivelist {
+
+struct disk_s {
+  std::string id;
+  std::string caption;
+  uint64_t size;
+  std::vector<drivelist::mountpoint_s> mountpoints;
+  bool removable;
+};
+
+}  // namespace drivelist
+
+#endif  // SRC_DISK_H_

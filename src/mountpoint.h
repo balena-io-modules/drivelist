@@ -1,3 +1,6 @@
+#ifndef SRC_MOUNTPOINT_H_
+#define SRC_MOUNTPOINT_H_
+
 /*
  * Copyright 2017 resin.io
  *
@@ -14,16 +17,18 @@
  * limitations under the License.
  */
 
-// See https://support.microsoft.com/en-us/kb/165721
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
+#include <string>
 
-#include <nan.h>
-#include "../drivelist.hpp"
+namespace drivelist {
 
-// TODO(jhermsmeier): Implement
-std::vector<DriveDescriptor> list_storage_devices() {
-  std::vector<DriveDescriptor> drivelist;
-  return drivelist;
-}
+struct mountpoint_s {
+  std::string path;
+  std::string disk;
+  bool readonly;
+  bool system;
+  bool hasFilesystem;
+};
+
+}  // namespace drivelist
+
+#endif  // SRC_MOUNTPOINT_H_

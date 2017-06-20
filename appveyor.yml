@@ -13,9 +13,9 @@ environment:
   matrix:
     - nodejs_version: 8
     - nodejs_version: 6
-    - nodejs_version: 4
 
 install:
+  - pip install cpplint
   - ps: Install-Product node $env:nodejs_version x64
   - npm install
 

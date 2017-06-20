@@ -21,8 +21,7 @@ const path = require('path');
 
 const scripts = {
   darwin: path.join(__dirname, 'darwin.sh'),
-  linux: path.join(__dirname, 'linux.sh'),
-  win32: path.join(__dirname, 'win32.bat')
+  linux: path.join(__dirname, 'linux.sh')
 };
 
 const object = {
@@ -34,11 +33,6 @@ const object = {
   linux: {
     content: fs.readFileSync(scripts.linux, { encoding: 'utf8' }),
     originalFilename: path.basename(scripts.linux),
-    type: 'text'
-  },
-  win32: {
-    content: fs.readFileSync(scripts.win32, { encoding: 'utf8' }),
-    originalFilename: path.basename(scripts.win32),
     type: 'text'
   }
 };

@@ -3,29 +3,21 @@
     {
       "target_name": "drivelist",
       "include_dirs" : [
-        "<!(node -e \"require('nan')\")"
+        "<!(node -e \"require('nan')\")",
+        "."
       ],
-      "sources": [
-        "src/drivelist.cpp",
-        "src/drive-descriptor.cpp",
-      ],
+      "sources": [],
       "conditions": [
-        [ 'OS=="mac"', {
-          "sources": [
-            "src/darwin/list.cpp"
-          ],
-          "link_settings": {
-            "libraries": []
-          }
-        }],
         [ 'OS=="win"', {
           "sources": [
-            "src/windows/list.cpp"
-          ]
-        }],
-        [ 'OS=="linux"', {
-          "sources": [
-            "src/linux/list.cpp"
+            "src/drivelist.cc",
+            "src/windows/com.cc",
+            "src/windows/scanner.cc",
+            "src/windows/volume.cc",
+            "src/windows/wmi.cc"
+          ],
+          "libraries": [
+            "-lwbemuuid.lib",
           ]
         }]
       ]

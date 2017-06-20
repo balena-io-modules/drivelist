@@ -2,12 +2,17 @@ language: node_js
 node_js:
   - 8
   - 6
-  - 4
-script:
-  - npm test
 os:
   - linux
   - osx
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      pip install --user cpplint;
+    else
+      pip install cpplint;
+    fi
+script:
+  - npm test
 compiler: clang-4.0
 env:
   global:
