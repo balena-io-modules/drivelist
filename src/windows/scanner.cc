@@ -214,15 +214,23 @@ ScanMountpoints(drivelist::com::Connection *const connection,
     if (FAILED(result))
       return InterpretHRESULT(result);
 
-    BOOL isProtected;
-    result = drivelist::volume::GetReadOnlyFlag(path[0], &isProtected);
+    // Turns out a disk can be writable while its volumes can be read-only
+    // and viceversa, so we need to check the writable capabilities of
+    // both the disk and its volumes
+    BOOL writable;
+    result = drivelist::volume::IsDiskWritable(path[0], &writable);
     if (FAILED(result))
       return InterpretHRESULT(result);
+    if (writable && hasFilesystem) {
+      result = drivelist::volume::IsVolumeWritable(path[0], &writable);
+      if (FAILED(result))
+        return InterpretHRESULT(result);
+    }
 
     drivelist::mountpoint_s mountpoint;
     mountpoint.path = path;
     mountpoint.disk = "\\\\.\\PHYSICALDRIVE" + std::to_string(number);
-    mountpoint.readonly = isProtected;
+    mountpoint.readonly = !writable;
     mountpoint.system = path[0] == systemDriveLetter;
     mountpoint.hasFilesystem = hasFilesystem;
     output->push_back(mountpoint);
