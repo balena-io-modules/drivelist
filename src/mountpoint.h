@@ -1,5 +1,8 @@
+#ifndef SRC_MOUNTPOINT_H_
+#define SRC_MOUNTPOINT_H_
+
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +17,18 @@
  * limitations under the License.
  */
 
-'use strict';
+#include <string>
 
-const drivelist = require('./lib/drivelist');
+namespace drivelist {
 
-drivelist.list((error, drives) => {
-  if (error) {
-    console.error(error);
-    process.exit(1);
-  }
+struct mountpoint_s {
+  std::string path;
+  std::string disk;
+  bool readonly;
+  bool system;
+  bool hasFilesystem;
+};
 
-  console.log(JSON.stringify(drives, null, 2));
-});
+}  // namespace drivelist
+
+#endif  // SRC_MOUNTPOINT_H_

@@ -31,13 +31,6 @@ describe('Drivelist', function() {
       beforeEach(function() {
         this.executeExtractAndRunStub = m.sinon.stub(execute, 'extractAndRun');
 
-        this.executeExtractAndRunStub.withArgs(scripts.win32).yields(null, [
-          'device: "\\\\\\\\.\\\\PHYSICALDRIVE1"',
-          'description: "My drive"',
-          'size: "15 GB"',
-          'mountpoint: "D:"'
-        ].join('\n'));
-
         this.executeExtractAndRunStub.withArgs(scripts.linux).yields(null, [
           'device: "/dev/sda"',
           'description: "My drive"',
@@ -55,34 +48,6 @@ describe('Drivelist', function() {
 
       afterEach(function() {
         this.executeExtractAndRunStub.restore();
-      });
-
-      describe('given win32', function() {
-
-        beforeEach(function() {
-          this.osPlatformStub = m.sinon.stub(os, 'platform');
-          this.osPlatformStub.returns('win32');
-        });
-
-        afterEach(function() {
-          this.osPlatformStub.restore();
-        });
-
-        it('should execute the win32 script', function(done) {
-          drivelist.list((error, drives) => {
-            m.chai.expect(error).to.not.exist;
-            m.chai.expect(drives).to.deep.equal([
-              {
-                device: '\\\\.\\PHYSICALDRIVE1',
-                description: 'My drive',
-                size: '15 GB',
-                mountpoint: 'D:'
-              }
-            ]);
-            done();
-          });
-        });
-
       });
 
       describe('given linux', function() {

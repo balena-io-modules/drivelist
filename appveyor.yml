@@ -11,9 +11,11 @@ cache:
 # what combinations to test
 environment:
   matrix:
+    - nodejs_version: 8
     - nodejs_version: 6
 
 install:
+  - pip install cpplint
   - ps: Install-Product node $env:nodejs_version x64
   - npm install
 

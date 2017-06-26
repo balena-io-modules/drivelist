@@ -1,2 +1,7 @@
-tests
+.*
+*.yml
+
+build
 doc
+example
+tests
