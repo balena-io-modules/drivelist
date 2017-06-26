@@ -200,14 +200,8 @@ ScanMountpoints(drivelist::com::Connection *const connection,
     std::string path = ConvertBSTRToString(string);
     SysFreeString(string);
 
-    ULONG typeNumber;
-    result = query.GetPropertyNumber(L"DriveType", &typeNumber);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-    drivelist::volume::Type volumeType =
-      drivelist::volume::TranslateTypeNumber(typeNumber);
-
     // We only want to consider removable or local disks in this module
+    drivelist::volume::Type volumeType = drivelist::volume::GetType(path[0]);
     if (volumeType != drivelist::volume::Type::REMOVABLE_DISK &&
         volumeType != drivelist::volume::Type::LOCAL_DISK) {
       result = query.SelectNext();
