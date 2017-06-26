@@ -18,6 +18,7 @@
  */
 
 #include <windows.h>
+#include <Rpc.h>
 #include <vector>
 #include "src/mountpoint.h"
 #include "src/windows/com.h"
@@ -39,6 +40,7 @@ enum class Type {
 HANDLE OpenHandle(const wchar_t letter, DWORD flags);
 HRESULT GetDeviceNumber(const wchar_t letter, ULONG *out);
 HRESULT GetReadOnlyFlag(const wchar_t letter, BOOL *out);
+HRESULT HasFileSystem(const wchar_t letter, BOOL *out);
 Type TranslateTypeNumber(ULONG type);
 
 }  // namespace volume

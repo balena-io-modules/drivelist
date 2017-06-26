@@ -182,11 +182,6 @@ ScanMountpoints(drivelist::com::Connection *const connection,
   ULONG number;
 
   while (query.HasResult()) {
-    BOOL hasFilesystem;
-    result = query.HasPropertyString(L"FileSystem", &hasFilesystem);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-
     result = query.GetPropertyString(L"DriveLetter", &string);
     if (FAILED(result))
       return InterpretHRESULT(result);
@@ -199,6 +194,11 @@ ScanMountpoints(drivelist::com::Connection *const connection,
 
     std::string path = ConvertBSTRToString(string);
     SysFreeString(string);
+
+    BOOL hasFilesystem;
+    result = drivelist::volume::HasFileSystem(path[0], &hasFilesystem);
+    if (FAILED(result))
+      return InterpretHRESULT(result);
 
     ULONG typeNumber;
     result = query.GetPropertyNumber(L"DriveType", &typeNumber);
