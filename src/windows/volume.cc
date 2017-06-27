@@ -65,7 +65,11 @@ HRESULT drivelist::volume::GetReadOnlyFlag(const wchar_t letter, BOOL *out) {
   return result;
 }
 
-drivelist::volume::Type drivelist::volume::TranslateTypeNumber(ULONG type) {
+drivelist::volume::Type drivelist::volume::GetType(const wchar_t letter) {
+  TCHAR drivePath[kVolumePathShortLength];
+  sprintf_s(drivePath, "%c:\\", letter);
+  UINT type = GetDriveType(drivePath);
+
   switch (type) {
   case 1:
     return drivelist::volume::Type::NO_ROOT_DIRECTORY;
