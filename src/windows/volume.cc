@@ -44,25 +44,45 @@ HRESULT drivelist::volume::GetDeviceNumber(const wchar_t letter, ULONG *out) {
   return S_OK;
 }
 
-HRESULT drivelist::volume::GetReadOnlyFlag(const wchar_t letter, BOOL *out) {
-  DWORD filesystem_flags = 0;
-  TCHAR drive_path[kVolumePathShortLength];
-  sprintf_s(drive_path, "%c:\\", letter);
+HRESULT drivelist::volume::IsDiskWritable(const wchar_t letter, BOOL *out) {
+  HANDLE handle = drivelist::volume::OpenHandle(letter, 0);
+  if (handle == INVALID_HANDLE_VALUE)
+    return E_HANDLE;
 
-  const HRESULT result =
-      GetVolumeInformation(drive_path, NULL, kVolumePathShortLength, NULL, NULL,
-                           &filesystem_flags, NULL, 0);
+  DWORD bytesReturned;
 
-  if (FAILED(result))
-    return result;
+  // The IOCTL_DISK_IS_WRITABLE returns
+  // FALSE if the device is read-only
+  // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa365182(v=vs.85).aspx
+  const BOOL isDiskWritable = DeviceIoControl(handle, IOCTL_DISK_IS_WRITABLE,
+                                              NULL, 0,
+                                              NULL, 0,
+                                              &bytesReturned, NULL);
 
-  if (filesystem_flags & FILE_READ_ONLY_VOLUME) {
+  *out = isDiskWritable;
+  CloseHandle(handle);
+  return S_OK;
+}
+
+HRESULT drivelist::volume::IsVolumeWritable(const wchar_t letter, BOOL *out) {
+  DWORD filesystemFlags = 0;
+  TCHAR drivePath[kVolumePathShortLength];
+  sprintf_s(drivePath, "%c:\\", letter);
+
+  BOOL result = GetVolumeInformation(drivePath, NULL,
+                                     0, NULL,
+                                     NULL, &filesystemFlags, NULL, 0);
+
+  if (!result)
+    return E_FAIL;
+
+  if (filesystemFlags & FILE_READ_ONLY_VOLUME) {
     *out = TRUE;
   } else {
     *out = FALSE;
   }
 
-  return result;
+  return S_OK;
 }
 
 HRESULT drivelist::volume::HasFileSystem(const wchar_t letter, BOOL *out) {
