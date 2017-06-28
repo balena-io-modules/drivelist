@@ -143,73 +143,33 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
   return drivelist::Code::SUCCESS;
 }
 
-static HRESULT
-GetOperatingSystemDriveLetter(drivelist::com::Connection *const connection,
-                              wchar_t *out) {
-  drivelist::wmi::Query query(L"SELECT SystemDrive FROM Win32_OperatingSystem");
-  HRESULT result = query.Execute(connection);
-  if (FAILED(result))
-    return result;
-
-  while (query.HasResult()) {
-    result = query.GetPropertyCharacter(L"SystemDrive", out);
-    if (FAILED(result))
-      break;
-    result = query.SelectNext();
-    if (FAILED(result))
-      break;
-  }
-
-  return result;
-}
-
 static drivelist::Code
-ScanMountpoints(drivelist::com::Connection *const connection,
-                std::vector<drivelist::mountpoint_s> *const output) {
+ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
   wchar_t systemDriveLetter;
-  HRESULT result =
-      GetOperatingSystemDriveLetter(connection, &systemDriveLetter);
+  HRESULT result = drivelist::volume::GetSystemVolume(&systemDriveLetter);
   if (FAILED(result))
     return InterpretHRESULT(result);
 
-  drivelist::wmi::Query query(L"SELECT * FROM Win32_Volume");
-  result = query.Execute(connection);
+  std::vector<wchar_t> volumes;
+  result = drivelist::volume::GetAvailableVolumes(&volumes);
   if (FAILED(result))
     return InterpretHRESULT(result);
 
-  BSTR string;
-  ULONG number;
-
-  while (query.HasResult()) {
-    result = query.GetPropertyString(L"DriveLetter", &string);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-    if (string == NULL) {
-      result = query.SelectNext();
-      if (FAILED(result))
-        return InterpretHRESULT(result);
-      continue;
-    }
-
-    std::string path = ConvertBSTRToString(string);
-    SysFreeString(string);
-
-    BOOL hasFilesystem;
-    result = drivelist::volume::HasFileSystem(path[0], &hasFilesystem);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-
+  for (wchar_t volume : volumes) {
     // We only want to consider removable or local disks in this module
-    drivelist::volume::Type volumeType = drivelist::volume::GetType(path[0]);
+    drivelist::volume::Type volumeType = drivelist::volume::GetType(volume);
     if (volumeType != drivelist::volume::Type::REMOVABLE_DISK &&
         volumeType != drivelist::volume::Type::LOCAL_DISK) {
-      result = query.SelectNext();
-      if (FAILED(result))
-        return InterpretHRESULT(result);
       continue;
     }
 
-    result = drivelist::volume::GetDeviceNumber(path[0], &number);
+    BOOL hasFilesystem;
+    result = drivelist::volume::HasFileSystem(volume, &hasFilesystem);
+    if (FAILED(result))
+      return InterpretHRESULT(result);
+
+    ULONG number;
+    result = drivelist::volume::GetDeviceNumber(volume, &number);
     if (FAILED(result))
       return InterpretHRESULT(result);
 
@@ -217,26 +177,22 @@ ScanMountpoints(drivelist::com::Connection *const connection,
     // and viceversa, so we need to check the writable capabilities of
     // both the disk and its volumes
     BOOL writable;
-    result = drivelist::volume::IsDiskWritable(path[0], &writable);
+    result = drivelist::volume::IsDiskWritable(volume, &writable);
     if (FAILED(result))
       return InterpretHRESULT(result);
     if (!writable && hasFilesystem) {
-      result = drivelist::volume::IsVolumeWritable(path[0], &writable);
+      result = drivelist::volume::IsVolumeWritable(volume, &writable);
       if (FAILED(result))
         return InterpretHRESULT(result);
     }
 
     drivelist::mountpoint_s mountpoint;
-    mountpoint.path = path;
+    mountpoint.path = std::string(1, static_cast<char>(volume)) + ":";
     mountpoint.disk = "\\\\.\\PHYSICALDRIVE" + std::to_string(number);
     mountpoint.readonly = !writable;
-    mountpoint.system = path[0] == systemDriveLetter;
+    mountpoint.system = volume == systemDriveLetter;
     mountpoint.hasFilesystem = hasFilesystem;
     output->push_back(mountpoint);
-
-    result = query.SelectNext();
-    if (FAILED(result))
-      return InterpretHRESULT(result);
   }
 
   return drivelist::Code::SUCCESS;
@@ -254,7 +210,7 @@ drivelist::Scanner::Scan(std::vector<drivelist::disk_s> *const output) {
     return code;
 
   std::vector<drivelist::mountpoint_s> mountpoints;
-  code = ScanMountpoints(connection, &mountpoints);
+  code = ScanMountpoints(&mountpoints);
   if (code != drivelist::Code::SUCCESS)
     return code;
 

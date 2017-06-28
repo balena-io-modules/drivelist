@@ -37,6 +37,8 @@ enum class Type {
   RAM_DISK
 };
 
+HRESULT GetSystemVolume(wchar_t *out);
+HRESULT GetAvailableVolumes(std::vector<wchar_t> *const output);
 HANDLE OpenHandle(const wchar_t letter, DWORD flags);
 HRESULT GetDeviceNumber(const wchar_t letter, ULONG *out);
 HRESULT IsDiskWritable(const wchar_t letter, BOOL *out);
