@@ -220,7 +220,7 @@ ScanMountpoints(drivelist::com::Connection *const connection,
     result = drivelist::volume::IsDiskWritable(path[0], &writable);
     if (FAILED(result))
       return InterpretHRESULT(result);
-    if (writable && hasFilesystem) {
+    if (!writable && hasFilesystem) {
       result = drivelist::volume::IsVolumeWritable(path[0], &writable);
       if (FAILED(result))
         return InterpretHRESULT(result);
