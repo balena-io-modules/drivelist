@@ -21,6 +21,7 @@
 #include <cstdint>
 #include "src/windows/com.h"
 #include "src/windows/volume.h"
+#include "src/windows/disk.h"
 #include "src/windows/wmi.h"
 
 static drivelist::Code InterpretHRESULT(const HRESULT result) {
@@ -106,22 +107,20 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
     std::string caption = ConvertBSTRToString(string);
     SysFreeString(string);
 
-    result = query.GetPropertyString(L"Size", &string);
+    LONGLONG size;
+    result = drivelist::disk::GetSize(id, &size);
     if (FAILED(result))
       return InterpretHRESULT(result);
 
-    // The size can be a null string in the case of internal SD Card
-    // readers, where they appear in the list of Win32_DiskDrive items,
-    // even though there is no card plugged in.
-    if (string == NULL) {
+    // The size can be null in the case of internal SD Card readers,
+    // where they appear in the list of Win32_DiskDrive items, even
+    // though there is no card plugged in.
+    if (size == NULL) {
       result = query.SelectNext();
       if (FAILED(result))
         return InterpretHRESULT(result);
       continue;
     }
-
-    uint64_t size = std::stoull(ConvertBSTRToString(string));
-    SysFreeString(string);
 
     result = query.GetPropertyString(L"MediaType", &string);
     if (FAILED(result))
