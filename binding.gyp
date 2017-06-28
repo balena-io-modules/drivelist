@@ -14,6 +14,7 @@
             "src/windows/com.cc",
             "src/windows/scanner.cc",
             "src/windows/volume.cc",
+            "src/windows/disk.cc",
             "src/windows/wmi.cc"
           ],
           "libraries": [
