@@ -19,6 +19,7 @@
 
 #include <windows.h>
 #include <Rpc.h>
+#include <Shlobj.h>
 #include <vector>
 #include "src/mountpoint.h"
 #include "src/windows/com.h"

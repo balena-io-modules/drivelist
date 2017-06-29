@@ -19,10 +19,14 @@
 static const size_t kVolumePathShortLength = 4;
 
 HRESULT drivelist::volume::GetSystemVolume(wchar_t *out) {
-  const char * const systemDrive = getenv("SystemDrive");
-  if (systemDrive == NULL)
-    return E_FAIL;
-  *out = systemDrive[0];
+  PWSTR windowsPath = NULL;
+  HRESULT result = SHGetKnownFolderPath(FOLDERID_Windows, 0,
+                                        NULL, &windowsPath);
+  if (FAILED(result))
+    return result;
+
+  *out = windowsPath[0];
+  CoTaskMemFree(windowsPath);
   return S_OK;
 }
 
