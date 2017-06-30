@@ -86,38 +86,26 @@ HRESULT drivelist::volume::IsVolumeWritable(const wchar_t letter, BOOL *out) {
 }
 
 HRESULT drivelist::volume::HasFileSystem(const wchar_t letter, BOOL *out) {
-  HANDLE handle = drivelist::volume::OpenHandle(letter, 0);
-  if (handle == INVALID_HANDLE_VALUE)
-    return E_HANDLE;
-
-  PARTITION_INFORMATION_EX information;
-  DWORD bytesReturned;
-
-  if (!DeviceIoControl(handle, IOCTL_DISK_GET_PARTITION_INFO_EX, NULL, 0,
-                       &information, sizeof(information),
-                       &bytesReturned, NULL)) {
-    CloseHandle(handle);
-    return E_FAIL;
+  TCHAR drivePath[kVolumePathShortLength];
+  sprintf_s(drivePath, "%c:\\", letter);
+  BOOL result = GetVolumeInformation(drivePath, NULL, 0, NULL,
+                                     NULL, NULL, NULL, 0);
+  if (result) {
+    *out = TRUE;
+    return S_OK;
   }
 
-  // See https://msdn.microsoft.com/en-us/library/windows/desktop/aa365448(v=vs.85).aspx
-  switch (information.PartitionStyle) {
-  case 0:  // MBR
-    *out = IsRecognizedPartition(information.Mbr.PartitionType);
-    break;
-  case 1:  // GPT
+  DWORD error = GetLastError();
 
-    // TODO(jviotti): The Windows API documents a constant called
-    // PARTITION_ENTRY_UNUSED_GUID, but I can't find its definition anywhere.
-    *out = information.Gpt.PartitionType.Data1 != 0;
-
-    break;
-  default:  // RAW
+  // ERROR_UNRECOGNIZED_VOLUME: when there is a partition table, but
+  // no actual recognized partition
+  // ERROR_INVALID_PARAMETER: when there is no partition table at all
+  if (error == ERROR_UNRECOGNIZED_VOLUME || error == ERROR_INVALID_PARAMETER) {
     *out = FALSE;
+    return S_OK;
   }
 
-  CloseHandle(handle);
-  return S_OK;
+  return HRESULT_FROM_WIN32(error);
 }
 
 drivelist::volume::Type drivelist::volume::GetType(const wchar_t letter) {
