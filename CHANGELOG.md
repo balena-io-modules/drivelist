@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Chore(package): Fix missing EOL in package.json [Jonas Hermsmeier]
 * Fix(windows): all drives are interpreted as read-only [Juan Cruz Viotti]
+* Refactor(windows): don't use WMI to list volumes [Juan Cruz Viotti]
 * Fix(windows): detect read-only flag on SD Cards without a filesystem (#183) [Juan Cruz Viotti]
 * Refactor(windows): Use an IOCTL to determine the partition type (#181) [Juan Cruz Viotti]
 

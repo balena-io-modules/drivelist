@@ -18,6 +18,36 @@
 
 static const size_t kVolumePathShortLength = 4;
 
+HRESULT drivelist::volume::GetSystemVolume(wchar_t *out) {
+  PWSTR windowsPath = NULL;
+  HRESULT result = SHGetKnownFolderPath(FOLDERID_Windows, 0,
+                                        NULL, &windowsPath);
+  if (FAILED(result))
+    return result;
+
+  *out = windowsPath[0];
+  CoTaskMemFree(windowsPath);
+  return S_OK;
+}
+
+HRESULT
+drivelist::volume::GetAvailableVolumes(std::vector<wchar_t> *const output) {
+  DWORD logicalDrivesMask = GetLogicalDrives();
+  if (logicalDrivesMask == 0)
+    return E_FAIL;
+
+  TCHAR currentDriveLetter = 'A';
+
+  while (logicalDrivesMask) {
+    if (logicalDrivesMask & 1)
+      output->push_back(currentDriveLetter);
+    currentDriveLetter++;
+    logicalDrivesMask >>= 1;
+  }
+
+  return S_OK;
+}
+
 HANDLE drivelist::volume::OpenHandle(const wchar_t letter, DWORD flags) {
   TCHAR devicePath[8];
   sprintf_s(devicePath, "\\\\.\\%c:", letter);
