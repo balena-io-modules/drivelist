@@ -130,7 +130,10 @@ HRESULT drivelist::volume::HasFileSystem(const wchar_t letter, BOOL *out) {
   // ERROR_UNRECOGNIZED_VOLUME: when there is a partition table, but
   // no actual recognized partition
   // ERROR_INVALID_PARAMETER: when there is no partition table at all
-  if (error == ERROR_UNRECOGNIZED_VOLUME || error == ERROR_INVALID_PARAMETER) {
+  // ERROR_NOT_READY: when accessing an empty SD Card reader
+  if (error == ERROR_UNRECOGNIZED_VOLUME ||
+      error == ERROR_INVALID_PARAMETER ||
+      error == ERROR_NOT_READY) {
     *out = FALSE;
     return S_OK;
   }
