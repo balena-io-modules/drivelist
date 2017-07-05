@@ -71,7 +71,7 @@ describe('Execute', function() {
           originalFilename: 'foo'
         }, (error, output) => {
           m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('script error (code 27)');
+          m.chai.expect(error.message).to.equal('script error (code 27, signal none)');
           m.chai.expect(output).to.not.exist;
           done();
         });
