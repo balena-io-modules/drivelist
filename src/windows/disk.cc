@@ -15,8 +15,10 @@
  */
 
 #include "src/windows/disk.h"
+#include "src/log.h"
 
 HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
+  drivelist::Debug("Opening handle on " + disk);
   HANDLE handle = CreateFile(disk.c_str(), 0, FILE_SHARE_READ, NULL,
                              OPEN_EXISTING, 0, NULL);
   if (handle == INVALID_HANDLE_VALUE)
@@ -25,6 +27,7 @@ HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
   DISK_GEOMETRY_EX geometry;
   DWORD bytesReturned;
 
+  drivelist::Debug("Getting drive geometry");
   BOOL success = DeviceIoControl(handle, IOCTL_DISK_GET_DRIVE_GEOMETRY_EX,
                                  NULL, 0,
                                  &geometry, sizeof(geometry),
@@ -38,6 +41,7 @@ HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
     // constant is equal to this hexadecimal number, but it doesn't
     // seem to be the case.
     if (result == 0x80070015) {
+      drivelist::Debug("Ignoring, device not ready");
       *out = NULL;
       return S_OK;
     }

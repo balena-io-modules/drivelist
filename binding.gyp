@@ -7,7 +7,8 @@
         "."
       ],
       "sources": [
-        "src/code.cc"
+        "src/code.cc",
+        "src/log.cc"
       ],
       "conditions": [
         [ 'OS=="win"', {

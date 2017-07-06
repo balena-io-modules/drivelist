@@ -23,6 +23,7 @@
 #include "src/windows/volume.h"
 #include "src/windows/disk.h"
 #include "src/windows/wmi.h"
+#include "src/log.h"
 
 static drivelist::Code InterpretHRESULT(const HRESULT result) {
   switch (result) {
@@ -70,6 +71,7 @@ static std::string ConvertBSTRToString(const BSTR string) {
 }
 
 drivelist::Code drivelist::Scanner::Initialize() {
+  drivelist::Debug("Initializing scanner");
   HRESULT result = drivelist::com::Initialize();
   if (FAILED(result))
     return InterpretHRESULT(result);
@@ -80,6 +82,7 @@ drivelist::Code drivelist::Scanner::Initialize() {
 }
 
 drivelist::Code drivelist::Scanner::Uninitialize() {
+  drivelist::Debug("Unitializing scanner");
   delete (drivelist::com::Connection *)this->context;
   drivelist::com::Uninitialize();
   return drivelist::Code::SUCCESS;
@@ -88,6 +91,7 @@ drivelist::Code drivelist::Scanner::Uninitialize() {
 static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
                                  std::vector<drivelist::disk_s> *const output) {
   drivelist::wmi::Query query(L"SELECT * FROM Win32_DiskDrive");
+  drivelist::Debug("Getting list of drives from WMI");
   HRESULT result = query.Execute(connection);
   if (FAILED(result))
     return InterpretHRESULT(result);
@@ -95,18 +99,22 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
   BSTR string;
 
   while (query.HasResult()) {
+    drivelist::Debug("Getting id");
     result = query.GetPropertyString(L"DeviceID", &string);
     if (FAILED(result))
       return InterpretHRESULT(result);
     std::string id = ConvertBSTRToString(string);
+    drivelist::Debug("Processing " + id);
     SysFreeString(string);
 
+    drivelist::Debug("Getting caption");
     result = query.GetPropertyString(L"Caption", &string);
     if (FAILED(result))
       return InterpretHRESULT(result);
     std::string caption = ConvertBSTRToString(string);
     SysFreeString(string);
 
+    drivelist::Debug("Getting size");
     LONGLONG size;
     result = drivelist::disk::GetSize(id, &size);
     if (FAILED(result))
@@ -116,12 +124,14 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
     // where they appear in the list of Win32_DiskDrive items, even
     // though there is no card plugged in.
     if (size == NULL) {
+      drivelist::Debug("No size, ignoring drive");
       result = query.SelectNext();
       if (FAILED(result))
         return InterpretHRESULT(result);
       continue;
     }
 
+    drivelist::Debug("Getting media type");
     result = query.GetPropertyString(L"MediaType", &string);
     if (FAILED(result))
       return InterpretHRESULT(result);
@@ -146,29 +156,35 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
 static drivelist::Code
 ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
   wchar_t systemDriveLetter;
+  drivelist::Debug("Getting system volume drive letter");
   HRESULT result = drivelist::volume::GetSystemVolume(&systemDriveLetter);
   if (FAILED(result))
     return InterpretHRESULT(result);
 
   std::vector<wchar_t> volumes;
+  drivelist::Debug("Getting available volumes");
   result = drivelist::volume::GetAvailableVolumes(&volumes);
   if (FAILED(result))
     return InterpretHRESULT(result);
 
   for (wchar_t volume : volumes) {
     // We only want to consider removable or local disks in this module
+    drivelist::Debug("Getting volume type");
     drivelist::volume::Type volumeType = drivelist::volume::GetType(volume);
     if (volumeType != drivelist::volume::Type::REMOVABLE_DISK &&
         volumeType != drivelist::volume::Type::LOCAL_DISK) {
+      drivelist::Debug("Ignoring, drive type not removable nor local");
       continue;
     }
 
     BOOL hasFilesystem;
+    drivelist::Debug("Checking if volume has filesystem");
     result = drivelist::volume::HasFileSystem(volume, &hasFilesystem);
     if (FAILED(result))
       return InterpretHRESULT(result);
 
     ULONG number;
+    drivelist::Debug("Getting device number");
     result = drivelist::volume::GetDeviceNumber(volume, &number);
     if (FAILED(result))
       return InterpretHRESULT(result);
@@ -177,10 +193,12 @@ ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
     // and viceversa, so we need to check the writable capabilities of
     // both the disk and its volumes
     BOOL writable;
+    drivelist::Debug("Checking if disk is writable");
     result = drivelist::volume::IsDiskWritable(volume, &writable);
     if (FAILED(result))
       return InterpretHRESULT(result);
     if (!writable && hasFilesystem) {
+      drivelist::Debug("Checking if volume is writable");
       result = drivelist::volume::IsVolumeWritable(volume, &writable);
       if (FAILED(result))
         return InterpretHRESULT(result);
