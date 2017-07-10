@@ -98,19 +98,25 @@ class DrivelistWorker : public Nan::AsyncWorker {
   void Execute() {
     drivelist::Code code = this->scanner.Initialize();
     if (code != drivelist::Code::SUCCESS) {
-      this->SetErrorMessage("Couldn't initialize the scanner");
+      const std::string message = "Couldn't initialize the scanner: "
+        + drivelist::GetCodeString(code);
+      this->SetErrorMessage(message.c_str());
       return;
     }
 
     code = this->scanner.Scan(&this->disks);
     if (code != drivelist::Code::SUCCESS) {
-      this->SetErrorMessage("Couldn't scan the drives");
+      const std::string message = "Couldn't scan the drives: "
+        + drivelist::GetCodeString(code);
+      this->SetErrorMessage(message.c_str());
       return;
     }
 
     code = this->scanner.Uninitialize();
     if (code != drivelist::Code::SUCCESS) {
-      this->SetErrorMessage("Couldn't uninitialize the scanner");
+      const std::string message = "Couldn't uninitialize the scanner: "
+        + drivelist::GetCodeString(code);
+      this->SetErrorMessage(message.c_str());
       return;
     }
   }

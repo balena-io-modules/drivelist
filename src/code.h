@@ -17,6 +17,8 @@
  * limitations under the License.
  */
 
+#include <string>
+
 namespace drivelist {
 
 enum class Code {
@@ -31,6 +33,8 @@ enum class Code {
   ERROR_OUT_OF_MEMORY,
   ERROR_POINTER
 };
+
+std::string GetCodeString(const Code &code);
 
 }  // namespace drivelist
 

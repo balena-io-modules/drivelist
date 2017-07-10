@@ -6,7 +6,9 @@
         "<!(node -e \"require('nan')\")",
         "."
       ],
-      "sources": [],
+      "sources": [
+        "src/code.cc"
+      ],
       "conditions": [
         [ 'OS=="win"', {
           "sources": [
