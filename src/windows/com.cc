@@ -15,16 +15,17 @@
  */
 
 #include "src/windows/com.h"
+#include "src/log.h"
 
 HRESULT drivelist::com::Initialize() {
   HRESULT result;
 
-  // Initialize COM
+  drivelist::Debug("Initializing COM");
   result = CoInitializeEx(NULL, COINIT_MULTITHREADED);
   if (FAILED(result))
     return result;
 
-  // Set general COM security levels
+  drivelist::Debug("Initializing COM security levels");
   result = CoInitializeSecurity(
     NULL,                         // Security descriptor
     -1,                           // COM authentication
@@ -58,6 +59,7 @@ drivelist::com::Connection::~Connection() {
 }
 
 HRESULT drivelist::com::Connection::Connect(const LPCWSTR server) {
+  drivelist::Debug("Connecting to server");
   const HRESULT result = this->locator->ConnectServer(
     _bstr_t(server),         // Path to server
     NULL,                    // User name. NULL = current user
@@ -72,7 +74,7 @@ HRESULT drivelist::com::Connection::Connect(const LPCWSTR server) {
     return result;
   }
 
-  // Set sensible proxy security levels
+  drivelist::Debug("Setting proxy security levels");
   return CoSetProxyBlanket(
     this->proxy,                  // Indicates the proxy to set
     RPC_C_AUTHN_WINNT,            // RPC_C_AUTHN_xxx
@@ -85,6 +87,7 @@ HRESULT drivelist::com::Connection::Connect(const LPCWSTR server) {
 }
 
 HRESULT drivelist::com::Connection::CreateInstance() {
+  drivelist::Debug("Creating connection instance");
   return CoCreateInstance(
     CLSID_WbemLocator,
     NULL,  // Not being created as part of an aggregate
