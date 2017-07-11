@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v5.0.25 - 2017-06-29
 
+* Feat(windows): print debugging information when DRIVELIST_DEBUG is set [Juan Cruz Viotti]
+* Fix: property clean up tmp file after exec [Jonas Hermsmeier]
+* Fix(windows): ERROR_NOT_READY on empty SD Card reader [Juan Cruz Viotti]
 * Chore(package): Fix missing EOL in package.json [Jonas Hermsmeier]
 * Fix(windows): all drives are interpreted as read-only [Juan Cruz Viotti]
 * Refactor(windows): don't use WMI to list volumes [Juan Cruz Viotti]
