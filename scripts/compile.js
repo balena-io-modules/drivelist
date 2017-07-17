@@ -16,8 +16,11 @@
 
 'use strict';
 
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const checksum = require('../lib/checksum');
 
 const scripts = {
   darwin: path.join(__dirname, 'darwin.sh'),
@@ -28,14 +31,20 @@ const object = {
   darwin: {
     content: fs.readFileSync(scripts.darwin, { encoding: 'utf8' }),
     originalFilename: path.basename(scripts.darwin),
-    type: 'text'
+    type: 'text',
+    checksumType: 'md5'
   },
   linux: {
     content: fs.readFileSync(scripts.linux, { encoding: 'utf8' }),
     originalFilename: path.basename(scripts.linux),
-    type: 'text'
+    type: 'text',
+    checksumType: 'md5'
   }
 };
+
+_.each(object, (value, key) => {
+  object[key].checksum = checksum.calculateFromString(object[key].checksumType, object[key].content);
+});
 
 fs.writeFileSync(path.join(__dirname, '..', 'lib', 'scripts.json'), JSON.stringify(object, null, 2));
 
