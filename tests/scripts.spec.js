@@ -17,6 +17,7 @@
 'use strict';
 
 const m = require('mochainon');
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const scripts = require('../lib/scripts.json');
@@ -29,10 +30,11 @@ describe('Scripts', function() {
         encoding: 'utf8'
       }, (error, content) => {
         m.chai.expect(error).to.not.exist;
-        m.chai.expect(script).to.deep.equal({
+        m.chai.expect(_.omit(script, 'checksum')).to.deep.equal({
           originalFilename: path.basename(scriptPath),
           content,
-          type: 'text'
+          type: 'text',
+          checksumType: 'md5'
         });
 
         done();

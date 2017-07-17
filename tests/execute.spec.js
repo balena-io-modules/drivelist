@@ -17,8 +17,10 @@
 'use strict';
 
 const m = require('mochainon');
+const fs = require('fs');
 const _ = require('lodash');
 const os = require('os');
+const rimraf = require('rimraf');
 const childProcess = require('child_process');
 const execute = require('../lib/execute');
 
@@ -26,29 +28,94 @@ describe('Execute', function() {
 
   describe('.extractAndRun()', function() {
 
-    it('should be able to execute a script', function(done) {
-      const script = _.attempt(() => {
-        if (os.platform() === 'win32') {
-          return {
-            content: '@echo off\necho foo bar baz',
-            originalFilename: 'hello.bat'
-          };
-        }
-
+    const script1 = _.attempt(() => {
+      if (os.platform() === 'win32') {
         return {
-          content: '#!/bin/bash\necho "foo bar baz"',
-          originalFilename: 'hello.sh'
+          checksumType: 'md5',
+          checksum: 'a62bf332fa9cc62e5c3933f45c3136fc',
+          content: '@echo off\necho foo bar baz',
+          originalFilename: 'hello.bat'
         };
-      });
+      }
 
-      execute.extractAndRun(script, (error, output) => {
+      return {
+        checksumType: 'md5',
+        checksum: 'acab65be0f57742ee0507c6f12255436',
+        content: '#!/bin/bash\necho "foo bar baz"',
+        originalFilename: 'hello.sh'
+      };
+    });
+
+    const script2 = _.attempt(() => {
+      if (os.platform() === 'win32') {
+        return {
+          checksumType: 'md5',
+          checksum: '6f8e04c811c0f0ed392bf6f5872ae1ea',
+          content: '@echo off\necho bar baz qux',
+          originalFilename: 'hello.bat'
+        };
+      }
+
+      return {
+        checksumType: 'md5',
+        checksum: '9710ef6a1941c4ee6e0fade11ec14fab',
+        content: '#!/bin/bash\necho "bar baz qux"',
+        originalFilename: 'hello.sh'
+      };
+    });
+
+    it('should execute a script for the first time', function(done) {
+      rimraf(execute.getTemporaryScriptFilePath(script1), (error) => {
         m.chai.expect(error).to.not.exist;
+        execute.extractAndRun(script1, (scriptError, output) => {
+          m.chai.expect(scriptError).to.not.exist;
+          m.chai.expect(output.trim()).to.equal('foo bar baz');
+          done();
+        });
+      });
+    });
+
+    it('should be able to execute a script multiple times', function(done) {
+      execute.extractAndRun(script1, (error1, output1) => {
+        m.chai.expect(error1).to.not.exist;
 
         // The purpose of the trim is to get rid of
         // operating system-specific line endings
-        m.chai.expect(output.trim()).to.equal('foo bar baz');
+        m.chai.expect(output1.trim()).to.equal('foo bar baz');
 
-        done();
+        execute.extractAndRun(script1, (error2, output2) => {
+          m.chai.expect(error2).to.not.exist;
+          m.chai.expect(output2.trim()).to.equal('foo bar baz');
+          done();
+        });
+      });
+    });
+
+    it('should execute the original script if the temporary was modified', function(done) {
+      fs.writeFile(execute.getTemporaryScriptFilePath(script1), script2.content, (error) => {
+        m.chai.expect(error).to.not.exist;
+
+        execute.extractAndRun(script1, (scriptError, output) => {
+          m.chai.expect(scriptError).to.not.exist;
+          m.chai.expect(output.trim()).to.equal('foo bar baz');
+          done();
+        });
+      });
+    });
+
+    it('should add executable permissions to an existing temporary file if needed', function(done) {
+      fs.writeFile(execute.getTemporaryScriptFilePath(script1), script1.content, (error) => {
+        m.chai.expect(error).to.not.exist;
+
+        fs.chmod(execute.getTemporaryScriptFilePath(script1), 0o666, (chmodError) => {
+          m.chai.expect(chmodError).to.not.exist;
+
+          execute.extractAndRun(script1, (scriptError, output) => {
+            m.chai.expect(scriptError).to.not.exist;
+            m.chai.expect(output.trim()).to.equal('foo bar baz');
+            done();
+          });
+        });
       });
     });
 
@@ -67,6 +134,8 @@ describe('Execute', function() {
 
       it('should yield the error', function(done) {
         execute.extractAndRun({
+          checksumType: 'md5',
+          checksum: '90c55a38064627dca337dfa5fc5be120',
           content: 'dummy content',
           originalFilename: 'foo'
         }, (error, output) => {
@@ -92,6 +161,8 @@ describe('Execute', function() {
 
       it('should ignore stderr', function(done) {
         execute.extractAndRun({
+          checksumType: 'md5',
+          checksum: '90c55a38064627dca337dfa5fc5be120',
           content: 'dummy content',
           originalFilename: 'foo'
         }, (error, output) => {
@@ -116,6 +187,8 @@ describe('Execute', function() {
 
       it('should yield the result', function(done) {
         execute.extractAndRun({
+          checksumType: 'md5',
+          checksum: '90c55a38064627dca337dfa5fc5be120',
           content: 'dummy content',
           originalFilename: 'foo'
         }, (error, output) => {
@@ -140,6 +213,8 @@ describe('Execute', function() {
 
       it('should yield the result', function(done) {
         execute.extractAndRun({
+          checksumType: 'md5',
+          checksum: '90c55a38064627dca337dfa5fc5be120',
           content: 'dummy content',
           originalFilename: 'foo'
         }, (error, output) => {
