@@ -79,6 +79,64 @@ describe('Execute', function() {
 
     });
 
+    describe('given EAGAIN errors and then success when running the script', function() {
+
+      beforeEach(function() {
+        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
+        const error = new Error('EAGAIN');
+        error.code = 'EAGAIN';
+        this.childProcessExecFileStub.onFirstCall().yields(error);
+        this.childProcessExecFileStub.onSecondCall().yields(error);
+        this.childProcessExecFileStub.onThirdCall().yields(error);
+        this.childProcessExecFileStub.yields(null, 'foo bar baz', '');
+      });
+
+      afterEach(function() {
+        this.childProcessExecFileStub.restore();
+      });
+
+      it('should eventually yield the command output', function(done) {
+        this.timeout(5000);
+        execute.extractAndRun({
+          content: 'dummy content',
+          originalFilename: 'foo'
+        }, (error, output) => {
+          m.chai.expect(error).to.not.exist;
+          m.chai.expect(output).to.equal('foo bar baz');
+          done();
+        });
+      });
+
+    });
+
+    describe('given EAGAIN errors when running the script', function() {
+
+      beforeEach(function() {
+        this.childProcessExecFileStub = m.sinon.stub(childProcess, 'execFile');
+        const error = new Error('EAGAIN');
+        error.code = 'EAGAIN';
+        this.childProcessExecFileStub.yields(error);
+      });
+
+      afterEach(function() {
+        this.childProcessExecFileStub.restore();
+      });
+
+      it('should eventually yield the error', function(done) {
+        this.timeout(5000);
+        execute.extractAndRun({
+          content: 'dummy content',
+          originalFilename: 'foo'
+        }, (error, output) => {
+          m.chai.expect(error).to.be.an.instanceof(Error);
+          m.chai.expect(error.code).to.equal('EAGAIN');
+          m.chai.expect(output).to.not.exist;
+          done();
+        });
+      });
+
+    });
+
     describe('given the script outputs to stderr with exit code 0', function() {
 
       beforeEach(function() {
