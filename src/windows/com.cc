@@ -38,6 +38,7 @@ HRESULT drivelist::com::Initialize() {
     NULL);                        // Reserved
 
   if (FAILED(result)) {
+    printf("Error: 0x%x\n", result);
     drivelist::com::Uninitialize();
   }
 

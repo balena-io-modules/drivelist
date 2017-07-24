@@ -20,6 +20,7 @@
 #define _WIN32_DCOM
 #include <Wbemidl.h>
 #include <comdef.h>
+#include <stdio.h>
 
 namespace drivelist {
 namespace com {
