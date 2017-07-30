@@ -46,6 +46,7 @@ for disk in $DISKS; do
   fi
 
   echo "device: $device"
+  echo "displayName: $device"
 
   if [[ $volume_name =~ .*Not\ applicable.* ]]; then
     echo "description: \"$description\""

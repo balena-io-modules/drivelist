@@ -20,6 +20,7 @@
 #include <unordered_map>
 #include <cstdint>
 #include <sstream>
+#include <numeric>
 #include "src/windows/com.h"
 #include "src/windows/volume.h"
 #include "src/windows/disk.h"
@@ -245,6 +246,27 @@ drivelist::Scanner::Scan(std::vector<drivelist::disk_s> *const output) {
 
   for (drivelist::disk_s disk : disks) {
     disk.mountpoints = mountpointMap[disk.id];
+    disk.displayName = disk.id;
+
+    // For user friendly purposes, in Windows, the disk name is
+    // simply the list of drive letters, separated by commas.
+    std::string mountpointsDisplayName = std::accumulate(
+      disk.mountpoints.begin(),
+      disk.mountpoints.end(),
+      std::string(), [](std::string accumulator, drivelist::mountpoint_s mountpoint) {
+        if (!mountpoint.hasFilesystem)
+          return accumulator;
+
+        if (accumulator.empty())
+          return mountpoint.path;
+
+        return accumulator + ", " + mountpoint.path;
+      });
+
+    if (!mountpointsDisplayName.empty()) {
+      disk.displayName = mountpointsDisplayName;
+    }
+
     output->push_back(disk);
   }
 

@@ -42,6 +42,9 @@ static v8::Local<v8::Object> PackDisk(const struct drivelist::disk_s &disk) {
   Nan::Set(object, Nan::New<v8::String>("raw").ToLocalChecked(),
            Nan::New<v8::String>(disk.id).ToLocalChecked());
 
+  Nan::Set(object, Nan::New<v8::String>("displayName").ToLocalChecked(),
+           Nan::New<v8::String>(disk.displayName).ToLocalChecked());
+
   Nan::Set(object, Nan::New<v8::String>("description").ToLocalChecked(),
            Nan::New<v8::String>(disk.caption).ToLocalChecked());
 
