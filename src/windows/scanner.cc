@@ -19,6 +19,7 @@
 #include <string>
 #include <unordered_map>
 #include <cstdint>
+#include <sstream>
 #include "src/windows/com.h"
 #include "src/windows/volume.h"
 #include "src/windows/disk.h"
@@ -26,6 +27,10 @@
 #include "src/log.h"
 
 static drivelist::Code InterpretHRESULT(const HRESULT result) {
+  std::ostringstream debugString;
+  debugString << "Interpreting error 0x" << std::hex << result;
+  drivelist::Debug(debugString.str());
+
   switch (result) {
   case S_OK:
     return drivelist::Code::SUCCESS;
