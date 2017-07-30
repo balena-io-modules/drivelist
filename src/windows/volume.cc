@@ -66,7 +66,7 @@ HRESULT drivelist::volume::GetDeviceNumber(const wchar_t letter, ULONG *out) {
   if (!DeviceIoControl(handle, IOCTL_STORAGE_GET_DEVICE_NUMBER, NULL, 0,
                        &storageDeviceNumber, sizeof(storageDeviceNumber),
                        &bytesReturned, NULL)) {
-    return E_FAIL;
+    return HRESULT_FROM_WIN32(GetLastError());
   }
 
   *out = storageDeviceNumber.DeviceNumber;
