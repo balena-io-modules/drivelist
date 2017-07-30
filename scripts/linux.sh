@@ -57,6 +57,7 @@ for disk in $DISKS; do
   fi
 
   echo "device: $device"
+  echo "displayName: $device"
   echo "description: \"$description\""
   echo "size: $size"
 

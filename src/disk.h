@@ -27,6 +27,7 @@ namespace drivelist {
 struct disk_s {
   std::string id;
   std::string caption;
+  std::string displayName;
   uint64_t size;
   std::vector<drivelist::mountpoint_s> mountpoints;
   bool removable;
