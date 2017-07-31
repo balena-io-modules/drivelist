@@ -17,10 +17,16 @@
 #include "src/windows/disk.h"
 #include "src/log.h"
 
-HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
+HANDLE drivelist::disk::OpenHandle(const std::string &disk) {
   drivelist::Debug("Opening handle on " + disk);
-  HANDLE handle = CreateFile(disk.c_str(), 0, FILE_SHARE_READ, NULL,
-                             OPEN_EXISTING, 0, NULL);
+  return CreateFile(disk.c_str(), 0, FILE_SHARE_READ, NULL,
+                                     OPEN_EXISTING, 0, NULL);
+}
+
+HRESULT
+drivelist::disk::GetInformation(const std::string &disk,
+                                struct disk_information_s * const information) {
+  HANDLE handle = drivelist::disk::OpenHandle(disk);
   if (handle == INVALID_HANDLE_VALUE)
     return E_HANDLE;
 
@@ -32,6 +38,8 @@ HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
                                  NULL, 0,
                                  &geometry, sizeof(geometry),
                                  &bytesReturned, NULL);
+  CloseHandle(handle);
+
   if (!success) {
     HRESULT result = HRESULT_FROM_WIN32(GetLastError());
 
@@ -42,13 +50,16 @@ HRESULT drivelist::disk::GetSize(std::string disk, LONGLONG *out) {
     // seem to be the case.
     if (result == 0x80070015) {
       drivelist::Debug("Ignoring, device not ready");
-      *out = NULL;
+      information->removable = NULL;
+      information->size = NULL;
       return S_OK;
     }
 
     return result;
   }
 
-  *out = geometry.DiskSize.QuadPart;
+  information->removable = geometry.Geometry.MediaType == RemovableMedia;
+  information->size = geometry.DiskSize.QuadPart;
+
   return S_OK;
 }
