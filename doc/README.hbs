@@ -41,6 +41,7 @@ This is how the raw output looks on my MacBook Pro at the time of this writing:
 ```sh
 $ ./scripts/darwin.sh
 device: /dev/disk0
+displayName: /dev/disk0
 description: "APPLE SSD SM0256G"
 size: 251000193024
 mountpoints: []
@@ -49,6 +50,7 @@ protected: False
 system: True
 
 device: /dev/disk1
+displayName: /dev/disk1
 description: "Macintosh HD"
 size: 249779191808
 mountpoints:
@@ -90,6 +92,7 @@ Mac OS X:
 [
   {
     device: '/dev/disk0',
+    displayName: '/dev/disk0',
     description: 'GUID_partition_scheme',
     size: 68719476736,
     mountpoints: [
@@ -103,6 +106,7 @@ Mac OS X:
   },
   {
     device: '/dev/disk1',
+    displayName: '/dev/disk1',
     description: 'Apple_HFS Macintosh HD',
     size: 68719476736,
     mountpoints: [],
@@ -121,6 +125,7 @@ GNU/Linux
 [
   {
     device: '/dev/sda',
+    displayName: '/dev/sda',
     description: 'WDC WD10JPVX-75J',
     size: 68719476736,
     mountpoints: [
@@ -134,6 +139,7 @@ GNU/Linux
   },
   {
     device: '/dev/sdb',
+    displayName: '/dev/sdb',
     description: 'DataTraveler 2.0',
     size: 7823458304,
     mountpoints: [
@@ -156,6 +162,7 @@ Windows
 [
   {
     device: '\\\\.\\PHYSICALDRIVE0',
+    displayName: 'C:',
     description: 'WDC WD10JPVX-75JC3T0',
     size: 68719476736,
     mountpoints: [
@@ -169,15 +176,29 @@ Windows
   },
   {
     device: '\\\\.\\PHYSICALDRIVE1',
+    displayName: 'D:, F:',
     description: 'Generic STORAGE DEVICE USB Device',
     size: 7823458304,
     mountpoints: [
       {
         path: 'D:'
+      },
+      {
+        path: 'F:'
       }
     ],
     raw: '\\\\.\\PHYSICALDRIVE1',
     protected: true,
+    system: false
+  },
+  {
+    device: '\\\\.\\PHYSICALDRIVE2',
+    displayName: '\\\\.\\PHYSICALDRIVE2',
+    description: 'Silicon-Power2G',
+    size: 2014314496,
+    mountpoints: [],
+    raw: '\\\\.\\PHYSICALDRIVE2',
+    protected: false,
     system: false
   }
 ]
