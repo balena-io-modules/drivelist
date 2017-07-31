@@ -37,6 +37,18 @@ HRESULT drivelist::com::Initialize() {
     EOAC_NONE,                    // Additional capabilities
     NULL);                        // Reserved
 
+  // This error can be thrown when COM was already initialized,
+  // which can be the case if the user runs various scans at
+  // the same time on the same process.
+  // TODO(jviotti): This workaround assumes that if RPC_E_TOO_LATE
+  // is returned, COM was already initialized for the current process,
+  // however the right solution is to get rid of COM altogether.
+  // See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms693736(v=vs.85).aspx
+  if (result == RPC_E_TOO_LATE) {
+    drivelist::Debug("COM is already initialized, continuing...");
+    return S_OK;
+  }
+
   if (FAILED(result)) {
     drivelist::com::Uninitialize();
   }
