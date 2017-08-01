@@ -120,16 +120,16 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
     std::string caption = ConvertBSTRToString(string);
     SysFreeString(string);
 
-    drivelist::Debug("Getting size");
-    LONGLONG size;
-    result = drivelist::disk::GetSize(id, &size);
+    drivelist::Debug("Getting disk information");
+    drivelist::disk::disk_information_s information;
+    result = drivelist::disk::GetInformation(id, &information);
     if (FAILED(result))
       return InterpretHRESULT(result);
 
     // The size can be null in the case of internal SD Card readers,
     // where they appear in the list of Win32_DiskDrive items, even
     // though there is no card plugged in.
-    if (size == NULL) {
+    if (information.size == NULL) {
       drivelist::Debug("No size, ignoring drive");
       result = query.SelectNext();
       if (FAILED(result))
@@ -137,18 +137,11 @@ static drivelist::Code ScanDisks(drivelist::com::Connection *const connection,
       continue;
     }
 
-    drivelist::Debug("Getting media type");
-    result = query.GetPropertyString(L"MediaType", &string);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-    BOOL removable = wcscmp(string, L"Removable Media") == 0;
-    SysFreeString(string);
-
     drivelist::disk_s disk;
     disk.id = id;
     disk.caption = caption;
-    disk.size = size;
-    disk.removable = removable;
+    disk.size = information.size;
+    disk.removable = information.removable;
     output->push_back(disk);
 
     result = query.SelectNext();

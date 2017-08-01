@@ -23,7 +23,14 @@
 namespace drivelist {
 namespace disk {
 
-HRESULT GetSize(std::string disk, LONGLONG *out);
+struct disk_information_s {
+  LONGLONG size;
+  BOOL removable;
+};
+
+HANDLE OpenHandle(const std::string &disk);
+HRESULT GetInformation(const std::string &disk,
+                       struct disk_information_s * const information);
 
 }  // namespace disk
 }  // namespace drivelist
