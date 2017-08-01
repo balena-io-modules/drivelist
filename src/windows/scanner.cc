@@ -185,8 +185,19 @@ ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
     ULONG number;
     drivelist::Debug("Getting device number");
     result = drivelist::volume::GetDeviceNumber(volume, &number);
-    if (FAILED(result))
+    if (FAILED(result)) {
+      // This error can happen when attempting to get the device
+      // number of a virtual disk.
+      // There doesn't seem to be a constant that maps to this
+      // particular error result number.
+      // See: https://github.com/resin-io-modules/drivelist/issues/198
+      if (result == 0x80070001) {
+        drivelist::Debug("Ignoring, drive has no device number");
+        continue;
+      }
+
       return InterpretHRESULT(result);
+    }
 
     // Turns out a disk can be writable while its volumes can be read-only
     // and viceversa, so we need to check the writable capabilities of
