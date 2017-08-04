@@ -28,7 +28,7 @@ drivelist::disk::GetInformation(const std::string &disk,
                                 struct disk_information_s * const information) {
   HANDLE handle = drivelist::disk::OpenHandle(disk);
   if (handle == INVALID_HANDLE_VALUE)
-    return E_HANDLE;
+    return HRESULT_FROM_WIN32(GetLastError());
 
   DISK_GEOMETRY_EX geometry;
   DWORD bytesReturned;

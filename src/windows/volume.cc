@@ -58,7 +58,7 @@ HANDLE drivelist::volume::OpenHandle(const wchar_t letter, DWORD flags) {
 HRESULT drivelist::volume::GetDeviceNumber(const wchar_t letter, ULONG *out) {
   HANDLE handle = drivelist::volume::OpenHandle(letter, 0);
   if (handle == INVALID_HANDLE_VALUE)
-    return E_HANDLE;
+    return HRESULT_FROM_WIN32(GetLastError());
 
   STORAGE_DEVICE_NUMBER storageDeviceNumber;
   DWORD bytesReturned;
@@ -77,7 +77,7 @@ HRESULT drivelist::volume::GetDeviceNumber(const wchar_t letter, ULONG *out) {
 HRESULT drivelist::volume::IsDiskWritable(const wchar_t letter, BOOL *out) {
   HANDLE handle = drivelist::volume::OpenHandle(letter, 0);
   if (handle == INVALID_HANDLE_VALUE)
-    return E_HANDLE;
+    return HRESULT_FROM_WIN32(GetLastError());
 
   DWORD bytesReturned;
 
@@ -104,7 +104,7 @@ HRESULT drivelist::volume::IsVolumeWritable(const wchar_t letter, BOOL *out) {
                                      NULL, &filesystemFlags, NULL, 0);
 
   if (!result)
-    return E_FAIL;
+    return HRESULT_FROM_WIN32(GetLastError());
 
   if (filesystemFlags & FILE_READ_ONLY_VOLUME) {
     *out = TRUE;
