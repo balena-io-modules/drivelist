@@ -176,11 +176,22 @@ ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
       continue;
     }
 
+    BOOL writable = TRUE;
     BOOL hasFilesystem;
     drivelist::Debug("Checking if volume has filesystem");
     result = drivelist::volume::HasFileSystem(volume, &hasFilesystem);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
+    if (FAILED(result)) {
+      // See https://msdn.microsoft.com/en-us/library/windows/desktop/dd542648(v=vs.85).aspx
+      if (result == FVE_E_LOCKED_VOLUME) {
+        drivelist::Debug("Device is locked using BitLocker");
+        hasFilesystem = FALSE;
+        // We set this drive as non-writable since if the
+        // drive is locked, we can't even write to it
+        writable = FALSE;
+      } else {
+        return InterpretHRESULT(result);
+      }
+    }
 
     ULONG number;
     drivelist::Debug("Getting device number");
@@ -202,16 +213,17 @@ ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
     // Turns out a disk can be writable while its volumes can be read-only
     // and viceversa, so we need to check the writable capabilities of
     // both the disk and its volumes
-    BOOL writable;
-    drivelist::Debug("Checking if disk is writable");
-    result = drivelist::volume::IsDiskWritable(volume, &writable);
-    if (FAILED(result))
-      return InterpretHRESULT(result);
-    if (!writable && hasFilesystem) {
-      drivelist::Debug("Checking if volume is writable");
-      result = drivelist::volume::IsVolumeWritable(volume, &writable);
+    if (writable) {
+      drivelist::Debug("Checking if disk is writable");
+      result = drivelist::volume::IsDiskWritable(volume, &writable);
       if (FAILED(result))
         return InterpretHRESULT(result);
+      if (!writable && hasFilesystem) {
+        drivelist::Debug("Checking if volume is writable");
+        result = drivelist::volume::IsVolumeWritable(volume, &writable);
+        if (FAILED(result))
+          return InterpretHRESULT(result);
+      }
     }
 
     drivelist::mountpoint_s mountpoint;
