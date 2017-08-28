@@ -167,6 +167,11 @@ ScanMountpoints(std::vector<drivelist::mountpoint_s> *const output) {
     return InterpretHRESULT(result);
 
   for (wchar_t volume : volumes) {
+    std::stringstream message;
+    message << "Found volume: ";
+    message << static_cast<char>(volume);
+    drivelist::Debug(message.str());
+
     // We only want to consider removable or local disks in this module
     drivelist::Debug("Getting volume type");
     drivelist::volume::Type volumeType = drivelist::volume::GetType(volume);
