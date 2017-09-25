@@ -25,3 +25,6 @@ test_script:
   - node --version
   - npm --version
   - cmd: npm test
+
+deploy_script:
+  - if %APPVEYOR_REPO_BRANCH%==master (npm run prebuild -- -u %GITHUB_TOKEN%)

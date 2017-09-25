@@ -28,3 +28,10 @@ addons:
       - libstdc++-5-dev
 notifications:
   email: false
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: npm run prebuild -- -u $GITHUB_TOKEN
+  on:
+    tags: true
+    branch: master
