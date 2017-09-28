@@ -1,6 +1,6 @@
 {
   "name": "drivelist",
-  "version": "5.1.8",
+  "version": "5.2.0",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "lib/drivelist.js",
   "homepage": "https://github.com/resin-io-modules/drivelist",
@@ -28,7 +28,8 @@
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
-    "install": "node-gyp rebuild"
+    "install": "prebuild-install || node-gyp rebuild",
+    "prebuild": "prebuild --all --strip"
   },
   "bin": {
     "drivelist-darwin": "scripts/darwin.sh",
@@ -40,13 +41,15 @@
     "eslint": "^4.0.0",
     "jsdoc-to-markdown": "^3.0.0",
     "mocha": "^3.4.2",
-    "mochainon": "^1.0.0"
+    "mochainon": "^1.0.0",
+    "prebuild": "^6.2.1"
   },
   "dependencies": {
     "bindings": "^1.2.1",
     "debug": "^2.6.0",
     "js-yaml": "^3.4.1",
     "lodash": "^4.16.4",
-    "nan": "^2.6.2"
+    "nan": "^2.6.2",
+    "prebuild-install": "^2.2.2"
   }
 }
