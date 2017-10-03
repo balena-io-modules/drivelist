@@ -37,6 +37,9 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=4"
+  },
   "devDependencies": {
     "eslint": "^4.7.2",
     "jsdoc-to-markdown": "^3.0.0",
