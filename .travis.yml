@@ -32,7 +32,7 @@ notifications:
 deploy:
   skip_cleanup: true
   provider: script
-  script: npm run prebuild -- -u $GITHUB_TOKEN
+  script: ./ci/prebuild-publish.sh
   on:
     tags: true
     branch: master
