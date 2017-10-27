@@ -7,8 +7,8 @@
         "."
       ],
       "sources": [
-        "src/code.cc",
-        "src/log.cc"
+        "src/log.cc",
+        "src/code.cc"
       ],
       "conditions": [
         [ 'OS=="win"', {
@@ -21,7 +21,13 @@
             "src/windows/wmi.cc"
           ],
           "libraries": [
-            "-lwbemuuid.lib",
+            "-lwbemuuid.lib"
+          ]
+        }],
+        [ 'OS=="mac"', {
+          "sources": [
+            "src/drivelist.cc",
+            "src/darwin/scanner.cc"
           ]
         }]
       ]

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-'use strict';
+#include "src/scanner.h"
+#include <string>
+#include <unordered_map>
+#include <cstdint>
+#include <sstream>
+#include <numeric>
+#include "src/log.h"
 
-const fs = require('fs');
-const path = require('path');
+drivelist::Code drivelist::Scanner::Initialize() {
+  return drivelist::Code::SUCCESS;
+}
 
-const scripts = {
-  linux: path.join(__dirname, 'linux.sh')
-};
+drivelist::Code drivelist::Scanner::Uninitialize() {
+  return drivelist::Code::SUCCESS;
+}
 
-const object = {
-  linux: {
-    content: fs.readFileSync(scripts.linux, { encoding: 'utf8' }),
-    originalFilename: path.basename(scripts.linux),
-    type: 'text'
-  }
-};
-
-fs.writeFileSync(path.join(__dirname, '..', 'lib', 'scripts.json'), JSON.stringify(object, null, 2));
-
+drivelist::Code
+drivelist::Scanner::Scan(std::vector<drivelist::disk_s> *const output) {
+  return drivelist::Code::ERROR_GENERIC;
+}
