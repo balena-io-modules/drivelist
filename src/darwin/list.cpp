@@ -1,6 +1,3 @@
-#ifndef SRC_MOUNTPOINT_H_
-#define SRC_MOUNTPOINT_H_
-
 /*
  * Copyright 2017 resin.io
  *
@@ -17,18 +14,15 @@
  * limitations under the License.
  */
 
-#include <string>
+#include <nan.h>
+#include "../drivelist.hpp"
 
-namespace drivelist {
+namespace Drivelist {
 
-struct mountpoint_s {
-  std::string path;
-  std::string disk;
-  bool readonly;
-  bool system;
-  bool hasFilesystem;
-};
+  // TODO(jhermsmeier): Implement
+  std::vector<DeviceDescriptor> ListStorageDevices() {
+    std::vector<DeviceDescriptor> drivelist;
+    return drivelist;
+  }
 
-}  // namespace drivelist
-
-#endif  // SRC_MOUNTPOINT_H_
+}  // namespace Drivelist

@@ -7,21 +7,29 @@
         "."
       ],
       "sources": [
-        "src/code.cc",
-        "src/log.cc"
+        "src/drivelist.cpp",
+        "src/device-descriptor.cpp",
       ],
       "conditions": [
+        [ 'OS=="mac"', {
+          "sources": [
+            "src/darwin/list.cpp"
+          ],
+          "link_settings": {
+            "libraries": []
+          }
+        }],
         [ 'OS=="win"', {
           "sources": [
-            "src/drivelist.cc",
-            "src/windows/com.cc",
-            "src/windows/scanner.cc",
-            "src/windows/volume.cc",
-            "src/windows/disk.cc",
-            "src/windows/wmi.cc"
+            "src/windows/list.cpp"
           ],
           "libraries": [
-            "-lwbemuuid.lib",
+            "-lsetupapi.lib"
+          ]
+        }],
+        [ 'OS=="linux"', {
+          "sources": [
+            "src/linux/list.cpp"
           ]
         }]
       ]
