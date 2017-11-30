@@ -29,7 +29,7 @@
     "build": "node-gyp build",
     "rebuild": "node-gyp rebuild",
     "install": "prebuild-install || node-gyp rebuild",
-    "prebuild": "prebuild --all --strip"
+    "prebuild-release": "prebuild --all --strip"
   },
   "bin": {
     "drivelist-darwin": "scripts/darwin.sh",
