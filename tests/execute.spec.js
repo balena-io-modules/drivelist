@@ -17,7 +17,6 @@
 'use strict';
 
 const m = require('mochainon');
-const _ = require('lodash');
 const os = require('os');
 const childProcess = require('child_process');
 const execute = require('../lib/execute');
@@ -27,7 +26,7 @@ describe('Execute', function() {
   describe('.extractAndRun()', function() {
 
     it('should be able to execute a script', function(done) {
-      const script = _.attempt(() => {
+      const script = (() => {
         if (os.platform() === 'win32') {
           return {
             content: '@echo off\necho foo bar baz',
@@ -39,7 +38,7 @@ describe('Execute', function() {
           content: '#!/bin/bash\necho "foo bar baz"',
           originalFilename: 'hello.sh'
         };
-      });
+      })();
 
       execute.extractAndRun(script, (error, output) => {
         m.chai.expect(error).to.not.exist;
