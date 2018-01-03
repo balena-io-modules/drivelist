@@ -233,7 +233,7 @@ bool IsSystemDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
   if (result == S_OK) {
     std::string systemPath = WCharToUtf8(windowsPath);
     CoTaskMemFree(windowsPath);
-    printf("systemPath %s\n", systemPath.c_str());
+    // printf("systemPath %s\n", systemPath.c_str());
     // TODO(jhermsmeier): Compare against mountpoints to actually determine this
     return true;
   }
@@ -281,16 +281,17 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
     &diskExtents, sizeof(VOLUME_DISK_EXTENTS), &size, NULL);
 
   if (result && diskExtents.NumberOfDiskExtents > 0) {
-    printf("[INFO] DiskNumber: %i\n", diskExtents.Extents[0].DiskNumber);
+    // printf("[INFO] DiskNumber: %i\n", diskExtents.Extents[0].DiskNumber);
     // NOTE: Always ignore RAIDs
+    // TODO(jhermsmeier): Handle RAIDs properly
     if (diskExtents.NumberOfDiskExtents >= 2) {
-      printf("[INFO] Possible RAID: %i\n", diskExtents.Extents[0].DiskNumber);
+      // printf("[INFO] Possible RAID: %i\n", diskExtents.Extents[0].DiskNumber);
       return -1;
     }
     diskNumber = diskExtents.Extents[0].DiskNumber;
   } else {
     errorCode = GetLastError();
-    printf("[INFO] VOLUME_GET_VOLUME_DISK_EXTENTS: Error 0x%08lX\n", errorCode);
+    // printf("[INFO] VOLUME_GET_VOLUME_DISK_EXTENTS: Error 0x%08lX\n", errorCode);
   }
 
   result = DeviceIoControl(
@@ -298,11 +299,11 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
     &deviceNumber, sizeof(deviceNumber), &size, NULL);
 
   if (result) {
-    printf("[INFO] DeviceNumber: %i\n", deviceNumber.DeviceNumber);
+    // printf("[INFO] DeviceNumber: %i\n", deviceNumber.DeviceNumber);
     diskNumber = deviceNumber.DeviceNumber;
   } else {
     errorCode = GetLastError();
-    printf("[INFO] STORAGE_GET_DEVICE_NUMBER: Error 0x%08lX\n", errorCode);
+    // printf("[INFO] STORAGE_GET_DEVICE_NUMBER: Error 0x%08lX\n", errorCode);
   }
 
   return diskNumber;
@@ -337,16 +338,16 @@ void GetMountpoints(int32_t deviceNumber,
       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (hLogical == INVALID_HANDLE_VALUE) {
-      printf("[INFO] Couldn't open handle to logical volume %s\n",
-        volumeName.c_str());
+      // printf("[INFO] Couldn't open handle to logical volume %s\n",
+      //   volumeName.c_str());
       continue;
     }
 
     logicalVolumeDeviceNumber = GetDeviceNumber(hLogical);
 
     if (logicalVolumeDeviceNumber == -1) {
-      printf("[INFO] Couldn't get device number for logical volume %s\n",
-        volumeName.c_str());
+      // printf("[INFO] Couldn't get device number for logical volume %s\n",
+      //   volumeName.c_str());
       continue;
     }
 
@@ -480,7 +481,7 @@ bool GetDetailData(DeviceDescriptor* device,
 
     deviceInterfaceData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
 
-    printf("[INFO] (%i) SetupDiEnumDeviceInterfaces\n", index);
+    // printf("[INFO] (%i) SetupDiEnumDeviceInterfaces\n", index);
     BOOL isDisk = SetupDiEnumDeviceInterfaces(
       hDeviceInfo, &deviceInfoData, &GUID_DEVICE_INTERFACE_DISK,
       index, &deviceInterfaceData);
@@ -488,16 +489,16 @@ bool GetDetailData(DeviceDescriptor* device,
     if (!isDisk) {
       errorCode = GetLastError();
       if (errorCode == ERROR_NO_MORE_ITEMS) {
-        printf("[INFO] (%i) EnumDeviceInterfaces: No more items 0x%08lX\n",
-          index, errorCode);
+        // printf("[INFO] (%i) EnumDeviceInterfaces: No more items 0x%08lX\n",
+        //  index, errorCode);
         result = index != 0;
         break;
       } else if (errorCode != ERROR_NO_MORE_ITEMS) {
         device->error = "SetupDiEnumDeviceInterfaces: Error " +
           std::to_string(errorCode);
       } else {
-        printf("%s Device '%s', slot %i is not a disk\n",
-          device->enumerator.c_str(), device->description.c_str(), index);
+        // printf("%s Device '%s', slot %i is not a disk\n",
+        //  device->enumerator.c_str(), device->description.c_str(), index);
         device->error = "Device is not a disk";
       }
       result = false;
@@ -538,8 +539,8 @@ bool GetDetailData(DeviceDescriptor* device,
       break;
     }
 
-    printf("[INFO] (%i) SetupDiGetDeviceInterfaceDetailW:\n %s\n",
-      index, WCharToUtf8(deviceDetailData->DevicePath));
+    // printf("[INFO] (%i) SetupDiGetDeviceInterfaceDetailW:\n %s\n",
+    //  index, WCharToUtf8(deviceDetailData->DevicePath));
 
     device->device = std::string(WCharToUtf8(deviceDetailData->DevicePath));
 
@@ -601,7 +602,7 @@ bool GetDetailData(DeviceDescriptor* device,
     // as we can safely default to a 512B block size
     if (!GetDeviceBlockSize(hPhysical, device)) {
       errorCode = GetLastError();
-      printf("[INFO] Couldn't get block size: Error %u\n", errorCode);
+      // printf("[INFO] Couldn't get block size: Error %u\n", errorCode);
     }
 
     BOOL isWritable = DeviceIoControl(
@@ -638,7 +639,7 @@ std::vector<DeviceDescriptor> ListStorageDevices() {
     DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
 
   if (hDeviceInfo == INVALID_HANDLE_VALUE) {
-    printf("[ERROR] Invalid DeviceInfo handle\n");
+    // printf("[ERROR] Invalid DeviceInfo handle\n");
     return deviceList;
   }
 
