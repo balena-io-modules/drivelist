@@ -60,30 +60,26 @@ char* WCharToUtf8(const wchar_t* wstr) {
 }
 
 char* GetEnumeratorName(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
-  DWORD size;
-  DWORD dataType;
   char buffer[MAX_PATH];
 
   ZeroMemory(&buffer, sizeof(buffer));
 
   BOOL hasEnumeratorName = SetupDiGetDeviceRegistryPropertyA(
     hDeviceInfo, &deviceInfoData, SPDRP_ENUMERATOR_NAME,
-    &dataType, (LPBYTE) buffer, sizeof(buffer), &size);
+    NULL, (LPBYTE) buffer, sizeof(buffer), NULL);
 
   return hasEnumeratorName ? buffer : NULL;
 }
 
 std::string GetFriendlyName(HDEVINFO hDeviceInfo,
   SP_DEVINFO_DATA deviceInfoData) {
-  DWORD size;
-  DWORD dataType;
   wchar_t wbuffer[MAX_PATH];
 
   ZeroMemory(&wbuffer, sizeof(wbuffer));
 
   BOOL hasFriendlyName = SetupDiGetDeviceRegistryPropertyW(
     hDeviceInfo, &deviceInfoData, SPDRP_FRIENDLYNAME,
-    &dataType, (PBYTE) wbuffer, sizeof(wbuffer), &size);
+    NULL, (PBYTE) wbuffer, sizeof(wbuffer), NULL);
 
   return hasFriendlyName ? WCharToUtf8(wbuffer) : std::string("");
 }
@@ -109,13 +105,11 @@ bool IsUSBDevice(std::string enumeratorName) {
 }
 
 bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
-  DWORD size;
-  DWORD dataType;
   DWORD result = 0;
 
   BOOL hasRemovalPolicy = SetupDiGetDeviceRegistryProperty(
     hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY,
-    &dataType, (PBYTE) &result, sizeof(result), &size);
+    NULL, (PBYTE) &result, sizeof(result), NULL);
 
   switch (result) {
     case CM_REMOVAL_POLICY_EXPECT_SURPRISE_REMOVAL:
@@ -129,15 +123,13 @@ bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
 }
 
 bool IsVirtualHardDrive(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
-  DWORD size;
-  DWORD dataType;
   char buffer[MAX_PATH];
 
   ZeroMemory(&buffer, sizeof(buffer));
 
   BOOL hasHardwareId = SetupDiGetDeviceRegistryPropertyA(
     hDeviceInfo, &deviceInfoData, SPDRP_HARDWAREID,
-    &dataType, (LPBYTE) buffer, sizeof(buffer), &size);
+    NULL, (LPBYTE) buffer, sizeof(buffer), NULL);
 
   if (!hasHardwareId) {
     return false;
@@ -317,7 +309,6 @@ std::string GetBusType(STORAGE_ADAPTER_DESCRIPTOR *adapterDescriptor) {
 }
 
 bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
-  DWORD size = 0;
   STORAGE_PROPERTY_QUERY query;
   STORAGE_ADAPTER_DESCRIPTOR adapterDescriptor;
 
@@ -329,7 +320,7 @@ bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
   BOOL hasAdapterInfo = DeviceIoControl(
     hPhysical, IOCTL_STORAGE_QUERY_PROPERTY,
     &query, sizeof(STORAGE_PROPERTY_QUERY),
-    &adapterDescriptor, sizeof(STORAGE_ADAPTER_DESCRIPTOR), &size, NULL);
+    &adapterDescriptor, sizeof(STORAGE_ADAPTER_DESCRIPTOR), NULL, NULL);
 
   if (hasAdapterInfo) {
     device->busType = GetBusType(&adapterDescriptor);
@@ -342,7 +333,6 @@ bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
 }
 
 bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
-  DWORD size = 0;
   STORAGE_PROPERTY_QUERY query;
   STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR alignmentDescriptor;
 
@@ -355,7 +345,7 @@ bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
     hPhysical, IOCTL_STORAGE_QUERY_PROPERTY,
     &query, sizeof(STORAGE_PROPERTY_QUERY),
     &alignmentDescriptor, sizeof(STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR),
-    &size, NULL);
+    NULL, NULL);
 
   if (hasAlignmentDescriptor) {
     device->blockSize = alignmentDescriptor.BytesPerPhysicalSector;
@@ -368,11 +358,10 @@ bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
 
 bool GetDeviceSize(HANDLE hPhysical, DeviceDescriptor *device) {
   DISK_GEOMETRY_EX diskGeometry;
-  DWORD size;
 
   BOOL hasDiskGeometry = DeviceIoControl(
     hPhysical, IOCTL_DISK_GET_DRIVE_GEOMETRY_EX, NULL, 0,
-    &diskGeometry, sizeof(DISK_GEOMETRY_EX), &size, NULL);
+    &diskGeometry, sizeof(DISK_GEOMETRY_EX), NULL, NULL);
 
   // NOTE: Another way to get the block size would be
   // `IOCTL_STORAGE_QUERY_PROPERTY` with `STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR`,
