@@ -28,6 +28,9 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <nan.h>
+#include <string>
+#include <vector>
+#include <set>
 #include "../drivelist.hpp"
 
 namespace Drivelist {
@@ -85,20 +88,20 @@ const GUID GUID_DEVICE_INTERFACE_STORAGEPORT = {
 0x2ACCFE60L, 0xC130, 0x11D2, { 0xB0, 0x82, 0x00, 0xA0, 0xC9, 0x1E, 0xFB, 0x8B }
 };
 
-const std::vector<std::string> USB_STORAGE_DRIVERS {
+const std::set<std::string> USB_STORAGE_DRIVERS {
   "USBSTOR", "UASPSTOR", "VUSBSTOR",
   "RTUSER", "CMIUCR", "EUCR",
   "ETRONSTOR", "ASUSSTPT"
 };
 
-const std::vector<std::string> GENERIC_STORAGE_DRIVERS {
+const std::set<std::string> GENERIC_STORAGE_DRIVERS {
   "SCSI", "SD", "PCISTOR",
   "RTSOR", "JMCR", "JMCF", "RIMMPTSK", "RIMSPTSK", "RIXDPTSK",
   "TI21SONY", "ESD7SK", "ESM7SK", "O2MD", "O2SD", "VIACR"
 };
 
 // List of known virtual disk hardware IDs
-const std::vector<std::string> VHD_HARDWARE_IDS {
+const std::set<std::string> VHD_HARDWARE_IDS {
   "Arsenal_________Virtual_",
   "KernSafeVirtual_________",
   "Msft____Virtual_Disk____",
@@ -285,13 +288,15 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
     // NOTE: Always ignore RAIDs
     // TODO(jhermsmeier): Handle RAIDs properly
     if (diskExtents.NumberOfDiskExtents >= 2) {
-      // printf("[INFO] Possible RAID: %i\n", diskExtents.Extents[0].DiskNumber);
+      // printf("[INFO] Possible RAID: %i\n",
+      //   diskExtents.Extents[0].DiskNumber);
       return -1;
     }
     diskNumber = diskExtents.Extents[0].DiskNumber;
   } else {
     errorCode = GetLastError();
-    // printf("[INFO] VOLUME_GET_VOLUME_DISK_EXTENTS: Error 0x%08lX\n", errorCode);
+    // printf("[INFO] VOLUME_GET_VOLUME_DISK_EXTENTS: Error 0x%08lX\n",
+    //   errorCode);
   }
 
   result = DeviceIoControl(
