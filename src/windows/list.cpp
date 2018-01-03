@@ -415,13 +415,9 @@ bool GetDetailData(DeviceDescriptor* device,
         //  index, errorCode);
         result = index != 0;
         break;
-      } else if (errorCode != ERROR_NO_MORE_ITEMS) {
+      } else {
         device->error = "SetupDiEnumDeviceInterfaces: Error " +
           std::to_string(errorCode);
-      } else {
-        // printf("%s Device '%s', slot %i is not a disk\n",
-        //  device->enumerator.c_str(), device->description.c_str(), index);
-        device->error = "Device is not a disk";
       }
       result = false;
       break;
