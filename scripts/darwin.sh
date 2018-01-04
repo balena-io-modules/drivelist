@@ -45,8 +45,11 @@ for disk in $DISKS; do
     continue
   fi
 
+  echo "enumerator: diskutil"
+  echo "busType: UNKNOWN"
+  echo "busVersion: \"0.0\""
   echo "device: $device"
-  echo "displayName: $device"
+  echo "raw: $raw_device"
 
   if [[ $volume_name =~ .*Not\ applicable.* ]]; then
     echo "description: \"$description\""
@@ -54,7 +57,10 @@ for disk in $DISKS; do
     echo "description: \"$volume_name - $description\""
   fi
 
+  echo "error: \"\""
   echo "size: $size"
+  echo "blockSize: null"
+  echo "logicalBlockSize: null"
 
   if [[ -z "$mountpoints" ]]; then
     echo "mountpoints: []"
@@ -65,12 +71,10 @@ for disk in $DISKS; do
     done
   fi
 
-  echo "raw: $raw_device"
-
   if [[ "$protected" == "Yes" ]]; then
-    echo "protected: True"
+    echo "isReadOnly: True"
   else
-    echo "protected: False"
+    echo "isReadOnly: False"
   fi
 
   if [[ "$device" == "/dev/disk0" ]] || \
@@ -78,10 +82,17 @@ for disk in $DISKS; do
      [[ ( "$location" =~ "Internal" ) && ( "$removable" != "Yes" ) && ( "$removable" != "Removable" ) ]] || \
      echo "$mountpoints" | grep "^/$"
   then
-    echo "system: True"
+    echo "isSystem: True"
   else
-    echo "system: False"
+    echo "isSystem: False"
   fi
+
+  echo "isVirtual: null"
+  echo "isRemovable: null"
+  echo "isCard: null"
+  echo "isSCSI: null"
+  echo "isUSB: null"
+  echo "isUAS: null"
 
   echo ""
 done
