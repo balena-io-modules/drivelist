@@ -32,10 +32,27 @@ describe('Drivelist', function() {
         this.executeExtractAndRunStub = m.sinon.stub(execute, 'extractAndRun');
 
         this.executeExtractAndRunStub.withArgs(scripts.linux).yields(null, [
-          'device: "/dev/sda"',
-          'description: "My drive"',
-          'size: "15 GB"',
-          'mountpoint: "/mnt/drive"'
+          'enumerator: lsblk',
+          'busType: UNKNOWN',
+          'busVersion: "0.0"',
+          'device: /dev/sda',
+          'raw: /dev/sda',
+          'description: "Samsung SSD 850"',
+          'error: null',
+          'size: 120034123776',
+          'blockSize: null',
+          'logicalBlockSize: null',
+          'mountpoints:',
+          '  - path: "/"',
+          '  - path: "/boot/efi"',
+          'isReadOnly: False',
+          'isSystem: True',
+          'isVirtual: null',
+          'isRemovable: null',
+          'isCard: null',
+          'isSCSI: null',
+          'isUSB: null',
+          'isUAS: null'
         ].join('\n'));
 
         this.executeExtractAndRunStub.withArgs(scripts.darwin).yields(null, [
@@ -82,10 +99,29 @@ describe('Drivelist', function() {
             m.chai.expect(error).to.not.exist;
             m.chai.expect(drives).to.deep.equal([
               {
+                enumerator: 'lsblk',
+                busType: 'UNKNOWN',
+                busVersion: '0.0',
                 device: '/dev/sda',
-                description: 'My drive',
-                size: '15 GB',
-                mountpoint: '/mnt/drive'
+                raw: '/dev/sda',
+                description: 'Samsung SSD 850',
+                error: null,
+                size: 120034123776,
+                blockSize: null,
+                logicalBlockSize: null,
+                mountpoints: [ {
+                  path: '/'
+                }, {
+                  path: '/boot/efi'
+                } ],
+                isReadOnly: false,
+                isSystem: true,
+                isVirtual: null,
+                isRemovable: null,
+                isCard: null,
+                isSCSI: null,
+                isUSB: null,
+                isUAS: null
               }
             ]);
             done();
