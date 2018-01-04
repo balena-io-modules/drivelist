@@ -222,49 +222,119 @@ GNU/Linux
 Windows
 
 ```sh
-[
-  {
-    device: '\\\\.\\PHYSICALDRIVE0',
-    displayName: 'C:',
-    description: 'WDC WD10JPVX-75JC3T0',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: 'C:'
-      }
-    ],
-    raw: '\\\\.\\PHYSICALDRIVE0',
-    protected: false,
-    system: true
-  },
-  {
-    device: '\\\\.\\PHYSICALDRIVE1',
-    displayName: 'D:, F:',
-    description: 'Generic STORAGE DEVICE USB Device',
-    size: 7823458304,
-    mountpoints: [
-      {
-        path: 'D:'
-      },
-      {
-        path: 'F:'
-      }
-    ],
-    raw: '\\\\.\\PHYSICALDRIVE1',
-    protected: true,
-    system: false
-  },
-  {
-    device: '\\\\.\\PHYSICALDRIVE2',
-    displayName: '\\\\.\\PHYSICALDRIVE2',
-    description: 'Silicon-Power2G',
-    size: 2014314496,
-    mountpoints: [],
-    raw: '\\\\.\\PHYSICALDRIVE2',
-    protected: false,
-    system: false
-  }
-]
+[{
+  enumerator: 'SCSI',
+  busType: 'SATA',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_wdc&prod_wd1600bevs-07rst#4&5a60d67&0&000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive0',
+  description: 'WDC WD1600BEVS-07RST0',
+  error: null,
+  size: 160041885696,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'D:\\'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: false,
+  isRemovable: false,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'SD',
+  busType: 'SD',
+  busVersion: '2.0',
+  device: '\\\\?\\sd#disk&generic&sc16g&8.0#5&c518b2e&0&c3964099&0#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive4',
+  description: 'Generic SC16G SD Card',
+  error: null,
+  size: 15931539456,
+  blockSize: 4096,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'G:\\'
+  }, {
+    path: 'H:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: true,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'SCSI',
+  busType: 'USB',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_usb3.0&prod_#000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive2',
+  description: 'USB3.0  SCSI Disk Device',
+  error: null,
+  size: 500107862016,
+  blockSize: 4096,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'E:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: true
+}, {
+  enumerator: 'SCSI',
+  busType: 'SATA',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_samsung&prod_ssd_850_evo_m.2#4&5a60d67&0&020000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive1',
+  description: 'Samsung SSD 850 EVO M.2 120GB',
+  error: null,
+  size: 120034123776,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'C:\\'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: false,
+  isRemovable: false,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'USBSTOR',
+  busType: 'USB',
+  busVersion: '2.0',
+  device: '\\\\?\\usbstor#disk&ven_disk&prod_name&rev_ax10#0012345667888&0#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive3',
+  description: 'Disk Name USB Device',
+  error: null,
+  size: 1000204886016,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'F:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: false,
+  isSCSI: false,
+  isUSB: true,
+  isUAS: false
+}]
 ```
 
 Installation
