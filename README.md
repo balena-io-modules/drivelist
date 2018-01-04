@@ -185,36 +185,53 @@ Mac OS X:
 GNU/Linux
 
 ```sh
-[
-  {
-    device: '/dev/sda',
-    displayName: '/dev/sda',
-    description: 'WDC WD10JPVX-75J',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: '/'
-      }
-    ],
-    raw: '/dev/sda',
-    protected: false,
-    system: true
-  },
-  {
-    device: '/dev/sdb',
-    displayName: '/dev/sdb',
-    description: 'DataTraveler 2.0',
-    size: 7823458304,
-    mountpoints: [
-      {
-        path: '/media/UNTITLED'
-      }
-    ],
-    raw: '/dev/sdb',
-    protected: true,
-    system: false
-  }
-]
+[{
+  enumerator: 'lsblk',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/sdb',
+  raw: '/dev/sdb',
+  description: 'Storage Device',
+  error: null,
+  size: 31914983424,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [{
+    path: '/media/jonas/Etcher 1.2.0'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'lsblk',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/sda',
+  raw: '/dev/sda',
+  description: 'Samsung SSD 850',
+  error: null,
+  size: 120034123776,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [{
+    path: '/'
+  }, {
+    path: '/boot/efi'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}]
 ```
 
 ***
