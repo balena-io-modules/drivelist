@@ -40,24 +40,46 @@ This is how the raw output looks on my MacBook Pro at the time of this writing:
 
 ```sh
 $ ./scripts/darwin.sh
+enumerator: diskutil
+busType: UNKNOWN
+busVersion: "0.0"
 device: /dev/disk0
-displayName: /dev/disk0
-description: "APPLE SSD SM0256G"
-size: 251000193024
-mountpoints: []
 raw: /dev/rdisk0
-protected: False
-system: True
+description: "APPLE SSD TS128E"
+error: null
+size: 121332826112
+blockSize: null
+logicalBlockSize: null
+mountpoints: []
+isReadOnly: False
+isSystem: True
+isVirtual: null
+isRemovable: null
+isCard: null
+isSCSI: null
+isUSB: null
+isUAS: null
 
-device: /dev/disk1
-displayName: /dev/disk1
-description: "Macintosh HD"
-size: 249779191808
+enumerator: diskutil
+busType: UNKNOWN
+busVersion: "0.0"
+device: /dev/disk2
+raw: /dev/rdisk2
+description: "SD Card Reader"
+error: null
+size: 31104958464
+blockSize: null
+logicalBlockSize: null
 mountpoints:
-  - path: /
-raw: /dev/rdisk1
-protected: False
-system: True
+  - path: "/Volumes/Patchwork"
+isReadOnly: False
+isSystem: False
+isVirtual: null
+isRemovable: null
+isCard: null
+isSCSI: null
+isUSB: null
+isUAS: null
 ```
 
 Because of the simplicity of this module's design, supporting a new operating
@@ -89,32 +111,73 @@ drivelist.list((error, drives) => {
 Mac OS X:
 
 ```sh
-[
-  {
-    device: '/dev/disk0',
-    displayName: '/dev/disk0',
-    description: 'GUID_partition_scheme',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: '/'
-      }
-    ],
-    raw: '/dev/rdisk0',
-    protected: false,
-    system: true
-  },
-  {
-    device: '/dev/disk1',
-    displayName: '/dev/disk1',
-    description: 'Apple_HFS Macintosh HD',
-    size: 68719476736,
-    mountpoints: [],
-    raw: '/dev/rdisk0',
-    protected: false,
-    system: true
-  }
-]
+[{
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk0',
+  raw: '/dev/rdisk0',
+  description: 'APPLE SSD TS128E',
+  error: null,
+  size: 121332826112,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk1',
+  raw: '/dev/rdisk1',
+  description: 'APPLE SSD TS128E',
+  error: null,
+  size: 120473067520,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [
+    { path: '/' },
+    { path: '/private/var/vm' }
+  ],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk2',
+  raw: '/dev/rdisk2',
+  description: 'SD Card Reader',
+  error: null,
+  size: 31104958464,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [
+    { path: '/Volumes/Patchwork' }
+  ],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}]
+
 ```
 
 ***
