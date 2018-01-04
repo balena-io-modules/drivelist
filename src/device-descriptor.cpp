@@ -76,8 +76,12 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
   v8::Local<v8::Object> mountpoints = Nan::New<v8::Array>();
 
   uint32_t index = 0;
-  for (std::string mountpoint : instance->mountpoints) {
-    Nan::Set(mountpoints, index, New<String>(mountpoint).ToLocalChecked());
+  for (std::string mountpointPath : instance->mountpoints) {
+    v8::Local<v8::Object> mountpoint = Nan::New<v8::Object>();
+    Nan::Set(mountpoint,
+      New<String>("path").ToLocalChecked(),
+      New<String>(mountpointPath).ToLocalChecked());
+    Nan::Set(mountpoints, index, mountpoint);
     index++;
   }
 
