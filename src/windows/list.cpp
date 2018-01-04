@@ -460,8 +460,6 @@ bool GetDetailData(DeviceDescriptor* device,
     // printf("[INFO] (%i) SetupDiGetDeviceInterfaceDetailW:\n %s\n",
     //  index, WCharToUtf8(deviceDetailData->DevicePath));
 
-    device->device = std::string(WCharToUtf8(deviceDetailData->DevicePath));
-
     hDevice = CreateFileW(
       deviceDetailData->DevicePath, handleOpenFlags,
       FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
@@ -484,6 +482,7 @@ bool GetDetailData(DeviceDescriptor* device,
     }
 
     device->raw = "\\\\.\\PhysicalDrive" + std::to_string(deviceNumber);
+    device->device = device->raw;
 
     GetMountpoints(deviceNumber, &device->mountpoints);
 
