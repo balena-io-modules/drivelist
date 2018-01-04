@@ -62,7 +62,7 @@ for disk in $DISKS; do
   echo "device: $device"
   echo "raw: $device"
   echo "description: \"$description\""
-  echo "error: \"\""
+  echo "error: null"
   echo "size: $size"
   echo "blockSize: null"
   echo "logicalBlockSize: null"

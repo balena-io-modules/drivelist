@@ -57,7 +57,7 @@ for disk in $DISKS; do
     echo "description: \"$volume_name - $description\""
   fi
 
-  echo "error: \"\""
+  echo "error: null"
   echo "size: $size"
   echo "blockSize: null"
   echo "logicalBlockSize: null"
