@@ -21,7 +21,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha --recursive tests -R spec",
+    "test": "npm run lint && mocha --recursive tests -R spec",
+    "compile-scripts": "node scripts/compile.js",
     "lint": "eslint lib tests example && cpplint --recursive src",
     "readme": "jsdoc2md --template doc/README.hbs lib/drivelist.js > README.md",
     "configure": "node-gyp configure",
