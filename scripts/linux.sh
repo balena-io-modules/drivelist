@@ -56,10 +56,16 @@ for disk in $DISKS; do
     fi
   fi
 
+  echo "enumerator: lsblk"
+  echo "busType: UNKNOWN"
+  echo "busVersion: \"0.0\""
   echo "device: $device"
-  echo "displayName: $device"
+  echo "raw: $device"
   echo "description: \"$description\""
+  echo "error: null"
   echo "size: $size"
+  echo "blockSize: null"
+  echo "logicalBlockSize: null"
 
   if [ -z "$mountpoints" ]; then
     echo "mountpoints: []"
@@ -70,12 +76,10 @@ for disk in $DISKS; do
     done
   fi
 
-  echo "raw: $device"
-
   if [[ "$protected" == "1" ]]; then
-    echo "protected: True"
+    echo "isReadOnly: True"
   else
-    echo "protected: False"
+    echo "isReadOnly: False"
   fi
 
   eval "$(udevadm info \
@@ -92,10 +96,17 @@ for disk in $DISKS; do
      [[ "$UDEV_ID_DRIVE_MEDIA_FLASH_SD" == "1" ]] || \
      [[ "$UDEV_ID_BUS" == "usb" ]]
   then
-    echo "system: False"
+    echo "isSystem: False"
   else
-    echo "system: True"
+    echo "isSystem: True"
   fi
+
+  echo "isVirtual: null"
+  echo "isRemovable: null"
+  echo "isCard: null"
+  echo "isSCSI: null"
+  echo "isUSB: null"
+  echo "isUAS: null"
 
   set -u
 

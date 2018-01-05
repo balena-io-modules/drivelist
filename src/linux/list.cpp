@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-#include "src/log.h"
+#include <nan.h>
+#include "../drivelist.hpp"
 
-void drivelist::Debug(const std::string &string) {
-  const char* debug = std::getenv("DRIVELIST_DEBUG");
-  if (debug != NULL) {
-    std::cout << "[drivelist] " << string << std::endl;
+namespace Drivelist {
+
+  // TODO(jhermsmeier): Implement
+  std::vector<DeviceDescriptor> ListStorageDevices() {
+    std::vector<DeviceDescriptor> drivelist;
+    return drivelist;
   }
-}
+
+}  // namespace Drivelist

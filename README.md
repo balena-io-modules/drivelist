@@ -40,24 +40,46 @@ This is how the raw output looks on my MacBook Pro at the time of this writing:
 
 ```sh
 $ ./scripts/darwin.sh
+enumerator: diskutil
+busType: UNKNOWN
+busVersion: "0.0"
 device: /dev/disk0
-displayName: /dev/disk0
-description: "APPLE SSD SM0256G"
-size: 251000193024
-mountpoints: []
 raw: /dev/rdisk0
-protected: False
-system: True
+description: "APPLE SSD TS128E"
+error: null
+size: 121332826112
+blockSize: null
+logicalBlockSize: null
+mountpoints: []
+isReadOnly: False
+isSystem: True
+isVirtual: null
+isRemovable: null
+isCard: null
+isSCSI: null
+isUSB: null
+isUAS: null
 
-device: /dev/disk1
-displayName: /dev/disk1
-description: "Macintosh HD"
-size: 249779191808
+enumerator: diskutil
+busType: UNKNOWN
+busVersion: "0.0"
+device: /dev/disk2
+raw: /dev/rdisk2
+description: "SD Card Reader"
+error: null
+size: 31104958464
+blockSize: null
+logicalBlockSize: null
 mountpoints:
-  - path: /
-raw: /dev/rdisk1
-protected: False
-system: True
+  - path: "/Volumes/Patchwork"
+isReadOnly: False
+isSystem: False
+isVirtual: null
+isRemovable: null
+isCard: null
+isSCSI: null
+isUSB: null
+isUAS: null
 ```
 
 Because of the simplicity of this module's design, supporting a new operating
@@ -89,32 +111,73 @@ drivelist.list((error, drives) => {
 Mac OS X:
 
 ```sh
-[
-  {
-    device: '/dev/disk0',
-    displayName: '/dev/disk0',
-    description: 'GUID_partition_scheme',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: '/'
-      }
-    ],
-    raw: '/dev/rdisk0',
-    protected: false,
-    system: true
-  },
-  {
-    device: '/dev/disk1',
-    displayName: '/dev/disk1',
-    description: 'Apple_HFS Macintosh HD',
-    size: 68719476736,
-    mountpoints: [],
-    raw: '/dev/rdisk0',
-    protected: false,
-    system: true
-  }
-]
+[{
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk0',
+  raw: '/dev/rdisk0',
+  description: 'APPLE SSD TS128E',
+  error: null,
+  size: 121332826112,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk1',
+  raw: '/dev/rdisk1',
+  description: 'APPLE SSD TS128E',
+  error: null,
+  size: 120473067520,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [
+    { path: '/' },
+    { path: '/private/var/vm' }
+  ],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'diskutil',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/disk2',
+  raw: '/dev/rdisk2',
+  description: 'SD Card Reader',
+  error: null,
+  size: 31104958464,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [
+    { path: '/Volumes/Patchwork' }
+  ],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}]
+
 ```
 
 ***
@@ -122,36 +185,53 @@ Mac OS X:
 GNU/Linux
 
 ```sh
-[
-  {
-    device: '/dev/sda',
-    displayName: '/dev/sda',
-    description: 'WDC WD10JPVX-75J',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: '/'
-      }
-    ],
-    raw: '/dev/sda',
-    protected: false,
-    system: true
-  },
-  {
-    device: '/dev/sdb',
-    displayName: '/dev/sdb',
-    description: 'DataTraveler 2.0',
-    size: 7823458304,
-    mountpoints: [
-      {
-        path: '/media/UNTITLED'
-      }
-    ],
-    raw: '/dev/sdb',
-    protected: true,
-    system: false
-  }
-]
+[{
+  enumerator: 'lsblk',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/sdb',
+  raw: '/dev/sdb',
+  description: 'Storage Device',
+  error: null,
+  size: 31914983424,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [{
+    path: '/media/jonas/Etcher 1.2.0'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}, {
+  enumerator: 'lsblk',
+  busType: 'UNKNOWN',
+  busVersion: '0.0',
+  device: '/dev/sda',
+  raw: '/dev/sda',
+  description: 'Samsung SSD 850',
+  error: null,
+  size: 120034123776,
+  blockSize: null,
+  logicalBlockSize: null,
+  mountpoints: [{
+    path: '/'
+  }, {
+    path: '/boot/efi'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: null,
+  isRemovable: null,
+  isCard: null,
+  isSCSI: null,
+  isUSB: null,
+  isUAS: null
+}]
 ```
 
 ***
@@ -159,49 +239,119 @@ GNU/Linux
 Windows
 
 ```sh
-[
-  {
-    device: '\\\\.\\PHYSICALDRIVE0',
-    displayName: 'C:',
-    description: 'WDC WD10JPVX-75JC3T0',
-    size: 68719476736,
-    mountpoints: [
-      {
-        path: 'C:'
-      }
-    ],
-    raw: '\\\\.\\PHYSICALDRIVE0',
-    protected: false,
-    system: true
-  },
-  {
-    device: '\\\\.\\PHYSICALDRIVE1',
-    displayName: 'D:, F:',
-    description: 'Generic STORAGE DEVICE USB Device',
-    size: 7823458304,
-    mountpoints: [
-      {
-        path: 'D:'
-      },
-      {
-        path: 'F:'
-      }
-    ],
-    raw: '\\\\.\\PHYSICALDRIVE1',
-    protected: true,
-    system: false
-  },
-  {
-    device: '\\\\.\\PHYSICALDRIVE2',
-    displayName: '\\\\.\\PHYSICALDRIVE2',
-    description: 'Silicon-Power2G',
-    size: 2014314496,
-    mountpoints: [],
-    raw: '\\\\.\\PHYSICALDRIVE2',
-    protected: false,
-    system: false
-  }
-]
+[{
+  enumerator: 'SCSI',
+  busType: 'SATA',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_wdc&prod_wd1600bevs-07rst#4&5a60d67&0&000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive0',
+  description: 'WDC WD1600BEVS-07RST0',
+  error: null,
+  size: 160041885696,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'D:\\'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: false,
+  isRemovable: false,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'SD',
+  busType: 'SD',
+  busVersion: '2.0',
+  device: '\\\\?\\sd#disk&generic&sc16g&8.0#5&c518b2e&0&c3964099&0#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive4',
+  description: 'Generic SC16G SD Card',
+  error: null,
+  size: 15931539456,
+  blockSize: 4096,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'G:\\'
+  }, {
+    path: 'H:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: true,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'SCSI',
+  busType: 'USB',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_usb3.0&prod_#000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive2',
+  description: 'USB3.0  SCSI Disk Device',
+  error: null,
+  size: 500107862016,
+  blockSize: 4096,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'E:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: true
+}, {
+  enumerator: 'SCSI',
+  busType: 'SATA',
+  busVersion: '2.0',
+  device: '\\\\?\\scsi#disk&ven_samsung&prod_ssd_850_evo_m.2#4&5a60d67&0&020000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive1',
+  description: 'Samsung SSD 850 EVO M.2 120GB',
+  error: null,
+  size: 120034123776,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'C:\\'
+  }],
+  isReadOnly: false,
+  isSystem: true,
+  isVirtual: false,
+  isRemovable: false,
+  isCard: false,
+  isSCSI: true,
+  isUSB: false,
+  isUAS: false
+}, {
+  enumerator: 'USBSTOR',
+  busType: 'USB',
+  busVersion: '2.0',
+  device: '\\\\?\\usbstor#disk&ven_disk&prod_name&rev_ax10#0012345667888&0#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}',
+  raw: '\\\\.\\PhysicalDrive3',
+  description: 'Disk Name USB Device',
+  error: null,
+  size: 1000204886016,
+  blockSize: 512,
+  logicalBlockSize: 512,
+  mountpoints: [{
+    path: 'F:\\'
+  }],
+  isReadOnly: false,
+  isSystem: false,
+  isVirtual: false,
+  isRemovable: true,
+  isCard: false,
+  isSCSI: false,
+  isUSB: true,
+  isUAS: false
+}]
 ```
 
 Installation
