@@ -38,7 +38,7 @@ for disk in $DISKS; do
   location="$(echo "$diskinfo" | get_key "Device Location")"
   size="$(echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | cut -d '(' -f 2 | cut -d ' ' -f 1)"
 
-  mountpoints="$(echo "$mount_output" | grep -E "^${disk}(s[0-9]+)? on " | sed -r -e "s| \([^\(]+$||" -e "s|^${disk}(s[0-9]+)? on ||")"
+  mountpoints="$(echo "$mount_output" | grep -E "^${disk}(s[0-9]+)? on " | sed -E -e "s| \([^\(]+$||" -e "s|^${disk}(s[0-9]+)? on ||")"
 
   # Omit mounted DMG images
   if [[ "$description" == "Disk Image" ]]; then
