@@ -148,21 +148,30 @@ bool IsVirtualHardDrive(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
   return false;
 }
 
-bool IsSystemDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
-  PWSTR windowsPath = NULL;
-  HRESULT result = SHGetKnownFolderPath(
-    FOLDERID_Windows, 0, NULL, &windowsPath);
+bool IsSystemDevice(HDEVINFO hDeviceInfo, DeviceDescriptor *device) {
+  PWSTR folderPath = NULL;
+  BOOL isSystem = false;
 
-  if (result == S_OK) {
-    std::string systemPath = WCharToUtf8(windowsPath);
-    CoTaskMemFree(windowsPath);
-    // printf("systemPath %s\n", systemPath.c_str());
-    // TODO(jhermsmeier): Compare against mountpoints to actually determine this
-    return true;
+  for (const GUID folderId : KNOWN_FOLDER_IDS) {
+    HRESULT result = SHGetKnownFolderPath(
+      folderId, 0, NULL, &folderPath);
+
+    if (result == S_OK) {
+      std::string systemPath = WCharToUtf8(folderPath);
+      // printf("systemPath %s\n", systemPath.c_str());
+      for (std::string mountpoint : device->mountpoints) {
+        // printf("%s find %s\n", systemPath.c_str(), mountpoint.c_str());
+        if (systemPath.find(mountpoint, 0) != std::string::npos) {
+          isSystem = true;
+          break;
+        }
+      }
+    }
+
+    CoTaskMemFree(folderPath);
   }
 
-  CoTaskMemFree(windowsPath);
-  return false;
+  return isSystem;
 }
 
 std::vector<std::string> GetAvailableVolumes() {
@@ -628,12 +637,13 @@ std::vector<DeviceDescriptor> ListStorageDevices() {
     device.isSCSI = IsSCSIDevice(enumeratorName);
     device.isUSB = IsUSBDevice(enumeratorName);
     device.isCard = device.enumerator == "SD";
-    // device.isSystem = IsSystemDevice(hDeviceInfo, deviceInfoData);
-    device.isSystem = device.isSCSI && !device.isRemovable;
+    device.isSystem = !device.isRemovable &&
+      (device.enumerator == "SCSI" || device.enumerator == "IDE");
     device.isUAS = device.isSCSI && device.isRemovable &&
       !device.isVirtual && !device.isCard;
 
     if (GetDetailData(&device, hDeviceInfo, deviceInfoData)) {
+      device.isSystem = device.isSystem || IsSystemDevice(hDeviceInfo, &device);
       device.isCard = device.busType == "SD" || device.busType == "MMC";
       device.isUAS = device.enumerator == "SCSI" && device.busType == "USB";
       device.isVirtual = device.isVirtual ||
