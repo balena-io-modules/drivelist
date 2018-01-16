@@ -10,6 +10,17 @@
         "src/drivelist.cpp",
         "src/device-descriptor.cpp",
       ],
+      "msvs_settings": {
+        "VCLinkerTool": {
+          "SetChecksum": "true"
+        },
+        "VCCLCompilerTool": {
+          "ExceptionHandling": 1,
+          "AdditionalOptions": [
+            "/EHsc"
+          ]
+        }
+      },
       "conditions": [
         [ 'OS=="mac"', {
           "sources": [
@@ -24,7 +35,9 @@
             "src/windows/list.cpp"
           ],
           "libraries": [
-            "-lsetupapi.lib"
+            "-lKernel32.lib",
+            "-lShell32.lib",
+            "-lSetupAPI.lib"
           ]
         }],
         [ 'OS=="linux"', {

@@ -205,6 +205,7 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
 
   if (result && diskExtents.NumberOfDiskExtents > 0) {
     // printf("[INFO] DiskNumber: %i\n", diskExtents.Extents[0].DiskNumber);
+
     // NOTE: Always ignore RAIDs
     // TODO(jhermsmeier): Handle RAIDs properly
     if (diskExtents.NumberOfDiskExtents >= 2) {
@@ -226,10 +227,10 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
   if (result) {
     // printf("[INFO] DeviceNumber: %i\n", deviceNumber.DeviceNumber);
     diskNumber = deviceNumber.DeviceNumber;
-  } else {
-    errorCode = GetLastError();
-    // printf("[INFO] STORAGE_GET_DEVICE_NUMBER: Error 0x%08lX\n", errorCode);
   }
+
+  // errorCode = GetLastError();
+  // printf("[INFO] STORAGE_GET_DEVICE_NUMBER: Error 0x%08lX\n", errorCode);
 
   return diskNumber;
 }
@@ -245,6 +246,7 @@ void GetMountpoints(int32_t deviceNumber,
   for (std::string volumeName : logicalVolumes) {
     if (hLogical != INVALID_HANDLE_VALUE) {
       CloseHandle(hLogical);
+      hLogical = INVALID_HANDLE_VALUE;
     }
 
     // NOTE: Ignore everything that's not a fixed or removable drive,
@@ -253,7 +255,11 @@ void GetMountpoints(int32_t deviceNumber,
     // attributed to blockdevices
     driveType = GetDriveTypeA((volumeName + ":\\").c_str());
 
+    // printf("[INFO] Checking %s:/\n", volumeName.c_str());
+
     if ((driveType != DRIVE_FIXED) && (driveType != DRIVE_REMOVABLE)) {
+      // printf("[INFO] Ignoring volume %s:/ - Not FIXED | REMOVABLE\n",
+      //   volumeName.c_str());
       continue;
     }
 
@@ -277,12 +283,15 @@ void GetMountpoints(int32_t deviceNumber,
     }
 
     if (logicalVolumeDeviceNumber == deviceNumber) {
+      // printf("[INFO] Device number for logical volume %s is %i\n",
+      //   volumeName.c_str(), logicalVolumeDeviceNumber);
       mountpoints->push_back(volumeName + ":\\");
     }
   }
 
   if (hLogical != INVALID_HANDLE_VALUE) {
     CloseHandle(hLogical);
+    hLogical = INVALID_HANDLE_VALUE;
   }
 }
 
@@ -311,6 +320,7 @@ std::string GetBusType(STORAGE_ADAPTER_DESCRIPTOR *adapterDescriptor) {
 bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
   STORAGE_PROPERTY_QUERY query;
   STORAGE_ADAPTER_DESCRIPTOR adapterDescriptor;
+  DWORD size = 0;
 
   ZeroMemory(&query, sizeof(query));
 
@@ -320,7 +330,7 @@ bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
   BOOL hasAdapterInfo = DeviceIoControl(
     hPhysical, IOCTL_STORAGE_QUERY_PROPERTY,
     &query, sizeof(STORAGE_PROPERTY_QUERY),
-    &adapterDescriptor, sizeof(STORAGE_ADAPTER_DESCRIPTOR), NULL, NULL);
+    &adapterDescriptor, sizeof(STORAGE_ADAPTER_DESCRIPTOR), &size, NULL);
 
   if (hasAdapterInfo) {
     device->busType = GetBusType(&adapterDescriptor);
@@ -335,6 +345,7 @@ bool GetAdapterInfo(HANDLE hPhysical, DeviceDescriptor *device) {
 bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
   STORAGE_PROPERTY_QUERY query;
   STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR alignmentDescriptor;
+  DWORD size = 0;
 
   ZeroMemory(&query, sizeof(query));
 
@@ -345,7 +356,7 @@ bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
     hPhysical, IOCTL_STORAGE_QUERY_PROPERTY,
     &query, sizeof(STORAGE_PROPERTY_QUERY),
     &alignmentDescriptor, sizeof(STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR),
-    NULL, NULL);
+    &size, NULL);
 
   if (hasAlignmentDescriptor) {
     device->blockSize = alignmentDescriptor.BytesPerPhysicalSector;
@@ -359,9 +370,16 @@ bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
 bool GetDeviceSize(HANDLE hPhysical, DeviceDescriptor *device) {
   DISK_GEOMETRY_EX diskGeometry;
 
-  BOOL hasDiskGeometry = DeviceIoControl(
+  // printf("[INFO] hasDiskGeometry\n");
+
+  BOOL hasDiskGeometry = false;
+  DWORD size = 0;
+
+  hasDiskGeometry = DeviceIoControl(
     hPhysical, IOCTL_DISK_GET_DRIVE_GEOMETRY_EX, NULL, 0,
-    &diskGeometry, sizeof(DISK_GEOMETRY_EX), NULL, NULL);
+    &diskGeometry, sizeof(DISK_GEOMETRY_EX), &size, NULL);
+
+  // printf("[INFO] hasDiskGeometry %i\n", hasDiskGeometry);
 
   // NOTE: Another way to get the block size would be
   // `IOCTL_STORAGE_QUERY_PROPERTY` with `STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR`,
@@ -382,28 +400,26 @@ bool GetDetailData(DeviceDescriptor* device,
   DWORD errorCode = 0;
   bool result = true;
 
-  // Passing zero to `CreateFile()` doesn't require permissions to
-  // open the device handle, but only lets you acquire device metadata,
-  // which is all we want
-  DWORD handleOpenFlags = 0;
-
   HANDLE hDevice = INVALID_HANDLE_VALUE;
   HANDLE hPhysical = INVALID_HANDLE_VALUE;
   SP_DEVICE_INTERFACE_DATA deviceInterfaceData;
-  PSP_DEVICE_INTERFACE_DETAIL_DATA_W deviceDetailData;
+  PSP_DEVICE_INTERFACE_DETAIL_DATA_W deviceDetailData(NULL);
 
   for (index = 0; ; index++) {
     if (hDevice != INVALID_HANDLE_VALUE) {
       CloseHandle(hDevice);
+      hDevice = INVALID_HANDLE_VALUE;
     }
 
     if (hPhysical != INVALID_HANDLE_VALUE) {
       CloseHandle(hPhysical);
+      hPhysical = INVALID_HANDLE_VALUE;
     }
 
     deviceInterfaceData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
 
-    // printf("[INFO] (%i) SetupDiEnumDeviceInterfaces\n", index);
+    // printf("[INFO] (%i) SetupDiEnumDeviceInterfaces - isDisk\n", index);
+
     BOOL isDisk = SetupDiEnumDeviceInterfaces(
       hDeviceInfo, &deviceInfoData, &GUID_DEVICE_INTERFACE_DISK,
       index, &deviceInterfaceData);
@@ -412,7 +428,7 @@ bool GetDetailData(DeviceDescriptor* device,
       errorCode = GetLastError();
       if (errorCode == ERROR_NO_MORE_ITEMS) {
         // printf("[INFO] (%i) EnumDeviceInterfaces: No more items 0x%08lX\n",
-        //  index, errorCode);
+        //   index, errorCode);
         result = index != 0;
         break;
       } else {
@@ -429,22 +445,28 @@ bool GetDetailData(DeviceDescriptor* device,
     if (!hasDeviceInterfaceData) {
       errorCode = GetLastError();
       if (errorCode == ERROR_INSUFFICIENT_BUFFER) {
-        deviceDetailData = (PSP_DEVICE_INTERFACE_DETAIL_DATA_W) calloc(1, size);
+        deviceDetailData = static_cast<PSP_DEVICE_INTERFACE_DETAIL_DATA_W>
+          (malloc(size));
         if (deviceDetailData == NULL) {
-          device->error = "GetDeviceInterfaceDetailW: "
-            "Unable to allocate SP_DEVICE_INTERFACE_DETAIL_DATA; "
+          device->error = "SetupDiGetDeviceInterfaceDetailW: "
+            "Unable to allocate SP_DEVICE_INTERFACE_DETAIL_DATA_W"
+            "(" + std::to_string(size) + "); "
             "Error " + std::to_string(errorCode);
           result = false;
           break;
         }
-        deviceDetailData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
+        // printf("Allocated SP_DEVICE_INTERFACE_DETAIL_DATA_W\n");
       } else {
-        device->error = "GetDeviceInterfaceDetailW: "
+        device->error = "SetupDiGetDeviceInterfaceDetailW: "
           "Couldn't get detail data; Error " + std::to_string(errorCode);
         result = false;
         break;
       }
     }
+
+    // printf("[INFO] (%i) Getting SP_DEVICE_INTERFACE_DETAIL_DATA_W\n", index);
+
+    deviceDetailData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA_W);
 
     BOOL hasDeviceDetail = SetupDiGetDeviceInterfaceDetailW(
       hDeviceInfo, &deviceInterfaceData, deviceDetailData, size, &size, NULL);
@@ -458,17 +480,21 @@ bool GetDetailData(DeviceDescriptor* device,
     }
 
     // printf("[INFO] (%i) SetupDiGetDeviceInterfaceDetailW:\n %s\n",
-    //  index, WCharToUtf8(deviceDetailData->DevicePath));
+    //   index, WCharToUtf8(deviceDetailData->DevicePath));
 
+    // Passing zero to `CreateFile()` doesn't require permissions to
+    // open the device handle, but only lets you acquire device metadata,
+    // which is all we want
     hDevice = CreateFileW(
-      deviceDetailData->DevicePath, handleOpenFlags,
+      deviceDetailData->DevicePath, 0,
       FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (hDevice == INVALID_HANDLE_VALUE) {
       errorCode = GetLastError();
+      // printf("[ERROR] Couldn't open handle to device: Error %i", errorCode);
       device->error = "Couldn't open handle to device: Error " +
-      std::to_string(errorCode);
+        std::to_string(errorCode);
       result = false;
       break;
     }
@@ -486,34 +512,51 @@ bool GetDetailData(DeviceDescriptor* device,
 
     GetMountpoints(deviceNumber, &device->mountpoints);
 
+    // printf("[INFO] Opening handle to %s\n", device->raw.c_str());
+
     hPhysical = CreateFileA(
-      device->raw.c_str(), handleOpenFlags,
+      device->raw.c_str(), 0,
       FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
+    // printf("[INFO] Opened handle to %s\n", device->raw.c_str());
+    // printf("[INFO] Handle %i (INVALID %i)\n",
+    //   hPhysical, INVALID_HANDLE_VALUE);
+
     if (hPhysical == INVALID_HANDLE_VALUE) {
       errorCode = GetLastError();
+      // printf("[INFO] Couldn't open handle to %s: Error %i\n",
+      //   device->raw.c_str(), errorCode);
       device->error = "Couldn't open handle to physical device: Error " +
         std::to_string(errorCode);
       result = false;
       break;
     }
 
+    // printf("[INFO] GetDeviceSize( %s )\n", device->raw.c_str());
+
     if (!GetDeviceSize(hPhysical, device)) {
       errorCode = GetLastError();
+      // printf("[ERROR] Couldn't get disk geometry: Error %i\n", errorCode);
       device->error = "Couldn't get disk geometry: Error " +
         std::to_string(errorCode);
       result = false;
       break;
     }
 
+    // printf("[INFO] GetAdapterInfo( %s )\n", device->raw.c_str());
+
     if (!GetAdapterInfo(hPhysical, device)) {
       errorCode = GetLastError();
+      // printf("[ERROR] Couldn't get device adapter descriptor: Error %i\n",
+      //   errorCode);
       device->error = "Couldn't get device adapter descriptor: Error " +
         std::to_string(errorCode);
       result = false;
       break;
     }
+
+    // printf("[INFO] GetDeviceBlockSize( %s )\n", device->raw.c_str());
 
     // NOTE: No need to fail over this one,
     // as we can safely default to a 512B block size
@@ -522,19 +565,23 @@ bool GetDetailData(DeviceDescriptor* device,
       // printf("[INFO] Couldn't get block size: Error %u\n", errorCode);
     }
 
+    // printf("[INFO] isWritable( %s )\n", device->raw.c_str());
+
     BOOL isWritable = DeviceIoControl(
       hPhysical, IOCTL_DISK_IS_WRITABLE, NULL, 0,
       NULL, 0, &size, NULL);
 
     device->isReadOnly = !isWritable;
-  }
+  }  // end for (index = 0; ; index++)
 
   if (hDevice != INVALID_HANDLE_VALUE) {
     CloseHandle(hDevice);
+    hDevice = INVALID_HANDLE_VALUE;
   }
 
   if (hPhysical != INVALID_HANDLE_VALUE) {
     CloseHandle(hPhysical);
+    hPhysical = INVALID_HANDLE_VALUE;
   }
 
   free(deviceDetailData);
@@ -564,6 +611,8 @@ std::vector<DeviceDescriptor> ListStorageDevices() {
 
   for (i = 0; SetupDiEnumDeviceInfo(hDeviceInfo, i, &deviceInfoData); i++) {
     enumeratorName = GetEnumeratorName(hDeviceInfo, deviceInfoData);
+
+    // printf("[INFO] Enumerating %s\n", enumeratorName);
 
     // If it failed to get the SPDRP_ENUMERATOR_NAME, skip it
     if (enumeratorName == NULL) {
