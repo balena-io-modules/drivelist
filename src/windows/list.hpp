@@ -17,6 +17,7 @@
 #ifndef SRC_WINDOWS_LIST_HPP_
 #define SRC_WINDOWS_LIST_HPP_
 
+#include <knownfolders.h>
 #include <string>
 #include <set>
 
@@ -93,6 +94,13 @@ const std::set<std::string> VHD_HARDWARE_IDS {
   "KernSafeVirtual_________",
   "Msft____Virtual_Disk____",
   "VMware__VMware_Virtual_S"
+};
+
+const GUID KNOWN_FOLDER_IDS[] {
+  FOLDERID_Windows,
+  FOLDERID_Profile,
+  FOLDERID_ProgramFiles,
+  FOLDERID_ProgramFilesX86
 };
 
 }  // namespace Drivelist
