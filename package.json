@@ -41,17 +41,17 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "eslint": "^4.14.0",
-    "jsdoc-to-markdown": "^3.0.3",
-    "mocha": "^4.0.1",
+    "eslint": "^4.18.1",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "^5.0.1",
     "mochainon": "^2.0.0",
-    "prebuild": "^7.0.0"
+    "prebuild": "^7.4.0"
   },
   "dependencies": {
     "bindings": "^1.3.0",
     "debug": "^3.1.0",
     "js-yaml": "^3.10.0",
-    "nan": "^2.8.0",
-    "prebuild-install": "^2.4.1"
+    "nan": "^2.9.2",
+    "prebuild-install": "^2.5.1"
   }
 }
