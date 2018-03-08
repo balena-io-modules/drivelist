@@ -83,6 +83,7 @@ describe('Drivelist', function() {
         m.chai.expect(infoError).to.be.an('error');
         m.chai.expect(infoError.message).to.startsWith('Command "');
         m.chai.expect(infoError.message).to.endsWith('" returned without data');
+        childProcess.spawn.restore();
       });
     });
 
