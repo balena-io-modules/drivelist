@@ -44,8 +44,4 @@ describe('Scripts', function() {
     checkCompiledScript(scripts.linux, path.join(__dirname, '..', 'scripts', 'linux.sh'));
   });
 
-  describe('.darwin', function() {
-    checkCompiledScript(scripts.darwin, path.join(__dirname, '..', 'scripts', 'darwin.sh'));
-  });
-
 });

@@ -54,29 +54,6 @@ describe('Drivelist', function() {
           'isUSB: null',
           'isUAS: null'
         ].join('\n'));
-
-        this.executeExtractAndRunStub.withArgs(scripts.darwin).yields(null, [
-          'enumerator: diskutil',
-          'busType: UNKNOWN',
-          'busVersion: "0.0"',
-          'device: /dev/disk2',
-          'raw: /dev/rdisk2',
-          'description: "SD Card Reader"',
-          'error: null',
-          'size: 31104958464',
-          'blockSize: null',
-          'logicalBlockSize: null',
-          'mountpoints:',
-          '  - path: "/Volumes/Patchwork"',
-          'isReadOnly: False',
-          'isSystem: False',
-          'isVirtual: null',
-          'isRemovable: null',
-          'isCard: null',
-          'isSCSI: null',
-          'isUSB: null',
-          'isUAS: null'
-        ].join('\n'));
       });
 
       afterEach(function() {
@@ -116,51 +93,6 @@ describe('Drivelist', function() {
                 } ],
                 isReadOnly: false,
                 isSystem: true,
-                isVirtual: null,
-                isRemovable: null,
-                isCard: null,
-                isSCSI: null,
-                isUSB: null,
-                isUAS: null
-              }
-            ]);
-            done();
-          });
-        });
-
-      });
-
-      describe('given darwin', function() {
-
-        beforeEach(function() {
-          this.osPlatformStub = m.sinon.stub(os, 'platform');
-          this.osPlatformStub.returns('darwin');
-        });
-
-        afterEach(function() {
-          this.osPlatformStub.restore();
-        });
-
-        it('should execute the darwin script', function(done) {
-          drivelist.list((error, drives) => {
-            m.chai.expect(error).to.not.exist;
-            m.chai.expect(drives).to.deep.equal([
-              {
-                enumerator: 'diskutil',
-                busType: 'UNKNOWN',
-                busVersion: '0.0',
-                device: '/dev/disk2',
-                raw: '/dev/rdisk2',
-                description: 'SD Card Reader',
-                error: null,
-                size: 31104958464,
-                blockSize: null,
-                logicalBlockSize: null,
-                mountpoints: [ {
-                  path: '/Volumes/Patchwork'
-                } ],
-                isReadOnly: false,
-                isSystem: false,
                 isVirtual: null,
                 isRemovable: null,
                 isCard: null,
