@@ -13,7 +13,7 @@ rules:
     - error
     - never
   no-cond-assign:
-    - error
+    - off
   no-console:
     - off
   no-constant-condition:
@@ -94,7 +94,7 @@ rules:
   dot-notation:
     - error
   eqeqeq:
-    - error
+    - 1
   guard-for-in:
     - error
   no-alert:
@@ -112,7 +112,7 @@ rules:
   no-empty-pattern:
     - error
   no-eq-null:
-    - error
+    - off
   no-eval:
     - error
   no-extend-native:
@@ -329,7 +329,7 @@ rules:
   no-inline-comments:
     - error
   no-mixed-operators:
-    - error
+    - off
   no-mixed-spaces-and-tabs:
     - error
   no-multiple-empty-lines:

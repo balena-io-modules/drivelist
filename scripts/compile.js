@@ -20,16 +20,10 @@ const fs = require('fs');
 const path = require('path');
 
 const scripts = {
-  darwin: path.join(__dirname, 'darwin.sh'),
   linux: path.join(__dirname, 'linux.sh')
 };
 
 const object = {
-  darwin: {
-    content: fs.readFileSync(scripts.darwin, { encoding: 'utf8' }),
-    originalFilename: path.basename(scripts.darwin),
-    type: 'text'
-  },
   linux: {
     content: fs.readFileSync(scripts.linux, { encoding: 'utf8' }),
     originalFilename: path.basename(scripts.linux),
