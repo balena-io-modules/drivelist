@@ -1,6 +1,6 @@
 {
   "name": "drivelist",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "lib/drivelist.js",
   "homepage": "https://github.com/resin-io-modules/drivelist",
@@ -30,10 +30,6 @@
     "rebuild": "node-gyp rebuild",
     "install": "prebuild-install || node-gyp rebuild",
     "prebuild-release": "prebuild --all --strip"
-  },
-  "bin": {
-    "drivelist-darwin": "scripts/darwin.sh",
-    "drivelist-linux": "scripts/linux.sh"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
