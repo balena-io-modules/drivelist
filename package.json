@@ -31,10 +31,6 @@
     "install": "prebuild-install || node-gyp rebuild",
     "prebuild-release": "prebuild --all --strip"
   },
-  "bin": {
-    "drivelist-darwin": "scripts/darwin.sh",
-    "drivelist-linux": "scripts/linux.sh"
-  },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
   "engines": {
