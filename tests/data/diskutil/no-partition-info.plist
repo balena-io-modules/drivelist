@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Bootable</key>
+	<true/>
+	<key>BusProtocol</key>
+	<string>PCI-Express</string>
+	<key>CanBeMadeBootable</key>
+	<false/>
+	<key>CanBeMadeBootableRequiresDestroy</key>
+	<false/>
+	<key>Content</key>
+	<string>Apple_HFS</string>
+	<key>CoreStorageCompositeDisk</key>
+	<false/>
+	<key>CoreStorageEncrypted</key>
+	<true/>
+	<key>CoreStorageLVFUUID</key>
+	<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+	<key>CoreStorageLVGUUID</key>
+	<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+	<key>CoreStorageLVUUID</key>
+	<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+	<key>CoreStoragePVs</key>
+	<array>
+		<dict>
+			<key>CoreStoragePVDisk</key>
+			<string>disk0s2</string>
+			<key>CoreStoragePVUUID</key>
+			<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+		</dict>
+	</array>
+	<key>DeviceBlockSize</key>
+	<integer>4096</integer>
+	<key>DeviceIdentifier</key>
+	<string>disk1</string>
+	<key>DeviceNode</key>
+	<string>/dev/disk1</string>
+	<key>DeviceTreePath</key>
+	<string>IODeviceTree:/PCI0@0/RP17@1B/SSD0@0/IONVMeController</string>
+	<key>DiskUUID</key>
+	<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+	<key>Ejectable</key>
+	<false/>
+	<key>EjectableMediaAutomaticUnderSoftwareControl</key>
+	<false/>
+	<key>EjectableOnly</key>
+	<false/>
+	<key>FilesystemName</key>
+	<string>Journaled HFS+</string>
+	<key>FilesystemType</key>
+	<string>hfs</string>
+	<key>FilesystemUserVisibleName</key>
+	<string>Mac OS Extended (Journaled)</string>
+	<key>FreeSpace</key>
+	<integer>519507255296</integer>
+	<key>GlobalPermissionsEnabled</key>
+	<true/>
+	<key>IOKitSize</key>
+	<integer>999250984960</integer>
+	<key>IORegistryEntryName</key>
+	<string>Macintosh HD</string>
+	<key>Internal</key>
+	<true/>
+	<key>JournalOffset</key>
+	<integer>455176192</integer>
+	<key>JournalSize</key>
+	<integer>83886080</integer>
+	<key>LowLevelFormatSupported</key>
+	<false/>
+	<key>MediaName</key>
+	<string>APPLE SSD SM1024L</string>
+	<key>MediaType</key>
+	<string>Generic</string>
+	<key>MountPoint</key>
+	<string>/</string>
+	<key>OS9DriversInstalled</key>
+	<false/>
+	<key>ParentWholeDisk</key>
+	<string>disk1</string>
+	<key>RAIDMaster</key>
+	<false/>
+	<key>RAIDSlice</key>
+	<false/>
+	<key>RecoveryDeviceIdentifier</key>
+	<string>disk0s3</string>
+	<key>Removable</key>
+	<false/>
+	<key>RemovableMedia</key>
+	<false/>
+	<key>RemovableMediaOrExternalDevice</key>
+	<false/>
+	<key>SMARTStatus</key>
+	<string>Not Supported</string>
+	<key>Size</key>
+	<integer>999250984960</integer>
+	<key>SolidState</key>
+	<true/>
+	<key>SupportsGlobalPermissionsDisable</key>
+	<true/>
+	<key>SystemImage</key>
+	<false/>
+	<key>TotalSize</key>
+	<integer>999250984960</integer>
+	<key>VirtualOrPhysical</key>
+	<string>Virtual</string>
+	<key>VolumeAllocationBlockSize</key>
+	<integer>4096</integer>
+	<key>VolumeName</key>
+	<string>Macintosh HD</string>
+	<key>VolumeSize</key>
+	<integer>999250984960</integer>
+	<key>VolumeUUID</key>
+	<string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
+	<key>WholeDisk</key>
+	<true/>
+	<key>Writable</key>
+	<true/>
+	<key>WritableMedia</key>
+	<true/>
+	<key>WritableVolume</key>
+	<true/>
+</dict>
+</plist>
