@@ -26,6 +26,8 @@ describe('Execute', function() {
   describe('.extractAndRun()', function() {
 
     it('should be able to execute a script', function(done) {
+      this.timeout(5000);
+
       const script = (() => {
         if (os.platform() === 'win32') {
           return {
