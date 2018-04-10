@@ -19,6 +19,7 @@
 const fs = require('fs');
 const path = require('path');
 const m = require('mochainon');
+const mockSpawn = require('mock-spawn');
 const plist = require('fast-plist');
 const diskutil = require('../lib/diskutil');
 
@@ -66,6 +67,22 @@ describe('Drivelist', function() {
         }
       ]);
 
+    });
+
+    it('can handle an empty return from os', function() {
+      const childProcess = require('child_process');
+      const spawn = mockSpawn();
+
+      // Return `diskutil list -plist` with null data
+      spawn.setDefault(spawn.simple(0, null));
+
+      m.sinon.stub(childProcess, 'spawn').callsFake(spawn);
+
+      diskutil.list(function(infoError) {
+        m.chai.expect(infoError).to.be.an('error');
+        m.chai.expect(infoError.message).to.startsWith('Command "');
+        m.chai.expect(infoError.message).to.endsWith('" returned without data');
+      });
     });
 
   });
