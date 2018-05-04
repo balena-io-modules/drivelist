@@ -104,22 +104,47 @@ bool IsUSBDevice(std::string enumeratorName) {
   return false;
 }
 
-bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
-  DWORD result = 0;
-
-  BOOL hasRemovalPolicy = SetupDiGetDeviceRegistryProperty(
-    hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY,
-    NULL, (PBYTE) &result, sizeof(result), NULL);
-
-  switch (result) {
+bool IsRemovablePolicy(DWORD policy) {
+  switch (policy) {
     case CM_REMOVAL_POLICY_EXPECT_SURPRISE_REMOVAL:
     case CM_REMOVAL_POLICY_EXPECT_ORDERLY_REMOVAL:
       return true;
     default:
       return false;
   }
+}
 
-  return false;
+bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
+  DWORD removalPolicy = 0;
+  DWORD hwDefault = 0;
+  DWORD override = 0;
+  BOOL removable = false;
+
+  BOOL hasHWDefault = SetupDiGetDeviceRegistryProperty(
+    hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY_HW_DEFAULT,
+    NULL, (PBYTE) &hwDefault, sizeof(hwDefault), NULL);
+
+  if (hasHWDefault) {
+    removable = IsRemovablePolicy(hwDefault);
+  }
+
+  BOOL hasRemovalPolicy = SetupDiGetDeviceRegistryProperty(
+    hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY,
+    NULL, (PBYTE) &removalPolicy, sizeof(removalPolicy), NULL);
+
+  if (hasRemovalPolicy) {
+    removable = removable || IsRemovablePolicy(removalPolicy);
+  }
+
+  BOOL hasOverride = SetupDiGetDeviceRegistryProperty(
+    hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY_OVERRIDE,
+    NULL, (PBYTE) &override, sizeof(override), NULL);
+
+  if (hasOverride) {
+    removable = removable || IsRemovablePolicy(override);
+  }
+
+  return removable;
 }
 
 bool IsVirtualHardDrive(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
