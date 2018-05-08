@@ -32,6 +32,7 @@ struct DeviceDescriptor {
   std::string busType;
   std::string busVersion;
   std::string device;
+  std::string devicePath;
   std::string raw;
   std::string description;
   std::string error;
