@@ -15,6 +15,11 @@ get_mountpoints() {
   grep "^$1" /proc/mounts | cut -d ' ' -f 2 | sed 's,\\040, ,g' | sed 's,\\011,\t,g' | sed 's,\\012,\\n,g' | sed 's,\\134,\\\\,g'
 }
 
+get_path_id() {
+  # udevadm test-builtin path_id /sys/block/sda | grep ID_PATH=
+  find -L /dev/disk/by-path/ -samefile "$1" | cut -c 19-
+}
+
 DISKS="$(lsblk -d --output NAME | ignore_first_line)"
 
 for disk in $DISKS; do
@@ -38,6 +43,7 @@ for disk in $DISKS; do
   removable=${diskinfo[2]}
   description=${diskinfo[*]:3}
   mountpoints="$(get_mountpoints "$device")"
+  devicePath="$(get_path_id "$device")"
 
   # If we couldn't get the mount points as `/dev/$disk`,
   # get the disk UUIDs, and check as `/dev/disk/by-uuid/$uuid`
@@ -60,6 +66,7 @@ for disk in $DISKS; do
   echo "busType: UNKNOWN"
   echo "busVersion: \"0.0\""
   echo "device: $device"
+  echo "devicePath: $devicePath"
   echo "raw: $device"
   echo "description: \"$description\""
   echo "error: null"

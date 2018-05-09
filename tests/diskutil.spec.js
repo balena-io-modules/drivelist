@@ -44,6 +44,7 @@ describe('Drivelist', function() {
           busType: 'PCI-Express',
           busVersion: null,
           device: '/dev/disk1',
+          devicePath: null,
           raw: '/dev/rdisk1',
           description: 'Macintosh HD',
           error: null,
