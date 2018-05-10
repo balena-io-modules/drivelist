@@ -35,5 +35,6 @@ deploy:
   provider: script
   script: ./ci/prebuild-publish.sh
   on:
+    node: 10
     tags: true
     branch: master

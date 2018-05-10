@@ -31,4 +31,4 @@ test_script:
   - cmd: npm test
 
 deploy_script:
-  - ci\prebuild-publish.bat
+  - ci\prebuild-publish.bat $env:nodejs_version
