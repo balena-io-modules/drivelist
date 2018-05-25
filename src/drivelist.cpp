@@ -41,7 +41,7 @@ class DriveListWorker : public Nan::AsyncWorker {
     }
 
     v8::Local<v8::Value> argv[] = { Nan::Null(), drives };
-    callback->Call(2, argv);
+    callback->Call(2, argv, async_resource);
   }
 
  private:
