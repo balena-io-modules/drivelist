@@ -9,9 +9,9 @@ os:
   - osx
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      pip install --user cpplint;
+      pip install --user -r requirements.txt;
     else
-      pip2 install cpplint;
+      pip2 install -r requirements.txt;
     fi
 script:
   - npm test
