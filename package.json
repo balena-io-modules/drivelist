@@ -29,7 +29,7 @@
     "build": "node-gyp rebuild",
     "rebuild": "node-gyp rebuild",
     "install": "prebuild-install || node-gyp rebuild",
-    "prebuild-release": "prebuild --all --strip"
+    "prebuild-release": "prebuild"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
