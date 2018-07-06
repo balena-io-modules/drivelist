@@ -20,17 +20,17 @@ get_path_id() {
   find -L /dev/disk/by-path/ -samefile "$1" | cut -c 19-
 }
 
-DISKS="$(lsblk -d --output NAME | ignore_first_line)"
+DISKS="$(lsblk -a -d --output NAME | ignore_first_line)"
 
 for disk in $DISKS; do
 
-  # Omit loop devices and CD/DVD drives
-  if [[ $disk == loop* ]] || [[ $disk == sr* ]]; then
+  # Omit loop devices, CD/DVD drives, and RAM
+  if [[ $disk == loop* ]] || [[ $disk == sr* ]] || [[ $disk == ram* ]]; then
     continue
   fi
 
   device="/dev/$disk"
-  diskinfo=($(lsblk -b -d "$device" --output SIZE,RO,RM,MODEL | ignore_first_line))
+  diskinfo=($(lsblk -b -d -a "$device" --output SIZE,RO,RM,MODEL | ignore_first_line))
 
   # Omit drives for which `lsblk` failed, which means they
   # were unplugged right after we got the list of all drives
