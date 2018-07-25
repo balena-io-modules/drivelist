@@ -18,8 +18,17 @@
 
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 const m = require('mochainon');
-const parsePairs = require('../lib/lsblk/pairs.js');
+const parseJSON = require('../lib/lsblk/json');
+const parsePairs = require('../lib/lsblk/pairs');
+
+const inspect = (value) => {
+  console.log(util.inspect(value, {
+    colors: true,
+    depth: null
+  }));
+};
 
 describe('Drivelist', function() {
 
@@ -73,10 +82,7 @@ describe('Drivelist', function() {
         isUAS: null
       } ];
 
-      console.log(require('util').inspect(parsePairs(listData), {
-        colors: true,
-        depth: null
-      }));
+      inspect(parsePairs(listData));
 
       m.chai.expect(devices).to.deep.equal(expected);
 
@@ -138,12 +144,74 @@ describe('Drivelist', function() {
         isUAS: null
       } ];
 
-      console.log(require('util').inspect(parsePairs(listData), {
-        colors: true,
-        depth: null
-      }));
+      inspect(parsePairs(listData));
 
       m.chai.expect(devices).to.deep.equal(expected);
+
+    });
+
+    it('can handle mountpoints on root devices', function() {
+
+      const listData = require('./data/lsblk/no-children-mountpoints.json');
+      const actual = parseJSON.transform(listData);
+
+      const expected = [ {
+        enumerator: 'lsblk:json',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/sda',
+        raw: '/dev/sda',
+        description: '',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '/media/jwentz/Temp',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: false,
+        isVirtual: null,
+        isRemovable: true,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      }, {
+        enumerator: 'lsblk:json',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/nvme0n1',
+        raw: '/dev/nvme0n1',
+        description: '([SWAP], /boot/efi, /)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '[SWAP]',
+          label: undefined
+        }, {
+          path: '/boot/efi',
+          label: undefined
+        }, {
+          path: '/',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: true,
+        isVirtual: null,
+        isRemovable: false,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      } ];
+
+      inspect(actual);
+
+      m.chai.expect(actual).to.deep.equal(expected);
 
     });
 
