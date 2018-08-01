@@ -118,6 +118,16 @@ describe('Drivelist', function() {
 
     });
 
+    it('plist undefined and null value assertions', function() {
+      const listData = fs.readFileSync(path.join(__dirname, 'data', 'diskutil', 'no-partition-list.plist'), 'utf8');
+      const globalList = plist.parse(listData);
+
+      m.chai.expect(globalList.nonExistingProperty === null).to.equal(false);
+      m.chai.expect(typeof globalList.nonExistingProperty === 'undefined').to.equal(true);
+
+      const noData = plist.parse('');
+      m.chai.expect(noData === null).to.equal(true);
+    });
   });
 
 });
