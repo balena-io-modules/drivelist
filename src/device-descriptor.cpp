@@ -20,6 +20,8 @@
 using v8::String;
 using v8::Number;
 using v8::Boolean;
+using v8::Local;
+using v8::Value;
 using Nan::New;
 
 namespace Drivelist {
@@ -35,9 +37,13 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("busType").ToLocalChecked(),
     New<String>(instance->busType).ToLocalChecked());
 
+  Local<Value> busVersion = instance->busVersionNull ?
+    (Local<Value>)Nan::Null() :
+    (Local<Value>)New<String>(instance->busVersion).ToLocalChecked();
+
   Nan::Set(object,
-    New<String>("busVersion").ToLocalChecked(),
-    New<String>(instance->busVersion).ToLocalChecked());
+      New<String>("busVersion").ToLocalChecked(),
+      busVersion);
 
   Nan::Set(object,
     New<String>("device").ToLocalChecked(),
@@ -109,9 +115,13 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("isRemovable").ToLocalChecked(),
     New<Boolean>(instance->isRemovable));
 
+  Local<Value> isCard = instance->isCardNull ?
+    (Local<Value>)Nan::Null() :
+    (Local<Value>)New<Boolean>(instance->isCard);
+
   Nan::Set(object,
     New<String>("isCard").ToLocalChecked(),
-    New<Boolean>(instance->isCard));
+    isCard);
 
   Nan::Set(object,
     New<String>("isSCSI").ToLocalChecked(),
@@ -121,9 +131,13 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("isUSB").ToLocalChecked(),
     New<Boolean>(instance->isUSB));
 
+  Local<Value> isUAS = instance->isUASNull ?
+    (Local<Value>)Nan::Null() :
+    (Local<Value>)New<Boolean>(instance->isUAS);
+
   Nan::Set(object,
     New<String>("isUAS").ToLocalChecked(),
-    New<Boolean>(instance->isUAS));
+    isUAS);
 
   return object;
 }

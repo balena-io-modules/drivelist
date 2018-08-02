@@ -63,9 +63,10 @@ namespace Drivelist {
         NSString *mediaPath     = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaPathKey);
 
         device.busType          = [busType UTF8String];
-        device.busVersion       = ""; // null
+        device.busVersion       = "";
+        device.busVersionNull   = true;
         device.device           = "/dev/" + diskBsdNameStr;
-        device.devicePath       = ""; // null
+        device.devicePath       = "";
         device.raw              = "/dev/r" + diskBsdNameStr;
         device.description      = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String];
         device.error            = "";
@@ -89,14 +90,16 @@ namespace Drivelist {
         // It also uses private DiskManagement.framework for some operations
         device.isVirtual        = [mediaPath containsString:@"AppleAPFSContainerScheme"];
         device.isRemovable      = isRemovable;
-        device.isCard           = false;  // null
+        device.isCard           = false;
+        device.isCardNull       = true;
         // NOTE(robin): Not convinced that bus these bus types should result
         // in device.isSCSI = true, it is rather "not usb or sd drive" bool
         // But the old implementation was like this so kept it this way
         NSArray *scsiTypes      = [NSArray arrayWithObjects:@"SATA", @"SCSI", @"ATA", @"IDE", @"PCI", nil];
         device.isSCSI           = [scsiTypes containsObject:busType];
         device.isUSB            = [busType isEqualToString:@"USB"];
-        device.isUAS            = false;   // null
+        device.isUAS            = false;
+        device.isUASNull        = true;
 
         deviceList.push_back(device);
     }
