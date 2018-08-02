@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Bootable</key>
+	<false/>
+	<key>BusProtocol</key>
+	<string>USB</string>
+	<key>CanBeMadeBootable</key>
+	<false/>
+	<key>CanBeMadeBootableRequiresDestroy</key>
+	<false/>
+	<key>Content</key>
+	<string>FDisk_partition_scheme</string>
+	<key>DeviceBlockSize</key>
+	<integer>512</integer>
+	<key>DeviceIdentifier</key>
+	<string>disk3</string>
+	<key>DeviceNode</key>
+	<string>/dev/disk3</string>
+	<key>DeviceTreePath</key>
+	<string>IODeviceTree:/PCI0@0/XHC1@14</string>
+	<key>Ejectable</key>
+	<true/>
+	<key>FreeSpace</key>
+	<integer>0</integer>
+	<key>GlobalPermissionsEnabled</key>
+	<false/>
+	<key>IOKitSize</key>
+	<integer>3980394496</integer>
+	<key>Internal</key>
+	<true/>
+	<key>LowLevelFormatSupported</key>
+	<false/>
+	<key>MediaName</key>
+	<string>APPLE SD Card Reader Media</string>
+	<key>MediaType</key>
+	<string>Generic</string>
+	<key>MountPoint</key>
+	<string></string>
+	<key>OS9DriversInstalled</key>
+	<false/>
+	<key>ParentWholeDisk</key>
+	<string>disk3</string>
+	<key>RAIDMaster</key>
+	<false/>
+	<key>RAIDSlice</key>
+	<false/>
+	<key>SMARTStatus</key>
+	<string>Not Supported</string>
+	<key>SupportsGlobalPermissionsDisable</key>
+	<false/>
+	<key>SystemImage</key>
+	<false/>
+	<key>TotalSize</key>
+	<integer>3980394496</integer>
+	<key>VolumeName</key>
+	<string></string>
+	<key>WholeDisk</key>
+	<true/>
+	<key>Writable</key>
+	<true/>
+	<key>WritableMedia</key>
+	<true/>
+	<key>WritableVolume</key>
+	<false/>
+</dict>
+</plist>
