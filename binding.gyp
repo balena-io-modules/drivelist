@@ -32,10 +32,13 @@
             ]
           },
           "sources": [
-            "src/darwin/list.cpp"
+            "src/darwin/list.mm",
+            "src/darwin/REDiskList.m"
           ],
           "link_settings": {
-            "libraries": []
+            "libraries": [
+              "-framework Carbon,DiskArbitration"
+            ]
           }
         }],
         [ 'OS=="win"', {
