@@ -91,6 +91,13 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     Nan::Set(mountpoint,
       New<String>("path").ToLocalChecked(),
       New<String>(mountpointPath).ToLocalChecked());
+
+    if (index < instance->mountpointLabels.size()) {
+      Nan::Set(mountpoint,
+        New<String>("label").ToLocalChecked(),
+        New<String>(instance->mountpointLabels[index]).ToLocalChecked());
+    }
+
     Nan::Set(mountpoints, index, mountpoint);
     index++;
   }

@@ -36,6 +36,11 @@ namespace Drivelist {
     std::vector<DeviceDescriptor> deviceList;
     REDiskList *dl = [[REDiskList alloc] init];
 
+    DASessionRef session = DASessionCreate(kCFAllocatorDefault);
+    if (session == nil) {
+        return deviceList;
+    }
+
     for (NSString* diskBsdName in dl.disks) {
         if (IsDiskPartition(diskBsdName)) {
             continue;
@@ -43,11 +48,6 @@ namespace Drivelist {
 
         DeviceDescriptor device = DeviceDescriptor();
         device.enumerator = "DiskArbitration";
-
-        DASessionRef session = DASessionCreate(kCFAllocatorDefault);
-        if (session == nil) {
-            continue;
-        }
 
         std::string diskBsdNameStr = [diskBsdName UTF8String];
         DADiskRef disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, diskBsdNameStr.c_str());
@@ -103,6 +103,40 @@ namespace Drivelist {
         device.isUASNull        = true;
 
         deviceList.push_back(device);
+    }
+
+    // Add mount points
+    NSArray* volumeKeys = [NSArray arrayWithObjects:NSURLVolumeNameKey, NSURLVolumeLocalizedNameKey, nil];
+    NSArray* volumePaths = [[NSFileManager defaultManager]
+                            mountedVolumeURLsIncludingResourceValuesForKeys:volumeKeys
+                            options:0];
+
+    for (NSURL* path in volumePaths) {
+        DADiskRef disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, (__bridge CFURLRef)path);
+        if (disk == nil) {
+            continue;
+        }
+
+        const char* bsdnameChar = DADiskGetBSDName(disk);
+        if (bsdnameChar == nil) {
+            continue;
+        }
+
+        NSString *volumeName;
+        [path getResourceValue:&volumeName forKey:NSURLVolumeLocalizedNameKey error:nil];
+
+        std::string partitionBsdName = std::string(bsdnameChar);
+        std::string diskBsdName = partitionBsdName.substr(0, partitionBsdName.find("s", 5));
+
+        for(std::vector<int>::size_type i = 0; i != deviceList.size(); i++) {
+            DeviceDescriptor *dd = &deviceList[i];
+
+            if (dd->device == "/dev/" + diskBsdName) {
+                dd->mountpoints.push_back([[path path] UTF8String]);
+                dd->mountpointLabels.push_back([volumeName UTF8String]);
+                break;
+            }
+        }
     }
 
     return deviceList;
