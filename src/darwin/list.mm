@@ -46,8 +46,6 @@ namespace Drivelist {
             continue;
         }
 
-        DeviceDescriptor device = DeviceDescriptor();
-        device.enumerator = "DiskArbitration";
 
         std::string diskBsdNameStr = [diskBsdName UTF8String];
         DADiskRef disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, diskBsdNameStr.c_str());
@@ -63,6 +61,8 @@ namespace Drivelist {
         bool isRemovable        = [DictNum(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
         NSString *mediaPath     = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaPathKey);
 
+        DeviceDescriptor device = DeviceDescriptor();
+        device.enumerator       = "DiskArbitration";
         device.busType          = [busType UTF8String];
         device.busVersion       = "";
         device.busVersionNull   = true;
