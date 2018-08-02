@@ -24,7 +24,8 @@
       "conditions": [
         [ 'OS=="mac"', {
           "sources": [
-            "src/darwin/list.mm"
+            "src/darwin/list.mm",
+            "src/darwin/REDiskList.m"
           ],
           "link_settings": {
             "libraries": [

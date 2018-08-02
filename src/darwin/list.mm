@@ -17,10 +17,15 @@
 #include <nan.h>
 #include "../drivelist.hpp"
 
+#import "REDiskList.h"
 #import <Cocoa/Cocoa.h>
 #import <DiskArbitration/DiskArbitration.h>
 
 namespace Drivelist {
+  bool IsDiskPartition(NSString *disk) {
+    NSPredicate *partitionRegEx = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"disk\\d+s\\d+"];
+    return [partitionRegEx evaluateWithObject:disk];
+  }
 
   NSNumber *DictNum(CFDictionaryRef dict, const void *key) {
       return (NSNumber*)CFDictionaryGetValue(dict, key);
@@ -28,40 +33,26 @@ namespace Drivelist {
 
   std::vector<DeviceDescriptor> ListStorageDevices() {
     std::vector<DeviceDescriptor> deviceList;
+    REDiskList *dl = [[REDiskList alloc] init];
 
-    NSArray* volumeKeys = [NSArray arrayWithObjects:NSURLVolumeNameKey, NSURLVolumeIsRemovableKey, nil];
-    NSArray* volumePaths = [[NSFileManager defaultManager]
-                            mountedVolumeURLsIncludingResourceValuesForKeys:volumeKeys
-                            options:0];
+    for (NSString* diskBsdName in dl.disks) {
+        if (IsDiskPartition(diskBsdName)) {
+            continue;
+        }
 
-    DeviceDescriptor device;
-    for (NSURL* path in volumePaths) {
-        device = DeviceDescriptor();
-        device.enumerator = "NSFileManager";
+        DeviceDescriptor device = DeviceDescriptor();
+        device.enumerator = "DiskArbitration";
 
         DASessionRef session = DASessionCreate(kCFAllocatorDefault);
         if (session == nil) {
             continue;
         }
 
-        // Might want to create the DADisk from the bsdname instead
-        DADiskRef disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, (__bridge CFURLRef)path);
+        std::string diskBsdNameStr = [diskBsdName UTF8String];
+        DADiskRef disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, diskBsdNameStr.c_str());
         if (disk == nil) {
             continue;
         }
-
-        // BSDName is in the format disk0s1
-        const char* bsdnameChar = DADiskGetBSDName(disk);
-        if (bsdnameChar == nil) {
-            continue;
-        }
-
-        std::string partitionBsdName = std::string(bsdnameChar);
-        std::string diskBsdName = partitionBsdName.substr(0, partitionBsdName.find("s", 5));
-
-        // Recreate the disk using the bsd name so we work in the disk
-        // rather on volume level
-        disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, diskBsdName.c_str());
 
         CFDictionaryRef diskDescription = DADiskCopyDescription(disk);
 
@@ -73,9 +64,9 @@ namespace Drivelist {
 
         device.busType          = [busType UTF8String];
         device.busVersion       = ""; // null
-        device.device           = "/dev/" + diskBsdName;
+        device.device           = "/dev/" + diskBsdNameStr;
         device.devicePath       = ""; // null
-        device.raw              = "/dev/r" + diskBsdName;
+        device.raw              = "/dev/r" + diskBsdNameStr;
         device.description      = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String];
         device.error            = "";
         // NOTE: Not sure if kDADiskDescriptionMediaBlockSizeKey returns
@@ -96,8 +87,6 @@ namespace Drivelist {
         // You can see the implementation of it by disassembling
         // it and look at -[DiskInformation printWholeDisk:what:]:
         // It also uses private DiskManagement.framework for some operations
-        //
-        // This implementation currently only does the "synthesized" check
         device.isVirtual        = [mediaPath containsString:@"AppleAPFSContainerScheme"];
         device.isRemovable      = isRemovable;
         device.isCard           = false;  // null
@@ -109,28 +98,7 @@ namespace Drivelist {
         device.isUSB            = [busType isEqualToString:@"USB"];
         device.isUAS            = false;   // null
 
-        device.mountpoints.push_back([[path path] UTF8String]);
-
         deviceList.push_back(device);
-    }
-
-    // Reduce one entry per volume to one entry per device
-    for(std::vector<int>::size_type i = deviceList.size() - 1; i != (std::vector<int>::size_type) -1; i--) {
-        DeviceDescriptor *thisDevice = &deviceList[i];
-
-        for(std::vector<int>::size_type j = i - 1; j != (std::vector<int>::size_type) -1; j--) {
-            DeviceDescriptor *nextDevice = &deviceList[j];
-
-            // Transfer mount points to next device and remove this device
-            if (thisDevice->device == nextDevice->device) {
-                nextDevice->mountpoints.insert(nextDevice->mountpoints.end(),
-                                              thisDevice->mountpoints.begin(),
-                                              thisDevice->mountpoints.end());
-
-                deviceList.erase(deviceList.begin()+i);
-                break;
-            }
-        }
     }
 
     return deviceList;
