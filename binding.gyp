@@ -24,10 +24,12 @@
       "conditions": [
         [ 'OS=="mac"', {
           "sources": [
-            "src/darwin/list.cpp"
+            "src/darwin/list.mm"
           ],
           "link_settings": {
-            "libraries": []
+            "libraries": [
+              "-framework Carbon,DiskArbitration"
+            ]
           }
         }],
         [ 'OS=="win"', {
