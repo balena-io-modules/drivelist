@@ -69,6 +69,7 @@ namespace Drivelist {
         NSNumber *blockSize     = DictNum(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
         bool isInternal         = [DictNum(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
         bool isRemovable        = [DictNum(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
+        bool isEjectable        = [DictNum(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
         NSString *mediaPath     = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaPathKey);
 
         DeviceDescriptor device = DeviceDescriptor();
@@ -100,7 +101,7 @@ namespace Drivelist {
         // it and look at -[DiskInformation printWholeDisk:what:]:
         // It also uses private DiskManagement.framework for some operations
         device.isVirtual        = [mediaPath containsString:@"AppleAPFSContainerScheme"];
-        device.isRemovable      = isRemovable;
+        device.isRemovable      = isRemovable || isEjectable;
         device.isCard           = IsCard(diskDescription);
         // NOTE(robin): Not convinced that bus these bus types should result
         // in device.isSCSI = true, it is rather "not usb or sd drive" bool
