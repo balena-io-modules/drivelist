@@ -44,7 +44,7 @@ describe('Drivelist', function() {
           busType: 'PCI-Express',
           busVersion: null,
           device: '/dev/disk1',
-          devicePath: null,
+          devicePath: 'IODeviceTree:/PCI0@0/RP17@1B/SSD0@0/IONVMeController',
           raw: '/dev/rdisk1',
           description: 'Macintosh HD',
           error: null,
@@ -85,6 +85,37 @@ describe('Drivelist', function() {
         m.chai.expect(infoError.message).to.endsWith('" returned without data');
         childProcess.spawn.restore();
       });
+    });
+
+    it('does not detect old macbook sd-card readers as system', function() {
+
+      const deviceData = fs.readFileSync(path.join(__dirname, 'data', 'diskutil', 'old-mac-sd-card-reader.plist'), 'utf8');
+      const deviceInfo = plist.parse(deviceData);
+      const devices = [ deviceInfo ].map(diskutil.transform);
+
+      m.chai.expect(devices).to.deep.equal([ {
+        enumerator: 'diskutil',
+        busType: 'USB',
+        busVersion: null,
+        device: '/dev/disk3',
+        devicePath: 'IODeviceTree:/PCI0@0/XHC1@14',
+        raw: '/dev/rdisk3',
+        description: 'APPLE SD Card Reader Media',
+        error: null,
+        size: 3980394496,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [],
+        isReadOnly: false,
+        isSystem: false,
+        isVirtual: false,
+        isRemovable: true,
+        isCard: null,
+        isSCSI: false,
+        isUSB: true,
+        isUAS: null
+      } ]);
+
     });
 
   });
