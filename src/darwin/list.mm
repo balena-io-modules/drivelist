@@ -77,7 +77,7 @@ namespace Drivelist {
         device.busVersion       = "";
         device.busVersionNull   = true;
         device.device           = "/dev/" + diskBsdNameStr;
-        device.devicePath       = "";
+        device.devicePath       = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionBusPathKey) UTF8String];
         device.raw              = "/dev/r" + diskBsdNameStr;
         device.description      = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String];
         device.error            = "";

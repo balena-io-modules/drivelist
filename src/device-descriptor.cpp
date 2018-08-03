@@ -49,9 +49,13 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("device").ToLocalChecked(),
     New<String>(instance->device).ToLocalChecked());
 
+  Local<Value> devicePath = instance->devicePathNull ?
+    (Local<Value>)Nan::Null() :
+    (Local<Value>)New<String>(instance->devicePath).ToLocalChecked();
+
   Nan::Set(object,
     New<String>("devicePath").ToLocalChecked(),
-    Nan::Null());
+    devicePath);
 
   Nan::Set(object,
     New<String>("raw").ToLocalChecked(),

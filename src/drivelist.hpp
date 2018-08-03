@@ -34,6 +34,7 @@ struct DeviceDescriptor {
   bool busVersionNull;
   std::string device;
   std::string devicePath;
+  bool devicePathNull;
   std::string raw;
   std::string description;
   std::string error;
