@@ -47,7 +47,6 @@ struct DeviceDescriptor {
   bool isVirtual;  // Device is a virtual storage device
   bool isRemovable;  // Device is removable from the running system
   bool isCard;  // Device is an SD-card
-  bool isCardNull;
   bool isSCSI;  // Connected via the Small Computer System Interface (SCSI)
   bool isUSB;  // Connected via Universal Serial Bus (USB)
   bool isUAS;  // Connected via the USB Attached SCSI (UAS)

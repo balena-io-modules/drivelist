@@ -122,13 +122,9 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("isRemovable").ToLocalChecked(),
     New<Boolean>(instance->isRemovable));
 
-  Local<Value> isCard = instance->isCardNull ?
-    (Local<Value>)Nan::Null() :
-    (Local<Value>)New<Boolean>(instance->isCard);
-
   Nan::Set(object,
     New<String>("isCard").ToLocalChecked(),
-    isCard);
+    New<Boolean>(instance->isCard));
 
   Nan::Set(object,
     New<String>("isSCSI").ToLocalChecked(),

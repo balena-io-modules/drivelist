@@ -28,6 +28,16 @@ namespace Drivelist {
     return [partitionRegEx evaluateWithObject:disk];
   }
 
+
+  bool IsCard(CFDictionaryRef diskDescription) {
+    CFDictionaryRef mediaIconDict = (CFDictionaryRef)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaIconKey);
+    NSString * iconFileName = (NSString*)CFDictionaryGetValue(mediaIconDict,
+                                                              CFStringCreateWithCString(NULL, "IOBundleResourceFile", kCFStringEncodingUTF8));
+
+    return [iconFileName isEqualToString:@"SD.icns"];
+  }
+
+
   NSNumber *DictNum(CFDictionaryRef dict, const void *key) {
       return (NSNumber*)CFDictionaryGetValue(dict, key);
   }
@@ -91,8 +101,7 @@ namespace Drivelist {
         // It also uses private DiskManagement.framework for some operations
         device.isVirtual        = [mediaPath containsString:@"AppleAPFSContainerScheme"];
         device.isRemovable      = isRemovable;
-        device.isCard           = false;
-        device.isCardNull       = true;
+        device.isCard           = IsCard(diskDescription);
         // NOTE(robin): Not convinced that bus these bus types should result
         // in device.isSCSI = true, it is rather "not usb or sd drive" bool
         // But the old implementation was like this so kept it this way
