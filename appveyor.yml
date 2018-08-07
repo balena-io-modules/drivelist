@@ -18,6 +18,10 @@ environment:
     - nodejs_version: 6
     - nodejs_version: 4
 
+platform:
+  - x86
+  - x64
+
 install:
   - pip install -r requirements.txt
   - ps: Install-Product node $env:nodejs_version x64
