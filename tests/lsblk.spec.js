@@ -55,12 +55,6 @@ describe('Drivelist', function() {
           path: '/boot/efi',
           label: undefined
         }, {
-          path: '',
-          label: undefined
-        }, {
-          path: '',
-          label: undefined
-        }, {
           path: '/',
           label: undefined
         }, {
@@ -68,9 +62,6 @@ describe('Drivelist', function() {
           label: undefined
         }, {
           path: '/home',
-          label: undefined
-        }, {
-          path: '',
           label: undefined
         } ],
         isReadOnly: false,
@@ -129,9 +120,6 @@ describe('Drivelist', function() {
         logicalBlockSize: 512,
         mountpoints: [ {
           path: '/',
-          label: undefined
-        }, {
-          path: '',
           label: undefined
         }, {
           path: '[SWAP]',
@@ -201,6 +189,137 @@ describe('Drivelist', function() {
           path: '/boot/efi',
           label: undefined
         }, {
+          path: '/',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: true,
+        isVirtual: null,
+        isRemovable: false,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      } ];
+
+      inspect(actual);
+
+      m.chai.expect(actual).to.deep.equal(expected);
+
+    });
+
+    it('can handle empty mountpoints in lsblk --pairs output', function() {
+      const listData = fs.readFileSync(path.join(__dirname, 'data', 'lsblk', 'ubuntu-14.04-3.txt'), 'utf8');
+      const actual = parsePairs(listData);
+      const expected = [ {
+        enumerator: 'lsblk:pairs',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/sda',
+        devicePath: null,
+        raw: '/dev/sda',
+        description: '(/media/<username>/85CA-6700)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '/media/<username>/85CA-6700',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: true,
+        isVirtual: null,
+        isRemovable: false,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      }, {
+        enumerator: 'lsblk:pairs',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/sdb',
+        devicePath: null,
+        raw: '/dev/sdb',
+        description: '(/media/<username>/85CA-6700)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '/media/<username>/85CA-6700',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: false,
+        isVirtual: null,
+        isRemovable: true,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      }, {
+        enumerator: 'lsblk:pairs',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/sdc',
+        devicePath: null,
+        raw: '/dev/sdc',
+        description: '(/media/<username>/85CA-6700)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '/media/<username>/85CA-6700',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: false,
+        isVirtual: null,
+        isRemovable: true,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      }, {
+        enumerator: 'lsblk:pairs',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/sdd',
+        devicePath: null,
+        raw: '/dev/sdd',
+        description: '(/media/<username>/85CA-6700)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
+          path: '/media/<username>/85CA-6700',
+          label: undefined
+        } ],
+        isReadOnly: false,
+        isSystem: false,
+        isVirtual: null,
+        isRemovable: true,
+        isCard: null,
+        isSCSI: null,
+        isUSB: null,
+        isUAS: null
+      }, {
+        enumerator: 'lsblk:pairs',
+        busType: 'UNKNOWN',
+        busVersion: null,
+        device: '/dev/nvme0n1',
+        devicePath: null,
+        raw: '/dev/nvme0n1',
+        description: '(/)',
+        error: null,
+        size: null,
+        blockSize: 512,
+        logicalBlockSize: 512,
+        mountpoints: [ {
           path: '/',
           label: undefined
         } ],
