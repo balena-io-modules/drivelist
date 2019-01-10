@@ -58,7 +58,7 @@ describe('Drivelist', function() {
             `Invalid error: ${device.error}`
           );
           assert.ok(
-            Number.isFinite(device.size),
+            device.size === null || Number.isFinite(device.size),
             `Invalid size: ${device.size}`
           );
           assert.ok(
@@ -74,35 +74,35 @@ describe('Drivelist', function() {
             `Invalid mountpoints: ${device.mountpoints}`
           );
           assert.ok(
-            device.isReadOnly == null || typeof device.isReadOnly === 'boolean',
+            device.isReadOnly === null || typeof device.isReadOnly === 'boolean',
             `Invalid isReadOnly flag: ${device.isReadOnly}`
           );
           assert.ok(
-            device.isSystem == null || typeof device.isSystem === 'boolean',
+            device.isSystem === null || typeof device.isSystem === 'boolean',
             `Invalid isSystem flag: ${device.isSystem}`
           );
           assert.ok(
-            device.isVirtual == null || typeof device.isVirtual === 'boolean',
+            device.isVirtual === null || typeof device.isVirtual === 'boolean',
             `Invalid isVirtual flag: ${device.isVirtual}`
           );
           assert.ok(
-            device.isRemovable == null || typeof device.isRemovable === 'boolean',
+            device.isRemovable === null || typeof device.isRemovable === 'boolean',
             `Invalid isRemovable flag: ${device.isRemovable}`
           );
           assert.ok(
-            device.isCard == null || typeof device.isCard === 'boolean',
+            device.isCard === null || typeof device.isCard === 'boolean',
             `Invalid isCard flag: ${device.isCard}`
           );
           assert.ok(
-            device.isSCSI == null || typeof device.isSCSI === 'boolean',
+            device.isSCSI === null || typeof device.isSCSI === 'boolean',
             `Invalid isSCSI flag: ${device.isSCSI}`
           );
           assert.ok(
-            device.isUSB == null || typeof device.isUSB === 'boolean',
+            device.isUSB === null || typeof device.isUSB === 'boolean',
             `Invalid isUSB flag: ${device.isUSB}`
           );
           assert.ok(
-            device.isUAS == null || typeof device.isUAS === 'boolean',
+            device.isUAS === null || typeof device.isUAS === 'boolean',
             `Invalid isUAS flag: ${device.isUAS}`
           );
         });
