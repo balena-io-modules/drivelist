@@ -58,7 +58,7 @@ describe('Drivelist', function() {
             `Invalid error: ${device.error}`
           );
           assert.ok(
-            Number.isFinite(device.size),
+            device.size === null || Number.isFinite(device.size),
             `Invalid size: ${device.size}`
           );
           assert.ok(
