@@ -3,11 +3,11 @@
   "version": "7.0.3",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "lib/drivelist.js",
-  "homepage": "https://github.com/resin-io-modules/drivelist",
+  "homepage": "https://github.com/balena-io-modules/drivelist",
   "gypfile": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/resin-io-modules/drivelist.git"
+    "url": "git://github.com/balena-io-modules/drivelist.git"
   },
   "keywords": [
     "disk",
@@ -30,7 +30,7 @@
     "install": "prebuild-install || node-gyp rebuild",
     "prebuild-release": "prebuild --all --strip"
   },
-  "author": "Juan Cruz Viotti <juan@resin.io>",
+  "author": "Juan Cruz Viotti <juan@balena.io>",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=4"
