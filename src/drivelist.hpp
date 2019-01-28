@@ -31,8 +31,10 @@ struct DeviceDescriptor {
   std::string enumerator;
   std::string busType;
   std::string busVersion;
+  bool busVersionNull;
   std::string device;
   std::string devicePath;
+  bool devicePathNull;
   std::string raw;
   std::string description;
   std::string error;
@@ -40,6 +42,7 @@ struct DeviceDescriptor {
   uint32_t blockSize = 512;
   uint32_t logicalBlockSize = 512;
   std::vector<std::string> mountpoints;
+  std::vector<std::string> mountpointLabels;
   bool isReadOnly;  // Device is read-only
   bool isSystem;  // Device is a system drive
   bool isVirtual;  // Device is a virtual storage device
@@ -48,6 +51,7 @@ struct DeviceDescriptor {
   bool isSCSI;  // Connected via the Small Computer System Interface (SCSI)
   bool isUSB;  // Connected via Universal Serial Bus (USB)
   bool isUAS;  // Connected via the USB Attached SCSI (UAS)
+  bool isUASNull;
 };
 
 std::vector<DeviceDescriptor> ListStorageDevices();

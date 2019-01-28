@@ -641,6 +641,7 @@ std::vector<DeviceDescriptor> ListStorageDevices() {
       (device.enumerator == "SCSI" || device.enumerator == "IDE");
     device.isUAS = device.isSCSI && device.isRemovable &&
       !device.isVirtual && !device.isCard;
+    device.devicePathNull = true;
 
     if (GetDetailData(&device, hDeviceInfo, deviceInfoData)) {
       device.isSystem = device.isSystem || IsSystemDevice(hDeviceInfo, &device);
