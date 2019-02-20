@@ -170,10 +170,10 @@ $ npm install --save drivelist
 Documentation
 -------------
 
-<a name="module_drivelist.list"></a>
+<a name="module_drivelist..list"></a>
 
-### drivelist.list(callback) ⇒ <code>Undefined</code>
-**Kind**: static method of [<code>drivelist</code>](#module_drivelist)  
+### drivelist~list(callback) ⇒ <code>Undefined</code>
+**Kind**: inner method of [<code>drivelist</code>](#module_drivelist)  
 **Summary**: List available drives  
 **Access**: public  
 
@@ -185,14 +185,9 @@ Documentation
 ```js
 const drivelist = require('drivelist');
 
-drivelist.list((error, drives) => {
-  if (error) {
-    throw error;
-  }
-
-  drives.forEach((drive) => {
-    console.log(drive);
-  });
+const drives = await drivelist.list();
+drives.forEach((drive) => {
+  console.log(drive);
 });
 ```
 

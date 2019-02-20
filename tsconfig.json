@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"outDir": "js",
+		"sourceMap": true,
+		"declaration": true,
+		"target": "es6",
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"lib": [
+			"es2016"
+		]
+	},
+	"include": [
+		"lib"
+	]
+}
