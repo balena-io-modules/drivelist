@@ -330,6 +330,99 @@ describe('Drivelist', function() {
 
     });
 
+    it('can handle mountpoints on root devices in --pairs output', function() {
+
+      const listData = fs.readFileSync(path.join(__dirname, 'data', 'lsblk', 'no-partition-table.txt'), 'utf8');
+      const devices = parsePairs(listData);
+
+      const expected = [
+        {
+          blockSize: 512,
+          busType: 'UNKNOWN',
+          busVersion: null,
+          description: '(/boot/efi, /boot)',
+          device: '/dev/sda',
+          devicePath: null,
+          enumerator: 'lsblk:pairs',
+          error: null,
+          isCard: null,
+          isReadOnly: false,
+          isRemovable: false,
+          isSCSI: null,
+          isSystem: true,
+          isUAS: null,
+          isUSB: null,
+          isVirtual: null,
+          logicalBlockSize: 512,
+          mountpoints: [
+            {
+              label: undefined,
+              path: '/boot/efi'
+            },
+            {
+              label: undefined,
+              path: '/boot'
+            }
+          ],
+          raw: '/dev/sda',
+          size: 240065183744
+        },
+        {
+          blockSize: 512,
+          busType: 'UNKNOWN',
+          busVersion: null,
+          description: 'sdb',
+          device: '/dev/sdb',
+          devicePath: null,
+          enumerator: 'lsblk:pairs',
+          error: null,
+          isCard: null,
+          isReadOnly: false,
+          isRemovable: true,
+          isSCSI: null,
+          isSystem: false,
+          isUAS: null,
+          isUSB: null,
+          isVirtual: null,
+          logicalBlockSize: 512,
+          mountpoints: [],
+          raw: '/dev/sdb',
+          size: null
+        },
+        {
+          blockSize: 512,
+          busType: 'UNKNOWN',
+          busVersion: null,
+          description: '(/run/media/DA2E4172/BUILD)',
+          device: '/dev/sdc',
+          devicePath: null,
+          enumerator: 'lsblk:pairs',
+          error: null,
+          isCard: null,
+          isReadOnly: false,
+          isRemovable: true,
+          isSCSI: null,
+          isSystem: false,
+          isUAS: null,
+          isUSB: null,
+          isVirtual: null,
+          logicalBlockSize: 512,
+          mountpoints: [
+            {
+              label: undefined,
+              path: '/run/media/DA2E4172/BUILD'
+            }
+          ],
+          raw: '/dev/sdc',
+          size: 31457280000
+        }
+      ];
+
+      inspect(parsePairs(listData));
+
+      m.chai.expect(devices).to.deep.equal(expected);
+
+    });
   });
 
 });
