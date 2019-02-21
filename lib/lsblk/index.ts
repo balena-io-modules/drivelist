@@ -44,38 +44,50 @@ async function getDevicePaths(): Promise<Map<string, string>> {
 	return mapping;
 }
 
-export async function lsblk(): Promise<Drive[]> {
-	const argv = ['--bytes', '--all'];
+async function addDevicePaths(devices: Drive[]): Promise<void> {
+	const devicePaths = await getDevicePaths();
+	for (const device of devices) {
+		device.devicePath = devicePaths.get(device.device) || null;
+	}
+}
 
+async function getOutput(command: string, ...args: string[]) {
+	const [stdout] = await execFile(command, args);
+	return stdout;
+}
+
+async function lsblkJSON(): Promise<Drive[]> {
+	return parseJSON(
+		await getOutput(
+			'lsblk',
+			'--bytes',
+			'--all',
+			'--json',
+			'--paths',
+			'--output-all',
+		),
+	);
+}
+
+async function lsblkPairs(): Promise<Drive[]> {
+	return parsePairs(await getOutput('lsblk', '--bytes', '--all', '--pairs'));
+}
+
+async function _lsblk(): Promise<Drive[]> {
 	if (SUPPORTS_JSON) {
-		argv.push('--json', '--paths', '--output-all');
-	} else {
-		argv.push('--pairs');
-	}
-
-	let stdout: string;
-	try {
-		[stdout] = await execFile('lsblk', argv);
-	} catch (error) {
-		if (SUPPORTS_JSON) {
+		try {
+			return await lsblkJSON();
+		} catch (error) {
 			SUPPORTS_JSON = false;
-			return await lsblk();
-		} else {
-			throw error;
 		}
 	}
+	return await lsblkPairs();
+}
 
-	// TODO: #321
-	const devices: Drive[] = SUPPORTS_JSON
-		? parseJSON(stdout)
-		: parsePairs(stdout);
-
+export async function lsblk(): Promise<Drive[]> {
+	const drives = await _lsblk();
 	try {
-		const devicePaths = await getDevicePaths();
-		for (const device of devices) {
-			device.devicePath = devicePaths.get(device.device) || null;
-		}
-	} catch {}
-
-	return devices;
+		await addDevicePaths(drives);
+	} catch (error) {}
+	return drives;
 }
