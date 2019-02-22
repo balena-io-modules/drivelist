@@ -56,8 +56,7 @@ export interface Drive {
  * @function
  * @public
  *
- * @param {Function} callback - callback (error, drives)
- * @returns {Undefined}
+ * @returns {Promise} <Drive>[]
  *
  * @example
  * const drivelist = require('drivelist');
@@ -70,7 +69,7 @@ export interface Drive {
 export async function list(): Promise<Drive[]> {
 	const plat = platform();
 	if (plat === 'win32' || plat === 'darwin') {
-		return await new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			bindings('drivelist').list((error: Error, drives: Drive[]) => {
 				if (error != null) {
 					reject(error);

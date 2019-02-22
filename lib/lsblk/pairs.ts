@@ -143,12 +143,12 @@ export function parse(stdout: string): Drive[] {
 	return devices.map(
 		(device: Dict<string> & { mountpoints: Mountpoint[] }): Drive => {
 			const isVirtual = device.subsystems
-				? /^(block)$/i.test(device.subsystems)
+				? /^block$/i.test(device.subsystems)
 				: null;
 			const isSCSI = device.tran
-				? /^(sata|scsi|ata|ide|pci)$/i.test(device.tran)
+				? /^(?:sata|scsi|ata|ide|pci)$/i.test(device.tran)
 				: null;
-			const isUSB = device.tran ? /^(usb)$/i.test(device.tran) : null;
+			const isUSB = device.tran ? /^usb$/i.test(device.tran) : null;
 			const isReadOnly = Number(device.ro) === 1;
 			const isRemovable =
 				Number(device.rm) === 1 ||
@@ -168,13 +168,13 @@ export function parse(stdout: string): Drive[] {
 				blockSize: Number(device['phy-sec']) || 512,
 				logicalBlockSize: Number(device['log-sec']) || 512,
 				mountpoints: device.mountpoints,
-				isReadOnly: isReadOnly,
+				isReadOnly,
 				isSystem: !isRemovable && !isVirtual,
-				isVirtual: isVirtual,
-				isRemovable: isRemovable,
+				isVirtual,
+				isRemovable,
 				isCard: null,
-				isSCSI: isSCSI,
-				isUSB: isUSB,
+				isSCSI,
+				isUSB,
 				isUAS: null,
 			};
 		},

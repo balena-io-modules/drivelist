@@ -70,12 +70,8 @@ function getDescription(device: LsblkJsonOutputDevice): string {
 	];
 	if (device.children) {
 		let subLabels = device.children
-			.filter(c => {
-				return (c.label && c.label !== device.label) || c.mountpoint;
-			})
-			.map(c => {
-				return c.label || c.mountpoint;
-			});
+			.filter(c => (c.label && c.label !== device.label) || c.mountpoint)
+			.map(c => c.label || c.mountpoint);
 		subLabels = Array.from(new Set(subLabels));
 		if (subLabels.length) {
 			description.push(`(${subLabels.join(', ')})`);
@@ -99,20 +95,19 @@ function resolveDeviceName(name?: string): string | null {
 
 export function transform(data: LsblkJsonOutput): Drive[] {
 	return data.blockdevices
-		.map(device => {
-			return Object.assign({}, device, {
+		.map(device =>
+			Object.assign({}, device, {
 				name: resolveDeviceName(device.name),
 				kname: resolveDeviceName(device.kname),
-			});
-		})
-		.filter(device => {
-			// Omit loop devices, CD/DVD drives, and RAM
-			return (
+			}),
+		)
+		.filter(
+			device =>
+				// Omit loop devices, CD/DVD drives, and RAM
 				!device.name.startsWith('/dev/loop') &&
 				!device.name.startsWith('/dev/sr') &&
-				!device.name.startsWith('/dev/ram')
-			);
-		})
+				!device.name.startsWith('/dev/ram'),
+		)
 		.map(
 			(device: LsblkJsonOutputDevice): Drive => {
 				const isVirtual = device.subsystems
@@ -142,13 +137,13 @@ export function transform(data: LsblkJsonOutput): Drive[] {
 					mountpoints: device.children
 						? getMountpoints(device.children)
 						: getMountpoints([device]),
-					isReadOnly: isReadOnly,
+					isReadOnly,
 					isSystem: !isRemovable && !isVirtual,
-					isVirtual: isVirtual,
-					isRemovable: isRemovable,
+					isVirtual,
+					isRemovable,
 					isCard: null,
-					isSCSI: isSCSI,
-					isUSB: isUSB,
+					isSCSI,
+					isUSB,
 					isUAS: null,
 				};
 			},

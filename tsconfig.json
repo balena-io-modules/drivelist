@@ -8,10 +8,7 @@
 		"noImplicitAny": true,
 		"strictNullChecks": true,
 		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"lib": [
-			"es2016"
-		]
+		"noUnusedParameters": true
 	},
 	"include": [
 		"lib"

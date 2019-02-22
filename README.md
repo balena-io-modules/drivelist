@@ -172,15 +172,11 @@ Documentation
 
 <a name="module_drivelist..list"></a>
 
-### drivelist~list(callback) ⇒ <code>Undefined</code>
+### drivelist~list() ⇒ <code>Promise</code>
 **Kind**: inner method of [<code>drivelist</code>](#module_drivelist)  
 **Summary**: List available drives  
+**Returns**: <code>Promise</code> - <Drive>[]  
 **Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| callback | <code>function</code> | callback (error, drives) |
-
 **Example**  
 ```js
 const drivelist = require('drivelist');

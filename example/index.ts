@@ -18,8 +18,9 @@ import { inspect } from 'util';
 import { list } from '..';
 
 async function main() {
+	let drives;
 	try {
-		const drives = await list();
+		drives = await list();
 	} catch (error) {
 		console.error(error);
 		process.exitCode = 1;

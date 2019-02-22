@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict';
-
 import { execFile } from 'mz/child_process';
 import { readdir, readlink } from 'mz/fs';
 import { join, resolve } from 'path';
@@ -73,7 +71,7 @@ async function lsblkPairs(): Promise<Drive[]> {
 	return parsePairs(await getOutput('lsblk', '--bytes', '--all', '--pairs'));
 }
 
-async function _lsblk(): Promise<Drive[]> {
+async function $lsblk(): Promise<Drive[]> {
 	if (SUPPORTS_JSON) {
 		try {
 			return await lsblkJSON();
@@ -85,7 +83,7 @@ async function _lsblk(): Promise<Drive[]> {
 }
 
 export async function lsblk(): Promise<Drive[]> {
-	const drives = await _lsblk();
+	const drives = await $lsblk();
 	try {
 		await addDevicePaths(drives);
 	} catch (error) {}
