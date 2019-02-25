@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Resin.io
+ * Copyright 2017 Balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { inspect } from 'util';
 
-'use strict';
+import { list } from '..';
 
-const drivelist = require('..');
-const util = require('util');
+async function main() {
+	let drives;
+	try {
+		drives = await list();
+	} catch (error) {
+		console.error(error);
+		process.exitCode = 1;
+		return;
+	}
 
-drivelist.list((error, drives) => {
-  if (error) {
-    console.error(error);
-    process.exit(1);
-  }
+	console.log(inspect(drives, {
+		colors: process.stdout.isTTY,
+		depth: null
+	}));
+}
 
-  console.log(util.inspect(drives, {
-    colors: process.stdout.isTTY,
-    depth: null
-  }));
-});
+main();
