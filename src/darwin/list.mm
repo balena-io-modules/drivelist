@@ -33,12 +33,21 @@ namespace Drivelist {
       diskDescription,
       kDADiskDescriptionMediaIconKey
     );
-    NSString *iconFileName = (NSString*)CFDictionaryGetValue(
-      mediaIconDict,
-      CFStringCreateWithCString(NULL, "IOBundleResourceFile", kCFStringEncodingUTF8)
-    );
+    if (mediaIconDict == nil) {
+      return false;
+    }
 
-    return [iconFileName isEqualToString:@"SD.icns"];
+    CFStringRef iconFileNameKeyRef = CFStringCreateWithCString(NULL, "IOBundleResourceFile", kCFStringEncodingUTF8);
+    CFStringRef iconFileNameRef = (CFStringRef)CFDictionaryGetValue(mediaIconDict, iconFileNameKeyRef);
+    CFRelease(iconFileNameKeyRef);
+
+    if (iconFileNameRef == nil) {
+      return false;
+    }
+
+    // macOS 10.14.3 - External SD card reader provides `Removable.icns`, not `SD.icns`.
+    // But we can't use it to detect SD card, because external drive has `Removable.icns` as well.
+    return [(NSString *)iconFileNameRef isEqualToString:@"SD.icns"];
   }
 
   NSNumber *DictNum(CFDictionaryRef dict, const void *key) {
