@@ -130,6 +130,7 @@ namespace Drivelist {
       deviceList.push_back(device);
 
       CFRelease(diskDescription);
+      CFRelease(disk);
     }
 
     // Add mount points
@@ -148,6 +149,7 @@ namespace Drivelist {
 
       const char *bsdnameChar = DADiskGetBSDName(disk);
       if (bsdnameChar == nil) {
+        CFRelease(disk);
         continue;
       }
 
@@ -166,6 +168,8 @@ namespace Drivelist {
           break;
         }
       }
+
+      CFRelease(disk);
     }
 
     return deviceList;
