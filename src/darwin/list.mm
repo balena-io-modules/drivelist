@@ -54,6 +54,52 @@ namespace Drivelist {
     return (NSNumber*)CFDictionaryGetValue(dict, key);
   }
 
+  DeviceDescriptor CreateDeviceDescriptorFromDiskDescription(std::string diskBsdName, CFDictionaryRef diskDescription) {
+    NSString *busType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
+    NSNumber *blockSize = DictNum(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
+    bool isInternal = [DictNum(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
+    bool isRemovable = [DictNum(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
+    bool isEjectable = [DictNum(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
+    NSString *mediaType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaTypeKey);
+
+    DeviceDescriptor device = DeviceDescriptor();
+    device.enumerator = "DiskArbitration";
+    device.busType = [busType UTF8String];
+    device.busVersion = "";
+    device.busVersionNull = true;
+    device.device = "/dev/" + diskBsdName;
+    device.devicePath = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionBusPathKey) UTF8String];
+    device.raw = "/dev/r" + diskBsdName;
+    device.description = [
+      (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String
+    ];
+    device.error = "";
+    // NOTE: Not sure if kDADiskDescriptionMediaBlockSizeKey returns
+    // the physical or logical block size since both values are equal
+    // on my machine
+    //
+    // The can be checked with the following command:
+    //      diskutil info / | grep "Block Size"
+    device.blockSize = [blockSize unsignedIntValue];
+    device.logicalBlockSize = [blockSize unsignedIntValue];
+    device.size = [DictNum(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
+    device.isReadOnly = ![DictNum(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
+    device.isSystem = isInternal && !isRemovable;
+    device.isVirtual = ![mediaType isEqualToString:@"physical"];
+    device.isRemovable = isRemovable || isEjectable;
+    device.isCard = IsCard(diskDescription);
+    // NOTE(robin): Not convinced that these bus types should result
+    // in device.isSCSI = true, it is rather "not usb or sd drive" bool
+    // But the old implementation was like this so kept it this way
+    NSArray *scsiTypes = [NSArray arrayWithObjects:@"SATA", @"SCSI", @"ATA", @"IDE", @"PCI", nil];
+    device.isSCSI = [scsiTypes containsObject:busType];
+    device.isUSB = [busType isEqualToString:@"USB"];
+    device.isUAS = false;
+    device.isUASNull = true;
+
+    return device;
+  }
+
   std::vector<DeviceDescriptor> ListStorageDevices() {
     std::vector<DeviceDescriptor> deviceList;
     REDiskList *dl = [[REDiskList alloc] init];
@@ -80,49 +126,10 @@ namespace Drivelist {
         continue;
       }
 
-      NSString *busType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
-      NSNumber *blockSize = DictNum(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
-      bool isInternal = [DictNum(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
-      bool isRemovable = [DictNum(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
-      bool isEjectable = [DictNum(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
-      NSString *mediaType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaTypeKey);
-
-      DeviceDescriptor device = DeviceDescriptor();
-      device.enumerator = "DiskArbitration";
-      device.busType = [busType UTF8String];
-      device.busVersion = "";
-      device.busVersionNull = true;
-      device.device = "/dev/" + diskBsdNameStr;
-      device.devicePath = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionBusPathKey) UTF8String];
-      device.raw = "/dev/r" + diskBsdNameStr;
-      device.description = [
-        (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String
-      ];
-      device.error = "";
-      // NOTE: Not sure if kDADiskDescriptionMediaBlockSizeKey returns
-      // the physical or logical block size since both values are equal
-      // on my machine
-      //
-      // The can be checked with the following command:
-      //      diskutil info / | grep "Block Size"
-      device.blockSize = [blockSize unsignedIntValue];
-      device.logicalBlockSize = [blockSize unsignedIntValue];
-      device.size = [DictNum(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
-      device.isReadOnly = ![DictNum(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
-      device.isSystem = isInternal && !isRemovable;
-      device.isVirtual = ![mediaType isEqualToString:@"physical"];
-      device.isRemovable = isRemovable || isEjectable;
-      device.isCard = IsCard(diskDescription);
-      // NOTE(robin): Not convinced that these bus types should result
-      // in device.isSCSI = true, it is rather "not usb or sd drive" bool
-      // But the old implementation was like this so kept it this way
-      NSArray *scsiTypes = [NSArray arrayWithObjects:@"SATA", @"SCSI", @"ATA", @"IDE", @"PCI", nil];
-      device.isSCSI = [scsiTypes containsObject:busType];
-      device.isUSB = [busType isEqualToString:@"USB"];
-      device.isUAS = false;
-      device.isUASNull = true;
-
+      DeviceDescriptor device = CreateDeviceDescriptorFromDiskDescription(diskBsdNameStr, diskDescription);
       deviceList.push_back(device);
+
+      CFRelease(diskDescription);
     }
 
     // Add mount points
