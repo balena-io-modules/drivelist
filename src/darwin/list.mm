@@ -66,6 +66,10 @@ namespace Drivelist {
       }
 
       CFDictionaryRef diskDescription = DADiskCopyDescription(disk);
+      if (diskDescription == nil) {
+        CFRelease(disk);
+        continue;
+      }
 
       NSString *busType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
       NSNumber *blockSize = DictNum(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
