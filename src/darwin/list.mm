@@ -50,16 +50,16 @@ namespace Drivelist {
     return [(NSString *)iconFileNameRef isEqualToString:@"SD.icns"];
   }
 
-  NSNumber *DictNum(CFDictionaryRef dict, const void *key) {
+  NSNumber *DictionaryGetNumber(CFDictionaryRef dict, const void *key) {
     return (NSNumber*)CFDictionaryGetValue(dict, key);
   }
 
   DeviceDescriptor CreateDeviceDescriptorFromDiskDescription(std::string diskBsdName, CFDictionaryRef diskDescription) {
     NSString *busType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
-    NSNumber *blockSize = DictNum(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
-    bool isInternal = [DictNum(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
-    bool isRemovable = [DictNum(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
-    bool isEjectable = [DictNum(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
+    NSNumber *blockSize = DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
+    bool isInternal = [DictionaryGetNumber(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
+    bool isRemovable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
+    bool isEjectable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
     NSString *mediaType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaTypeKey);
 
     DeviceDescriptor device = DeviceDescriptor();
@@ -82,8 +82,8 @@ namespace Drivelist {
     //      diskutil info / | grep "Block Size"
     device.blockSize = [blockSize unsignedIntValue];
     device.logicalBlockSize = [blockSize unsignedIntValue];
-    device.size = [DictNum(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
-    device.isReadOnly = ![DictNum(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
+    device.size = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
+    device.isReadOnly = ![DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
     device.isSystem = isInternal && !isRemovable;
     device.isVirtual = ![mediaType isEqualToString:@"physical"];
     device.isRemovable = isRemovable || isEjectable;
