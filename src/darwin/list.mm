@@ -55,16 +55,15 @@ namespace Drivelist {
   }
 
   DeviceDescriptor CreateDeviceDescriptorFromDiskDescription(std::string diskBsdName, CFDictionaryRef diskDescription) {
-    NSString *busType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
+    NSString *deviceProtocol = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
     NSNumber *blockSize = DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
     bool isInternal = [DictionaryGetNumber(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
     bool isRemovable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
     bool isEjectable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
-    NSString *mediaType = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaTypeKey);
 
     DeviceDescriptor device = DeviceDescriptor();
     device.enumerator = "DiskArbitration";
-    device.busType = [busType UTF8String];
+    device.busType = [deviceProtocol UTF8String];
     device.busVersion = "";
     device.busVersionNull = true;
     device.device = "/dev/" + diskBsdName;
@@ -85,15 +84,15 @@ namespace Drivelist {
     device.size = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
     device.isReadOnly = ![DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
     device.isSystem = isInternal && !isRemovable;
-    device.isVirtual = ![mediaType isEqualToString:@"physical"];
+    device.isVirtual = [deviceProtocol isEqualToString:@"Virtual Interface"];
     device.isRemovable = isRemovable || isEjectable;
     device.isCard = IsCard(diskDescription);
     // NOTE(robin): Not convinced that these bus types should result
     // in device.isSCSI = true, it is rather "not usb or sd drive" bool
     // But the old implementation was like this so kept it this way
     NSArray *scsiTypes = [NSArray arrayWithObjects:@"SATA", @"SCSI", @"ATA", @"IDE", @"PCI", nil];
-    device.isSCSI = [scsiTypes containsObject:busType];
-    device.isUSB = [busType isEqualToString:@"USB"];
+    device.isSCSI = [scsiTypes containsObject:deviceProtocol];
+    device.isUSB = [deviceProtocol isEqualToString:@"USB"];
     device.isUAS = false;
     device.isUASNull = true;
 
