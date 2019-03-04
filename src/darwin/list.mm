@@ -56,7 +56,6 @@ namespace Drivelist {
 
   DeviceDescriptor CreateDeviceDescriptorFromDiskDescription(std::string diskBsdName, CFDictionaryRef diskDescription) {
     NSString *deviceProtocol = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceProtocolKey);
-    NSString *deviceModel = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionDeviceModelKey);
     NSNumber *blockSize = DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaBlockSizeKey);
     bool isInternal = [DictionaryGetNumber(diskDescription, kDADiskDescriptionDeviceInternalKey) boolValue];
     bool isRemovable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaRemovableKey) boolValue];
@@ -85,7 +84,7 @@ namespace Drivelist {
     device.size = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
     device.isReadOnly = ![DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
     device.isSystem = isInternal && !isRemovable;
-    device.isVirtual = [deviceProtocol isEqualToString:@"Virtual Interface"] || [deviceModel isEqualToString:@"Disk Image"];
+    device.isVirtual = [deviceProtocol isEqualToString:@"Virtual Interface"];
     device.isRemovable = isRemovable || isEjectable;
     device.isCard = IsCard(diskDescription);
     // NOTE(robin): Not convinced that these bus types should result
