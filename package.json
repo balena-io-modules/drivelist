@@ -3,6 +3,7 @@
   "version": "8.0.2",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "js/index.js",
+  "types": "js/index.d.ts",
   "homepage": "https://github.com/balena-io-modules/drivelist",
   "gypfile": true,
   "repository": {
