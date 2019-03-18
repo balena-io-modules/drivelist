@@ -34,6 +34,11 @@
   return self;
 }
 
+-(void)dealloc {
+  [_disks release];
+  [super dealloc];
+}
+
 void appendDisk(DADiskRef disk, void *context) {
   NSMutableArray *_disks = (__bridge NSMutableArray*)context;
   const char *bsdName = DADiskGetBSDName(disk);
