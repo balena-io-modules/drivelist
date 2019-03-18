@@ -101,13 +101,13 @@ namespace Drivelist {
 
   std::vector<DeviceDescriptor> ListStorageDevices() {
     std::vector<DeviceDescriptor> deviceList;
-    REDiskList *dl = [[REDiskList alloc] init];
 
     DASessionRef session = DASessionCreate(kCFAllocatorDefault);
     if (session == nil) {
       return deviceList;
     }
 
+    REDiskList *dl = [[REDiskList alloc] init];
     for (NSString* diskBsdName in dl.disks) {
       if (IsDiskPartition(diskBsdName)) {
         continue;
@@ -131,6 +131,7 @@ namespace Drivelist {
       CFRelease(diskDescription);
       CFRelease(disk);
     }
+    [dl release];
 
     // Add mount points
     NSArray *volumeKeys = [NSArray arrayWithObjects:NSURLVolumeNameKey, NSURLVolumeLocalizedNameKey, nil];
@@ -170,6 +171,7 @@ namespace Drivelist {
 
       CFRelease(disk);
     }
+    CFRelease(session);
 
     return deviceList;
   }
