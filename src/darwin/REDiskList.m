@@ -21,6 +21,8 @@
 @implementation REDiskList
 
 - (id)init {
+  self = [super init];
+
   if (self) {
     _disks = [[NSMutableArray alloc] init];
     [self populateDisksBlocking];
