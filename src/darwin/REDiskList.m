@@ -18,11 +18,7 @@
 #import "REDiskList.h"
 #import <DiskArbitration/DiskArbitration.h>
 
-@implementation REDiskList {
-  NSMutableArray *_disks;
-}
-
-@synthesize disks = _disks;
+@implementation REDiskList
 
 - (id)init {
   if (self) {
