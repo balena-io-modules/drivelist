@@ -18,13 +18,11 @@
 #import "REDiskList.h"
 #import <DiskArbitration/DiskArbitration.h>
 
-@implementation REDiskList {
-  NSMutableArray *_disks;
-}
-
-@synthesize disks = _disks;
+@implementation REDiskList
 
 - (id)init {
+  self = [super init];
+
   if (self) {
     _disks = [[NSMutableArray alloc] init];
     [self populateDisksBlocking];
@@ -55,6 +53,7 @@ void appendDisk(DADiskRef disk, void *context) {
     DASessionScheduleWithRunLoop(session, runLoop, kCFRunLoopDefaultMode);
     CFRunLoopStop(runLoop);
     CFRunLoopRunInMode((CFStringRef)NSDefaultRunLoopMode, 0.05, NO);
+    DAUnregisterCallback(session, appendDisk, (void*)_disks);
     CFRelease(session);
   }
 }
