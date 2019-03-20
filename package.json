@@ -51,7 +51,7 @@
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^6.0.0",
     "prebuild": "^8.1.2",
-    "resin-lint": "^2.0.1",
+    "resin-lint": "^3.0.1",
     "sinon": "^7.2.4",
     "ts-node": "^8.0.2",
     "typescript": "^3.2.4"

@@ -70,7 +70,7 @@ function parseLsblkLine(line: string): Dict<string> {
 	return data;
 }
 
-function parseLsblk(output: string): Dict<string>[] {
+function parseLsblk(output: string): Array<Dict<string>> {
 	return output
 		.trim()
 		.split(/\r?\n/g)
@@ -78,8 +78,8 @@ function parseLsblk(output: string): Dict<string>[] {
 }
 
 function consolidate(
-	devices: Dict<string>[],
-): (Dict<string> & { mountpoints: Mountpoint[] })[] {
+	devices: Array<Dict<string>>,
+): Array<Dict<string> & { mountpoints: Mountpoint[] }> {
 	const primaries = devices.filter(device => {
 		return (
 			device.type === 'disk' &&
