@@ -86,6 +86,8 @@ export async function lsblk(): Promise<Drive[]> {
 	const drives = await $lsblk();
 	try {
 		await addDevicePaths(drives);
-	} catch (error) {}
+	} catch (error) {
+		// Couldn't add device paths
+	}
 	return drives;
 }

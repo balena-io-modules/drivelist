@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as util from 'util';
-import { expect } from 'chai';
 
 import { transform as transformJSON } from '../lib/lsblk/json';
 import { parse as parsePairs } from '../lib/lsblk/pairs';

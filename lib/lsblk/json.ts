@@ -48,7 +48,7 @@ interface LsblkJsonOutputDeviceChild {
 }
 
 function getMountpoints(
-	children: (LsblkJsonOutputDeviceChild | LsblkJsonOutputDevice)[],
+	children: Array<LsblkJsonOutputDeviceChild | LsblkJsonOutputDevice>,
 ): Mountpoint[] {
 	return children
 		.filter(child => {

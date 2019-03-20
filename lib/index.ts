@@ -18,8 +18,8 @@
  * @module drivelist
  */
 
-import { platform } from 'os';
 import bindings = require('bindings');
+import { platform } from 'os';
 
 import { lsblk } from './lsblk';
 
