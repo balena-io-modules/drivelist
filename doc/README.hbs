@@ -29,12 +29,8 @@ Examples (the output will vary depending on your machine):
 ```js
 const drivelist = require('drivelist');
 
-drivelist.list((error, drives) => {
-  if (error) {
-    throw error;
-  }
-
-  console.log(drives);
+const drives = await drivelist.list();
+console.log(drives);
 });
 ```
 
