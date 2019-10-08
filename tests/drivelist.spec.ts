@@ -86,11 +86,14 @@ describe('Drivelist', () => {
 
 		describe('given an unsupported os', () => {
 			beforeEach(() => {
+				// @ts-ignore
 				this.osPlatformStub = stub(os, 'platform');
+				// @ts-ignore
 				this.osPlatformStub.returns('foobar');
 			});
 
 			afterEach(() => {
+				// @ts-ignore
 				this.osPlatformStub.restore();
 			});
 
