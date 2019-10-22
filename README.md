@@ -24,14 +24,17 @@ Supports:
 When the user executes `drivelist.list()`, the module checks the operating
 system of the client and executes the corresponding drive scanning script.
 
-Examples (the output will vary depending on your machine):
+Example (the output will vary depending on your machine):
 
 ```js
-const drivelist = require('drivelist');
+async function fetchDrives(){
+  const drivelist = require('drivelist');
 
-const drives = await drivelist.list();
-console.log(drives);
-});
+  const drives = await drivelist.list();
+  console.log(drives);
+};
+
+fetchDrives();
 ```
 
 ***
