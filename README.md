@@ -29,9 +29,10 @@ Examples (the output will vary depending on your machine):
 ```js
 const drivelist = require('drivelist');
 
-const drives = await drivelist.list();
-console.log(drives);
-});
+(async () => {
+    const drives = await drivelist.list();
+    console.log(drives);
+})();
 ```
 
 ***
