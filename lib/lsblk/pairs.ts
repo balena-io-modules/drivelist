@@ -45,7 +45,10 @@ function parseLsblkLine(line: string): Dict<string> {
 				throw new Error(`Expected '"', saw "${line[offset]}"`);
 			}
 			offset += 1;
-			while (line[offset] !== '"' && line[offset - 1] !== escape) {
+			while (
+				line[offset - 1] === escape ||
+				(line[offset - 1] !== escape && line[offset] !== '"')
+			) {
 				value += line[offset];
 				offset += 1;
 			}
