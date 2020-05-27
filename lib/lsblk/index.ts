@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-import { execFile } from 'mz/child_process';
-import { readdir, readlink } from 'mz/fs';
+import { execFile } from 'child_process';
+import { promises as fs } from 'fs';
 import { join, resolve } from 'path';
+import { promisify } from 'util';
 
 import { Drive } from '..';
 import { parse as parseJSON } from './json';
 import { parse as parsePairs } from './pairs';
+
+const execFileAsync = promisify(execFile);
 
 const DISK_PATH_DIR = '/dev/disk/by-path/';
 
@@ -28,11 +31,11 @@ let SUPPORTS_JSON = true;
 
 async function getDevicePaths(): Promise<Map<string, string>> {
 	const mapping = new Map();
-	for (const filename of await readdir(DISK_PATH_DIR)) {
+	for (const filename of await fs.readdir(DISK_PATH_DIR)) {
 		const linkPath = join(DISK_PATH_DIR, filename);
 		let link: string;
 		try {
-			link = await readlink(linkPath);
+			link = await fs.readlink(linkPath);
 		} catch (error) {
 			continue;
 		}
@@ -50,7 +53,7 @@ async function addDevicePaths(devices: Drive[]): Promise<void> {
 }
 
 async function getOutput(command: string, ...args: string[]) {
-	const [stdout] = await execFile(command, args);
+	const { stdout } = await execFileAsync(command, args);
 	return stdout;
 }
 

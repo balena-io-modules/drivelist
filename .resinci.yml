@@ -14,28 +14,29 @@ npm:
       os: ubuntu
       architecture: x86_64
       node_versions:
+        - "12"
         - "10"
-        - "8"
-        - "6"
     - name: linux
       os: ubuntu
       architecture: x86
       node_versions:
-        - "8"
-        - "6"
+        - "12"
+        - "10"
     - name: darwin
       os: macos
       architecture: x86_64
       node_versions:
-        - "6"
+        - "12"
+        - "10"
     - name: windows
       os: windows
       architecture: x86_64
       node_versions:
-        - "6"
+        - "12"
+        - "10"
     - name: windows
       os: windows
       architecture: x86
       node_versions:
-        - "6"
-
+        - "12"
+        - "10"
