@@ -74,16 +74,13 @@ function parseLsblkLine(line: string): Dict<string> {
 }
 
 function parseLsblk(output: string): Array<Dict<string>> {
-	return output
-		.trim()
-		.split(/\r?\n/g)
-		.map(parseLsblkLine);
+	return output.trim().split(/\r?\n/g).map(parseLsblkLine);
 }
 
 function consolidate(
 	devices: Array<Dict<string>>,
 ): Array<Dict<string> & { mountpoints: Mountpoint[] }> {
-	const primaries = devices.filter(device => {
+	const primaries = devices.filter((device) => {
 		return (
 			device.type === 'disk' &&
 			!device.name.startsWith('ram') &&
@@ -91,10 +88,10 @@ function consolidate(
 		);
 	});
 
-	return primaries.map(device => {
+	return primaries.map((device) => {
 		return Object.assign({}, device, {
 			mountpoints: devices
-				.filter(child => {
+				.filter((child) => {
 					return (
 						['disk', 'part'].includes(child.type) &&
 						child.mountpoint &&
@@ -123,10 +120,10 @@ function getDescription(
 	];
 	if (device.mountpoints.length) {
 		let subLabels = device.mountpoints
-			.filter(c => {
+			.filter((c) => {
 				return (c.label && c.label !== device.label) || c.path;
 			})
-			.map(c => {
+			.map((c) => {
 				return c.label || c.path;
 			});
 		subLabels = Array.from(new Set(subLabels));
@@ -134,10 +131,7 @@ function getDescription(
 			description.push(`(${subLabels.join(', ')})`);
 		}
 	}
-	return description
-		.join(' ')
-		.replace(/\s+/g, ' ')
-		.trim();
+	return description.join(' ').replace(/\s+/g, ' ').trim();
 }
 
 export function parse(stdout: string): Drive[] {
