@@ -25,7 +25,7 @@ describe('Drivelist', () => {
 	describe('.list()', () => {
 		it('should yield results', async () => {
 			const devices = await list();
-			devices.forEach(device => {
+			devices.forEach((device) => {
 				ok(device.enumerator, `Invalid enumerator: ${device.enumerator}`);
 				ok(device.busType, `Invalid busType: ${device.busType}`);
 				ok(device.device, `Invalid device: ${device.device}`);
