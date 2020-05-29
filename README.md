@@ -11,7 +11,6 @@ drivelist
 [![Travis CI status](https://img.shields.io/travis/balena-io-modules/drivelist/master.svg?style=flat-square&label=linux)](https://travis-ci.org/balena-io-modules/drivelist/branches)
 [![AppVeyor status](https://img.shields.io/appveyor/ci/balena-io/drivelist/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/balena-io/drivelist/branch/master)
 [![Dependency status](https://img.shields.io/david/balena-io-modules/drivelist.svg?style=flat-square)](https://david-dm.org/balena-io-modules/drivelist)
-[![Gitter Chat](https://img.shields.io/gitter/room/balena-io/etcher.svg?style=flat-square)](https://gitter.im/balena-io/etcher)
 
 Notice that this module **does not require** admin privileges to get the drives in any supported operating system.
 
