@@ -51,12 +51,41 @@ export interface Drive {
 	size: number | null;
 }
 
+function bindingsList(): Promise<Drive[]> {
+	return new Promise((resolve, reject) => {
+		bindings('drivelist').list((error: Error, drives: Drive[]) => {
+			if (error != null) {
+				reject(error);
+			} else {
+				resolve(drives);
+			}
+		});
+	});
+}
+
+function handleApfs(disks: Drive[]): void {
+	const apfs: Drive[] = [];
+	const other: Drive[] = [];
+	for (const disk of disks) {
+		if (disk.description === 'AppleAPFSMedia') {
+			apfs.push(disk);
+		} else {
+			other.push(disk);
+		}
+	}
+	for (const disk of apfs) {
+		const source = other.find(
+			(d) => d.devicePath === disk.devicePath && !d.isVirtual,
+		);
+		if (source !== undefined) {
+			source.mountpoints.push(...disk.mountpoints);
+			disk.isVirtual = true;
+		}
+	}
+}
+
 /**
  * @summary List available drives
- * @function
- * @public
- *
- * @returns {Promise} <Drive>[]
  *
  * @example
  * const drivelist = require('drivelist');
@@ -68,16 +97,12 @@ export interface Drive {
  */
 export async function list(): Promise<Drive[]> {
 	const plat = platform();
-	if (plat === 'win32' || plat === 'darwin') {
-		return new Promise((resolve, reject) => {
-			bindings('drivelist').list((error: Error, drives: Drive[]) => {
-				if (error != null) {
-					reject(error);
-				} else {
-					resolve(drives);
-				}
-			});
-		});
+	if (plat === 'win32') {
+		return await bindingsList();
+	} else if (plat === 'darwin') {
+		const disks = await bindingsList();
+		handleApfs(disks);
+		return disks;
 	} else if (plat === 'linux') {
 		return await lsblk();
 	}
