@@ -51,9 +51,11 @@ export interface Drive {
 	size: number | null;
 }
 
+const drivelistBindings = bindings('drivelist');
+
 function bindingsList(): Promise<Drive[]> {
 	return new Promise((resolve, reject) => {
-		bindings('drivelist').list((error: Error, drives: Drive[]) => {
+		drivelistBindings.list((error: Error, drives: Drive[]) => {
 			if (error != null) {
 				reject(error);
 			} else {
