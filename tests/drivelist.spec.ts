@@ -25,7 +25,7 @@ describe('Drivelist', () => {
 	describe('.list()', () => {
 		it('should yield results', async () => {
 			const devices = await list();
-			devices.forEach(device => {
+			devices.forEach((device) => {
 				ok(device.enumerator, `Invalid enumerator: ${device.enumerator}`);
 				ok(device.busType, `Invalid busType: ${device.busType}`);
 				ok(device.device, `Invalid device: ${device.device}`);
@@ -86,11 +86,14 @@ describe('Drivelist', () => {
 
 		describe('given an unsupported os', () => {
 			beforeEach(() => {
+				// @ts-ignore
 				this.osPlatformStub = stub(os, 'platform');
+				// @ts-ignore
 				this.osPlatformStub.returns('foobar');
 			});
 
 			afterEach(() => {
+				// @ts-ignore
 				this.osPlatformStub.restore();
 			});
 

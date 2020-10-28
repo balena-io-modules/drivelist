@@ -63,15 +63,15 @@ namespace Drivelist {
 
     DeviceDescriptor device = DeviceDescriptor();
     device.enumerator = "DiskArbitration";
-    device.busType = [deviceProtocol UTF8String];
+    device.busType = (deviceProtocol != nil) ? [deviceProtocol UTF8String] : "";
     device.busVersion = "";
     device.busVersionNull = true;
     device.device = "/dev/" + diskBsdName;
-    device.devicePath = [(NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionBusPathKey) UTF8String];
+    NSString *devicePath = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionBusPathKey);
+    device.devicePath = (devicePath != nil) ? [devicePath UTF8String] : "";
     device.raw = "/dev/r" + diskBsdName;
-    device.description = [
-      (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey) UTF8String
-    ];
+    NSString *description = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaNameKey);
+    device.description = (description != nil) ? [description UTF8String] : "";
     device.error = "";
     // NOTE: Not sure if kDADiskDescriptionMediaBlockSizeKey returns
     // the physical or logical block size since both values are equal
@@ -84,15 +84,15 @@ namespace Drivelist {
     device.size = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaSizeKey) unsignedLongValue];
     device.isReadOnly = ![DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaWritableKey) boolValue];
     device.isSystem = isInternal && !isRemovable;
-    device.isVirtual = [deviceProtocol isEqualToString:@"Virtual Interface"];
+    device.isVirtual = ((deviceProtocol != nil) && [deviceProtocol isEqualToString:@"Virtual Interface"]);
     device.isRemovable = isRemovable || isEjectable;
     device.isCard = IsCard(diskDescription);
     // NOTE(robin): Not convinced that these bus types should result
     // in device.isSCSI = true, it is rather "not usb or sd drive" bool
     // But the old implementation was like this so kept it this way
     NSArray *scsiTypes = [NSArray arrayWithObjects:@"SATA", @"SCSI", @"ATA", @"IDE", @"PCI", nil];
-    device.isSCSI = [scsiTypes containsObject:deviceProtocol];
-    device.isUSB = [deviceProtocol isEqualToString:@"USB"];
+    device.isSCSI = ((deviceProtocol != nil) && [scsiTypes containsObject:deviceProtocol]);
+    device.isUSB = ((deviceProtocol != nil) && [deviceProtocol isEqualToString:@"USB"]);
     device.isUAS = false;
     device.isUASNull = true;
 

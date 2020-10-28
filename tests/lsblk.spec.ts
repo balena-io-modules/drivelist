@@ -309,7 +309,8 @@ describe('Drivelist', () => {
 					device: '/dev/sdd',
 					devicePath: null,
 					raw: '/dev/sdd',
-					description: '(/media/<username>/85CA-6700)',
+					description:
+						'(/media/<username>/85CA-6700, /tmp/media/3E3E-E910 (\\xe2\\x88\\x95dev\\xe2\\x88\\x95sdi))',
 					error: null,
 					size: null,
 					blockSize: 512,
@@ -317,6 +318,11 @@ describe('Drivelist', () => {
 					mountpoints: [
 						{
 							path: '/media/<username>/85CA-6700',
+							label: undefined,
+						},
+						{
+							path:
+								'/tmp/media/3E3E-E910 (\\xe2\\x88\\x95dev\\xe2\\x88\\x95sdi)',
 							label: undefined,
 						},
 					],
