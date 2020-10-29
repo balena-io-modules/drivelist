@@ -63,4 +63,8 @@ NAN_MODULE_INIT(InitAll) {
   NAN_EXPORT(target, list);
 }
 
-NODE_MODULE(DriveList, InitAll);
+#if NODE_MAJOR_VERSION >= 10
+NAN_MODULE_WORKER_ENABLED(DriveList, InitAll)
+#else
+NODE_MODULE(DriveList, InitAll)
+#endif
