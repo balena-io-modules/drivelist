@@ -30,7 +30,7 @@ describe('Drivelist', () => {
 				ok(device.busType, `Invalid busType: ${device.busType}`);
 				ok(device.device, `Invalid device: ${device.device}`);
 				ok(device.raw, `Invalid raw: ${device.raw}`);
-				ok(device.description, `Invalid description: ${device.description}`);
+				ok(typeof device.description === 'string', `Invalid description: ${device.description}`);
 				ok(device.error === null, `Invalid error: ${device.error}`);
 				ok(
 					device.size === null || Number.isFinite(device.size),
