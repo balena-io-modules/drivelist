@@ -6,6 +6,7 @@
     "size": "14.3G",
     "ro": "0",
     "type": "disk",
+    "pttype": null,
     "mountpoint": "/media/jwentz/Temp"
   }, {
     "name": "nvme0n1",
@@ -14,6 +15,7 @@
     "size": "477G",
     "ro": "0",
     "type": "disk",
+    "pttype": "gpt",
     "mountpoint": null,
     "children": [{
       "name": "nvme0n1p3",
@@ -22,6 +24,7 @@
       "size": "15.8G",
       "ro": "0",
       "type": "part",
+      "pttype": "gpt",
       "mountpoint": "[SWAP]"
     }, {
       "name": "nvme0n1p1",
@@ -30,6 +33,7 @@
       "size": "512M",
       "ro": "0",
       "type": "part",
+      "pttype": "gpt",
       "mountpoint": "/boot/efi"
     }, {
       "name": "nvme0n1p2",
@@ -38,6 +42,7 @@
       "size": "460.7G",
       "ro": "0",
       "type": "part",
+      "pttype": "gpt",
       "mountpoint": "/"
     }]
   }]

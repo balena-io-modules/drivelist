@@ -49,6 +49,7 @@ export interface Drive {
 	mountpoints: Mountpoint[];
 	raw: string;
 	size: number | null;
+	partitionTableType: 'mbr' | 'gpt' | null;
 }
 
 const drivelistBindings = bindings('drivelist');

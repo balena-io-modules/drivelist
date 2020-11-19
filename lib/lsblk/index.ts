@@ -29,6 +29,15 @@ const DISK_PATH_DIR = '/dev/disk/by-path/';
 
 let SUPPORTS_JSON = true;
 
+export function getPartitionTableType(pttype?: 'gpt' | 'dos'): 'gpt' | 'mbr' | null {
+	if (pttype === 'gpt') {
+		return 'gpt';
+	} else if (pttype === 'dos') {
+		return 'mbr';
+	}
+	return null;
+}
+
 async function getDevicePaths(): Promise<Map<string, string>> {
 	const mapping = new Map();
 	for (const filename of await fs.readdir(DISK_PATH_DIR)) {
@@ -71,7 +80,9 @@ async function lsblkJSON(): Promise<Drive[]> {
 }
 
 async function lsblkPairs(): Promise<Drive[]> {
-	return parsePairs(await getOutput('lsblk', '--bytes', '--all', '--pairs'));
+	return parsePairs(
+		await getOutput('lsblk', '--bytes', '--all', '--pairs', '-o', '+pttype'),
+	);
 }
 
 async function $lsblk(): Promise<Drive[]> {

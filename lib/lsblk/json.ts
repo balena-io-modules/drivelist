@@ -16,6 +16,7 @@
 
 import { posix } from 'path';
 
+import { getPartitionTableType } from '.';
 import { Drive, Mountpoint } from '..';
 
 interface LsblkJsonOutput {
@@ -39,6 +40,7 @@ interface LsblkJsonOutputDevice {
 	subsystems?: string;
 	tran?: string;
 	vendor: string | null;
+	pttype?: 'gpt' | 'dos';
 }
 
 interface LsblkJsonOutputDeviceChild {
@@ -142,6 +144,7 @@ export function transform(data: LsblkJsonOutput): Drive[] {
 					isSCSI,
 					isUSB,
 					isUAS: null,
+					partitionTableType: getPartitionTableType(device.pttype),
 				};
 			},
 		);

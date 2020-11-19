@@ -62,6 +62,12 @@ namespace Drivelist {
     bool isEjectable = [DictionaryGetNumber(diskDescription, kDADiskDescriptionMediaEjectableKey) boolValue];
 
     DeviceDescriptor device = DeviceDescriptor();
+    NSString *mediaContent = (NSString*)CFDictionaryGetValue(diskDescription, kDADiskDescriptionMediaContentKey);
+    if ([mediaContent isEqualToString:@"GUID_partition_scheme"]) {
+      device.partitionTableType = "gpt";
+    } else if ([mediaContent isEqualToString:@"FDisk_partition_scheme"]) {
+      device.partitionTableType = "mbr";
+    }
     device.enumerator = "DiskArbitration";
     device.busType = (deviceProtocol != nil) ? [deviceProtocol UTF8String] : "";
     device.busVersion = "";

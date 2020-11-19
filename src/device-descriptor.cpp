@@ -65,6 +65,18 @@ v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
     New<String>("description").ToLocalChecked(),
     New<String>(instance->description).ToLocalChecked());
 
+  if (instance->partitionTableType != "") {
+    Nan::Set(
+      object,
+      New<String>("partitionTableType").ToLocalChecked(),
+      New<String>(instance->partitionTableType).ToLocalChecked());
+  } else {
+    Nan::Set(
+      object,
+      New<String>("partitionTableType").ToLocalChecked(),
+      Nan::Null());
+  }
+
   if (instance->error != "") {
     Nan::Set(object,
       New<String>("error").ToLocalChecked(),

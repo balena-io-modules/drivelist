@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { getPartitionTableType } from '.';
 import { Drive, Mountpoint } from '..';
 
 interface Dict<T> {
@@ -89,15 +91,15 @@ function consolidate(
 	});
 
 	return primaries.map((device) => {
+		const children = devices.filter((child) => {
+			return (
+				['disk', 'part'].includes(child.type) &&
+				child.name.startsWith(device.name)
+			);
+		});
 		return Object.assign({}, device, {
-			mountpoints: devices
-				.filter((child) => {
-					return (
-						['disk', 'part'].includes(child.type) &&
-						child.mountpoint &&
-						child.name.startsWith(device.name)
-					);
-				})
+			mountpoints: children
+				.filter((child) => child.mountpoint)
 				.map(
 					(child): Mountpoint => {
 						return {
@@ -138,7 +140,11 @@ export function parse(stdout: string): Drive[] {
 	const devices = consolidate(parseLsblk(stdout));
 
 	return devices.map(
-		(device: Dict<string> & { mountpoints: Mountpoint[] }): Drive => {
+		(
+			device: Dict<string> & {
+				mountpoints: Mountpoint[];
+			},
+		): Drive => {
 			const isVirtual = device.subsystems
 				? /^block$/i.test(device.subsystems)
 				: null;
@@ -173,6 +179,7 @@ export function parse(stdout: string): Drive[] {
 				isSCSI,
 				isUSB,
 				isUAS: null,
+				partitionTableType: getPartitionTableType(device.pttype as 'gpt' | 'dos' | undefined),
 			};
 		},
 	);

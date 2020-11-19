@@ -38,6 +38,7 @@ struct DeviceDescriptor {
   std::string raw;
   std::string description;
   std::string error;
+  std::string partitionTableType;
   uint64_t size;
   uint32_t blockSize = 512;
   uint32_t logicalBlockSize = 512;
