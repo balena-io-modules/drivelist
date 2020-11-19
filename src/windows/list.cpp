@@ -376,6 +376,73 @@ bool GetDeviceBlockSize(HANDLE hPhysical, DeviceDescriptor *device) {
   return false;
 }
 
+bool GetPartitionTableType(HANDLE hPhysical, DeviceDescriptor *device) {
+  // Works for up to 256 partitions (Windows only allows 128 for GPT partition
+  // tables anyway)
+  int lsize = sizeof(DRIVE_LAYOUT_INFORMATION_EX) + \
+    256 * sizeof(PARTITION_INFORMATION_EX);
+  DRIVE_LAYOUT_INFORMATION_EX *diskLayout;
+  diskLayout = reinterpret_cast<DRIVE_LAYOUT_INFORMATION_EX*>(new BYTE[lsize]);
+  DWORD diskLayoutSize = 0;
+  BOOL hasDiskLayout = DeviceIoControl(
+    hPhysical,
+    IOCTL_DISK_GET_DRIVE_LAYOUT_EX,
+    NULL,
+    0,
+    diskLayout,
+    lsize,
+    &diskLayoutSize,
+    NULL);
+  if (!hasDiskLayout) {
+    free(diskLayout);
+    return hasDiskLayout;
+  }
+  /*
+  diskLayout->PartitionStyle will never be PARTITION_STYLE_RAW, it will be
+  * PARTITION_STYLE_GPT for gpt partition tables
+  * PARTITION_STYLE_MBR for anything else: mbr partition tables, zeroes,
+  random data, raw partitions
+  The only way to differentiate a real mbr partition table from random data
+  is that for real mbr partition tables diskLayout->PartitionCount will be a
+  multiple of 4 and 1 for anything else.
+  See the table below.
+
+  *pe0 = PartitionEntry[0]
+
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | field \ partition table type | gpt                 | mbr with one part   | empty mbr           | zeroes              | random              | raw ext4 partition  | raw fat partition   |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+--------------------+----------------------+
+  | PartitionStyle               | PARTITION_STYLE_GPT | PARTITION_STYLE_MBR | PARTITION_STYLE_MBR | PARTITION_STYLE_MBR | PARTITION_STYLE_MBR | PARTITION_STYLE_MBR | PARTITION_STYLE_MBR |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | PartitionCount               |                   5 |                   4 |                   4 |                   1 |                   1 |                   1 |                   1 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | Mbr.Signature                |                  na |           600574350 |          1477769759 |                   1 |                   1 |                   1 |                   1 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.StartingOffset           |                  na |             1048576 |                   0 |                   0 |                   0 |                   0 |                   0 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.PartitionLength          |                  na |         31913410560 |                   0 |         31914983424 |         31914983424 |         31914983424 |         31914983424 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.PartitionNumber          |                  na |                   1 |                   0 |                   1 |                   1 |                   1 |                   1 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.Mbr.PartitionType        |                  na |                   7 |                   0 |                   4 |                   4 |                   4 |                   4 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.Mbr.BootIndicator        |                  na |                   0 |                   0 |                   0 |                   0 |                   0 |                   0 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.Mbr.RecognizedPartition  |                  na |                   1 |                   0 |                   1 |                   1 |                   1 |                   1 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  | pe0.Mbr.HiddenSectors        |                  na |                2048 |                   0 |                   0 |                   0 |                   0 |                   0 |
+  +------------------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+
+  */
+  if ((diskLayout->PartitionStyle == PARTITION_STYLE_MBR) &&
+      ((diskLayout->PartitionCount % 4) == 0)) {
+    device->partitionTableType = "mbr";
+  } else if (diskLayout->PartitionStyle == PARTITION_STYLE_GPT) {
+    device->partitionTableType = "gpt";
+  }
+  free(diskLayout);
+  return hasDiskLayout;
+}
+
 bool GetDeviceSize(HANDLE hPhysical, DeviceDescriptor *device) {
   DISK_GEOMETRY_EX diskGeometry;
 
@@ -548,6 +615,14 @@ bool GetDetailData(DeviceDescriptor* device,
       errorCode = GetLastError();
       // printf("[ERROR] Couldn't get disk geometry: Error %i\n", errorCode);
       device->error = "Couldn't get disk geometry: Error " +
+        std::to_string(errorCode);
+      result = false;
+      break;
+    }
+
+    if (!GetPartitionTableType(hPhysical, device)) {
+      errorCode = GetLastError();
+      device->error = "Couldn't get disk partition table type: Error " +
         std::to_string(errorCode);
       result = false;
       break;
