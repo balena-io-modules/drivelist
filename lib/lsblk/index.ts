@@ -29,7 +29,9 @@ const DISK_PATH_DIR = '/dev/disk/by-path/';
 
 let SUPPORTS_JSON = true;
 
-export function getPartitionTableType(pttype?: 'gpt' | 'dos'): 'gpt' | 'mbr' | null {
+export function getPartitionTableType(
+	pttype?: 'gpt' | 'dos',
+): 'gpt' | 'mbr' | null {
 	if (pttype === 'gpt') {
 		return 'gpt';
 	} else if (pttype === 'dos') {
