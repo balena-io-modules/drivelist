@@ -1,6 +1,6 @@
 {
   "name": "drivelist",
-  "version": "9.2.1",
+  "version": "9.2.2",
   "description": "List all connected drives in your computer, in all major operating systems",
   "main": "js/index.js",
   "homepage": "https://github.com/balena-io-modules/drivelist",

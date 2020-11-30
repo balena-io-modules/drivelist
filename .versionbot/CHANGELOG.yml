@@ -1,65 +1,84 @@
+- commits:
+    - subject: Update typescript to v4.1.2
+      hash: 921936f40542118aad8194a13a81556dc0130523
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Alexis Svinartchouk
+    - subject: Add versionbot changelog
+      hash: 525d2ea0cb4b26c6e36465536f2638e77460e2b6
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Alexis Svinartchouk
+  version: 9.2.2
+  date: 2020-11-30T18:11:39.632Z
 - version: 9.2.1
-  date: 2020-11-19T21:58:23Z
+  date: 2020-11-19T21:58:23.000Z
   commits:
     - hash: 1133ce6bdc04a44201e145b4951b1c0c7184e2e7
       author: warpdesign
       footers:
         change-type: patch
       subject: Make drivelist context aware
-      body:
+      body: null
 - version: 9.2.0
-  date: 2020-11-19T21:33:50Z
+  date: 2020-11-19T21:33:50.000Z
   commits:
     - hash: b258a3d0bae327039c8e741ae2aa5e9b53eb94f3
       author: Alexis Svinartchouk
       footers:
         change-type: minor
       subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (linux)'
-      body:
+      body: null
     - hash: 0b35db41550e60ed60ebe6e9d255d1f5d0817e77
       author: Alexis Svinartchouk
       footers:
         change-type: minor
       subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (mac)'
-      body:
+      body: null
     - hash: c05ecad57d5db7a130e81743aa3b2ec340172a05
       author: Alexis Svinartchouk
       footers:
         change-type: minor
       subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (windows)'
-      body:
+      body: null
     - hash: 11bcc2887a560949663017f5498752be1af28afe
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: An empty string is a valid description
-      body:
+      body: null
 - version: 9.1.0
-  date: 2020-08-06T13:41:23Z
+  date: 2020-08-06T13:41:23.000Z
   commits:
     - hash: d6b69de7f2a00d823547f4989191e129cee4c095
       author: Alexis Svinartchouk
       footers:
         change-type: minor
-      subject: Mark APFS media as virtual and assign its mountpoints to the source drive
-      body:
+      subject: >-
+        Mark APFS media as virtual and assign its mountpoints to the source
+        drive
+      body: null
     - hash: 19fca449f721d6dd09a957101e79940d8592233d
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Load bindings once
-      body:
+      body: null
 - version: 9.0.2
-  date: 2020-05-29T13:42:52Z
+  date: 2020-05-29T13:42:52.000Z
   commits:
     - hash: 56c6fc9837f5605f7bcb3740a32683a990c1e8bb
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Remove gitter link
-      body:
+      body: null
 - version: 9.0.1
-  date: 2020-05-29T09:55:56Z
+  date: 2020-05-29T09:55:56.000Z
   commits:
     - hash: 9a59718168fd6201aaec8a488d4d5237fe4c2dfb
       author: Alexis Svinartchouk
@@ -67,116 +86,116 @@
         changelog-entry: Rename resin -> balena
         change-type: patch
       subject: Rename resin -> balena
-      body:
+      body: null
 - version: 9.0.0
-  date: 2020-05-27T11:08:39Z
+  date: 2020-05-27T11:08:39.000Z
   commits:
     - hash: 28a28e0daf1c24f778d980a86ca547728d8789fc
       author: Alexis Svinartchouk
       footers:
-        changelog-entry: Remove mz dependency, target node 10
+        changelog-entry: 'Remove mz dependency, target node 10'
         change-type: major
-      subject: Remove mz dependency, target node 10
-      body:
+      subject: 'Remove mz dependency, target node 10'
+      body: null
     - hash: b5a22509a3c1a37c61b9a8883795607a255cd978
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Update resin-lint to @balena/lint
-      body:
+      body: null
 - version: 8.0.10
-  date: 2020-02-18T16:43:31Z
+  date: 2020-02-18T16:43:31.000Z
   commits:
     - hash: 0aebd2bfa340cf759633e4ac8651a7a2356ab7d6
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix lsblk --pairs parsing when a value has hexadecimal escapes
-      body:
+      body: null
 - version: 8.0.9
-  date: 2019-11-06T15:53:08Z
+  date: 2019-11-06T15:53:08.000Z
   commits:
     - hash: 98163381248875c2b94ed7fcc25faf713fc0f55d
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Avoid segfaulting on mac when some disk description fields are null
-      body:
+      body: null
 - version: 8.0.8
-  date: 2019-11-06T15:09:27Z
+  date: 2019-11-06T15:09:27.000Z
   commits:
     - hash: fc7606f41419404721122a8db759d6b49ab28335
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix typo in readme
-      body:
+      body: null
     - hash: 8271ed178ceb18bbe3ea688e18f1a8c90cc91630
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix tests
-      body:
+      body: null
 - version: 8.0.7
-  date: 2019-09-20T18:01:33Z
+  date: 2019-09-20T18:01:33.000Z
   commits:
     - hash: 3ab03cd71ea362307e3301c9b2f530cb7d630b45
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Update nan to ^2.14 to fix builds targetting electron 6
-      body:
+      body: null
 - version: 8.0.6
-  date: 2019-03-20T15:58:00Z
+  date: 2019-03-20T15:58:00.000Z
   commits:
     - hash: a13aff57f7bc1d65928c61b5e6dfc3c3899ce122
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Update example in readme
-      body:
+      body: null
 - version: 8.0.5
-  date: 2019-03-20T15:40:01Z
+  date: 2019-03-20T15:40:01.000Z
   commits:
     - hash: 16958ef29ca4de357fe209e5c69b24f18ef5489b
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Update resin-lint to ^3.0.1
-      body:
+      body: null
 - version: 8.0.4
-  date: 2019-03-19T12:30:46Z
+  date: 2019-03-19T12:30:46.000Z
   commits:
     - hash: ae6c9f751b0b63bb509eb479a32419e036e0917a
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Remove unnecessary boilerplate
-      body:
+      body: null
     - hash: 04e33bb52e21a878f365f8663f3e8f8f1d65160e
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Add missing super init call
-      body:
+      body: null
     - hash: 1d10303df62218040faa8cec91b3290e066f35d8
       author: Robert Vojta
       footers:
         change-type: patch
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Unregister DASession callback to avoid crash
-      body:
+      body: null
 - version: 8.0.3
-  date: 2019-03-18T11:08:47Z
+  date: 2019-03-18T11:08:47.000Z
   commits:
     - hash: e75f47a9556b84724fb8740aca19386333db1c5f
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix DASession and NSMutableArray leaks on macOS
-      body:
+      body: null
 - version: 8.0.2
-  date: 2019-03-04T14:41:50Z
+  date: 2019-03-04T14:41:50.000Z
   commits:
     - hash: b334fa235ae3fca34ad5c5c939107e33854769d6
       author: Robert Vojta
@@ -184,66 +203,66 @@
         change-type: patch
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Fix isVirtual value on macOS
-      body:
+      body: null
     - hash: dad391423188a148f61daa16eb0a5986f6a3beb2
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Remove kDADiskDescriptionDeviceModelKey check
-      body:
+      body: null
 - version: 8.0.1
-  date: 2019-02-27T12:49:21Z
+  date: 2019-02-27T12:49:21.000Z
   commits:
     - hash: e0d35644091cfe6a6c9bb5091249e41639efbade
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Skip disk if description is not provided
-      body:
+      body: null
     - hash: be37da124b0d0f885f9ea0657c9758a01d17259d
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
-      subject: Make Drivelist::IsCard more robust
-      body:
+      subject: 'Make Drivelist::IsCard more robust'
+      body: null
     - hash: cb90834d5aa5004bad5a80e487e4f45173364995
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Move device descriptor instantiation to a separate fn
-      body:
+      body: null
     - hash: 377e96acdc53c1499bdcd5f133a227fe996e3530
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Rename DictNum to DictionaryGetNumber
-      body:
+      body: null
     - hash: 821a9efc59503b2fbf78a7c108243179a5768c1d
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Fix memory leaks
-      body:
+      body: null
     - hash: 7d895b5ace28ed57f495a12b551732916f73b60b
       author: Robert Vojta
       footers:
         change-type: patch
         signed-off-by: Robert Vojta <robert@balena.io>
       subject: Fix macOS crash when SD card is ejected
-      body:
+      body: null
 - version: 8.0.0
-  date: 2019-02-25T18:22:45Z
+  date: 2019-02-25T18:22:45.000Z
   commits:
     - hash: 51b86b9da8c79b35e4aea14485e9f8bb6f072623
       author: Alexis Svinartchouk
       subject: Rename resin -> balena
-      body:
+      body: null
     - hash: fe5d409935ae1e66fccba782d3934a3460e1a22d
       author: Alexis Svinartchouk
       footers:
         change-type: major
-      subject: Convert to typescript, use promises instead of callbacks
-      body:
+      subject: 'Convert to typescript, use promises instead of callbacks'
+      body: null
     - hash: 621b78febb8ca6b2c4ff8c11a7a1cccc6d7fd0e2
       author: Alexis Svinartchouk
       footers:
@@ -255,51 +274,51 @@
       footers:
         change-type: patch
       subject: Address PR comments
-      body:
+      body: null
 - version: 7.0.3
-  date: 2019-02-20T15:51:54Z
+  date: 2019-02-20T15:51:54.000Z
   commits:
     - hash: 6138276aa371b3747f8da55673ff784607ab46d3
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix parsing lsblk --pairs output for disks with no partition table
-      body:
+      body: null
 - version: 7.0.2
-  date: 2019-02-20T15:37:54Z
+  date: 2019-02-20T15:37:54.000Z
   commits:
     - hash: aeb8e03759654f8043d75bbb86af17820acd8afd
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Update prebuild to ^8.1.2
-      body:
+      body: null
 - version: 7.0.1
-  date: 2019-01-28T22:44:47Z
+  date: 2019-01-28T22:44:47.000Z
   commits:
     - hash: 94ded4e477b848a1e9be4aa2d6102953e55a5320
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Remove unused diskutil file and its tests
-      body:
+      body: null
 - version: 7.0.0
-  date: 2019-01-28T17:48:36Z
+  date: 2019-01-28T17:48:36.000Z
   commits:
     - hash: 1db11dad1baebca8b47b8309fd49007c58b8af87
       author: Robin Andersson
       footers:
         change-type: major
       subject: 'feat(mac): Native implementation for drivelist'
-      body:
+      body: null
     - hash: 3f050852c2847957b2003f79cd73694d162c44fc
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Remove outdated docs.
-      body:
+      body: null
 - version: 6.4.6
-  date: 2019-01-14T08:24:32Z
+  date: 2019-01-14T08:24:32.000Z
   commits:
     - hash: 0fce41e996ce1540d73da9101043fa7481f5a65d
       author: Lorenzo Alberto Maria Ambrosi
@@ -307,16 +326,16 @@
         change-type: patch
         signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzoa@balena.io>
       subject: Fix devices mountpoints for lsblk in pairs mode
-      body:
+      body: null
     - hash: a4fea20256d82fac52272270c899fab8c04a9d9c
       author: Lorenzo Alberto Maria Ambrosi
       footers:
         change-type: patch
         signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzoa@balena.io>
       subject: Fix tests incorrect mountpoints
-      body:
+      body: null
 - version: 6.4.5
-  date: 2019-01-10T18:13:21Z
+  date: 2019-01-10T18:13:21.000Z
   commits:
     - hash: 4f160643677d4c8e111c425f4ba22dacdf4dcc97
       author: Robin Andersson
@@ -324,25 +343,25 @@
         change-type: patch
         signed-off-by: lorenzoa@balena.io
       subject: Fix linting errors & add specs with plist return value assertions
-      body:
+      body: null
     - hash: a6f418cac51a839843a80291a44c6658a93b3266
       author: Lorenzo Alberto Maria Ambrosi
       footers:
         change-type: patch
         signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzoa@balena.io>
       subject: Fix tests incorrect device.size
-      body:
+      body: null
 - version: 6.4.4
-  date: 2019-01-10T15:30:58Z
+  date: 2019-01-10T15:30:58.000Z
   commits:
     - hash: 2aa07699347d811be9525fa8b30d1f2bdaf7db2d
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Fix build on xcode 10.1
-      body:
+      body: null
 - version: 6.4.3
-  date: 2018-09-10T16:44:09Z
+  date: 2018-09-10T16:44:09.000Z
   commits:
     - hash: f6c0ce71ae47847a2ab253751e59ec46e42bc9e5
       author: Jonas Hermsmeier
@@ -356,17 +375,17 @@
     - hash: 4cfafe1fa06f8afdc487392983177fa8d9fd0712
       author: Robin Andersson
       subject: 'fix(ci): Added x86 builds to AppVeyor'
-      body:
+      body: null
     - hash: 81e685fec775f9718a052ece0bd544ea09d6a7cf
       author: Robin Andersson
       subject: Merge branch 'master' into appveyor-x86
-      body:
+      body: null
     - hash: b3fad23517daa81e22f658ddb02d8b3cf8f3379b
       author: Jonas Hermsmeier
       subject: Merge branch 'master' into appveyor-x86
-      body:
+      body: null
 - version: 6.4.2
-  date: 2018-09-01T13:30:04Z
+  date: 2018-09-01T13:30:04.000Z
   commits:
     - hash: 14a8931875fc5cebec232c05ed1a1a59b361ed9c
       author: Jonas Hermsmeier
@@ -383,13 +402,13 @@
         change-type: patch
         signed-off-by: Jack Brown <jack@resin.io>
       subject: 'ci: Add .resinci.yml'
-      body:
+      body: null
     - hash: fec5d1bd11fd4f71d352230b44d5382158199731
       author: Jonas Hermsmeier
       subject: Merge branch 'master' into resinci
-      body:
+      body: null
 - version: 6.4.1
-  date: 2018-08-28T15:30:30Z
+  date: 2018-08-28T15:30:30.000Z
   commits:
     - hash: 0457bd8870a97362e6f73979122f1d3fb211946c
       author: Jonas Hermsmeier
@@ -401,7 +420,7 @@
         This fixes the lack of the `devicePath` property on the `device` object,
         as it was inadvertently dropped by the direct usage of `lsblk`.
 - version: 6.4.0
-  date: 2018-08-02T19:25:07Z
+  date: 2018-08-02T19:25:07.000Z
   commits:
     - hash: a4ea7c5314ec78f010c3887ebae0d565d79b6ed1
       author: Jonas Hermsmeier
@@ -411,7 +430,7 @@
       subject: 'feat(diskutil): Populate devicePath on Mac OS'
       body: This exposes the device tree path under the `.devicePath` property
 - version: 6.3.2
-  date: 2018-08-02T17:35:28Z
+  date: 2018-08-02T17:35:28.000Z
   commits:
     - hash: 61c9ca70b8962e4d1ec25e122431ec796d0df4bd
       author: Jonas Hermsmeier
@@ -423,7 +442,7 @@
         This adds a check for `disk.Ejectable` to `isRemovable`, in order to
         correctly identify removable media on older Mac OS systems.
 - version: 6.3.1
-  date: 2018-08-01T19:26:10Z
+  date: 2018-08-01T19:26:10.000Z
   commits:
     - hash: 516eb46ec76d43defb987379b14bf54f57cae946
       author: Jonas Hermsmeier
@@ -431,30 +450,30 @@
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
       subject: 'fix(lsblk): Resolve relative device names'
-      body:
+      body: null
     - hash: 3d5b451d9bfc1af2a8eb0d24b2379d746bc17952
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
       subject: 'fix(lsblk): Fall back to mountpoint if no label given'
-      body:
+      body: null
     - hash: ff7139157004d605ea19b522ff829abe004fc660
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
       subject: 'fix(lsblk): Enumerate mountpoints on root devices'
-      body:
+      body: null
     - hash: 960a9beeb99181be05f8d54af3572402a637141e
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
       subject: 'test(lsblk): Add test case for root device mountpoints'
-      body:
+      body: null
 - version: 6.3.0
-  date: 2018-07-09T14:43:19Z
+  date: 2018-07-09T14:43:19.000Z
   commits:
     - hash: f55c25f1bc4a2268fad6edb67f9720914ddd178c
       author: Jonas Hermsmeier
@@ -477,7 +496,7 @@
         the `--pairs` option is available and no `pkname` or `kname`
         fields are exposed in the output.
 - version: 6.2.5
-  date: 2018-07-06T14:41:59Z
+  date: 2018-07-06T14:41:59.000Z
   commits:
     - hash: 2c4b62a94d294fc3c3b25e3d0bce121f213f4703
       author: Jonas Hermsmeier
@@ -488,16 +507,16 @@
         This adds the `-a` flag to lsblk on Linux to list all devices,
         as unmounted devices would otherwise not be shown.
 - version: 6.2.4
-  date: 2018-07-04T13:54:57Z
+  date: 2018-07-04T13:54:57.000Z
   commits:
     - hash: 12dea12edeabc3f326852ef527764996f6e023a7
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(test): Add python requirements.txt for tests'
-      body:
+      body: null
 - version: 6.2.3
-  date: 2018-05-25T12:15:51Z
+  date: 2018-05-25T12:15:51.000Z
   commits:
     - hash: 3739c4b1da63589f63e9ca3ae75efcc17405a9e2
       author: Jonas Hermsmeier
@@ -508,26 +527,30 @@
         This updates the callback call to use the `async_resource`,
         as omitting it is deprecated.
 - version: 6.2.2
-  date: 2018-05-10T10:12:56Z
+  date: 2018-05-10T10:12:56.000Z
   commits:
     - hash: 502fa497b79eabc2ceeb86702d6a97cdc395aee0
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(ci): Fix Node version arg passed to prebuild script'
-      body:
+      body: null
 - version: 6.2.1
-  date: 2018-05-10T01:00:30Z
+  date: 2018-05-10T01:00:30.000Z
   commits:
     - hash: 23e38bdc93d8d67c38a7693de46d676b9818e772
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(ci): Only prebuild with Node 10'
-      body: |-
+      body: >-
         Due to a bug caused by V8's change of build system, prebuilds
-        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not defined`.
+
+        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not
+        defined`.
+
         This will only prebuild on Node 10 to avoid this issue, while still
+
         generating prebuilds for all targets.
     - hash: 7b20322c04097f86a96faa5c8a95c0a4ba7632ed
       author: Jonas Hermsmeier
@@ -538,7 +561,7 @@
         This updates `prebuild` and `prebuild-install` in order to
         properly support the Node 10 target.
 - version: 6.2.0
-  date: 2018-05-09T10:19:26Z
+  date: 2018-05-09T10:19:26.000Z
   commits:
     - hash: 39b988eb58dbd7fb4b7930a0c02c106b943d6012
       author: User Name
@@ -547,16 +570,16 @@
       subject: 'feat(linux): Add unique device path'
       body: This adds the unique physical device path to the output.
 - version: 6.1.8
-  date: 2018-04-26T21:16:34Z
+  date: 2018-04-26T21:16:34.000Z
   commits:
     - hash: fa7bf9d6045d71f110054cb666bdcad39c9be5f5
       author: Tim Perry
       footers:
         change-type: patch
       subject: 'chore(ci): Build, test & publish releases for Node.js v10'
-      body:
+      body: null
 - version: 6.1.7
-  date: 2018-04-16T22:20:10Z
+  date: 2018-04-16T22:20:10.000Z
   commits:
     - hash: e61edcc60bb5e8561b9d7a3ff5aaca28bc5f079d
       author: Jonas Hermsmeier
@@ -573,18 +596,20 @@
       footers:
         change-type: patch
       subject: 'fix(diskutil): Fall back to MediaName if EntryName is not available'
-      body:
+      body: null
 - version: 6.1.6
-  date: 2018-04-13T13:29:14Z
+  date: 2018-04-13T13:29:14.000Z
   commits:
     - hash: 67d2d299b9c884cac0a758078e56c9c70c9a4965
       author: grumpyoldman-io
       footers:
         change-type: minor
       subject: 'fix(diskutil): Added an error for diskutil returning null'
-      body: After a systeem sleep or standby the devices returned by the list function return a null without errors
+      body: >-
+        After a systeem sleep or standby the devices returned by the list
+        function return a null without errors
 - version: 6.1.5
-  date: 2018-04-05T19:20:26Z
+  date: 2018-04-05T19:20:26.000Z
   commits:
     - hash: 065798ba21dd65a9588e78d4c2bf969b776d9b41
       author: Jonas Hermsmeier
@@ -596,7 +621,7 @@
         being unmounted & unplugged from the host, where `DeviceNode`
         would be empty.
 - version: 6.1.4
-  date: 2018-04-02T13:55:57Z
+  date: 2018-04-02T13:55:57.000Z
   commits:
     - hash: 6f3bb264704c85cf0a7d224226adf31c6240ed58
       author: Jonas Hermsmeier
@@ -609,7 +634,7 @@
         - mocha: 5.0.1 -> 5.0.5
         - nan: 2.9.2 -> 2.10.0
 - version: 6.1.3
-  date: 2018-03-17T15:45:22Z
+  date: 2018-03-17T15:45:22.000Z
   commits:
     - hash: e7b280facd19740f6bb38cd799177e23bb778f4c
       author: Jonas Hermsmeier
@@ -620,7 +645,7 @@
         This makes use of the `VolumeAllocationBlockSize` field to set
         the logical block size, if it's available.
 - version: 6.1.2
-  date: 2018-03-16T11:08:06Z
+  date: 2018-03-16T11:08:06.000Z
   commits:
     - hash: 70c8d9a40277c86e134e890539c49ea48cef850d
       author: Jonas Hermsmeier
@@ -635,30 +660,30 @@
       footers:
         change-type: patch
       subject: 'fix(diskutil): Support mountpoints without partitions'
-      body:
+      body: null
     - hash: 80cab89eb779ed28a985acdf1490b3ea4b100e4f
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'test(diskutil): Add tests for devices without partitions'
-      body:
+      body: null
     - hash: 4ed52ee1c28839def8fe12281394fb0176fac617
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(test): Avoid test timeout on AppVeyor'
-      body:
+      body: null
 - version: 6.1.1
-  date: 2018-03-13T20:02:42Z
+  date: 2018-03-13T20:02:42.000Z
   commits:
     - hash: 4d6296c165bf7db2050721c02e096e6245d3b0c6
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(package): Remove obsolete bin entries'
-      body:
+      body: null
 - version: 6.1.0
-  date: 2018-03-09T12:20:47Z
+  date: 2018-03-09T12:20:47.000Z
   commits:
     - hash: d79619fef4387f2ee785607d5ff89adf4092d707
       author: Jonas Hermsmeier
@@ -670,7 +695,7 @@
         using an intermediate script, and uses the `-plist` option to obtain
         and parse the machine-readable output.
 - version: 6.0.5
-  date: 2018-03-02T13:09:24Z
+  date: 2018-03-02T13:09:24.000Z
   commits:
     - hash: 8378445e17f953aab68202f268b41611dddb1de8
       author: Jonas Hermsmeier
@@ -685,7 +710,7 @@
         - nan 2.8.0 -> 2.9.2
         - prebuild-install 2.4.1 -> 2.5.1
 - version: 6.0.4
-  date: 2018-01-18T18:41:22Z
+  date: 2018-01-18T18:41:22.000Z
   commits:
     - hash: 71d3e69c76784d46f202dfbd82e8c01f3ea1ca18
       author: Jonas Hermsmeier
@@ -696,7 +721,7 @@
         This implements the previously unimplemented method `IsSystemDevice()`
         which matches the mountpoint against the systems' root folder.
 - version: 6.0.3
-  date: 2018-01-18T17:01:42Z
+  date: 2018-01-18T17:01:42.000Z
   commits:
     - hash: 4e3bb9c5084c090825ce5ba98fbfdaac69b23b26
       author: Jonas Hermsmeier
@@ -713,7 +738,7 @@
         Further this adds compiler and linker options to aid in detecting
         errors like missing links to libraries and exception handling.
 - version: 6.0.2
-  date: 2018-01-14T11:43:40Z
+  date: 2018-01-14T11:43:40.000Z
   commits:
     - hash: 737e30c73d86556a6a19466cb528b903d7f61f8d
       author: Andrew Scheller
@@ -722,7 +747,7 @@
       subject: 'fix(darwin): Use proper flag to enable extended regexes in `sed`'
       body: 'Fixes #247'
 - version: 6.0.1
-  date: 2018-01-12T14:11:14Z
+  date: 2018-01-12T14:11:14.000Z
   commits:
     - hash: 730c5e6994f4528d6e021291ba261637568092db
       author: Andrew Scheller
@@ -731,7 +756,7 @@
       subject: 'fix(darwin): Allow mountpoints containing space characters'
       body: 'Fixes #245'
 - version: 6.0.0
-  date: 2018-01-05T02:04:01Z
+  date: 2018-01-05T02:04:01.000Z
   commits:
     - hash: b26e577d5acc9983ba80cc6de8b4e4215cf964b4
       author: Jonas Hermsmeier
@@ -759,65 +784,65 @@
     - hash: 3ee23be0442431a301eb11473ae71c890c577187
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Disable printf() stmts for now'
-      body:
+      body: null
     - hash: 0c9a6ef43bd5174f7e302d107eb860ada982ca09
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Use std::set for storage driver IDs'
-      body:
+      body: null
     - hash: 7e7b20969da736f95c3175e04265402b5b67038d
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Move consts to windows/list.hpp'
-      body:
+      body: null
     - hash: e250c4519fc2530450aace076b389c4b5c729c2b
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Remove unused DWORD size & dataType'
-      body:
+      body: null
     - hash: d62ed39a771f4e93f0b13cf1b354cc8047672568
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Remove unreachable code path'
-      body:
+      body: null
     - hash: e3d03854386d2736c4f31fb659a438dac2d8a27e
       author: Jonas Hermsmeier
       subject: 'fix(package): Re-add compile script & lint on test'
-      body:
+      body: null
     - hash: 241ad09c584aaac61c330144bcc71f5413a30cab
       author: Jonas Hermsmeier
       subject: 'feat(scripts): Update scripts to match device properties'
-      body:
+      body: null
     - hash: cc394fba01850fb59684747de0e949c8309403bc
       author: Jonas Hermsmeier
       subject: 'refactor(windows): Set error to `null` when empty'
-      body:
+      body: null
     - hash: 4dd5795a5c43253432ec145b79ca2a47a74521ee
       author: Jonas Hermsmeier
       subject: 'fix(windows): Encaspulate mountpoint in object with path'
-      body:
+      body: null
     - hash: 7f52cac13a0a1cce9ec62f93ad295bc4e41918d9
       author: Jonas Hermsmeier
       subject: 'test(darwin): Update Mac OS tests'
-      body:
+      body: null
     - hash: 589e65b67ffbec8f8dd9d53c6ebdfa81c15d6971
       author: Jonas Hermsmeier
       subject: 'doc(README): Update Mac OS examples'
-      body:
+      body: null
     - hash: 15c87d0d0b06b41e813ec120d131247d6ba9ef9e
       author: Jonas Hermsmeier
       subject: 'doc(README): Update Windows output example'
-      body:
+      body: null
     - hash: 23d2634b30aac0bfd5fbe69684fac765572b302b
       author: Jonas Hermsmeier
       subject: 'test(linux): Update Linux tests'
-      body:
+      body: null
     - hash: b87a99562c0d8b9c1df00fb7b89ae0fc269b70af
       author: Jonas Hermsmeier
       subject: 'doc(README): Update Linux example output'
-      body:
+      body: null
     - hash: ed8cd185489f8654f8269a3023fbe6e5f77e8faf
       author: Jonas Hermsmeier
       subject: 'fix(windows): Expose PhysicalDevice under device key'
-      body:
+      body: null
 - version: 5.2.12
-  date: 2017-12-28T04:26:46Z
+  date: 2017-12-28T04:26:46.000Z
   commits:
     - hash: 77126aeb26d7434bc3974b97f1cdfc4fd38ea991
       author: Jonas Hermsmeier
@@ -831,7 +856,7 @@
         - jsdoc-to-markdown 3.0.0 -> 3.0.3
         - prebuild 6.2.2 -> 7.0.0
 - version: 5.2.11
-  date: 2017-12-14T08:52:32Z
+  date: 2017-12-14T08:52:32.000Z
   commits:
     - hash: 3d9ec87bc334fd87bc0b55e0307e06767954baee
       author: Jonas Hermsmeier
@@ -840,25 +865,25 @@
       subject: 'refactor: Remove lodash'
       body: This removes use of lodash throughout.
 - version: 5.2.10
-  date: 2017-12-12T15:26:04Z
+  date: 2017-12-12T15:26:04.000Z
   commits:
     - hash: 00fb4dd9ae14b6b7be33a36e47a93d6f8d381087
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'fix(package): Fix prebuild script being run on build'
-      body:
+      body: null
 - version: 5.2.9
-  date: 2017-12-09T02:53:54Z
+  date: 2017-12-09T02:53:54.000Z
   commits:
     - hash: 92607129634a6f0a7fb8266daf6c81f29b4168e5
       author: Andrew Scheller
       footers:
         change-type: patch
       subject: 'fix: Remove the final usage of perl from darwin.sh'
-      body:
+      body: null
 - version: 5.2.8
-  date: 2017-12-08T17:48:21Z
+  date: 2017-12-08T17:48:21.000Z
   commits:
     - hash: b6614086b7bb31ada18fef4f099a29fcdb554792
       author: Andrew Scheller
@@ -867,7 +892,7 @@
       subject: 'chore: pip on Travis OSX is now pip2'
       body: "See #238 and https://github.com/resin-io/etcher/pull/1897\r\n\r"
 - version: 5.2.7
-  date: 2017-10-17T12:17:53Z
+  date: 2017-10-17T12:17:53.000Z
   commits:
     - hash: 33d9d481a007ca393513bb6166e6b0ab7ca27c05
       author: Jonas Hermsmeier
@@ -880,7 +905,7 @@
         - prebuild 6.2.1 -> 6.2.2
         - prebuild-install 2.2.2 -> 2.3.0
 - version: 5.2.6
-  date: 2017-10-13T15:51:19Z
+  date: 2017-10-13T15:51:19.000Z
   commits:
     - hash: 17301e4c1fd7a12a79a10f761a532fd3b1b9ea15
       author: Jonas Hermsmeier
@@ -891,7 +916,7 @@
         This should fix an issue with some Travis CI machines not finding
         `bash` via `#!/usr/bin/env bash`.
 - version: 5.2.5
-  date: 2017-10-13T12:27:27Z
+  date: 2017-10-13T12:27:27.000Z
   commits:
     - hash: a7371d6dcb52513cd24ed066d7e5e5b16230ae26
       author: Jonas Hermsmeier
@@ -902,13 +927,15 @@
         This adds deployment step scripts for the prebuilds to
         avoid the CIs accidentally exposing secrets through the logs.
 - version: 5.2.4
-  date: 2017-10-06T16:59:08Z
+  date: 2017-10-06T16:59:08.000Z
   commits:
     - hash: 2b7aab48a1b1f1efd1715e9ef450fc22f5f66faa
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        changelog-entry: Correctly execute macOS and GNU/Linux scripts inside directories mounted as `noexec`.
+        changelog-entry: >-
+          Correctly execute macOS and GNU/Linux scripts inside directories
+          mounted as `noexec`.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix: workaround noexec by executing scripts with bash'
       body: |-
@@ -918,7 +945,7 @@
         As an easy workaround, we can call `bash` passing it the script as an
         argument rather than executing the script directly.
 - version: 5.2.3
-  date: 2017-10-03T15:47:11Z
+  date: 2017-10-03T15:47:11.000Z
   commits:
     - hash: e2a953b3ef1e0756c81eee716bb05af6b70070ab
       author: zkochan
@@ -927,7 +954,7 @@
         Change-Type: patch
         Close #224
 - version: 5.2.2
-  date: 2017-10-02T15:30:53Z
+  date: 2017-10-02T15:30:53.000Z
   commits:
     - hash: 2b7d849d005e5d74d4dc5785c332d0156ad333e7
       author: Jonas Hermsmeier
@@ -939,7 +966,7 @@
         finding use in newer Node / V8 versions, this explicitly
         specifies to use the VS2015 base image
 - version: 5.2.1
-  date: 2017-09-28T20:50:11Z
+  date: 2017-09-28T20:50:11.000Z
   commits:
     - hash: 5dc5b5dd04995a82c6d9c4abfc71825434e66fb8
       author: Jonas Hermsmeier
@@ -957,7 +984,7 @@
         - mocha 3.4.2 -> 3.5.3
         - mochainon 1.0.0 -> 2.0.0
 - version: 5.2.0
-  date: 2017-09-28T14:31:51Z
+  date: 2017-09-28T14:31:51.000Z
   commits:
     - hash: 692f24a696d40e6f1f74d39369ee72776933fba5
       author: Jonas Hermsmeier
@@ -970,7 +997,7 @@
         [prebuild]: https://github.com/prebuild/prebuild
         [prebuild-install]: https://github.com/prebuild/prebuild-install
 - version: 5.1.7
-  date: 2017-08-28T21:11:43Z
+  date: 2017-08-28T21:11:43.000Z
   commits:
     - hash: 510034d22f7a69feffafea9e09193447f1b6cdf5
       author: Juan Cruz Viotti
@@ -983,7 +1010,7 @@
         I spot a case where if GetDeviceNumber() fails, the handle to the volume
         doesn't get closed.
 - version: 5.1.6
-  date: 2017-08-28T15:50:32Z
+  date: 2017-08-28T15:50:32.000Z
   commits:
     - hash: 719c946e7dcc44f4f729e10215632295b5e266f3
       author: Juan Cruz Viotti
@@ -991,14 +1018,14 @@
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): log the volume we''re working on'
-      body:
+      body: null
 - version: 5.1.5
-  date: 2017-08-14T16:51:56Z
+  date: 2017-08-14T16:51:56.000Z
   commits:
     - hash: 496d8fb7f7a5102583b63d49e8faddf07e0727cf
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1687
+        see: 'https://github.com/resin-io/etcher/issues/1687'
         change-type: patch
         changelog-entry: Correctly handle BitLocker locked Windows volumes.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
@@ -1009,7 +1036,7 @@
         `writable` to FALSE, since we're not able to make any changes to locked
         drives (e.g. running diskpart clean on it).
 - version: 5.1.4
-  date: 2017-08-07T02:53:56Z
+  date: 2017-08-07T02:53:56.000Z
   commits:
     - hash: 6cbf6673eccd75cf807f9f7dfc9f088d06086950
       author: Juan Cruz Viotti
@@ -1023,14 +1050,16 @@
         we could get the precise error code from `GetLastError()`.
         This ensures we have enough information to fix bugs later on.
 - version: 5.1.3
-  date: 2017-08-01T22:15:42Z
+  date: 2017-08-01T22:15:42.000Z
   commits:
     - hash: 510e88b202e3eab851e4f0ac681ca2dc83a9661e
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        changelog-entry: 'Fix "Couldn''t scan the drives: An unknown error occurred" where there is a mounted virtual drive.'
-        fixes: https://github.com/resin-io-modules/drivelist/issues/198
+        changelog-entry: >-
+          Fix "Couldn't scan the drives: An unknown error occurred" where there
+          is a mounted virtual drive.
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/198'
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): ignore virtual drives'
       body: |-
@@ -1038,7 +1067,7 @@
         best solution I could find is to check the resulting error from
         IOCTL_STORAGE_GET_DEVICE_NUMBER.
 - version: 5.1.1
-  date: 2017-08-01T18:19:51Z
+  date: 2017-08-01T18:19:51.000Z
   commits:
     - hash: 04595a051bf9b55b72b66dcfa7ab754d8cfdbc5e
       author: Juan Cruz Viotti
@@ -1052,7 +1081,7 @@
         this commit refactors `GetSize()` into `GetInformation()`, which gives
         back the size and now the media type removable status.
 - version: 5.1.0
-  date: 2017-07-31T20:58:20Z
+  date: 2017-07-31T20:58:20.000Z
   commits:
     - hash: cdb9d14e07300ec57503adc3731d8e929236e898
       author: Juan Cruz Viotti
@@ -1065,7 +1094,7 @@
         GNU/Linux, but its equal to the list of volumes with file-systems on
         Windows, for user-friendliness purposes.
 - version: 5.0.28
-  date: 2017-07-31T13:19:41Z
+  date: 2017-07-31T13:19:41.000Z
   commits:
     - hash: 352fa39c00db07a8af5aaf2936dbe58463768cf7
       author: Juan Cruz Viotti
@@ -1073,26 +1102,27 @@
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'feat(windows): print HRESULT hex in debug information'
-      body:
+      body: null
 - version: 5.0.27
-  date: 2017-07-19T14:02:07Z
+  date: 2017-07-19T14:02:07.000Z
   commits:
     - hash: 5eb6945b9230438ffca474d8337730f73947e4c3
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: https://github.com/resin-io-modules/drivelist/pull/195#pullrequestreview-50825872
+        see: >-
+          https://github.com/resin-io-modules/drivelist/pull/195#pullrequestreview-50825872
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix: small typo in EAGAIN error message'
-      body:
+      body: null
 - version: 5.0.26
-  date: 2017-07-18T18:20:50Z
+  date: 2017-07-18T18:20:50.000Z
   commits:
     - hash: fdaa7990826099abbb8f3c61efe3860067938dc8
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: https://github.com/resin-io/etcher/pull/1600
+        see: 'https://github.com/resin-io/etcher/pull/1600'
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'refactor: reduce debug logging if unlink was successful'
       body: |-
@@ -1105,7 +1135,7 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: https://github.com/resin-io/etcher/issues/1578
+        see: 'https://github.com/resin-io/etcher/issues/1578'
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix: handle EAGAIN spawning errors'
       body: |-
@@ -1118,7 +1148,7 @@
         This commit retries the spawning operation various times before giving
         up with a human friendly error message.
 - version: 5.0.25
-  date: 2017-07-11T21:25:42Z
+  date: 2017-07-11T21:25:42.000Z
   commits:
     - hash: 926008244b076f3e8413ceb88b15c4f719e94ab1
       author: Juan Cruz Viotti
@@ -1135,7 +1165,7 @@
         change-type: minor
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'feat(windows): print error code string description in case of errors'
-      body:
+      body: null
     - hash: b2beb63d3f69a2038a4b028fba2985156bc61c30
       author: Jonas Hermsmeier
       footers:
@@ -1176,11 +1206,11 @@
       footers:
         change-type: patch
       subject: 'chore(package): Fix missing EOL in package.json'
-      body:
+      body: null
     - hash: 073e8ccb44290f1675414392defe8b0a1fc3e0f5
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1483
+        see: 'https://github.com/resin-io/etcher/issues/1483'
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): report a more accurate drive size number'
@@ -1194,7 +1224,7 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: https://github.com/resin-io-modules/drivelist/pull/183
+        see: 'https://github.com/resin-io-modules/drivelist/pull/183'
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): all drives are interpreted as read-only'
       body: |-
@@ -1207,24 +1237,24 @@
       footers:
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): make use of GetVolumeInformation() in HasFileSystem()'
-      body:
+      body: null
     - hash: f11f607168cfcba8defabb6112f979ccb2a26de0
       author: Juan Cruz Viotti
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'refactor(windows): don''t use WMI to list volumes'
-      body:
+      body: null
     - hash: cd4e0eaab5f4fe8fb8ad2684fda44962479b40da
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'refactor(windows): make use of SHGetKnownFolderPath to get system volume'
-      body:
+      body: null
     - hash: a1512ccb3f76e5a4fb1575fe64fc600c9feb1151
       author: Juan Cruz Viotti
       footers:
-        see: https://stackoverflow.com/a/44706760/1641422
+        see: 'https://stackoverflow.com/a/44706760/1641422'
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: 'fix(windows): detect read-only flag on SD Cards without a filesystem'
@@ -1246,7 +1276,7 @@
         This commit is part of some efforts to make use of IOCTLs directly and
         get rid of WMI/COM altogether.
 - version: 5.0.24
-  date: 2017-06-27T15:46:59Z
+  date: 2017-06-27T15:46:59.000Z
   commits:
     - hash: f8cd54362f51fd08f8b57d6f20121350acdde7fa
       author: Juan Cruz Viotti
@@ -1262,43 +1292,43 @@
       footers:
         change-type: patch
       subject: 'chore(gitignore): Ignore entire build directory'
-      body:
+      body: null
     - hash: 576eb4e3366ea8ac41e0588fc938ce415764ffcb
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'chore(npmignore): Add build, example, test & yml'
-      body:
+      body: null
     - hash: f9bb7e91dea7df58974c9259818152f6a6a34b1a
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'refactor(example): Move example.js -> example/index.js'
-      body:
+      body: null
     - hash: e8ed7a21aed1b1e492b6a901c544362bb796b3db
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'chore(appveyor): Add Node versions 4 & 8'
-      body:
+      body: null
     - hash: 137d9e33272e563158a921f484f32ea1df95f83f
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'chore(travis): Add Node v4 & v8, add clang'
-      body:
+      body: null
     - hash: 393e009aa17933dac6382e28121647a9bd8ae72c
       author: Jonas Hermsmeier
       footers:
         change-type: minor
       subject: 'feat: Stub native bindings'
-      body:
+      body: null
     - hash: 87647a357e34620891d33a4e8ccd6b3246f4a39d
       author: Jonas Hermsmeier
       footers:
         change-type: patch
       subject: 'chore(package): Add install & build scripts, dependencies'
-      body:
+      body: null
     - hash: 19b173fdeade5c9ded0bf76625a6cf0cbf51ed3d
       author: Juan Cruz Viotti
       footers:
@@ -1306,7 +1336,7 @@
       subject: 'refactor(windows): re-implement in C++'
       body: This commit re-implements all the Windows drive scanning logic in C++.
 - version: 5.0.23
-  date: 2017-06-15T14:49:40Z
+  date: 2017-06-15T14:49:40.000Z
   commits:
     - hash: da962dd151791fb30e29425b84588e81192d5897
       author: Jonas Hermsmeier
@@ -1322,13 +1352,13 @@
       footers:
         change-type: patch
       subject: 'doc(README): Add npm monthly download count'
-      body:
+      body: null
     - hash: 4b6e06ab59f760e5f7b9f9915ac0ecfd6ee06067
       author: Kostas Lekkas
       footers:
         change-type: patch
       subject: Adapt changelog for versionbot
-      body:
+      body: null
     - hash: 4bc31025d4464d32437793d605867b456fb30f0d
       author: Jonas Hermsmeier
       footers:
@@ -1339,7 +1369,7 @@
         changes the Gitter chat link to point to the Etcher chat,
         and fixes forced line endings in the docs.
 - version: 5.0.22
-  date: 2017-06-08T12:46:43Z
+  date: 2017-06-08T12:46:43.000Z
   commits:
     - hash: f9de11d80bb9d378a14a39d5cbdd6384cc7253a6
       author: Jonas Hermsmeier
@@ -1358,7 +1388,7 @@
     - hash: 6ee2fd2e05aac1f22e40298de8b26ba0bf5ff0bf
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io/etcher/issues/1288
+        fixes: 'https://github.com/resin-io/etcher/issues/1288'
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: Don't use perl when fetching the drive size on macOS
       body: |-
@@ -1366,23 +1396,23 @@
         100% on some cases, and remains alive even after drivelist is not
         running anymore.
 - version: 5.0.21
-  date: 2017-05-26T00:35:39Z
+  date: 2017-05-26T00:35:39.000Z
   commits:
     - hash: fe68f6ed069fd1a79a5d2c87d8193a996549ded6
       author: Jordan Sitkin
       subject: use Device / Media Name instead of Volume Name
-      body:
+      body: null
     - hash: 7ea51f677e574c3df7b657e63b98dacb9d0cafb3
       author: Jordan Sitkin
       subject: use both volume_name and description when applicable
-      body:
+      body: null
 - version: 5.0.20
-  date: 2017-05-10T18:23:12Z
+  date: 2017-05-10T18:23:12.000Z
   commits:
     - hash: becccaa843f76a6a9d1584af75997578f33dc7b2
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1395
+        see: 'https://github.com/resin-io/etcher/issues/1395'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Inline platform scripts
       body: |-
@@ -1402,7 +1432,7 @@
         concatenators like Browserify or WebPack fail to include them on the
         final package
 - version: 5.0.19
-  date: 2017-04-19T18:22:17Z
+  date: 2017-04-19T18:22:17.000Z
   commits:
     - hash: b0cb41a8934766edeb22189c11abb509eaf744e9
       author: Juan Cruz Viotti
@@ -1416,16 +1446,20 @@
         - Non printable ascii characters
     - hash: 385115143e286ef0c0add481bd8ffa91a5aa2df2
       author: Andrew Scheller
-      subject: Remove a useless string substitution and instead quote the string "inline"
-      body:
+      subject: >-
+        Remove a useless string substitution and instead quote the string
+        "inline"
+      body: null
     - hash: bc24b45592496a2ffc44ac8031d17c31e689bd71
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: Fix linux.sh to work with mountpoints containing tab, newline or backslash
+      subject: >-
+        Fix linux.sh to work with mountpoints containing tab, newline or
+        backslash
       body: 'Connects to #153'
 - version: 5.0.18
-  date: 2017-03-21T15:08:59Z
+  date: 2017-03-21T15:08:59.000Z
   commits:
     - hash: 2010d7010570db58fe290b1314f2400957a10bdf
       author: Andrew Scheller
@@ -1433,11 +1467,13 @@
         fixes: '#154'
         change-type: patch
       subject: Fix linux.sh and darwin.sh to always quote the mountpoint strings
-      body: |-
-        This prevents the mountpoint strings being truncated when converted to JSON
+      body: >-
+        This prevents the mountpoint strings being truncated when converted to
+        JSON
+
         if they happen to contain a `#` (the YAML quote character)
 - version: 5.0.17
-  date: 2017-03-15T14:37:38Z
+  date: 2017-03-15T14:37:38.000Z
   commits:
     - hash: 154ffbbc7a95eaebffe779ec41f875b21ff8110b
       author: Andrew Scheller
@@ -1446,7 +1482,7 @@
       subject: Fix linux.sh to work when mountpoint contains spaces
       body: 'Connects to #152'
 - version: 5.0.16
-  date: 2017-03-06T19:04:43Z
+  date: 2017-03-06T19:04:43.000Z
   commits:
     - hash: 4a4f3ae0fe5b07a41e392849f07f0afc9ad80c4f
       author: Andrew Scheller
@@ -1455,19 +1491,19 @@
       subject: Fix linux.sh
       body: "This fixes the fix in #125\r\n\r\nSee https://github.com/resin-io/etcher/issues/1159\r\n\r"
 - version: 5.0.15
-  date: 2017-03-06T03:52:48Z
+  date: 2017-03-06T03:52:48.000Z
   commits:
     - hash: 6375f69f7daa8b92e3c0a51fc8eb7afbde329571
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Increase debugging information in the case of script errors
-      body:
+      body: null
     - hash: af824de0bc46f3f492645de7841d52ab684fcf8c
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/147
-        see: https://github.com/resin-io/etcher/issues/1126
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/147'
+        see: 'https://github.com/resin-io/etcher/issues/1126'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Prevent errors when unplugging drives while the scripts are running
       body: |-
@@ -1481,12 +1517,12 @@
         - Check for `Nothing` in the main loop, and ignore the drive if that's
         the case
 - version: 5.0.14
-  date: 2017-02-23T18:56:17Z
+  date: 2017-02-23T18:56:17.000Z
   commits:
     - hash: 231833a75b8faeba49256d5486dce2b5e652abdd
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1126
+        see: 'https://github.com/resin-io/etcher/issues/1126'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Bridge VBScript exit code to the caller on the Batch wrapper
       body: |-
@@ -1497,18 +1533,18 @@
     - hash: 20398861ed458ae224924da7af99cf0bceee155d
       author: Jonas Hermsmeier
       subject: 'fix(package): Fix missing executable file mode on scripts'
-      body:
+      body: null
 - version: 5.0.12
-  date: 2017-02-21T14:05:17Z
+  date: 2017-02-21T14:05:17.000Z
   commits:
     - hash: 7c49173cec658802bf31e700546cb5832e0f3f5e
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Ensure execution permissions for win32.bat
-      body:
+      body: null
 - version: 5.0.11
-  date: 2017-02-19T23:51:57Z
+  date: 2017-02-19T23:51:57.000Z
   commits:
     - hash: 611e460c31103efa6ed42439bdbba359c8ef1b05
       author: Juan Cruz Viotti
@@ -1521,12 +1557,12 @@
         returned for such internal reader is `null`, and if so, omit it from the
         final drive list.
 - version: 5.0.10
-  date: 2017-02-14T14:38:04Z
+  date: 2017-02-14T14:38:04.000Z
   commits:
     - hash: 972c3e52c16a9bb209727e2a6880fa748ad9c7da
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1019
+        see: 'https://github.com/resin-io/etcher/issues/1019'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Filter out invalid mountpoints on Windows
       body: |-
@@ -1547,14 +1583,14 @@
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Explain how the module works in the README
-      body:
+      body: null
 - version: 5.0.9
-  date: 2017-01-31T14:41:07Z
+  date: 2017-01-31T14:41:07.000Z
   commits:
     - hash: 3149aa51a2cbcf1347d789e3c6a9c29e51b4a8c5
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1034
+        see: 'https://github.com/resin-io/etcher/issues/1034'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Print stderr script output to stderr if exit code is non zero
       body: |-
@@ -1576,108 +1612,198 @@
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Improve linux.sh based on shellcheck tips
-      body: |-
+      body: >-
         These were the addressed issues:
+
         ```
+
         In scripts/linux.sh line 8:
+
         /sbin/blkid -s UUID -o value $1*
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/linux.sh line 15:
+
         DISKS="`lsblk -d --output NAME | ignore_first_line`"
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/linux.sh line 25:
-        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line))
+
+        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL |
+        ignore_first_line))
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/linux.sh line 29:
+
         description=${diskinfo[@]:3}
-        ^-- SC2124: Assigning an array to a string! Assign as array, or use * instead of @ to concatenate.
+
+        ^-- SC2124: Assigning an array to a string! Assign as array, or use *
+        instead of @ to concatenate.
+
         In scripts/linux.sh line 30:
+
         mountpoints=`get_mountpoint $device`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/linux.sh line 35:
+
         for uuid in `get_uuids $device`; do
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/linux.sh line 36:
+
         mountpoints=$mountpoints`get_mountpoint /dev/disk/by-uuid/$uuid`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/linux.sh line 43:
+
         subdevice=`echo "$device" | cut -d'/' -f3`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/linux.sh line 45:
+
         description=`cat "/sys/class/block/$subdevice/device/name"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/linux.sh line 58:
+
         echo "$mountpoints" | while read mountpoint ; do
+
         ^-- SC2162: read without -r will mangle backslashes.
+
         In scripts/linux.sh line 71:
+
         eval "`udevadm info \
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         ```
     - hash: a7d80ed2e65009e78abf2f264c8050543eed0399
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Improve darwin.sh based on shellcheck tips
-      body: |-
+      body: >-
         These were the addressed warnings:
+
         ```
+
         In scripts/darwin.sh line 4:
+
         echo $(grep "$1" | awk -F "  +" '{ print $3 }')
+
         ^-- SC2046: Quote this to prevent word splitting.
+
         ^-- SC2005: Useless echo? Instead of 'echo $(cmd)', just use 'cmd'.
+
         In scripts/darwin.sh line 11:
+
         DISKS="`diskutil list | grep '^\/' | get_until_paren`"
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 12:
+
         mount_output="`mount`"
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 15:
+
         diskinfo="`diskutil info $disk`"
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2086: Double quote to prevent globbing and word splitting.
+
         In scripts/darwin.sh line 17:
+
         device=`echo "$diskinfo" | get_key "Device Node"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 20:
+
         raw_device=`echo "$device" | sed "s/disk/rdisk/g"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         ^-- SC2001: See if you can use ${variable//search/replace} instead.
+
         In scripts/darwin.sh line 22:
+
         description=`echo "$diskinfo" | get_key "Device / Media Name"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 23:
+
         volume_name=`echo "$diskinfo" | get_key "Volume Name"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 24:
+
         removable=`echo "$diskinfo" | get_key "Removable Media"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 25:
+
         protected=`echo "$diskinfo" | get_key "Read-Only Media"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 26:
+
         location=`echo "$diskinfo" | get_key "Device Location"`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 27:
-        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+
+        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total
+        Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 29:
-        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"'`
+
+        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)?
+        on (.*) \(.*\)$} && print "$2\n"'`
+
         ^-- SC2006: Use $(..) instead of legacy `..`.
+
         In scripts/darwin.sh line 52:
+
         echo "$mountpoints" | while read mountpoint ; do
+
         ^-- SC2162: read without -r will mangle backslashes.
+
         ```
 - version: 5.0.8
-  date: 2017-01-27T21:52:49Z
+  date: 2017-01-27T21:52:49.000Z
   commits:
     - hash: 29268b5678181f63c0270bf05dd4eb5f5c311486
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1025
+        see: 'https://github.com/resin-io/etcher/issues/1025'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Double quote PATH declaration in win32.bat
       body: |-
@@ -1686,54 +1812,83 @@
         weird "is not recognized as an internal or external command,
         operable program or batch file" errors.
 - version: 5.0.7
-  date: 2017-01-26T16:17:59Z
+  date: 2017-01-26T16:17:59.000Z
   commits:
     - hash: a83df4c95a9de50823d82cf433c2f4ab04ca270c
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Interpret "Fixed" drives as system drives
-      body: |-
+      body: >-
         An USB SSD HD (Samsung T3) has the following `diskutil` properties on
+
         macOS Sierra:
+
         ```sh
+
         Device Identifier:        disk3
+
         Device Node:              /dev/disk3
+
         Whole:                    Yes
+
         Part of Whole:            disk3
+
         Device / Media Name:      Portable SSD T3
+
         Volume Name:              Not applicable (no file system)
+
         Mounted:                  Not applicable (no file system)
+
         File System:              None
+
         Content (IOContent):      FDisk_partition_scheme
+
         OS Can Be Installed:      No
+
         Media Type:               Generic
+
         Protocol:                 USB
+
         SMART Status:             Not Supported
-        Disk Size:                500.1 GB (500107862016 Bytes) (exactly 976773168512-Byte-Units)
+
+        Disk Size:                500.1 GB (500107862016 Bytes) (exactly
+        976773168512-Byte-Units)
+
         Device Block Size:        512 Bytes
+
         Read-Only Media:          No
+
         Read-Only Volume:         Not applicable (no file system)
+
         Device Location:          External
+
         Removable Media:          Fixed
+
         Virtual:                  No
+
         OS 9 Drivers:             No
+
         Low Level Format:         Not supported
+
         ```
+
         Because we only check for `Removable Media == No`, this drive will be
+
         detected as something we can freely write to.
+
         The solution is to also check for `Removable Media == Fixed`.
     - hash: f2e4498d541312bb94951e844424099430b58c92
       author: Andrew Scheller
       subject: Simplify the `get_key` function used in darwin.sh
-      body:
+      body: null
 - version: 5.0.6
-  date: 2017-01-12T15:56:30Z
+  date: 2017-01-12T15:56:30.000Z
   commits:
     - hash: a7d2338ef413f9b3a76c76d93afa51dc9b1ebd12
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/1004#event-920192906
+        see: 'https://github.com/resin-io/etcher/issues/1004#event-920192906'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Fix VBScript error where a drive has duplicate drive letters
       body: |-
@@ -1756,70 +1911,110 @@
         (for now), and use that to decide whether we add a drive letter to the
         list of mount-points or not.
 - version: 5.0.5
-  date: 2017-01-06T15:34:36Z
+  date: 2017-01-06T15:34:36.000Z
   commits:
     - hash: 2a3824db2602e03d55fdc724de5faa84b8f865e4
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/983
+        see: 'https://github.com/resin-io/etcher/issues/983'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Consider multiple "Device Location" keys in Mac Minis
-      body: |-
+      body: >-
         Mac Minis might report multiple "Device Location" keys in the output of
+
         `diskutil info /dev/diskN`, for example:
+
         ```
+
         Device Identifier:        disk1
+
         Device Node:              /dev/disk1
+
         Whole:                    Yes
+
         Part of Whole:            disk1
+
         Device / Media Name:      ST2000LM003 HN-M201RAD
+
         Volume Name:              Not applicable (no file system)
+
         Mounted:                  Not applicable (no file system)
+
         File System:              None
+
         Content (IOContent):      GUID_partition_scheme
+
         OS Can Be Installed:      No
+
         Media Type:               Generic
+
         Protocol:                 SATA
+
         SMART Status:             Verified
-        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly 3907029168 512-Byte-Units)
+
+        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly
+        3907029168 512-Byte-Units)
+
         Device Block Size:        512 Bytes
+
         Read-Only Media:          No
+
         Read-Only Volume:         Not applicable (no file system)
+
         Device Location:          Internal
+
         Removable Media:          Fixed
+
         Solid State:              No
+
         Virtual:                  No
+
         OS 9 Drivers:             No
+
         Low Level Format:         Not supported
+
         Device Location:          "Lower"
+
         ```
+
         Notice that the above example contains:
+
         ```
+
         Device Location:          Internal
+
         ```
+
         And:
+
         ```
+
         Device Location:          "Lower"
+
         ```
+
         Which then causes equality checks against the value to fail (since the
+
         final value retrieved by `get_key` contains multiple lines).
+
         As a solution, we modify `get_key` to accumulate all found values into a
+
         space separated string, and we then use `=~` to check against it.
     - hash: 20c9360b35840237008194cafff572ed405a4a18
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/118
-        see: https://github.com/resin-io-modules/drivelist/pull/119
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/118'
+        see: 'https://github.com/resin-io-modules/drivelist/pull/119'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Surround description in double quotes in OS X
-      body:
+      body: null
 - version: 5.0.4
-  date: 2016-11-24T22:10:32Z
+  date: 2016-11-24T22:10:32.000Z
   commits:
     - hash: d96e6d3a304ce16af0ff2103275c576e000c9108
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/122
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/122'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Replace periods with underscores in udevadm variable name output
       body: |-
@@ -1844,7 +2039,7 @@
         renamed to `UDEV_net_ifnames`.
         Thanks to @wrboyce for the `awk` magic!
 - version: 5.0.3
-  date: 2016-11-16T13:15:23Z
+  date: 2016-11-16T13:15:23.000Z
   commits:
     - hash: b4c897a3c717e03ceccbe8041944d92d9d106c12
       author: Juan Cruz Viotti
@@ -1856,12 +2051,12 @@
         tab in https://github.com/resin-io-modules/drivelist/pull/120, causing
         the YAML parser to get confused and not output any mountpoints.
 - version: 5.0.2
-  date: 2016-11-16T13:00:12Z
+  date: 2016-11-16T13:00:12.000Z
   commits:
     - hash: 3426ee1bb8356ce9c614f2b80751192cb9d1a9c3
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/870
+        see: 'https://github.com/resin-io/etcher/issues/870'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Replace System.Collections.ArrayList with out own List implementation
       body: |-
@@ -1869,12 +2064,12 @@
         installed on the user's machine, or it unconfigured in any way, the
         script will just bail out with a cryptic error.
 - version: 5.0.1
-  date: 2016-11-14T09:19:30Z
+  date: 2016-11-14T09:19:30.000Z
   commits:
     - hash: cbf43032018e5871e6b7263a91581f8c8e37667d
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/115
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/115'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Surround Windows mountpoints by double quotes
       body: |-
@@ -1886,73 +2081,78 @@
         - path: C:
         ``````
 - version: 5.0.0
-  date: 2016-11-08T11:31:43Z
+  date: 2016-11-08T11:31:43.000Z
   commits:
     - hash: e28f9969e0e4b26066045861d0e7e80f06612342
       author: Andrew Scheller
-      subject: 'Linux: get `description` for SD card readers that appear as e.g. /dev/mmcblk0'
-      body:
+      subject: >-
+        Linux: get `description` for SD card readers that appear as e.g.
+        /dev/mmcblk0
+      body: null
     - hash: 963520b03e5384999b88dee8a1400aba6bd22682
       author: Andrew Scheller
       subject: 'patch: fix mistake introduced in #110'
-      body:
+      body: null
     - hash: 630ce10871f50bdf18f9600ed38e69203fc856f9
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io-modules/drivelist/pull/110
+        see: 'https://github.com/resin-io-modules/drivelist/pull/110'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Fix GNU/Linux `lsblk` column access issues
-      body:
+      body: null
     - hash: 8b4621db01f99c765facd8eee17c5abc90274ba4
       author: Andrew Scheller
       subject: 'refactor: Optimise linux.sh script'
-      body: By using some bash scripting tricks, it now only executes a single `lsblk` command per disk, rather than 4 `lsblk` commands per disk.
+      body: >-
+        By using some bash scripting tricks, it now only executes a single
+        `lsblk` command per disk, rather than 4 `lsblk` commands per disk.
     - hash: 785dbffddf659bf72abf97c6344a687830c8bd9d
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io-modules/drivelist/issues/98
+        see: 'https://github.com/resin-io-modules/drivelist/issues/98'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Transform `mountpoint` into an array of objects called `mountpoints`
-      body:
+      body: null
     - hash: 11864f5ada5362ee1c1b8fa4e47c7e8e8e71ce72
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io-modules/drivelist/pull/105
+        see: 'https://github.com/resin-io-modules/drivelist/pull/105'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Add OS X README example syntax fix to doc/README.hbs
-      body:
+      body: null
     - hash: 3751d22b3ff4beb97e5721db6e8f0bf990b80449
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Update README license to Apache 2.0
-      body:
+      body: null
     - hash: 60a7de43adc59b597a257212abc7989170608112
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io-modules/drivelist/pull/101#discussion_r85711379
+        see: >-
+          https://github.com/resin-io-modules/drivelist/pull/101#discussion_r85711379
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Add CHANGELOG notice about license change
-      body:
+      body: null
     - hash: 05b3cfb034b72acbcf78723c02c347826e91fc2b
       author: Andrew Scheller
       subject: Syntax typo
       body: Quote the Mac OS X example raw values
 - version: 4.0.0
-  date: 2016-10-31T04:27:37Z
+  date: 2016-10-31T04:27:37.000Z
   commits:
     - hash: d1183bfbebba2f96d964f849832882420f4448bd
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Use ES6 in top-level README example
-      body:
+      body: null
     - hash: 9dcac967a01fcd3333ee386234e3cb657e26c8bc
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Don't mention coffeelint in README anymore
-      body:
+      body: null
     - hash: 191b27a8a860db634849dbef3e8d0a7f687addfd
       author: Juan Cruz Viotti
       footers:
@@ -1970,7 +2170,7 @@
     - hash: b0e9db2d791a0dcef36d3647959a99d7b1459521
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/720
+        see: 'https://github.com/resin-io/etcher/issues/720'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: 'Windows: Don''t output different drive objects for each mounted partition'
       body: |-
@@ -2043,9 +2243,9 @@
       footers:
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Ignore invalid YAML keys coming from platform scripts
-      body:
+      body: null
 - version: 3.3.4
-  date: 2016-09-21T22:04:12Z
+  date: 2016-09-21T22:04:12.000Z
   commits:
     - hash: ab4f49d5b4697ef90637a53194d762abc8d2aa06
       author: Juan Cruz Viotti
@@ -2058,12 +2258,12 @@
         After some investigation, the only possible cause of this is that the
         PATH may have been altered in the user setup somehow.
 - version: 3.3.3
-  date: 2016-09-02T15:53:12Z
+  date: 2016-09-02T15:53:12.000Z
   commits:
     - hash: 1ded72ccff1ac5f53ea6f2aab0d95c81de3a16d4
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/671
+        see: 'https://github.com/resin-io/etcher/issues/671'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: 'Windows: set `name` to device ID if device is not mounted'
       body: |-
@@ -2071,31 +2271,31 @@
         assigned to it), then `name` will output `Null`.
         Intead, we fallback `name` to the device ID (`\\.\PHYSICALDRIVEX`).
 - version: 3.3.2
-  date: 2016-08-26T18:03:48Z
+  date: 2016-08-26T18:03:48.000Z
   commits:
     - hash: 76e0bddb0876db9fbc9cfbf76060100457754540
       author: Joe Rickerby
       subject: Add 'mountpoints' property on Mac
-      body:
+      body: null
     - hash: 58fe0086792f1044534f6488f75e5a0c85f1625c
       author: Joe Rickerby
       subject: Switch to parsing `mount` output for mountpoints
-      body:
+      body: null
     - hash: a93524f5c9c0f5a84ceb82bc3c9b095303763470
       author: Joe Rickerby
       subject: Tidy up unused method
-      body:
+      body: null
     - hash: a314ee99ff83cd5aa55a2cd97b9a3e3a1da13556
       author: Joe Rickerby
       subject: Make quoting a bit more sensible
-      body:
+      body: null
 - version: 3.3.1
-  date: 2016-08-24T19:38:55Z
+  date: 2016-08-24T19:38:55.000Z
   commits:
     - hash: c2152768464b1801592f9232622468e953e8682e
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/640
+        see: 'https://github.com/resin-io/etcher/issues/640'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Refer to `blkid` as `/sbin/blkid` in GNU/Linux
       body: |-
@@ -2106,7 +2306,7 @@
         `/sbin`, its standard location, so we should be fine by referencing to
         it directly.
 - version: 3.3.0
-  date: 2016-08-22T15:55:32Z
+  date: 2016-08-22T15:55:32.000Z
   commits:
     - hash: f15513fb0365acc0736a3e3eb7e24808fb40f2d7
       author: Juan Cruz Viotti
@@ -2139,7 +2339,7 @@
     - hash: 4ae80aa8a036496fc17a9b2f43ccece127bd96e8
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/88
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/88'
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Attempt to display the volume name as description in OS X
       body: |-
@@ -2150,7 +2350,7 @@
         Volume Name:              Not applicable (no file system)
         ```
 - version: 3.2.6
-  date: 2016-08-02T02:33:59Z
+  date: 2016-08-02T02:33:59.000Z
   commits:
     - hash: 85e262e601d783bd24f198b1eaf401862a201f10
       author: Juan Cruz Viotti
@@ -2163,14 +2363,14 @@
         This PR accounts for this change while still maintaining backwards
         compatibility.
 - version: 3.2.5
-  date: 2016-08-01T01:02:06Z
+  date: 2016-08-01T01:02:06.000Z
   commits:
     - hash: f25cbf79dbd5237bd29b038e5aa17e0216c1600d
       author: Bryan Elliott
       subject: Qmarks can occur in block device descriptions
       body: This breaks the YAML when it occurs.  Added escaping to descriptions.
 - version: 3.2.4
-  date: 2016-07-27T00:47:57Z
+  date: 2016-07-27T00:47:57.000Z
   commits:
     - hash: a5d11a661bd3ba74dbb0a250f9103a274463d33a
       author: Juan Cruz Viotti
@@ -2181,36 +2381,37 @@
         In this new macOS version, `diskutil info` outputs the drive size using
         "Disk Size" instead of "Total Size".
 - version: 3.2.3
-  date: 2016-07-26T12:36:46Z
+  date: 2016-07-26T12:36:46.000Z
   commits:
     - hash: b8e821ebbd254e834f2a6929fc3008711c3180ca
       author: Juan Cruz Viotti
       footers:
-        see: http://stackoverflow.com/questions/14327442/treat-second-column-with-spaces-as-one-column-with-awk
+        see: >-
+          http://stackoverflow.com/questions/14327442/treat-second-column-with-spaces-as-one-column-with-awk
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Handle multiline mountpoints in GNU/Linux
       body: |-
         The current `awk` command, `awk -F ' ' '{print $2}'`, will not return
         the whole second column if this contains spaces.
 - version: 3.2.2
-  date: 2016-07-18T02:05:25Z
+  date: 2016-07-18T02:05:25.000Z
   commits:
     - hash: fbee6a80cbf4a02f3300d4c0e4d6a3aa18e927de
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/571
+        see: 'https://github.com/resin-io/etcher/issues/571'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Fix drive without filesystem always being considered non-removable
       body: |-
         Before knowing about the `MediaType` property from the `Win32_DiskDrive`
         structure, we though we had no realiable way of doing this
 - version: 3.2.1
-  date: 2016-07-14T15:05:28Z
+  date: 2016-07-14T15:05:28.000Z
   commits:
     - hash: cf28aac70c720ca4fd91b17aae4c8ac084183a37
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/74
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/74'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Get mountpoints using `df` in GNU/Linux
       body: |-
@@ -2218,12 +2419,12 @@
         for a drive rather than grepping `/proc/mounts` and having to deal with
         drives listed by label, uuid, etc.
 - version: 3.2.0
-  date: 2016-06-08T19:03:39Z
+  date: 2016-06-08T19:03:39.000Z
   commits:
     - hash: 4c1632f28bdc25ca5c7e3b2af9f0b2e9f71b9037
       author: Juan Cruz Viotti
       footers:
-        see: https://github.com/resin-io/etcher/issues/458
+        see: 'https://github.com/resin-io/etcher/issues/458'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Detect if a drive is write protected
       body: |-
@@ -2239,22 +2440,22 @@
         -------
         Check the `Access` property from the `Win32_LogicalDisk` WMI class.
 - version: 3.1.2
-  date: 2016-06-06T16:38:18Z
+  date: 2016-06-06T16:38:18.000Z
   commits:
     - hash: 09f5f348e8ac7ad7a872629b0d1772ad5f485627
       author: Juan Cruz Viotti
       footers:
-        see: http://www.pclinuxos.com/forum/index.php/topic,137579.0.html
+        see: 'http://www.pclinuxos.com/forum/index.php/topic,137579.0.html'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Prevent certain system drives from being marked as removable
-      body: Fix sent by @Not_yet_16, PCLinuxOS tester.
+      body: 'Fix sent by @Not_yet_16, PCLinuxOS tester.'
 - version: 3.1.1
-  date: 2016-05-25T17:12:06Z
+  date: 2016-05-25T17:12:06.000Z
   commits:
     - hash: 278161c9e9ec1d256d38e92b0a7190b27e65b51b
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io/etcher/issues/421
+        fixes: 'https://github.com/resin-io/etcher/issues/421'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Set system = true for non-removable Windows drives
       body: |-
@@ -2263,22 +2464,22 @@
         This class describes a string property called `MediaType` that is useful
         to determine the removable state of a drive.
 - version: 3.1.0
-  date: 2016-04-26T18:44:48Z
+  date: 2016-04-26T18:44:48.000Z
   commits:
     - hash: 2364bae6f3494cfb2e44458d4f61d8fa113eebf9
       author: Jacob Cook
       subject: '[win] show non-mountable disk drives'
-      body:
+      body: null
     - hash: ef937d787ef31cbacb300f0a2531a4e5ad52714b
       author: Jacob Cook
       subject: '[win] containsLogicalDisk t/f, default unknown disks to system true'
-      body:
+      body: null
     - hash: c8b33b9b0418cda1a516fee122c6e98b52ba0690
       author: Jacob Cook
       subject: fix typo
-      body:
+      body: null
 - version: 3.0.0
-  date: 2016-04-22T19:13:15Z
+  date: 2016-04-22T19:13:15.000Z
   commits:
     - hash: 564d61c5ae906272d2fb4163fc35316547e5bc02
       author: Juan Cruz Viotti
@@ -2303,12 +2504,12 @@
         bytes, but we were manually transforming to a human-readable format
         before for consistency reasons.
 - version: 2.0.14
-  date: 2016-04-12T16:58:35Z
+  date: 2016-04-12T16:58:35.000Z
   commits:
     - hash: 3da6d6280db3d87abcbbece5966f10f5583da36d
       author: Juan Cruz Viotti
       footers:
-        fixes: https://github.com/resin-io-modules/drivelist/issues/68
+        fixes: 'https://github.com/resin-io-modules/drivelist/issues/68'
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Attempt to get GNU/Linux mountpoints by disk uuid
       body: |-
@@ -2317,7 +2518,7 @@
         greping `/proc/mounts` by `/dev/$disk`. In those case, we can find the
         disk UUID, and filter `/proc/mounts` appropriately.
 - version: 2.0.13
-  date: 2016-04-08T18:38:29Z
+  date: 2016-04-08T18:38:29.000Z
   commits:
     - hash: c1fab3728ec9fbbfe6a4af589a07349c3eadc8e7
       author: Juan Cruz Viotti
@@ -2334,9 +2535,9 @@
       footers:
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Document the `name` property in the README examples
-      body:
+      body: null
 - version: 2.0.12
-  date: 2016-04-05T14:47:40Z
+  date: 2016-04-05T14:47:40.000Z
   commits:
     - hash: 880f637e3e199eb70346b648befea0ac4540e4af
       author: Juan Cruz Viotti
@@ -2357,42 +2558,38 @@
         - If the location is `Internal` and `Removable` is not defined (which
         matches `removable` != `Yes`), we print `system: true`.
 - version: 2.0.11
-  date: 2016-03-30T20:08:26Z
+  date: 2016-03-30T20:08:26.000Z
   commits:
     - hash: dc30a2f8f6ebed9daabe12364a4e5b7e70c55e1e
       author: Juan Cruz Viotti
       subject: Escape double quotes inside YAML values
-      body: |-
-        Consider the following description:
-        	description: "SAMSUNG SSD PM810 2.5" 7mm 256GB"
-        Because of the double quote in `2.5"`, the YAML parser will complain
-        with:
-        	YAMLException: can not read a block mapping entry; a multiline key
-        	may not be an implicit key at line 2, column 1:
+      body: "Consider the following description:\n\tdescription: \"SAMSUNG SSD PM810 2.5\" 7mm 256GB\"\nBecause of the double quote in `2.5\"`, the YAML parser will complain\nwith:\n\tYAMLException: can not read a block mapping entry; a multiline key\n\tmay not be an implicit key at line 2, column 1:"
     - hash: cd50d2143d894ae85819ca5379a4fef70558a306
       author: Juan Cruz Viotti
       subject: Improve README tagline
-      body:
+      body: null
 - version: 2.0.10
-  date: 2016-03-25T15:50:51Z
+  date: 2016-03-25T15:50:51.000Z
   commits:
     - hash: 9da529629d011b6855513a97cdb36cdd720f967a
       author: userabuser
       subject: Fix case where system drive is not physical drive 0
-      body:
+      body: null
     - hash: ebea4ab2bccea6ad92e5e0cf688d40ebca5f1717
       author: userabuser
       subject: Fix query syntax to match that of existing
-      body:
+      body: null
     - hash: 79e4811f3ee1126519415dd366c72e461edf9213
       author: userabuser
       subject: Improve For Each loop over colOperatingSystems
-      body: Set OSDrive to false if SystemDrive property not present; clear Err object before loop to prevent accidental setting of OSDrive to false
+      body: >-
+        Set OSDrive to false if SystemDrive property not present; clear Err
+        object before loop to prevent accidental setting of OSDrive to false
 - version: 2.0.9
-  date: 2016-03-24T17:07:26Z
+  date: 2016-03-24T17:07:26.000Z
   commits:
     - hash: cbb1a45c716709d85e1aad548988903b1cadacb6
       author: Juan Cruz Viotti
       subject: Use udev to determine if a drive is removable on GNU/Linux
-      body:
+      body: null
     - hash: c5d543c26b4db5abdb5658c9f73f48bff459575e
