@@ -179,7 +179,9 @@ export function parse(stdout: string): Drive[] {
 				isSCSI,
 				isUSB,
 				isUAS: null,
-				partitionTableType: getPartitionTableType(device.pttype as 'gpt' | 'dos' | undefined),
+				partitionTableType: getPartitionTableType(
+					device.pttype as 'gpt' | 'dos' | undefined,
+				),
 			};
 		},
 	);
