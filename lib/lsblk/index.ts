@@ -28,6 +28,7 @@ const execFileAsync = promisify(execFile);
 const DISK_PATH_DIR = '/dev/disk/by-path/';
 
 let SUPPORTS_JSON = true;
+let SUPPORTS_PTTYPE = true;
 
 export function getPartitionTableType(
 	pttype?: 'gpt' | 'dos',
@@ -81,10 +82,26 @@ async function lsblkJSON(): Promise<Drive[]> {
 	);
 }
 
+async function getLsblkPairsOutput() {
+	if (SUPPORTS_PTTYPE) {
+		try {
+			return await getOutput(
+				'lsblk',
+				'--bytes',
+				'--all',
+				'--pairs',
+				'-o',
+				'+pttype',
+			);
+		} catch (error) {
+			SUPPORTS_PTTYPE = false;
+		}
+	}
+	return await getOutput('lsblk', '--bytes', '--all', '--pairs');
+}
+
 async function lsblkPairs(): Promise<Drive[]> {
-	return parsePairs(
-		await getOutput('lsblk', '--bytes', '--all', '--pairs', '-o', '+pttype'),
-	);
+	return parsePairs(await getLsblkPairsOutput());
 }
 
 async function $lsblk(): Promise<Drive[]> {
