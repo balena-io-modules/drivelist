@@ -1,4 +1,14 @@
 - commits:
+    - subject: Support lsblk versions that do no support the pttype column
+      hash: a6d568bb64e53c0dc3aeb226cbd0b19bbb090671
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Alexis Svinartchouk
+  version: 9.2.3
+  date: 2021-01-19T13:07:29.910Z
+- commits:
     - subject: Update typescript to v4.1.2
       hash: 921936f40542118aad8194a13a81556dc0130523
       body: ''
