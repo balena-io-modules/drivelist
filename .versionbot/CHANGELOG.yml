@@ -1,4 +1,25 @@
 - commits:
+    - subject: 'Pass strings between methods as std::string instead of char *'
+      hash: 1ec6a8ffc4c9e138b78210f0db84a9ebd6c9182b
+      body: |
+        - Fixes "basic_string::_M_construct null not valid" exception
+          aborting program, because WCharToUtf8() returned NULL
+          in some cases, and NULL was being fed to string constructor.
+        - Fixes memory leak because memory allocated with calloc()
+          in WCharToUtf8() was not being freed anywhere
+        - Fixes undefined behavior because GetEnumeratorName() returns
+          pointer to stack memory, that goes outside of scope while
+          pointer still is being used.
+
+        Closes #381
+        Closes #382
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Floris Bos
+  version: 9.2.4
+  date: 2021-01-19T13:27:50.033Z
+- commits:
     - subject: Support lsblk versions that do no support the pttype column
       hash: a6d568bb64e53c0dc3aeb226cbd0b19bbb090671
       body: ''
