@@ -2,13 +2,19 @@
   "targets": [
     {
       "target_name": "drivelist",
-      "include_dirs" : [
-        "<!(node -e \"require('nan')\")",
-        "."
+      "include_dirs": [
+          "<!(node -p \"require('node-addon-api').include_dir\")",
+          "."
+      ],
+      "dependencies": [
+        "<!(node -p \"require('node-addon-api').gyp\")"
       ],
       "sources": [
         "src/drivelist.cpp",
         "src/device-descriptor.cpp",
+      ],
+      "defines": [
+        "NAPI_CPP_EXCEPTIONS"
       ],
       "msvs_settings": {
         "VCLinkerTool": {
@@ -54,6 +60,9 @@
         [ 'OS=="linux"', {
           "sources": [
             "src/linux/list.cpp"
+          ],
+          "cflags_cc": [
+            "-fexceptions"
           ]
         }]
       ]
