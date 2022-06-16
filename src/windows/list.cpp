@@ -27,7 +27,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include <nan.h>
+#include <napi.h>
 #include <wchar.h>
 #include <string>
 #include <vector>

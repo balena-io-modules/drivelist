@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-#include <nan.h>
+#include <napi.h>
+#include <uv.h>
 #include "../drivelist.hpp"
 
 namespace Drivelist {

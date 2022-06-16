@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <nan.h>
+#include <napi.h>
 #include "../drivelist.hpp"
 
 #import "REDiskList.h"
