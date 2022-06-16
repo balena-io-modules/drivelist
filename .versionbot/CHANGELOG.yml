@@ -1,5 +1,21 @@
 - commits:
-    - subject: 'Pass strings between methods as std::string instead of char *'
+    - subject: Switching to Napi
+      hash: 1a41d7f780cc24efb19a741e8a67e8183194f645
+      body: >
+        This change will make this package compatible with all future versions
+        of Node due to its stable ABI.
+
+
+        Some packages are also upgraded in this commit.
+      footer:
+        Change-type: major
+        change-type: major
+      author: Zane Hitchcox
+  version: 10.0.0
+  title: "'Switching to Napi'"
+  date: 2022-06-15T23:23:27.312Z
+- commits:
+    - subject: Pass strings between methods as std::string instead of char *
       hash: 1ec6a8ffc4c9e138b78210f0db84a9ebd6c9182b
       body: |
         - Fixes "basic_string::_M_construct null not valid" exception
@@ -22,7 +38,7 @@
 - commits:
     - subject: Support lsblk versions that do no support the pttype column
       hash: a6d568bb64e53c0dc3aeb226cbd0b19bbb090671
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -32,14 +48,14 @@
 - commits:
     - subject: Update typescript to v4.1.2
       hash: 921936f40542118aad8194a13a81556dc0130523
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
       author: Alexis Svinartchouk
     - subject: Add versionbot changelog
       hash: 525d2ea0cb4b26c6e36465536f2638e77460e2b6
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -62,19 +78,19 @@
       author: Alexis Svinartchouk
       footers:
         change-type: minor
-      subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (linux)'
+      subject: "Add partitionTableType field: 'gpt', 'mbr' or null (linux)"
       body: null
     - hash: 0b35db41550e60ed60ebe6e9d255d1f5d0817e77
       author: Alexis Svinartchouk
       footers:
         change-type: minor
-      subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (mac)'
+      subject: "Add partitionTableType field: 'gpt', 'mbr' or null (mac)"
       body: null
     - hash: c05ecad57d5db7a130e81743aa3b2ec340172a05
       author: Alexis Svinartchouk
       footers:
         change-type: minor
-      subject: 'Add partitionTableType field: ''gpt'', ''mbr'' or null (windows)'
+      subject: "Add partitionTableType field: 'gpt', 'mbr' or null (windows)"
       body: null
     - hash: 11bcc2887a560949663017f5498752be1af28afe
       author: Alexis Svinartchouk
@@ -89,9 +105,7 @@
       author: Alexis Svinartchouk
       footers:
         change-type: minor
-      subject: >-
-        Mark APFS media as virtual and assign its mountpoints to the source
-        drive
+      subject: Mark APFS media as virtual and assign its mountpoints to the source drive
       body: null
     - hash: 19fca449f721d6dd09a957101e79940d8592233d
       author: Alexis Svinartchouk
@@ -124,9 +138,9 @@
     - hash: 28a28e0daf1c24f778d980a86ca547728d8789fc
       author: Alexis Svinartchouk
       footers:
-        changelog-entry: 'Remove mz dependency, target node 10'
+        changelog-entry: Remove mz dependency, target node 10
         change-type: major
-      subject: 'Remove mz dependency, target node 10'
+      subject: Remove mz dependency, target node 10
       body: null
     - hash: b5a22509a3c1a37c61b9a8883795607a255cd978
       author: Alexis Svinartchouk
@@ -254,7 +268,7 @@
       author: Robert Vojta
       footers:
         signed-off-by: Robert Vojta <robert@balena.io>
-      subject: 'Make Drivelist::IsCard more robust'
+      subject: Make Drivelist::IsCard more robust
       body: null
     - hash: cb90834d5aa5004bad5a80e487e4f45173364995
       author: Robert Vojta
@@ -292,14 +306,14 @@
       author: Alexis Svinartchouk
       footers:
         change-type: major
-      subject: 'Convert to typescript, use promises instead of callbacks'
+      subject: Convert to typescript, use promises instead of callbacks
       body: null
     - hash: 621b78febb8ca6b2c4ff8c11a7a1cccc6d7fd0e2
       author: Alexis Svinartchouk
       footers:
         change-type: patch
       subject: Try `lsblk --pairs` if parsing `lsblk --json` fails
-      body: 'Replaces #321'
+      body: "Replaces #321"
     - hash: ba842c9d2deb05d25bb1ccd6dbc574362fc57181
       author: Alexis Svinartchouk
       footers:
@@ -340,7 +354,7 @@
       author: Robin Andersson
       footers:
         change-type: major
-      subject: 'feat(mac): Native implementation for drivelist'
+      subject: "feat(mac): Native implementation for drivelist"
       body: null
     - hash: 3f050852c2847957b2003f79cd73694d162c44fc
       author: Alexis Svinartchouk
@@ -399,13 +413,13 @@
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'lsblk: Fix listing of empty mountpoints'
+      subject: "lsblk: Fix listing of empty mountpoints"
       body: |-
         This corrects that mountpoints with no value where listed on devices due
         to a missing check for emptyness.
     - hash: 4cfafe1fa06f8afdc487392983177fa8d9fd0712
       author: Robin Andersson
-      subject: 'fix(ci): Added x86 builds to AppVeyor'
+      subject: "fix(ci): Added x86 builds to AppVeyor"
       body: null
     - hash: 81e685fec775f9718a052ece0bd544ea09d6a7cf
       author: Robin Andersson
@@ -423,7 +437,7 @@
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'lsblk: Check `hotplug` to set `isRemovable`'
+      subject: "lsblk: Check `hotplug` to set `isRemovable`"
       body: |-
         This adds a check for the `hotplug` property in `lsblk`'s output, which
         fixes SD-cards not being detected as removable on some Linux distros
@@ -432,7 +446,7 @@
       footers:
         change-type: patch
         signed-off-by: Jack Brown <jack@resin.io>
-      subject: 'ci: Add .resinci.yml'
+      subject: "ci: Add .resinci.yml"
       body: null
     - hash: fec5d1bd11fd4f71d352230b44d5382158199731
       author: Jonas Hermsmeier
@@ -446,7 +460,7 @@
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'lsblk: Fix missing `devicePath` property'
+      subject: "lsblk: Fix missing `devicePath` property"
       body: |-
         This fixes the lack of the `devicePath` property on the `device` object,
         as it was inadvertently dropped by the direct usage of `lsblk`.
@@ -458,7 +472,7 @@
       footers:
         change-type: minor
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'feat(diskutil): Populate devicePath on Mac OS'
+      subject: "feat(diskutil): Populate devicePath on Mac OS"
       body: This exposes the device tree path under the `.devicePath` property
 - version: 6.3.2
   date: 2018-08-02T17:35:28.000Z
@@ -468,7 +482,7 @@
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'fix(diskutil): Also probe Ejectable to determine removabililty'
+      subject: "fix(diskutil): Also probe Ejectable to determine removabililty"
       body: |-
         This adds a check for `disk.Ejectable` to `isRemovable`, in order to
         correctly identify removable media on older Mac OS systems.
@@ -480,28 +494,28 @@
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'fix(lsblk): Resolve relative device names'
+      subject: "fix(lsblk): Resolve relative device names"
       body: null
     - hash: 3d5b451d9bfc1af2a8eb0d24b2379d746bc17952
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'fix(lsblk): Fall back to mountpoint if no label given'
+      subject: "fix(lsblk): Fall back to mountpoint if no label given"
       body: null
     - hash: ff7139157004d605ea19b522ff829abe004fc660
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'fix(lsblk): Enumerate mountpoints on root devices'
+      subject: "fix(lsblk): Enumerate mountpoints on root devices"
       body: null
     - hash: 960a9beeb99181be05f8d54af3572402a637141e
       author: Jonas Hermsmeier
       footers:
         change-type: patch
         signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
-      subject: 'test(lsblk): Add test case for root device mountpoints'
+      subject: "test(lsblk): Add test case for root device mountpoints"
       body: null
 - version: 6.3.0
   date: 2018-07-09T14:43:19.000Z
@@ -510,7 +524,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: minor
-      subject: 'feat(lib): Use lsblk directly, parse json output'
+      subject: "feat(lib): Use lsblk directly, parse json output"
       body: |-
         This switches from using a bash script on linux to shelling out
         to `lsblk` directly, using its `--json` option to obtain & parse
@@ -520,7 +534,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(linux): Fix pair consolidation for lsblk'
+      subject: "fix(linux): Fix pair consolidation for lsblk"
       body: |-
         This fixes consolidation & mapping of children on systems
         with an old version of `lsblk` (like Ubuntu 14.04), where only
@@ -533,7 +547,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(linux): Add flag to lsblk to list all devices'
+      subject: "fix(linux): Add flag to lsblk to list all devices"
       body: |-
         This adds the `-a` flag to lsblk on Linux to list all devices,
         as unmounted devices would otherwise not be shown.
@@ -544,7 +558,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(test): Add python requirements.txt for tests'
+      subject: "fix(test): Add python requirements.txt for tests"
       body: null
 - version: 6.2.3
   date: 2018-05-25T12:15:51.000Z
@@ -553,7 +567,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(src): Fix nan callback deprecation warning'
+      subject: "fix(src): Fix nan callback deprecation warning"
       body: |-
         This updates the callback call to use the `async_resource`,
         as omitting it is deprecated.
@@ -564,7 +578,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(ci): Fix Node version arg passed to prebuild script'
+      subject: "fix(ci): Fix Node version arg passed to prebuild script"
       body: null
 - version: 6.2.1
   date: 2018-05-10T01:00:30.000Z
@@ -573,12 +587,11 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(ci): Only prebuild with Node 10'
+      subject: "fix(ci): Only prebuild with Node 10"
       body: >-
         Due to a bug caused by V8's change of build system, prebuilds
 
-        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not
-        defined`.
+        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not defined`.
 
         This will only prebuild on Node 10 to avoid this issue, while still
 
@@ -587,7 +600,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Bump prebuild dependencies'
+      subject: "upgrade(package): Bump prebuild dependencies"
       body: |-
         This updates `prebuild` and `prebuild-install` in order to
         properly support the Node 10 target.
@@ -598,7 +611,7 @@
       author: User Name
       footers:
         change-type: minor
-      subject: 'feat(linux): Add unique device path'
+      subject: "feat(linux): Add unique device path"
       body: This adds the unique physical device path to the output.
 - version: 6.1.8
   date: 2018-04-26T21:16:34.000Z
@@ -607,7 +620,7 @@
       author: Tim Perry
       footers:
         change-type: patch
-      subject: 'chore(ci): Build, test & publish releases for Node.js v10'
+      subject: "chore(ci): Build, test & publish releases for Node.js v10"
       body: null
 - version: 6.1.7
   date: 2018-04-16T22:20:10.000Z
@@ -616,7 +629,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Track & filter out device info errors'
+      subject: "fix(diskutil): Track & filter out device info errors"
       body: |-
         This amends `asyncMap()` to track & store errors, allowing
         graceful handling of individual failures, and devices for
@@ -626,7 +639,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Fall back to MediaName if EntryName is not available'
+      subject: "fix(diskutil): Fall back to MediaName if EntryName is not available"
       body: null
 - version: 6.1.6
   date: 2018-04-13T13:29:14.000Z
@@ -635,10 +648,9 @@
       author: grumpyoldman-io
       footers:
         change-type: minor
-      subject: 'fix(diskutil): Added an error for diskutil returning null'
-      body: >-
-        After a systeem sleep or standby the devices returned by the list
-        function return a null without errors
+      subject: "fix(diskutil): Added an error for diskutil returning null"
+      body: After a systeem sleep or standby the devices returned by the list function
+        return a null without errors
 - version: 6.1.5
   date: 2018-04-05T19:20:26.000Z
   commits:
@@ -646,7 +658,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Fix ReferenceError when DeviceNode is undefined'
+      subject: "fix(diskutil): Fix ReferenceError when DeviceNode is undefined"
       body: |-
         This fixes a ReferenceError that could occur when a device is
         being unmounted & unplugged from the host, where `DeviceNode`
@@ -658,7 +670,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Bump dependencies'
+      subject: "upgrade(package): Bump dependencies"
       body: |-
         - eslint: 4.18.1 -> 4.19.1
         - js-yaml: 3.10.0 -> 3.11.0
@@ -671,7 +683,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Use VolumeAllocationBlockSize if available'
+      subject: "fix(diskutil): Use VolumeAllocationBlockSize if available"
       body: |-
         This makes use of the `VolumeAllocationBlockSize` field to set
         the logical block size, if it's available.
@@ -682,7 +694,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Fix handling of devices without partitions'
+      subject: "fix(diskutil): Fix handling of devices without partitions"
       body: |-
         This fixes situations where no partition key exists for a device
         in the plist output.
@@ -690,19 +702,19 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(diskutil): Support mountpoints without partitions'
+      subject: "fix(diskutil): Support mountpoints without partitions"
       body: null
     - hash: 80cab89eb779ed28a985acdf1490b3ea4b100e4f
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'test(diskutil): Add tests for devices without partitions'
+      subject: "test(diskutil): Add tests for devices without partitions"
       body: null
     - hash: 4ed52ee1c28839def8fe12281394fb0176fac617
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(test): Avoid test timeout on AppVeyor'
+      subject: "fix(test): Avoid test timeout on AppVeyor"
       body: null
 - version: 6.1.1
   date: 2018-03-13T20:02:42.000Z
@@ -711,7 +723,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(package): Remove obsolete bin entries'
+      subject: "fix(package): Remove obsolete bin entries"
       body: null
 - version: 6.1.0
   date: 2018-03-09T12:20:47.000Z
@@ -720,7 +732,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: minor
-      subject: 'feat(lib): Use diskutil directly, parse plist output'
+      subject: "feat(lib): Use diskutil directly, parse plist output"
       body: |-
         This changes to shelling out to `diskutil` directly, instead of
         using an intermediate script, and uses the `-plist` option to obtain
@@ -732,7 +744,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Bump dependencies'
+      subject: "upgrade(package): Bump dependencies"
       body: |-
         - eslint 4.14.0 -> 4.18.1
         - jsdoc-to-markdown 3.0.3 -> 4.0.1
@@ -747,7 +759,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(windows): Impl IsSystemDevice()'
+      subject: "fix(windows): Impl IsSystemDevice()"
       body: |-
         This implements the previously unimplemented method `IsSystemDevice()`
         which matches the mountpoint against the systems' root folder.
@@ -759,7 +771,7 @@
       footers:
         change-type: patch
         changelog-entry: Fix crash on Windows 7
-      subject: 'fix(windows): Fix segfault on Windows 7'
+      subject: "fix(windows): Fix segfault on Windows 7"
       body: |-
         This fixes a segmentation fault on Windows 7, caused by not
         passing `&size` to DeviceIoControl(), which resulted in access
@@ -775,8 +787,8 @@
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: 'fix(darwin): Use proper flag to enable extended regexes in `sed`'
-      body: 'Fixes #247'
+      subject: "fix(darwin): Use proper flag to enable extended regexes in `sed`"
+      body: "Fixes #247"
 - version: 6.0.1
   date: 2018-01-12T14:11:14.000Z
   commits:
@@ -784,8 +796,8 @@
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: 'fix(darwin): Allow mountpoints containing space characters'
-      body: 'Fixes #245'
+      subject: "fix(darwin): Allow mountpoints containing space characters"
+      body: "Fixes #245"
 - version: 6.0.0
   date: 2018-01-05T02:04:01.000Z
   commits:
@@ -793,7 +805,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: major
-      subject: 'feat: Rewrite native bindings to use IOCTL'
+      subject: "feat: Rewrite native bindings to use IOCTL"
       body: |-
         This completely refactors the native bindings on Windows
         to avoid COM/WMI etc. and solely rely on DeviceIoControl.
@@ -814,63 +826,63 @@
         will be enumerated as any other storage device
     - hash: 3ee23be0442431a301eb11473ae71c890c577187
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Disable printf() stmts for now'
+      subject: "refactor(windows): Disable printf() stmts for now"
       body: null
     - hash: 0c9a6ef43bd5174f7e302d107eb860ada982ca09
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Use std::set for storage driver IDs'
+      subject: "refactor(windows): Use std::set for storage driver IDs"
       body: null
     - hash: 7e7b20969da736f95c3175e04265402b5b67038d
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Move consts to windows/list.hpp'
+      subject: "refactor(windows): Move consts to windows/list.hpp"
       body: null
     - hash: e250c4519fc2530450aace076b389c4b5c729c2b
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Remove unused DWORD size & dataType'
+      subject: "refactor(windows): Remove unused DWORD size & dataType"
       body: null
     - hash: d62ed39a771f4e93f0b13cf1b354cc8047672568
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Remove unreachable code path'
+      subject: "refactor(windows): Remove unreachable code path"
       body: null
     - hash: e3d03854386d2736c4f31fb659a438dac2d8a27e
       author: Jonas Hermsmeier
-      subject: 'fix(package): Re-add compile script & lint on test'
+      subject: "fix(package): Re-add compile script & lint on test"
       body: null
     - hash: 241ad09c584aaac61c330144bcc71f5413a30cab
       author: Jonas Hermsmeier
-      subject: 'feat(scripts): Update scripts to match device properties'
+      subject: "feat(scripts): Update scripts to match device properties"
       body: null
     - hash: cc394fba01850fb59684747de0e949c8309403bc
       author: Jonas Hermsmeier
-      subject: 'refactor(windows): Set error to `null` when empty'
+      subject: "refactor(windows): Set error to `null` when empty"
       body: null
     - hash: 4dd5795a5c43253432ec145b79ca2a47a74521ee
       author: Jonas Hermsmeier
-      subject: 'fix(windows): Encaspulate mountpoint in object with path'
+      subject: "fix(windows): Encaspulate mountpoint in object with path"
       body: null
     - hash: 7f52cac13a0a1cce9ec62f93ad295bc4e41918d9
       author: Jonas Hermsmeier
-      subject: 'test(darwin): Update Mac OS tests'
+      subject: "test(darwin): Update Mac OS tests"
       body: null
     - hash: 589e65b67ffbec8f8dd9d53c6ebdfa81c15d6971
       author: Jonas Hermsmeier
-      subject: 'doc(README): Update Mac OS examples'
+      subject: "doc(README): Update Mac OS examples"
       body: null
     - hash: 15c87d0d0b06b41e813ec120d131247d6ba9ef9e
       author: Jonas Hermsmeier
-      subject: 'doc(README): Update Windows output example'
+      subject: "doc(README): Update Windows output example"
       body: null
     - hash: 23d2634b30aac0bfd5fbe69684fac765572b302b
       author: Jonas Hermsmeier
-      subject: 'test(linux): Update Linux tests'
+      subject: "test(linux): Update Linux tests"
       body: null
     - hash: b87a99562c0d8b9c1df00fb7b89ae0fc269b70af
       author: Jonas Hermsmeier
-      subject: 'doc(README): Update Linux example output'
+      subject: "doc(README): Update Linux example output"
       body: null
     - hash: ed8cd185489f8654f8269a3023fbe6e5f77e8faf
       author: Jonas Hermsmeier
-      subject: 'fix(windows): Expose PhysicalDevice under device key'
+      subject: "fix(windows): Expose PhysicalDevice under device key"
       body: null
 - version: 5.2.12
   date: 2017-12-28T04:26:46.000Z
@@ -879,7 +891,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(package): Bump dependencies'
+      subject: "chore(package): Bump dependencies"
       body: |-
         - nan 2.7.0 -> 2.8.0
         - prebuild-install 2.3.0 -> 2.4.1
@@ -893,7 +905,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'refactor: Remove lodash'
+      subject: "refactor: Remove lodash"
       body: This removes use of lodash throughout.
 - version: 5.2.10
   date: 2017-12-12T15:26:04.000Z
@@ -902,7 +914,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(package): Fix prebuild script being run on build'
+      subject: "fix(package): Fix prebuild script being run on build"
       body: null
 - version: 5.2.9
   date: 2017-12-09T02:53:54.000Z
@@ -911,7 +923,7 @@
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: 'fix: Remove the final usage of perl from darwin.sh'
+      subject: "fix: Remove the final usage of perl from darwin.sh"
       body: null
 - version: 5.2.8
   date: 2017-12-08T17:48:21.000Z
@@ -920,8 +932,10 @@
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: 'chore: pip on Travis OSX is now pip2'
-      body: "See #238 and https://github.com/resin-io/etcher/pull/1897\r\n\r"
+      subject: "chore: pip on Travis OSX is now pip2"
+      body: "See #238 and https://github.com/resin-io/etcher/pull/1897\r
+
+        \r"
 - version: 5.2.7
   date: 2017-10-17T12:17:53.000Z
   commits:
@@ -929,7 +943,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Bump dependencies'
+      subject: "upgrade(package): Bump dependencies"
       body: |-
         - eslint 4.7.2 -> 4.9.0
         - mocha 3.5.3 -> 4.0.1
@@ -942,7 +956,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(ci): Ensure the Travis box finds bash'
+      subject: "fix(ci): Ensure the Travis box finds bash"
       body: |-
         This should fix an issue with some Travis CI machines not finding
         `bash` via `#!/usr/bin/env bash`.
@@ -953,7 +967,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(ci): Add CI deployment scripts'
+      subject: "chore(ci): Add CI deployment scripts"
       body: |-
         This adds deployment step scripts for the prebuilds to
         avoid the CIs accidentally exposing secrets through the logs.
@@ -964,11 +978,10 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        changelog-entry: >-
-          Correctly execute macOS and GNU/Linux scripts inside directories
-          mounted as `noexec`.
+        changelog-entry: Correctly execute macOS and GNU/Linux scripts inside
+          directories mounted as `noexec`.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix: workaround noexec by executing scripts with bash'
+      subject: "fix: workaround noexec by executing scripts with bash"
       body: |-
         The temporary or `XDG_RUNTIME_DIR` directory might be mounted with the
         `noexec` option, which means we might not have execution permissions to
@@ -980,7 +993,7 @@
   commits:
     - hash: e2a953b3ef1e0756c81eee716bb05af6b70070ab
       author: zkochan
-      subject: 'fix: remove Node.js 6 syntax'
+      subject: "fix: remove Node.js 6 syntax"
       body: |-
         Change-Type: patch
         Close #224
@@ -991,7 +1004,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(appveyor): Explicitly set base image'
+      subject: "chore(appveyor): Explicitly set base image"
       body: |-
         As Visual Studio 2013 is lacking some features that are
         finding use in newer Node / V8 versions, this explicitly
@@ -1003,7 +1016,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Update dependencies'
+      subject: "upgrade(package): Update dependencies"
       body: |-
         **Dependencies:**
         - bindings 1.2.1 -> 1.3.0
@@ -1021,7 +1034,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: minor
-      subject: 'feat(package): Add prebuilds for native bindings'
+      subject: "feat(package): Add prebuilds for native bindings"
       body: |-
         This adds support for prebuilding and publishing native bindings
         via [prebuild] and [prebuild-install]
@@ -1036,7 +1049,7 @@
         change-type: patch
         changelog-entry: Ensure all volume handles get closed on Windows.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): ensure handles gets closed in the case of errors'
+      subject: "fix(windows): ensure handles gets closed in the case of errors"
       body: |-
         I spot a case where if GetDeviceNumber() fails, the handle to the volume
         doesn't get closed.
@@ -1048,7 +1061,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): log the volume we''re working on'
+      subject: "fix(windows): log the volume we're working on"
       body: null
 - version: 5.1.5
   date: 2017-08-14T16:51:56.000Z
@@ -1056,11 +1069,11 @@
     - hash: 496d8fb7f7a5102583b63d49e8faddf07e0727cf
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1687'
+        see: https://github.com/resin-io/etcher/issues/1687
         change-type: patch
         changelog-entry: Correctly handle BitLocker locked Windows volumes.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): correctly handle BitLocker locked volumes'
+      subject: "fix(windows): correctly handle BitLocker locked volumes"
       body: |-
         Locked volumes throw a FVE_E_LOCKED_VOLUME error on
         GetVolumeInformation(). If this is the case, we should also set
@@ -1075,7 +1088,7 @@
         change-type: patch
         changelog-entry: Get more detailed error codes from the Windows implementation.
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): ensure we get real HRESULTs from failures'
+      subject: "fix(windows): ensure we get real HRESULTs from failures"
       body: |-
         In various cases, we fallback to returning `E_HANDLE` or `E_FAIL` when
         we could get the precise error code from `GetLastError()`.
@@ -1087,12 +1100,11 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        changelog-entry: >-
-          Fix "Couldn't scan the drives: An unknown error occurred" where there
-          is a mounted virtual drive.
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/198'
+        changelog-entry: "Fix \"Couldn't scan the drives: An unknown error occurred\"
+          where there is a mounted virtual drive."
+        fixes: https://github.com/resin-io-modules/drivelist/issues/198
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): ignore virtual drives'
+      subject: "fix(windows): ignore virtual drives"
       body: |-
         Drivelist currently crashes if there is a virtual drive mounted. The
         best solution I could find is to check the resulting error from
@@ -1105,7 +1117,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): don''t use COM/WMI to retrieve a drive media type'
+      subject: "refactor(windows): don't use COM/WMI to retrieve a drive media type"
       body: |-
         Turns out we already have this information in the `DISK_GEOMETRY_EX`
         struct we were getting from `GetSize()`. In order to not duplicate work,
@@ -1119,7 +1131,7 @@
       footers:
         change-type: minor
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'feat: add a `displayName` property to drive objects'
+      subject: "feat: add a `displayName` property to drive objects"
       body: |-
         The display name property is equal to the device path in macOS and
         GNU/Linux, but its equal to the list of volumes with file-systems on
@@ -1132,7 +1144,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'feat(windows): print HRESULT hex in debug information'
+      subject: "feat(windows): print HRESULT hex in debug information"
       body: null
 - version: 5.0.27
   date: 2017-07-19T14:02:07.000Z
@@ -1141,10 +1153,9 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: >-
-          https://github.com/resin-io-modules/drivelist/pull/195#pullrequestreview-50825872
+        see: https://github.com/resin-io-modules/drivelist/pull/195#pullrequestreview-50825872
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix: small typo in EAGAIN error message'
+      subject: "fix: small typo in EAGAIN error message"
       body: null
 - version: 5.0.26
   date: 2017-07-18T18:20:50.000Z
@@ -1153,9 +1164,9 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: 'https://github.com/resin-io/etcher/pull/1600'
+        see: https://github.com/resin-io/etcher/pull/1600
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor: reduce debug logging if unlink was successful'
+      subject: "refactor: reduce debug logging if unlink was successful"
       body: |-
         As a way to reduce the amount of debug logging this module produces, we
         only emit an unlink debug message if the unlink operation was succesful.
@@ -1166,9 +1177,9 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: 'https://github.com/resin-io/etcher/issues/1578'
+        see: https://github.com/resin-io/etcher/issues/1578
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix: handle EAGAIN spawning errors'
+      subject: "fix: handle EAGAIN spawning errors"
       body: |-
         EAGAIN errors come from `uv_spawn()`, and may happen because of the
         following reasons (from the man pages):
@@ -1186,7 +1197,7 @@
       footers:
         change-type: minor
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'feat(windows): print debugging information when DRIVELIST_DEBUG is set'
+      subject: "feat(windows): print debugging information when DRIVELIST_DEBUG is set"
       body: |-
         Like we do on mountutils. Debugging native modules can be very tricky.
         Printing a lot of info should help us to easily identify and fix issues.
@@ -1195,13 +1206,13 @@
       footers:
         change-type: minor
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'feat(windows): print error code string description in case of errors'
+      subject: "feat(windows): print error code string description in case of errors"
       body: null
     - hash: b2beb63d3f69a2038a4b028fba2985156bc61c30
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'fix(execute): Properly clean up tmp file after exec'
+      subject: "fix(execute): Properly clean up tmp file after exec"
       body: |-
         This fixes temporary files not being cleaned up after execution.
         Changes:
@@ -1217,7 +1228,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): match bindings.gyp casing when loading the native module'
+      subject: "fix(windows): match bindings.gyp casing when loading the native module"
       body: |-
         The target name of bindings.gyp is "drivelist" however in the JavaScript
         code, we're loading it as "Drivelist." This works on development mode,
@@ -1228,7 +1239,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): ERROR_NOT_READY on empty SD Card reader'
+      subject: "fix(windows): ERROR_NOT_READY on empty SD Card reader"
       body: |-
         This error occurs when calling `GetVolumeInformation()` on a volume that
         maps to an internal SD Card reader without an SD Card inside.
@@ -1236,15 +1247,15 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(package): Fix missing EOL in package.json'
+      subject: "chore(package): Fix missing EOL in package.json"
       body: null
     - hash: 073e8ccb44290f1675414392defe8b0a1fc3e0f5
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1483'
+        see: https://github.com/resin-io/etcher/issues/1483
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): report a more accurate drive size number'
+      subject: "fix(windows): report a more accurate drive size number"
       body: |-
         We were using WMI to get the size of a physical drive, however turns out
         that is number is not very accurate (since its based on CHS), and even
@@ -1255,9 +1266,9 @@
       author: Juan Cruz Viotti
       footers:
         change-type: patch
-        see: 'https://github.com/resin-io-modules/drivelist/pull/183'
+        see: https://github.com/resin-io-modules/drivelist/pull/183
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): all drives are interpreted as read-only'
+      subject: "fix(windows): all drives are interpreted as read-only"
       body: |-
         This was an accidental subtle logical flaw in the PR where we check both
         the disk and the volume writable state.
@@ -1267,28 +1278,29 @@
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): make use of GetVolumeInformation() in HasFileSystem()'
+      subject: "fix(windows): make use of GetVolumeInformation() in HasFileSystem()"
       body: null
     - hash: f11f607168cfcba8defabb6112f979ccb2a26de0
       author: Juan Cruz Viotti
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): don''t use WMI to list volumes'
+      subject: "refactor(windows): don't use WMI to list volumes"
       body: null
     - hash: cd4e0eaab5f4fe8fb8ad2684fda44962479b40da
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): make use of SHGetKnownFolderPath to get system volume'
+      subject: "refactor(windows): make use of SHGetKnownFolderPath to get system
+        volume"
       body: null
     - hash: a1512ccb3f76e5a4fb1575fe64fc600c9feb1151
       author: Juan Cruz Viotti
       footers:
-        see: 'https://stackoverflow.com/a/44706760/1641422'
+        see: https://stackoverflow.com/a/44706760/1641422
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'fix(windows): detect read-only flag on SD Cards without a filesystem'
+      subject: "fix(windows): detect read-only flag on SD Cards without a filesystem"
       body: |-
         If an SD Card is locked, but contains no file-system,
         GetVolumeInformation, opening a handle with write access, and even
@@ -1302,7 +1314,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): Use an IOCTL to determine the partition type'
+      subject: "refactor(windows): Use an IOCTL to determine the partition type"
       body: |-
         This commit is part of some efforts to make use of IOCTLs directly and
         get rid of WMI/COM altogether.
@@ -1314,7 +1326,7 @@
       footers:
         change-type: patch
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): implement volume::GetType()'
+      subject: "refactor(windows): implement volume::GetType()"
       body: |-
         This function uses GetDriveType() to fetch the volume type rather than
         using WMI.
@@ -1322,49 +1334,49 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(gitignore): Ignore entire build directory'
+      subject: "chore(gitignore): Ignore entire build directory"
       body: null
     - hash: 576eb4e3366ea8ac41e0588fc938ce415764ffcb
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(npmignore): Add build, example, test & yml'
+      subject: "chore(npmignore): Add build, example, test & yml"
       body: null
     - hash: f9bb7e91dea7df58974c9259818152f6a6a34b1a
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'refactor(example): Move example.js -> example/index.js'
+      subject: "refactor(example): Move example.js -> example/index.js"
       body: null
     - hash: e8ed7a21aed1b1e492b6a901c544362bb796b3db
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(appveyor): Add Node versions 4 & 8'
+      subject: "chore(appveyor): Add Node versions 4 & 8"
       body: null
     - hash: 137d9e33272e563158a921f484f32ea1df95f83f
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(travis): Add Node v4 & v8, add clang'
+      subject: "chore(travis): Add Node v4 & v8, add clang"
       body: null
     - hash: 393e009aa17933dac6382e28121647a9bd8ae72c
       author: Jonas Hermsmeier
       footers:
         change-type: minor
-      subject: 'feat: Stub native bindings'
+      subject: "feat: Stub native bindings"
       body: null
     - hash: 87647a357e34620891d33a4e8ccd6b3246f4a39d
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(package): Add install & build scripts, dependencies'
+      subject: "chore(package): Add install & build scripts, dependencies"
       body: null
     - hash: 19b173fdeade5c9ded0bf76625a6cf0cbf51ed3d
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
-      subject: 'refactor(windows): re-implement in C++'
+      subject: "refactor(windows): re-implement in C++"
       body: This commit re-implements all the Windows drive scanning logic in C++.
 - version: 5.0.23
   date: 2017-06-15T14:49:40.000Z
@@ -1373,7 +1385,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'upgrade(package): Bump dependencies'
+      subject: "upgrade(package): Bump dependencies"
       body: |-
         - eslint 3.9.0 -> 4.0.0
         - jsdoc-to-markdown 2.0.1 -> 3.0.0
@@ -1382,7 +1394,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'doc(README): Add npm monthly download count'
+      subject: "doc(README): Add npm monthly download count"
       body: null
     - hash: 4b6e06ab59f760e5f7b9f9915ac0ecfd6ee06067
       author: Kostas Lekkas
@@ -1394,7 +1406,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'doc(README): Fix Travis link, use Etcher chat'
+      subject: "doc(README): Fix Travis link, use Etcher chat"
       body: |-
         This fixes the Travis CI badge link,
         changes the Gitter chat link to point to the Etcher chat,
@@ -1406,7 +1418,7 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'chore(editorconfig): Don''t trim whitespace in Markdown'
+      subject: "chore(editorconfig): Don't trim whitespace in Markdown"
       body: |-
         This avoids editors trimming whitespace in Markdown files,
         preventing forced line endings (double-spaces) from being stripped.
@@ -1414,12 +1426,12 @@
       author: Jonas Hermsmeier
       footers:
         change-type: patch
-      subject: 'doc(README): Update badges'
+      subject: "doc(README): Update badges"
       body: This updates & normalizes the badges to consolidate them in style.
     - hash: 6ee2fd2e05aac1f22e40298de8b26ba0bf5ff0bf
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io/etcher/issues/1288'
+        fixes: https://github.com/resin-io/etcher/issues/1288
         signed-off-by: Juan Cruz Viotti <jv@jviotti.com>
       subject: Don't use perl when fetching the drive size on macOS
       body: |-
@@ -1443,7 +1455,7 @@
     - hash: becccaa843f76a6a9d1584af75997578f33dc7b2
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1395'
+        see: https://github.com/resin-io/etcher/issues/1395
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Inline platform scripts
       body: |-
@@ -1477,25 +1489,23 @@
         - Non printable ascii characters
     - hash: 385115143e286ef0c0add481bd8ffa91a5aa2df2
       author: Andrew Scheller
-      subject: >-
-        Remove a useless string substitution and instead quote the string
+      subject: Remove a useless string substitution and instead quote the string
         "inline"
       body: null
     - hash: bc24b45592496a2ffc44ac8031d17c31e689bd71
       author: Andrew Scheller
       footers:
         change-type: patch
-      subject: >-
-        Fix linux.sh to work with mountpoints containing tab, newline or
+      subject: Fix linux.sh to work with mountpoints containing tab, newline or
         backslash
-      body: 'Connects to #153'
+      body: "Connects to #153"
 - version: 5.0.18
   date: 2017-03-21T15:08:59.000Z
   commits:
     - hash: 2010d7010570db58fe290b1314f2400957a10bdf
       author: Andrew Scheller
       footers:
-        fixes: '#154'
+        fixes: "#154"
         change-type: patch
       subject: Fix linux.sh and darwin.sh to always quote the mountpoint strings
       body: >-
@@ -1511,7 +1521,7 @@
       footers:
         change-type: patch
       subject: Fix linux.sh to work when mountpoint contains spaces
-      body: 'Connects to #152'
+      body: "Connects to #152"
 - version: 5.0.16
   date: 2017-03-06T19:04:43.000Z
   commits:
@@ -1520,7 +1530,13 @@
       footers:
         change-type: patch
       subject: Fix linux.sh
-      body: "This fixes the fix in #125\r\n\r\nSee https://github.com/resin-io/etcher/issues/1159\r\n\r"
+      body: "This fixes the fix in #125\r
+
+        \r
+
+        See https://github.com/resin-io/etcher/issues/1159\r
+
+        \r"
 - version: 5.0.15
   date: 2017-03-06T03:52:48.000Z
   commits:
@@ -1533,8 +1549,8 @@
     - hash: af824de0bc46f3f492645de7841d52ab684fcf8c
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/147'
-        see: 'https://github.com/resin-io/etcher/issues/1126'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/147
+        see: https://github.com/resin-io/etcher/issues/1126
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Prevent errors when unplugging drives while the scripts are running
       body: |-
@@ -1553,7 +1569,7 @@
     - hash: 231833a75b8faeba49256d5486dce2b5e652abdd
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1126'
+        see: https://github.com/resin-io/etcher/issues/1126
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Bridge VBScript exit code to the caller on the Batch wrapper
       body: |-
@@ -1563,7 +1579,7 @@
         VBScript exit code to the caller.
     - hash: 20398861ed458ae224924da7af99cf0bceee155d
       author: Jonas Hermsmeier
-      subject: 'fix(package): Fix missing executable file mode on scripts'
+      subject: "fix(package): Fix missing executable file mode on scripts"
       body: null
 - version: 5.0.12
   date: 2017-02-21T14:05:17.000Z
@@ -1593,7 +1609,7 @@
     - hash: 972c3e52c16a9bb209727e2a6880fa748ad9c7da
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1019'
+        see: https://github.com/resin-io/etcher/issues/1019
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Filter out invalid mountpoints on Windows
       body: |-
@@ -1621,7 +1637,7 @@
     - hash: 3149aa51a2cbcf1347d789e3c6a9c29e51b4a8c5
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1034'
+        see: https://github.com/resin-io/etcher/issues/1034
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Print stderr script output to stderr if exit code is non zero
       body: |-
@@ -1662,8 +1678,7 @@
 
         In scripts/linux.sh line 25:
 
-        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL |
-        ignore_first_line))
+        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line))
 
         ^-- SC2086: Double quote to prevent globbing and word splitting.
 
@@ -1671,8 +1686,7 @@
 
         description=${diskinfo[@]:3}
 
-        ^-- SC2124: Assigning an array to a string! Assign as array, or use *
-        instead of @ to concatenate.
+        ^-- SC2124: Assigning an array to a string! Assign as array, or use * instead of @ to concatenate.
 
         In scripts/linux.sh line 30:
 
@@ -1809,15 +1823,13 @@
 
         In scripts/darwin.sh line 27:
 
-        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total
-        Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
         ^-- SC2006: Use $(..) instead of legacy `..`.
 
         In scripts/darwin.sh line 29:
 
-        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)?
-        on (.*) \(.*\)$} && print "$2\n"'`
+        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"'`
 
         ^-- SC2006: Use $(..) instead of legacy `..`.
 
@@ -1834,7 +1846,7 @@
     - hash: 29268b5678181f63c0270bf05dd4eb5f5c311486
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1025'
+        see: https://github.com/resin-io/etcher/issues/1025
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Double quote PATH declaration in win32.bat
       body: |-
@@ -1883,8 +1895,7 @@
 
         SMART Status:             Not Supported
 
-        Disk Size:                500.1 GB (500107862016 Bytes) (exactly
-        976773168512-Byte-Units)
+        Disk Size:                500.1 GB (500107862016 Bytes) (exactly 976773168512-Byte-Units)
 
         Device Block Size:        512 Bytes
 
@@ -1919,7 +1930,7 @@
     - hash: a7d2338ef413f9b3a76c76d93afa51dc9b1ebd12
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/1004#event-920192906'
+        see: https://github.com/resin-io/etcher/issues/1004#event-920192906
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Fix VBScript error where a drive has duplicate drive letters
       body: |-
@@ -1947,7 +1958,7 @@
     - hash: 2a3824db2602e03d55fdc724de5faa84b8f865e4
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/983'
+        see: https://github.com/resin-io/etcher/issues/983
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Consider multiple "Device Location" keys in Mac Minis
       body: >-
@@ -1983,8 +1994,7 @@
 
         SMART Status:             Verified
 
-        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly
-        3907029168 512-Byte-Units)
+        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly 3907029168 512-Byte-Units)
 
         Device Block Size:        512 Bytes
 
@@ -2034,8 +2044,8 @@
     - hash: 20c9360b35840237008194cafff572ed405a4a18
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/118'
-        see: 'https://github.com/resin-io-modules/drivelist/pull/119'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/118
+        see: https://github.com/resin-io-modules/drivelist/pull/119
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Surround description in double quotes in OS X
       body: null
@@ -2045,7 +2055,7 @@
     - hash: d96e6d3a304ce16af0ff2103275c576e000c9108
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/122'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/122
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Replace periods with underscores in udevadm variable name output
       body: |-
@@ -2087,7 +2097,7 @@
     - hash: 3426ee1bb8356ce9c614f2b80751192cb9d1a9c3
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/870'
+        see: https://github.com/resin-io/etcher/issues/870
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Replace System.Collections.ArrayList with out own List implementation
       body: |-
@@ -2100,7 +2110,7 @@
     - hash: cbf43032018e5871e6b7263a91581f8c8e37667d
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/115'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/115
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Surround Windows mountpoints by double quotes
       body: |-
@@ -2116,38 +2126,36 @@
   commits:
     - hash: e28f9969e0e4b26066045861d0e7e80f06612342
       author: Andrew Scheller
-      subject: >-
-        Linux: get `description` for SD card readers that appear as e.g.
-        /dev/mmcblk0
+      subject: "Linux: get `description` for SD card readers that appear as e.g.
+        /dev/mmcblk0"
       body: null
     - hash: 963520b03e5384999b88dee8a1400aba6bd22682
       author: Andrew Scheller
-      subject: 'patch: fix mistake introduced in #110'
+      subject: "patch: fix mistake introduced in #110"
       body: null
     - hash: 630ce10871f50bdf18f9600ed38e69203fc856f9
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io-modules/drivelist/pull/110'
+        see: https://github.com/resin-io-modules/drivelist/pull/110
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Fix GNU/Linux `lsblk` column access issues
       body: null
     - hash: 8b4621db01f99c765facd8eee17c5abc90274ba4
       author: Andrew Scheller
-      subject: 'refactor: Optimise linux.sh script'
-      body: >-
-        By using some bash scripting tricks, it now only executes a single
-        `lsblk` command per disk, rather than 4 `lsblk` commands per disk.
+      subject: "refactor: Optimise linux.sh script"
+      body: By using some bash scripting tricks, it now only executes a single `lsblk`
+        command per disk, rather than 4 `lsblk` commands per disk.
     - hash: 785dbffddf659bf72abf97c6344a687830c8bd9d
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io-modules/drivelist/issues/98'
+        see: https://github.com/resin-io-modules/drivelist/issues/98
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Transform `mountpoint` into an array of objects called `mountpoints`
       body: null
     - hash: 11864f5ada5362ee1c1b8fa4e47c7e8e8e71ce72
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io-modules/drivelist/pull/105'
+        see: https://github.com/resin-io-modules/drivelist/pull/105
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Add OS X README example syntax fix to doc/README.hbs
       body: null
@@ -2160,8 +2168,7 @@
     - hash: 60a7de43adc59b597a257212abc7989170608112
       author: Juan Cruz Viotti
       footers:
-        see: >-
-          https://github.com/resin-io-modules/drivelist/pull/101#discussion_r85711379
+        see: https://github.com/resin-io-modules/drivelist/pull/101#discussion_r85711379
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Add CHANGELOG notice about license change
       body: null
@@ -2201,9 +2208,10 @@
     - hash: b0e9db2d791a0dcef36d3647959a99d7b1459521
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/720'
+        see: https://github.com/resin-io/etcher/issues/720
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
-      subject: 'Windows: Don''t output different drive objects for each mounted partition'
+      subject: "Windows: Don't output different drive objects for each mounted
+        partition"
       body: |-
         Consider a drive with two NTFS partitions. When plugging such drive to a
         Windows computer, both partitions will get mounted by the operating
@@ -2294,9 +2302,9 @@
     - hash: 1ded72ccff1ac5f53ea6f2aab0d95c81de3a16d4
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/671'
+        see: https://github.com/resin-io/etcher/issues/671
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
-      subject: 'Windows: set `name` to device ID if device is not mounted'
+      subject: "Windows: set `name` to device ID if device is not mounted"
       body: |-
         If a drive is not mounted in Windows (doesn't have a drive letter
         assigned to it), then `name` will output `Null`.
@@ -2326,7 +2334,7 @@
     - hash: c2152768464b1801592f9232622468e953e8682e
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/640'
+        see: https://github.com/resin-io/etcher/issues/640
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Refer to `blkid` as `/sbin/blkid` in GNU/Linux
       body: |-
@@ -2370,7 +2378,7 @@
     - hash: 4ae80aa8a036496fc17a9b2f43ccece127bd96e8
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/88'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/88
         signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
       subject: Attempt to display the volume name as description in OS X
       body: |-
@@ -2417,8 +2425,7 @@
     - hash: b8e821ebbd254e834f2a6929fc3008711c3180ca
       author: Juan Cruz Viotti
       footers:
-        see: >-
-          http://stackoverflow.com/questions/14327442/treat-second-column-with-spaces-as-one-column-with-awk
+        see: http://stackoverflow.com/questions/14327442/treat-second-column-with-spaces-as-one-column-with-awk
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Handle multiline mountpoints in GNU/Linux
       body: |-
@@ -2430,7 +2437,7 @@
     - hash: fbee6a80cbf4a02f3300d4c0e4d6a3aa18e927de
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/571'
+        see: https://github.com/resin-io/etcher/issues/571
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Fix drive without filesystem always being considered non-removable
       body: |-
@@ -2442,7 +2449,7 @@
     - hash: cf28aac70c720ca4fd91b17aae4c8ac084183a37
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/74'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/74
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Get mountpoints using `df` in GNU/Linux
       body: |-
@@ -2455,7 +2462,7 @@
     - hash: 4c1632f28bdc25ca5c7e3b2af9f0b2e9f71b9037
       author: Juan Cruz Viotti
       footers:
-        see: 'https://github.com/resin-io/etcher/issues/458'
+        see: https://github.com/resin-io/etcher/issues/458
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Detect if a drive is write protected
       body: |-
@@ -2476,17 +2483,17 @@
     - hash: 09f5f348e8ac7ad7a872629b0d1772ad5f485627
       author: Juan Cruz Viotti
       footers:
-        see: 'http://www.pclinuxos.com/forum/index.php/topic,137579.0.html'
+        see: http://www.pclinuxos.com/forum/index.php/topic,137579.0.html
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Prevent certain system drives from being marked as removable
-      body: 'Fix sent by @Not_yet_16, PCLinuxOS tester.'
+      body: Fix sent by @Not_yet_16, PCLinuxOS tester.
 - version: 3.1.1
   date: 2016-05-25T17:12:06.000Z
   commits:
     - hash: 278161c9e9ec1d256d38e92b0a7190b27e65b51b
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io/etcher/issues/421'
+        fixes: https://github.com/resin-io/etcher/issues/421
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Set system = true for non-removable Windows drives
       body: |-
@@ -2499,11 +2506,11 @@
   commits:
     - hash: 2364bae6f3494cfb2e44458d4f61d8fa113eebf9
       author: Jacob Cook
-      subject: '[win] show non-mountable disk drives'
+      subject: "[win] show non-mountable disk drives"
       body: null
     - hash: ef937d787ef31cbacb300f0a2531a4e5ad52714b
       author: Jacob Cook
-      subject: '[win] containsLogicalDisk t/f, default unknown disks to system true'
+      subject: "[win] containsLogicalDisk t/f, default unknown disks to system true"
       body: null
     - hash: c8b33b9b0418cda1a516fee122c6e98b52ba0690
       author: Jacob Cook
@@ -2540,7 +2547,7 @@
     - hash: 3da6d6280db3d87abcbbece5966f10f5583da36d
       author: Juan Cruz Viotti
       footers:
-        fixes: 'https://github.com/resin-io-modules/drivelist/issues/68'
+        fixes: https://github.com/resin-io-modules/drivelist/issues/68
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
       subject: Attempt to get GNU/Linux mountpoints by disk uuid
       body: |-
@@ -2574,7 +2581,7 @@
       author: Juan Cruz Viotti
       footers:
         signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
-      subject: 'OS X: Mark MacBook''s internal SDCard reader as system: false'
+      subject: "OS X: Mark MacBook's internal SDCard reader as system: false"
       body: |-
         The issue is that SDCards plugged in the internal card reader have an
         `Internal` location, causing the original condition to return true.
@@ -2594,7 +2601,13 @@
     - hash: dc30a2f8f6ebed9daabe12364a4e5b7e70c55e1e
       author: Juan Cruz Viotti
       subject: Escape double quotes inside YAML values
-      body: "Consider the following description:\n\tdescription: \"SAMSUNG SSD PM810 2.5\" 7mm 256GB\"\nBecause of the double quote in `2.5\"`, the YAML parser will complain\nwith:\n\tYAMLException: can not read a block mapping entry; a multiline key\n\tmay not be an implicit key at line 2, column 1:"
+      body: |-
+        Consider the following description:
+        	description: "SAMSUNG SSD PM810 2.5" 7mm 256GB"
+        Because of the double quote in `2.5"`, the YAML parser will complain
+        with:
+        	YAMLException: can not read a block mapping entry; a multiline key
+        	may not be an implicit key at line 2, column 1:
     - hash: cd50d2143d894ae85819ca5379a4fef70558a306
       author: Juan Cruz Viotti
       subject: Improve README tagline
@@ -2613,9 +2626,8 @@
     - hash: 79e4811f3ee1126519415dd366c72e461edf9213
       author: userabuser
       subject: Improve For Each loop over colOperatingSystems
-      body: >-
-        Set OSDrive to false if SystemDrive property not present; clear Err
-        object before loop to prevent accidental setting of OSDrive to false
+      body: Set OSDrive to false if SystemDrive property not present; clear Err object
+        before loop to prevent accidental setting of OSDrive to false
 - version: 2.0.9
   date: 2016-03-24T17:07:26.000Z
   commits:
