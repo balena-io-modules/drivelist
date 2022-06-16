@@ -109,18 +109,10 @@ bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
   DWORD result = 0;
 
   BOOL hasRemovalPolicy = SetupDiGetDeviceRegistryProperty(
-    hDeviceInfo, &deviceInfoData, SPDRP_REMOVAL_POLICY,
+    hDeviceInfo, &deviceInfoData, SPDRP_CAPABILITIES,
     NULL, (PBYTE) &result, sizeof(result), NULL);
 
-  switch (result) {
-    case CM_REMOVAL_POLICY_EXPECT_SURPRISE_REMOVAL:
-    case CM_REMOVAL_POLICY_EXPECT_ORDERLY_REMOVAL:
-      return true;
-    default:
-      return false;
-  }
-
-  return false;
+  return result & CM_DEVCAP_REMOVABLE;
 }
 
 bool IsVirtualHardDrive(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
