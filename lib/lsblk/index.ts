@@ -91,7 +91,7 @@ async function getLsblkPairsOutput() {
 				'--all',
 				'--pairs',
 				'-o',
-				'+pttype',
+				'+pttype,serial',
 			);
 		} catch (error) {
 			SUPPORTS_PTTYPE = false;

@@ -34,6 +34,7 @@ interface LsblkJsonOutputDevice {
 	name: string;
 	partlabel: string | null;
 	'phy-sec'?: string;
+	serial?: string;
 	rm?: string;
 	ro?: string;
 	size?: string;
@@ -129,6 +130,7 @@ export function transform(data: LsblkJsonOutput): Drive[] {
 					devicePath: null,
 					raw: device.kname || device.name,
 					description: getDescription(device),
+					serialNumber: device.serial || null,
 					error: null,
 					size: Number(device.size) || null,
 					blockSize: Number(device['phy-sec']) || 512,

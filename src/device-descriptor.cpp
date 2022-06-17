@@ -62,6 +62,13 @@ Napi::Object PackDriveDescriptor(Napi::Env env,
     object.Set(String::New(env, "partitionTableType"), env.Null());
   }
 
+  if (instance->serialNumber != "") {
+    object.Set(String::New(env, "serialNumber"),
+               String::New(env, instance->serialNumber));
+  } else {
+    object.Set(String::New(env, "serialNumber"), env.Null());
+  }
+
   if (instance->error != "") {
     object.Set(String::New(env, "error"), String::New(env, instance->error));
   } else {

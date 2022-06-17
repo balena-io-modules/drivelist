@@ -36,6 +36,7 @@ export interface Drive {
 	device: string;
 	devicePath: string | null;
 	enumerator: string;
+	serialNumber: string | null;
 	error: null;
 	isCard: null;
 	isReadOnly: boolean;

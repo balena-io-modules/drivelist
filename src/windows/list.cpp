@@ -27,7 +27,6 @@
 #include <string.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include <napi.h>
 #include <wchar.h>
 #include <string>
 #include <vector>
@@ -112,7 +111,7 @@ bool IsRemovableDevice(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
     hDeviceInfo, &deviceInfoData, SPDRP_CAPABILITIES,
     NULL, (PBYTE) &result, sizeof(result), NULL);
 
-  return result & CM_DEVCAP_REMOVABLE;
+  return result & (CM_DEVCAP_REMOVABLE | CM_DEVCAP_SURPRISEREMOVALOK);
 }
 
 bool IsVirtualHardDrive(HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
@@ -210,6 +209,10 @@ int32_t GetDeviceNumber(HANDLE hDevice) {
 
     // NOTE: Always ignore RAIDs
     // TODO(jhermsmeier): Handle RAIDs properly
+
+    // TODO(zwhitchcox): this is probably unnecessary, because the function
+    // would have an error ERROR_MORE_DATA, because the buffer size would
+    // have been to small for the number of disk extents, but need to test
     if (diskExtents.NumberOfDiskExtents >= 2) {
       // printf("[INFO] Possible RAID: %i\n",
       //   diskExtents.Extents[0].DiskNumber);
@@ -259,7 +262,7 @@ void GetMountpoints(int32_t deviceNumber,
 
     // printf("[INFO] Checking %s:/\n", volumeName.c_str());
 
-    if ((driveType != DRIVE_FIXED) && (driveType != DRIVE_REMOVABLE)) {
+    if (driveType & (DRIVE_FIXED | DRIVE_REMOVABLE)) {
       // printf("[INFO] Ignoring volume %s:/ - Not FIXED | REMOVABLE\n",
       //   volumeName.c_str());
       continue;
@@ -462,6 +465,60 @@ bool GetDeviceSize(HANDLE hPhysical, DeviceDescriptor *device) {
   return hasDiskGeometry;
 }
 
+bool GetDeviceSerialNumber(HANDLE hDevice, DeviceDescriptor *device) {
+    DWORD dwResult = NO_ERROR;
+      // set the input STORAGE_PROPERTY_QUERY data structure
+    STORAGE_PROPERTY_QUERY storagePropertyQuery;
+    ZeroMemory(&storagePropertyQuery, sizeof(STORAGE_PROPERTY_QUERY));
+    storagePropertyQuery.PropertyId = StorageDeviceProperty;
+    storagePropertyQuery.QueryType = PropertyStandardQuery;
+
+    // get the necessary output buffer size
+    STORAGE_DESCRIPTOR_HEADER storageDescriptorHeader = { 0 };
+    DWORD dwBytesReturned = 0;
+    if(!::DeviceIoControl(hDevice, IOCTL_STORAGE_QUERY_PROPERTY,
+        &storagePropertyQuery, sizeof(STORAGE_PROPERTY_QUERY),
+        &storageDescriptorHeader, sizeof(STORAGE_DESCRIPTOR_HEADER),
+        &dwBytesReturned, NULL))
+    {
+      goto fail;
+    }
+    // allocate the necessary memory for the output buffer
+    const DWORD dwOutBufferSize = storageDescriptorHeader.Size;
+    BYTE* pOutBuffer = new BYTE[dwOutBufferSize];
+    ZeroMemory(pOutBuffer, dwOutBufferSize);
+
+    // get the storage device descriptor
+    if (!::DeviceIoControl(hDevice, IOCTL_STORAGE_QUERY_PROPERTY,
+        &storagePropertyQuery, sizeof(STORAGE_PROPERTY_QUERY),
+        pOutBuffer, dwOutBufferSize,
+        &dwBytesReturned, NULL))
+    {
+        delete[]pOutBuffer;
+        goto fail;
+    }
+
+
+    // Now, the output buffer points to a STORAGE_DEVICE_DESCRIPTOR structure
+    // followed by additional info like vendor ID, product ID, serial number, and so on.
+    STORAGE_DEVICE_DESCRIPTOR* pDeviceDescriptor = (STORAGE_DEVICE_DESCRIPTOR*)pOutBuffer;
+    const DWORD dwSerialNumberOffset = pDeviceDescriptor->SerialNumberOffset;
+    if (dwSerialNumberOffset != 0)
+    {
+        // finally, get the serial number
+        device->serialNumber = std::string(reinterpret_cast<char*>(pOutBuffer + dwSerialNumberOffset));
+        return true;
+    }
+
+  // DWORD errorCode = GetLastError();
+  // printf("serial number error: %s\n", std::to_string(errorCode).c_str());
+
+fail:
+  device->serialNumber = std::string();
+  return false;
+}
+
+
 bool GetDetailData(DeviceDescriptor* device,
   HDEVINFO hDeviceInfo, SP_DEVINFO_DATA deviceInfoData) {
   DWORD index;
@@ -640,6 +697,12 @@ bool GetDetailData(DeviceDescriptor* device,
     if (!GetDeviceBlockSize(hPhysical, device)) {
       errorCode = GetLastError();
       // printf("[INFO] Couldn't get block size: Error %u\n", errorCode);
+    }
+
+    // no need to fail, device might not have serial number
+    if (!GetDeviceSerialNumber(hPhysical, device)) {
+      errorCode = GetLastError();
+      // printf("[INFO] Couldn't get serial number: Error %u\n", errorCode);
     }
 
     // printf("[INFO] isWritable( %s )\n", device->raw.c_str());

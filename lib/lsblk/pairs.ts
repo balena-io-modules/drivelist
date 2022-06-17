@@ -166,6 +166,7 @@ export function parse(stdout: string): Drive[] {
 				devicePath: null,
 				raw: '/dev/' + device.name,
 				description: getDescription(device) || device.name,
+				serialNumber: device.serial || null,
 				error: null,
 				size: Number(device.size) || null,
 				blockSize: Number(device['phy-sec']) || 512,
