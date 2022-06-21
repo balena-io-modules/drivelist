@@ -14,149 +14,110 @@
  * limitations under the License.
  */
 
-#include <nan.h>
+#include <napi.h>
+
 #include "drivelist.hpp"
 
-using v8::String;
-using v8::Number;
-using v8::Boolean;
-using v8::Local;
-using v8::Value;
-using Nan::New;
+using Napi::Boolean;
+using Napi::Number;
+using Napi::String;
+using Napi::Value;
 
 namespace Drivelist {
 
-v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance) {
-  v8::Local<v8::Object> object = Nan::New<v8::Object>();
+Napi::Object PackDriveDescriptor(Napi::Env env,
+                                 const DeviceDescriptor *instance) {
+  Napi::Object object = Napi::Object::New(env);
 
-  Nan::Set(object,
-    New<String>("enumerator").ToLocalChecked(),
-    New<String>(instance->enumerator).ToLocalChecked());
+  object.Set(String::New(env, "enumerator"),
+             String::New(env, instance->enumerator));
 
-  Nan::Set(object,
-    New<String>("busType").ToLocalChecked(),
-    New<String>(instance->busType).ToLocalChecked());
+  object.Set(String::New(env, "busType"), String::New(env, instance->busType));
 
-  Local<Value> busVersion = instance->busVersionNull ?
-    (Local<Value>)Nan::Null() :
-    (Local<Value>)New<String>(instance->busVersion).ToLocalChecked();
+  Napi::Value busVersion =
+      instance->busVersionNull
+          ? (Napi::Value)env.Null()
+          : (Napi::Value)String::New(env, instance->busVersion);
 
-  Nan::Set(object,
-      New<String>("busVersion").ToLocalChecked(),
-      busVersion);
+  object.Set(String::New(env, "busVersion"), busVersion);
 
-  Nan::Set(object,
-    New<String>("device").ToLocalChecked(),
-    New<String>(instance->device).ToLocalChecked());
+  object.Set(String::New(env, "device"), String::New(env, instance->device));
 
-  Local<Value> devicePath = instance->devicePathNull ?
-    (Local<Value>)Nan::Null() :
-    (Local<Value>)New<String>(instance->devicePath).ToLocalChecked();
+  Napi::Value devicePath =
+      instance->devicePathNull
+          ? (Napi::Value)env.Null()
+          : (Napi::Value)String::New(env, instance->devicePath);
 
-  Nan::Set(object,
-    New<String>("devicePath").ToLocalChecked(),
-    devicePath);
+  object.Set(String::New(env, "devicePath"), devicePath);
 
-  Nan::Set(object,
-    New<String>("raw").ToLocalChecked(),
-    New<String>(instance->raw).ToLocalChecked());
+  object.Set(String::New(env, "raw"), String::New(env, instance->raw));
 
-  Nan::Set(object,
-    New<String>("description").ToLocalChecked(),
-    New<String>(instance->description).ToLocalChecked());
+  object.Set(String::New(env, "description"),
+             String::New(env, instance->description));
 
   if (instance->partitionTableType != "") {
-    Nan::Set(
-      object,
-      New<String>("partitionTableType").ToLocalChecked(),
-      New<String>(instance->partitionTableType).ToLocalChecked());
+    object.Set(String::New(env, "partitionTableType"),
+               String::New(env, instance->partitionTableType));
   } else {
-    Nan::Set(
-      object,
-      New<String>("partitionTableType").ToLocalChecked(),
-      Nan::Null());
+    object.Set(String::New(env, "partitionTableType"), env.Null());
   }
 
   if (instance->error != "") {
-    Nan::Set(object,
-      New<String>("error").ToLocalChecked(),
-      New<String>(instance->error).ToLocalChecked());
+    object.Set(String::New(env, "error"), String::New(env, instance->error));
   } else {
-    Nan::Set(object,
-      New<String>("error").ToLocalChecked(),
-      Nan::Null());
+    object.Set(String::New(env, "error"), env.Null());
   }
 
-  Nan::Set(object,
-    New<String>("size").ToLocalChecked(),
-    New<Number>(static_cast<double>(instance->size)));
+  object.Set(String::New(env, "size"),
+             Number::New(env, static_cast<double>(instance->size)));
 
-  Nan::Set(object,
-    New<String>("blockSize").ToLocalChecked(),
-    New<Number>(static_cast<double>(instance->blockSize)));
+  object.Set(String::New(env, "blockSize"),
+             Number::New(env, static_cast<double>(instance->blockSize)));
 
-  Nan::Set(object,
-    New<String>("logicalBlockSize").ToLocalChecked(),
-    New<Number>(static_cast<double>(instance->logicalBlockSize)));
+  object.Set(String::New(env, "logicalBlockSize"),
+             Number::New(env, static_cast<double>(instance->logicalBlockSize)));
 
-  v8::Local<v8::Object> mountpoints = Nan::New<v8::Array>();
+  Napi::Object mountpoints = Napi::Array::New(env);
 
   uint32_t index = 0;
   for (std::string mountpointPath : instance->mountpoints) {
-    v8::Local<v8::Object> mountpoint = Nan::New<v8::Object>();
-    Nan::Set(mountpoint,
-      New<String>("path").ToLocalChecked(),
-      New<String>(mountpointPath).ToLocalChecked());
+    Napi::Object mountpoint = Napi::Object::New(env);
+    mountpoint.Set(String::New(env, "path"), String::New(env, mountpointPath));
 
     if (index < instance->mountpointLabels.size()) {
-      Nan::Set(mountpoint,
-        New<String>("label").ToLocalChecked(),
-        New<String>(instance->mountpointLabels[index]).ToLocalChecked());
+      mountpoint.Set(String::New(env, "label"),
+                     String::New(env, instance->mountpointLabels[index]));
     }
 
-    Nan::Set(mountpoints, index, mountpoint);
+    mountpoints.Set(index, mountpoint);
     index++;
   }
 
-  Nan::Set(object,
-    New<String>("mountpoints").ToLocalChecked(),
-    mountpoints);
+  object.Set(String::New(env, "mountpoints"), mountpoints);
 
-  Nan::Set(object,
-    New<String>("isReadOnly").ToLocalChecked(),
-    New<Boolean>(instance->isReadOnly));
+  object.Set(String::New(env, "isReadOnly"),
+             Boolean::New(env, instance->isReadOnly));
 
-  Nan::Set(object,
-    New<String>("isSystem").ToLocalChecked(),
-    New<Boolean>(instance->isSystem));
+  object.Set(String::New(env, "isSystem"),
+             Boolean::New(env, instance->isSystem));
 
-  Nan::Set(object,
-    New<String>("isVirtual").ToLocalChecked(),
-    New<Boolean>(instance->isVirtual));
+  object.Set(String::New(env, "isVirtual"),
+             Boolean::New(env, instance->isVirtual));
 
-  Nan::Set(object,
-    New<String>("isRemovable").ToLocalChecked(),
-    New<Boolean>(instance->isRemovable));
+  object.Set(String::New(env, "isRemovable"),
+             Boolean::New(env, instance->isRemovable));
 
-  Nan::Set(object,
-    New<String>("isCard").ToLocalChecked(),
-    New<Boolean>(instance->isCard));
+  object.Set(String::New(env, "isCard"), Boolean::New(env, instance->isCard));
 
-  Nan::Set(object,
-    New<String>("isSCSI").ToLocalChecked(),
-    New<Boolean>(instance->isSCSI));
+  object.Set(String::New(env, "isSCSI"), Boolean::New(env, instance->isSCSI));
 
-  Nan::Set(object,
-    New<String>("isUSB").ToLocalChecked(),
-    New<Boolean>(instance->isUSB));
+  object.Set(String::New(env, "isUSB"), Boolean::New(env, instance->isUSB));
 
-  Local<Value> isUAS = instance->isUASNull ?
-    (Local<Value>)Nan::Null() :
-    (Local<Value>)New<Boolean>(instance->isUAS);
+  Napi::Value isUAS = instance->isUASNull
+                          ? (Napi::Value)env.Null()
+                          : (Napi::Value)Boolean::New(env, instance->isUAS);
 
-  Nan::Set(object,
-    New<String>("isUAS").ToLocalChecked(),
-    isUAS);
+  object.Set(String::New(env, "isUAS"), isUAS);
 
   return object;
 }

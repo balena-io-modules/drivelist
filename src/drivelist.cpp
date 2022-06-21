@@ -14,57 +14,56 @@
  * limitations under the License.
  */
 
-#include <nan.h>
-#include <vector>
 #include "drivelist.hpp"
 
-class DriveListWorker : public Nan::AsyncWorker {
+#include <napi.h>
+
+#include <vector>
+
+class DriveListWorker : public Napi::AsyncWorker {
  public:
-  explicit DriveListWorker(Nan::Callback *callback)
-    : Nan::AsyncWorker(callback), devices() {}
+  explicit DriveListWorker(Napi::Function& callback)
+      : Napi::AsyncWorker(callback), devices() {}
 
-  ~DriveListWorker() {}
+  virtual ~DriveListWorker() {}
 
-  void Execute() {
-    devices = Drivelist::ListStorageDevices();
-  }
+  void Execute() { devices = Drivelist::ListStorageDevices(); }
 
-  void HandleOKCallback() {
-    Nan::HandleScope scope;
-    v8::Local<v8::Object> drives = Nan::New<v8::Array>();
+  void OnOK() {
+    Napi::HandleScope scope(Env());
+    Napi::Object drives = Napi::Array::New(Env());
 
     uint32_t i;
-    uint32_t size = (uint32_t) devices.size();
+    uint32_t size = (uint32_t)devices.size();
 
     for (i = 0; i < size; i++) {
-      Nan::Set(drives, i, Drivelist::PackDriveDescriptor(&devices[i]));
+      drives.Set(i, Drivelist::PackDriveDescriptor(Env(), &devices[i]));
     }
 
-    v8::Local<v8::Value> argv[] = { Nan::Null(), drives };
-    callback->Call(2, argv, async_resource);
+    Callback().Call({Env().Undefined(), drives});
   }
 
  private:
   std::vector<Drivelist::DeviceDescriptor> devices;
 };
 
-NAN_METHOD(list) {
-  if (!info[0]->IsFunction()) {
-    return Nan::ThrowTypeError("Callback must be a function");
+Napi::Value List(const Napi::CallbackInfo& info) {
+  if (!info[0].IsFunction()) {
+    Napi::TypeError::New(info.Env(), "Callback must be a function")
+        .ThrowAsJavaScriptException();
+    return info.Env().Null();
   }
 
-  Nan::Callback *callback = new Nan::Callback(info[0].As<v8::Function>());
-  Nan::AsyncQueueWorker(new DriveListWorker(callback));
+  Napi::Function callback = info[0].As<Napi::Function>();
+  DriveListWorker* dlWorker = new DriveListWorker(callback);
+  dlWorker->Queue();
 
-  info.GetReturnValue().SetUndefined();
+  return info.Env().Undefined();
 }
 
-NAN_MODULE_INIT(InitAll) {
-  NAN_EXPORT(target, list);
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
+  exports.Set(Napi::String::New(env, "list"), Napi::Function::New(env, List));
+  return exports;
 }
 
-#if NODE_MAJOR_VERSION >= 10
-NAN_MODULE_WORKER_ENABLED(DriveList, InitAll)
-#else
-NODE_MODULE(DriveList, InitAll)
-#endif
+NODE_API_MODULE(DriveList, Init)
