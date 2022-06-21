@@ -1,5 +1,21 @@
 - commits:
     - subject: Switching to Napi
+      hash: 4a9e7ecb2af97eb85eacce5060bc0aeffa991c4a
+      body: >
+        This change will make this package compatible with all future versions
+        of Node due to its stable ABI.
+
+
+        Some packages are also upgraded in this commit.
+      footer:
+        Change-type: major
+        change-type: major
+      author: Zane Hitchcox
+  version: 11.0.0
+  title: "'Correct email'"
+  date: 2022-06-21T13:09:07.074Z
+- commits:
+    - subject: Switching to Napi
       hash: 1a41d7f780cc24efb19a741e8a67e8183194f645
       body: >
         This change will make this package compatible with all future versions
