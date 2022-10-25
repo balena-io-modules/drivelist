@@ -31,14 +31,12 @@
     "build-ts": "tsc",
     "prepublishOnly": "npm run build-ts && npm run readme",
     "install": "prebuild-install --runtime napi || node-gyp rebuild",
-    "rebuild": "node-gyp rebuild",
-    "prebuild": "prebuild --runtime napi --all --strip --verbose",
-    "upload": "prebuild --runtime napi --upload ${GITHUB_TOKEN}"
+    "rebuild": "node-gyp rebuild"
   },
   "author": "Juan Cruz Viotti <juan@balena.io>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=10"
+    "node": ">=14 < 16"
   },
   "devDependencies": {
     "@balena/lint": "^6.2.0",
@@ -63,7 +61,7 @@
   },
   "binary": {
     "napi_versions": [
-      3
+      8
     ]
   },
   "versionist": {

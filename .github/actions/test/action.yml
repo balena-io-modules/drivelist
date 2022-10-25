@@ -1,0 +1,73 @@
+---
+name: test release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+  # --- custom environment
+  NODE_VERSION:
+    type: string
+    default: "14.x"
+  VERBOSE:
+    type: string
+    default: "true"
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    # https://github.com/actions/setup-node#caching-global-packages-data
+    - name: Setup Node.js (Linux)
+      uses: actions/setup-node@v3
+      if: runner.os == 'Linux'
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Setup Node.js (macOS)
+      uses: actions/setup-node@v3
+      if: runner.os == 'macOS'
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Setup Node.js (Windows)
+      uses: actions/setup-node@v3
+      if: runner.os == 'Windows'
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Test release (Linux)
+      if: runner.os == 'Linux'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        npm ci
+        npm test
+
+    - name: Test release (macOS)
+      if: runner.os == 'macOS'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        npm ci
+        npm test
+
+    - name: Test release (Windows)
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        npm ci
+        npm test

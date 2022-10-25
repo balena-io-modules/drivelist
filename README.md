@@ -166,11 +166,9 @@ Documentation
 
 <a name="module_drivelist..list"></a>
 
-### drivelist~list() ⇒ <code>Promise</code>
+### drivelist~list()
 **Kind**: inner method of [<code>drivelist</code>](#module_drivelist)  
 **Summary**: List available drives  
-**Returns**: <code>Promise</code> - <Drive>[]  
-**Access**: public  
 **Example**  
 ```js
 const drivelist = require('drivelist');

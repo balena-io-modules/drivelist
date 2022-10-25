@@ -1,0 +1,17 @@
+---
+name: Flowzone
+
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+    branches:
+      - "main"
+      - "master"
+
+jobs:
+  flowzone:
+    name: Flowzone
+    uses: product-os/flowzone/.github/workflows/flowzone.yml@ab77/operational
+    secrets: inherit
+    with:
+      custom_runs_on: '["ubuntu-latest","macos-latest","windows-2019"]'
