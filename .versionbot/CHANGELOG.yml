@@ -1,9 +1,20 @@
 - commits:
+    - subject: Switch to Flowzone
+      hash: d486b13b8e575bbca15027d7176bf5c4aa6f0ceb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+  version: 11.0.1
+  title: ""
+  date: 2022-10-25T23:30:50.718Z
+- commits:
     - subject: Switching to Napi
       hash: 4a9e7ecb2af97eb85eacce5060bc0aeffa991c4a
       body: >
-        This change will make this package compatible with all future versions
-        of Node due to its stable ABI.
+        This change will make this package compatible with all future versions of
+        Node due to its stable ABI.
 
 
         Some packages are also upgraded in this commit.
@@ -18,8 +29,8 @@
     - subject: Switching to Napi
       hash: 1a41d7f780cc24efb19a741e8a67e8183194f645
       body: >
-        This change will make this package compatible with all future versions
-        of Node due to its stable ABI.
+        This change will make this package compatible with all future versions of
+        Node due to its stable ABI.
 
 
         Some packages are also upgraded in this commit.
