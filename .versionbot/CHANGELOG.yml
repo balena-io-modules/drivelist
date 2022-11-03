@@ -1,4 +1,15 @@
 - commits:
+    - subject: support node 16
+      hash: e3470a38b1bd84bda6e792c43803389327be94de
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Zane Hitchcox
+  version: 11.0.3
+  title: ""
+  date: 2022-11-03T18:09:53.959Z
+- commits:
     - subject: Update dependency @types/mocha to 10.0.0
       hash: c9389204acde6edf59fc6c80f89547c05373aaa7
       body: |
