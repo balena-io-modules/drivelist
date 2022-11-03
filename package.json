@@ -27,7 +27,7 @@
     "lint-ts": "balena-lint --typescript lib tests",
     "prettier": "balena-lint --typescript --fix lib tests",
     "readme": "jsdoc2md --template doc/README.hbs js/index.js > README.md",
-    "build": "node-gyp rebuild",
+    "build": "node-gyp rebuild && tsc",
     "build-ts": "tsc",
     "prepublishOnly": "npm run build-ts && npm run readme",
     "install": "prebuild-install --runtime napi || node-gyp rebuild",
