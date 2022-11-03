@@ -1,4 +1,15 @@
 - commits:
+    - subject: fix build
+      hash: cd6434d98e8f57f7a1228e110c20686462a155be
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Zane Hitchcox
+  version: 11.0.4
+  title: ""
+  date: 2022-11-03T18:30:08.524Z
+- commits:
     - subject: support node 16
       hash: e3470a38b1bd84bda6e792c43803389327be94de
       body: ""
