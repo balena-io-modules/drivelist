@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "14.x"
+    default: "16.x"
   VERBOSE:
     type: string
     default: "true"
@@ -45,7 +45,7 @@ runs:
 
     - name: Test release (Linux)
       if: runner.os == 'Linux'
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
@@ -56,7 +56,7 @@ runs:
 
     - name: Test release (macOS)
       if: runner.os == 'macOS'
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
