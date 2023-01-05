@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update dependencies
+      hash: 3dce6011c8f164a80823d5bffbff0c750a587e20
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: ab77
+  version: 11.1.0
+  title: ""
+  date: 2023-01-05T22:45:55.839Z
+- commits:
     - subject: fix build
       hash: cd6434d98e8f57f7a1228e110c20686462a155be
       body: ""
