@@ -182,6 +182,7 @@ export function parse(stdout: string): Drive[] {
 				partitionTableType: getPartitionTableType(
 					device.pttype as 'gpt' | 'dos' | undefined,
 				),
+				attachTimestamp: null
 			};
 		},
 	);

@@ -40,6 +40,7 @@ struct DeviceDescriptor {
   std::string error;
   std::string partitionTableType;
   uint64_t size;
+  uint64_t attachTimestamp;
   uint32_t blockSize = 512;
   uint32_t logicalBlockSize = 512;
   std::vector<std::string> mountpoints;

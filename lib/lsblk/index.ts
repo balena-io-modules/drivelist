@@ -60,8 +60,27 @@ async function getDevicePaths(): Promise<Map<string, string>> {
 async function addDevicePaths(devices: Drive[]): Promise<void> {
 	const devicePaths = await getDevicePaths();
 	for (const device of devices) {
+		const path = devicePaths.get(device.device);
 		device.devicePath = devicePaths.get(device.device) || null;
+		device.attachTimestamp= await getAttachTimestamp(path);
 	}
+}
+
+async function getAttachTimestamp(path: string | undefined): Promise<number> {
+	const fs = require('fs');
+	let time;
+	try {
+		const stats= await fs.promises.stat(path)
+		console.log(stats.mtime);
+		time = stats.mtime.getTime();
+	} catch (err) {
+		time=0;
+		console.error(err);
+	}
+	
+	return time;
+	
+	
 }
 
 async function getOutput(command: string, ...args: string[]) {

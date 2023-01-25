@@ -145,6 +145,7 @@ export function transform(data: LsblkJsonOutput): Drive[] {
 					isUSB,
 					isUAS: null,
 					partitionTableType: getPartitionTableType(device.pttype),
+					attachTimestamp: null
 				};
 			},
 		);

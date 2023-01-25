@@ -35,6 +35,21 @@
 #include "../drivelist.hpp"
 #include "list.hpp"
 
+
+#define INITGUID
+#ifdef DEFINE_DEVPROPKEY
+#undef DEFINE_DEVPROPKEY
+#endif
+#ifdef INITGUID
+#define DEFINE_DEVPROPKEY(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8, pid) EXTERN_C const DEVPROPKEY DECLSPEC_SELECTANY name = { { l, w1, w2, { b1, b2,  b3,  b4,  b5,  b6,  b7,  b8 } }, pid }
+#else
+#define DEFINE_DEVPROPKEY(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8, pid) EXTERN_C const DEVPROPKEY name
+#endif
+
+#ifndef DEVPKEY_Device_LastArrivalDate
+DEFINE_DEVPROPKEY(DEVPKEY_Device_LastArrivalDate, 0x83da6326, 0x97a6, 0x4088, 0x94, 0x53, 0xa1, 0x92, 0x3f, 0x57, 0x3b, 0x29, 102);
+#endif
+
 namespace Drivelist {
 
 std::string WCharToUtf8String(const wchar_t* wstr) {
@@ -657,6 +672,43 @@ bool GetDetailData(DeviceDescriptor* device,
       NULL, 0, &size, NULL);
 
     device->isReadOnly = !isWritable;
+    const int64_t UNIX_TIME_START= 0x019DB1DED53E8000;
+    const int64_t TICKS_PER_SECOND = 10000000;
+    DWORD requiredSize;
+    DEVPROPTYPE type;
+    WCHAR szBuffer[4096];
+    BOOL hasArrivalDate = SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate,
+        &type, (BYTE*)szBuffer, sizeof(FILETIME), &requiredSize, 0);
+    if (!hasArrivalDate) {
+        errorCode = GetLastError();
+        device->error = "Couldn't SetupDiGetDeviceInterfaceDetailW: Error " +
+          std::to_string(errorCode);
+        result = false;
+        break;
+
+    }
+    DEVPROPTYPE test;
+
+    //FILETIME ftTime;
+    //GetSystemTimeAsFileTime(&ftTime);
+    std::vector<unsigned char> buffer(sizeof(FILETIME));
+
+    SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate, &test, buffer.data(), sizeof(FILETIME), nullptr, 0);
+    FILETIME filetime;
+    LARGE_INTEGER li;
+
+    //TODO is this safe?
+    memmove(&filetime, buffer.data(), sizeof(FILETIME));
+    li.LowPart=filetime.dwLowDateTime;
+    li.HighPart=filetime.dwHighDateTime;
+    FILETIME localFileTime;
+    FileTimeToLocalFileTime(&filetime, &localFileTime);
+    SYSTEMTIME systemTime;
+    FileTimeToSystemTime(&localFileTime, &systemTime);
+    //printf("Date %d/%d/%d\n", systemTime.wDay, systemTime.wMonth, systemTime.wYear);
+    //printf("Time: %d:%d:%d\n", systemTime.wHour, systemTime.wMinute, systemTime.wSecond);
+    //printf("%i", st);
+    device->attachTimestamp = (li.QuadPart-UNIX_TIME_START) / TICKS_PER_SECOND;
   }  // end for (index = 0; ; index++)
 
   if (hDevice != INVALID_HANDLE_VALUE) {
@@ -726,6 +778,7 @@ std::vector<DeviceDescriptor> ListStorageDevices() {
       device.isVirtual = device.isVirtual ||
         device.busType == "VIRTUAL" ||
         device.busType == "FILEBACKEDVIRTUAL";
+      device.attachTimestamp = device.attachTimestamp;
     } else if (device.error == "") {
       device.error = "Couldn't get detail data";
     }
