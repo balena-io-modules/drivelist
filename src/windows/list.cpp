@@ -672,42 +672,32 @@ bool GetDetailData(DeviceDescriptor* device,
       NULL, 0, &size, NULL);
 
     device->isReadOnly = !isWritable;
+
     const int64_t UNIX_TIME_START= 0x019DB1DED53E8000;
     const int64_t TICKS_PER_SECOND = 10000000;
     DWORD requiredSize;
     DEVPROPTYPE type;
-    WCHAR szBuffer[4096];
-    BOOL hasArrivalDate = SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate,
-        &type, (BYTE*)szBuffer, sizeof(FILETIME), &requiredSize, 0);
+    SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate,
+        &type, NULL, 0, &requiredSize, 0);
+    std::vector<unsigned char> buffer(requiredSize*8);
+    BOOL hasArrivalDate = SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate, &type, buffer.data(), buffer.capacity(), nullptr, 0);
     if (!hasArrivalDate) {
         errorCode = GetLastError();
         device->error = "Couldn't SetupDiGetDeviceInterfaceDetailW: Error " +
           std::to_string(errorCode);
         result = false;
         break;
-
     }
-    DEVPROPTYPE test;
-
-    //FILETIME ftTime;
-    //GetSystemTimeAsFileTime(&ftTime);
-    std::vector<unsigned char> buffer(sizeof(FILETIME));
-
-    SetupDiGetDevicePropertyW(hDeviceInfo, &deviceInfoData, &DEVPKEY_Device_LastArrivalDate, &test, buffer.data(), sizeof(FILETIME), nullptr, 0);
     FILETIME filetime;
     LARGE_INTEGER li;
-
     //TODO is this safe?
-    memmove(&filetime, buffer.data(), sizeof(FILETIME));
+    memmove(&filetime, buffer.data(), buffer.capacity());
     li.LowPart=filetime.dwLowDateTime;
     li.HighPart=filetime.dwHighDateTime;
     FILETIME localFileTime;
     FileTimeToLocalFileTime(&filetime, &localFileTime);
     SYSTEMTIME systemTime;
     FileTimeToSystemTime(&localFileTime, &systemTime);
-    //printf("Date %d/%d/%d\n", systemTime.wDay, systemTime.wMonth, systemTime.wYear);
-    //printf("Time: %d:%d:%d\n", systemTime.wHour, systemTime.wMinute, systemTime.wSecond);
-    //printf("%i", st);
     device->attachTimestamp = (li.QuadPart-UNIX_TIME_START) / TICKS_PER_SECOND;
   }  // end for (index = 0; ; index++)
 
