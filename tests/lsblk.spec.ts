@@ -80,6 +80,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 			];
 
@@ -118,6 +119,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:pairs',
@@ -150,6 +152,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 			];
 
@@ -190,6 +193,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:json',
@@ -226,6 +230,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 			];
 
@@ -263,6 +268,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:pairs',
@@ -286,6 +292,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:pairs',
@@ -309,6 +316,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:pairs',
@@ -342,6 +350,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 				{
 					enumerator: 'lsblk:pairs',
@@ -370,6 +379,7 @@ describe('Drivelist', () => {
 					isSCSI: null,
 					isUSB: null,
 					isUAS: null,
+					attachTimestamp: null,
 				},
 			];
 
@@ -387,6 +397,7 @@ describe('Drivelist', () => {
 
 			const expected = [
 				{
+					attachTimestamp: null,
 					blockSize: 512,
 					busType: 'UNKNOWN',
 					busVersion: null,
@@ -419,6 +430,7 @@ describe('Drivelist', () => {
 					size: 240065183744,
 				},
 				{
+					attachTimestamp: null,
 					blockSize: 512,
 					busType: 'UNKNOWN',
 					busVersion: null,
@@ -442,6 +454,7 @@ describe('Drivelist', () => {
 					size: null,
 				},
 				{
+					attachTimestamp: null,
 					blockSize: 512,
 					busType: 'UNKNOWN',
 					busVersion: null,
