@@ -330,8 +330,7 @@ describe('Drivelist', () => {
 							label: undefined,
 						},
 						{
-							path:
-								'/tmp/media/3E3E-E910 (\\xe2\\x88\\x95dev\\xe2\\x88\\x95sdi)',
+							path: '/tmp/media/3E3E-E910 (\\xe2\\x88\\x95dev\\xe2\\x88\\x95sdi)',
 							label: undefined,
 						},
 					],
