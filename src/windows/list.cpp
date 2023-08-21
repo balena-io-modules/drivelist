@@ -695,10 +695,12 @@ bool GetDetailData(DeviceDescriptor* device,
     memmove(&filetime, buffer.data(), buffer.capacity());
     li.LowPart=filetime.dwLowDateTime;
     li.HighPart=filetime.dwHighDateTime;
+    //is this even necessary?
     FILETIME localFileTime;
     FileTimeToLocalFileTime(&filetime, &localFileTime);
     SYSTEMTIME systemTime;
     FileTimeToSystemTime(&localFileTime, &systemTime);
+    
     device->attachTimestamp = (li.QuadPart-UNIX_TIME_START) / TICKS_PER_SECOND;
   }  // end for (index = 0; ; index++)
 
