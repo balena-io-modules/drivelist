@@ -686,6 +686,7 @@ bool GetDetailData(DeviceDescriptor* device,
         device->error = "Couldn't SetupDiGetDeviceInterfaceDetailW: Error " +
           std::to_string(errorCode);
         result = false;
+        //TOOD is it right to break here?
         break;
     }
     FILETIME filetime;
