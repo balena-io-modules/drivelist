@@ -673,6 +673,7 @@ bool GetDetailData(DeviceDescriptor* device,
 
     device->isReadOnly = !isWritable;
 
+    device->attachTimestamp = NULL;
     const int64_t UNIX_TIME_START= 0x019DB1DED53E8000;
     const int64_t TICKS_PER_SECOND = 10000000;
     DWORD requiredSize;
@@ -685,9 +686,9 @@ bool GetDetailData(DeviceDescriptor* device,
         errorCode = GetLastError();
         device->error = "Couldn't SetupDiGetDeviceInterfaceDetailW: Error " +
           std::to_string(errorCode);
-        result = false;
+        //result = false;
         //TOOD is it right to break here?
-        break;
+        //break;
     }
     FILETIME filetime;
     LARGE_INTEGER li;
