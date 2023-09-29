@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "16.x"
+    default: "20.x"
   VERBOSE:
     type: string
     default: "true"
@@ -28,6 +28,12 @@ runs:
       with:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
+
+    - name: Set up Python 3.11
+      if: runner.os == 'macOS'
+      uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
+      with:
+        python-version: "3.11"
 
     - name: Setup Node.js (macOS)
       uses: actions/setup-node@v3
