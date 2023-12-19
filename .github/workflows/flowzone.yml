@@ -1,5 +1,4 @@
 name: Flowzone
-
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -8,7 +7,6 @@ on:
   pull_request_target:
     types: [opened, synchronize, closed]
     branches: [main, master]
-
 jobs:
   flowzone:
     name: Flowzone
@@ -22,5 +20,3 @@ jobs:
     with:
       tests_run_on: '["ubuntu-latest","macos-latest","windows-2019"]'
       restrict_custom_actions: false
-      repo_config: true
-      repo_description: "List all connected drives in your computer, in all major operating systems"
