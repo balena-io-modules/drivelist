@@ -11,11 +11,11 @@ inputs:
 
   # --- custom environment
   NODE_VERSION:
-    type: string
-    default: "16.x"
+    default: "20.x"
+    description: "node version"
   VERBOSE:
-    type: string
     default: "true"
+    description: "verbose"
 
 runs:
   # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
