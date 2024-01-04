@@ -1,4 +1,20 @@
 - commits:
+    - subject: Remove repo config from flowzone.yml
+      hash: fa55e1a19af9c7c45d8af81b31649ef9b5648bc0
+      body: |
+        This functionality is being deprecated in Flowzone.
+
+        See: https://github.com/product-os/flowzone/pull/833
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 11.1.1
+  title: ""
+  date: 2024-01-04T20:39:57.676Z
+- commits:
     - subject: Update dependencies
       hash: 3dce6011c8f164a80823d5bffbff0c750a587e20
       body: ""
@@ -60,8 +76,8 @@
     - subject: Switching to Napi
       hash: 4a9e7ecb2af97eb85eacce5060bc0aeffa991c4a
       body: >
-        This change will make this package compatible with all future versions of
-        Node due to its stable ABI.
+        This change will make this package compatible with all future versions
+        of Node due to its stable ABI.
 
 
         Some packages are also upgraded in this commit.
@@ -76,8 +92,8 @@
     - subject: Switching to Napi
       hash: 1a41d7f780cc24efb19a741e8a67e8183194f645
       body: >
-        This change will make this package compatible with all future versions of
-        Node due to its stable ABI.
+        This change will make this package compatible with all future versions
+        of Node due to its stable ABI.
 
 
         Some packages are also upgraded in this commit.
