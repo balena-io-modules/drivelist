@@ -36,7 +36,7 @@
   "author": "Juan Cruz Viotti <juan@balena.io>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=16 < 19"
+    "node": ">=16"
   },
   "devDependencies": {
     "@balena/lint": "^6.2.1",
