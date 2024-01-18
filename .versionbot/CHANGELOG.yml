@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add support to node20
+      hash: a3381a8f8a5d4fe3198cafbac19a0738b42e83e4
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Otávio Jacobi
+  version: 11.2.0
+  title: ""
+  date: 2024-01-18T10:25:30.225Z
+- commits:
     - subject: Remove repo config from flowzone.yml
       hash: fa55e1a19af9c7c45d8af81b31649ef9b5648bc0
       body: |
