@@ -1,4 +1,22 @@
 - commits:
+    - subject: Replace deprecated flowzone input tests_run_on
+      hash: 961183e410973cee6824c665ad9239cd1bb49703
+      body: |
+        The `custom_runs_on` array supports multiple runner labels
+        in nested arrays.
+
+        The new input also allows the use of self-hosted runners
+        as they require multiple labels to identify.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 11.2.1
+  title: ""
+  date: 2024-02-15T00:26:48.069Z
+- commits:
     - subject: Add support to node20
       hash: a3381a8f8a5d4fe3198cafbac19a0738b42e83e4
       body: ""
