@@ -102,6 +102,11 @@ namespace Drivelist {
     device.isUAS = false;
     device.isUASNull = true;
 
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [NSString stringWithUTF8String:("/dev/"+diskBsdName).c_str()];
+    NSDate *dates = [[fileManager attributesOfItemAtPath:path error:NULL] fileModificationDate];
+    device.attachTimestamp = ((dates != nil) ? [dates timeIntervalSince1970] : 0);
+    
     return device;
   }
 
@@ -146,7 +151,7 @@ namespace Drivelist {
       mountedVolumeURLsIncludingResourceValuesForKeys:volumeKeys
       options:0
     ];
-
+    
     for (NSURL *path in volumePaths) {
       DADiskRef disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, (__bridge CFURLRef)path);
       if (disk == nil) {

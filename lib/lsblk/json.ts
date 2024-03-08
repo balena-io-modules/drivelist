@@ -107,47 +107,46 @@ export function transform(data: LsblkJsonOutput): Drive[] {
 				!device.name.startsWith('/dev/sr') &&
 				!device.name.startsWith('/dev/ram'),
 		)
-		.map(
-			(device: LsblkJsonOutputDevice): Drive => {
-				const isVirtual = device.subsystems
-					? /^(block)$/i.test(device.subsystems)
-					: null;
-				const isSCSI = device.tran
-					? /^(sata|scsi|ata|ide|pci)$/i.test(device.tran)
-					: null;
-				const isUSB = device.tran ? /^(usb)$/i.test(device.tran) : null;
-				const isReadOnly = Number(device.ro) === 1;
-				const isRemovable =
-					Number(device.rm) === 1 ||
-					Number(device.hotplug) === 1 ||
-					Boolean(isVirtual);
-				return {
-					enumerator: 'lsblk:json',
-					busType: (device.tran || 'UNKNOWN').toUpperCase(),
-					busVersion: null,
-					device: device.name,
-					devicePath: null,
-					raw: device.kname || device.name,
-					description: getDescription(device),
-					error: null,
-					size: Number(device.size) || null,
-					blockSize: Number(device['phy-sec']) || 512,
-					logicalBlockSize: Number(device['log-sec']) || 512,
-					mountpoints: device.children
-						? getMountpoints(device.children)
-						: getMountpoints([device]),
-					isReadOnly,
-					isSystem: !isRemovable && !isVirtual,
-					isVirtual,
-					isRemovable,
-					isCard: null,
-					isSCSI,
-					isUSB,
-					isUAS: null,
-					partitionTableType: getPartitionTableType(device.pttype),
-				};
-			},
-		);
+		.map((device: LsblkJsonOutputDevice): Drive => {
+			const isVirtual = device.subsystems
+				? /^(block)$/i.test(device.subsystems)
+				: null;
+			const isSCSI = device.tran
+				? /^(sata|scsi|ata|ide|pci)$/i.test(device.tran)
+				: null;
+			const isUSB = device.tran ? /^(usb)$/i.test(device.tran) : null;
+			const isReadOnly = Number(device.ro) === 1;
+			const isRemovable =
+				Number(device.rm) === 1 ||
+				Number(device.hotplug) === 1 ||
+				Boolean(isVirtual);
+			return {
+				enumerator: 'lsblk:json',
+				busType: (device.tran || 'UNKNOWN').toUpperCase(),
+				busVersion: null,
+				device: device.name,
+				devicePath: null,
+				raw: device.kname || device.name,
+				description: getDescription(device),
+				error: null,
+				size: Number(device.size) || null,
+				blockSize: Number(device['phy-sec']) || 512,
+				logicalBlockSize: Number(device['log-sec']) || 512,
+				mountpoints: device.children
+					? getMountpoints(device.children)
+					: getMountpoints([device]),
+				isReadOnly,
+				isSystem: !isRemovable && !isVirtual,
+				isVirtual,
+				isRemovable,
+				isCard: null,
+				isSCSI,
+				isUSB,
+				isUAS: null,
+				partitionTableType: getPartitionTableType(device.pttype),
+				attachTimestamp: null,
+			};
+		});
 }
 
 export function parse(stdout: string): Drive[] {

@@ -84,6 +84,10 @@ describe('Drivelist', () => {
 					device.isUAS === null || typeof device.isUAS === 'boolean',
 					`Invalid isUAS flag: ${device.isUAS}`,
 				);
+				ok(
+					device.attachTimestamp === null || Number.isFinite(device.attachTimestamp),
+					`Invalid attachTimestamp: ${device.attachTimestamp}`,
+				);
 			});
 		});
 

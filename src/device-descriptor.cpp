@@ -118,6 +118,8 @@ Napi::Object PackDriveDescriptor(Napi::Env env,
                           : (Napi::Value)Boolean::New(env, instance->isUAS);
 
   object.Set(String::New(env, "isUAS"), isUAS);
+  object.Set(String::New(env, "attachTimestamp"),
+             Number::New(env, static_cast<double>(instance->attachTimestamp)));
 
   return object;
 }

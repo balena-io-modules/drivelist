@@ -100,14 +100,12 @@ function consolidate(
 		return Object.assign({}, device, {
 			mountpoints: children
 				.filter((child) => child.mountpoint)
-				.map(
-					(child): Mountpoint => {
-						return {
-							path: child.mountpoint,
-							label: child.label,
-						};
-					},
-				),
+				.map((child): Mountpoint => {
+					return {
+						path: child.mountpoint,
+						label: child.label,
+					};
+				}),
 		});
 	});
 }
@@ -182,6 +180,7 @@ export function parse(stdout: string): Drive[] {
 				partitionTableType: getPartitionTableType(
 					device.pttype as 'gpt' | 'dos' | undefined,
 				),
+				attachTimestamp: null,
 			};
 		},
 	);

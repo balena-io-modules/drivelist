@@ -50,6 +50,7 @@ export interface Drive {
 	raw: string;
 	size: number | null;
 	partitionTableType: 'mbr' | 'gpt' | null;
+	attachTimestamp: number | null;
 }
 
 const drivelistBindings = bindings('drivelist');
