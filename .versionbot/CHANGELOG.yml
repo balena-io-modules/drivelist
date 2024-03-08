@@ -1,4 +1,15 @@
 - commits:
+    - subject: Bump node-gyp
+      hash: 147394c5b59fdc4a720eb65604debd6619e50216
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otavio Jacobi
+  version: 11.2.2
+  title: ""
+  date: 2024-03-08T11:29:37.555Z
+- commits:
     - subject: Replace deprecated flowzone input tests_run_on
       hash: 961183e410973cee6824c665ad9239cd1bb49703
       body: |
@@ -710,7 +721,8 @@
       body: >-
         Due to a bug caused by V8's change of build system, prebuilds
 
-        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not defined`.
+        fail on older Node versions with `gyp: name 'build_v8_with_gn' is not
+        defined`.
 
         This will only prebuild on Node 10 to avoid this issue, while still
 
@@ -1797,7 +1809,8 @@
 
         In scripts/linux.sh line 25:
 
-        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL | ignore_first_line))
+        diskinfo=($(lsblk -b -d $device --output SIZE,RO,RM,MODEL |
+        ignore_first_line))
 
         ^-- SC2086: Double quote to prevent globbing and word splitting.
 
@@ -1805,7 +1818,8 @@
 
         description=${diskinfo[@]:3}
 
-        ^-- SC2124: Assigning an array to a string! Assign as array, or use * instead of @ to concatenate.
+        ^-- SC2124: Assigning an array to a string! Assign as array, or use *
+        instead of @ to concatenate.
 
         In scripts/linux.sh line 30:
 
@@ -1942,13 +1956,15 @@
 
         In scripts/darwin.sh line 27:
 
-        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
+        size=`echo "$diskinfo" | sed 's/Disk Size/Total Size/g' | get_key "Total
+        Size" | perl -n -e'/\((\d+)\sBytes\)/ && print $1'`
 
         ^-- SC2006: Use $(..) instead of legacy `..`.
 
         In scripts/darwin.sh line 29:
 
-        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)? on (.*) \(.*\)$} && print "$2\n"'`
+        mountpoints=`echo "$mount_output" | perl -n -e'm{^'"${disk}"'(s[0-9]+)?
+        on (.*) \(.*\)$} && print "$2\n"'`
 
         ^-- SC2006: Use $(..) instead of legacy `..`.
 
@@ -2014,7 +2030,8 @@
 
         SMART Status:             Not Supported
 
-        Disk Size:                500.1 GB (500107862016 Bytes) (exactly 976773168512-Byte-Units)
+        Disk Size:                500.1 GB (500107862016 Bytes) (exactly
+        976773168512-Byte-Units)
 
         Device Block Size:        512 Bytes
 
@@ -2113,7 +2130,8 @@
 
         SMART Status:             Verified
 
-        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly 3907029168 512-Byte-Units)
+        Disk Size:                2.0 TB (2000398934016 Bytes) (exactly
+        3907029168 512-Byte-Units)
 
         Device Block Size:        512 Bytes
 
