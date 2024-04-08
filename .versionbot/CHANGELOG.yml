@@ -1,4 +1,16 @@
 - commits:
+    - subject: Pin actions/setup-node action to 1a4442c
+      hash: 296474af7d34af109becadde0c1c3f9d9e9db475
+      body: |
+        Update actions/setup-node
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 12.0.1
+  title: ""
+  date: 2024-04-08T14:49:20.336Z
+- commits:
     - subject: Update dependency node-addon-api to v8
       hash: d02c8e3006f9c4ec4763cac8cff553b3634080f7
       body: |
