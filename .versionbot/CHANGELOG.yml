@@ -1,4 +1,23 @@
 - commits:
+    - subject: Update dependency node-addon-api to v8
+      hash: d02c8e3006f9c4ec4763cac8cff553b3634080f7
+      body: |
+        Update node-addon-api from 5.0.0 to 8.0.0
+      footer:
+        Change-type: major
+        change-type: major
+      author: Self-hosted Renovate Bot
+    - subject: Drop support for node < 18
+      hash: 2950f293b48de7f8783f18765cfe2ad9e10461a8
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+  version: 12.0.0
+  title: ""
+  date: 2024-04-08T14:03:46.837Z
+- commits:
     - subject: Bump node-gyp
       hash: 147394c5b59fdc4a720eb65604debd6619e50216
       body: ""
