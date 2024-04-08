@@ -36,7 +36,7 @@
   "author": "Juan Cruz Viotti <juan@balena.io>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "devDependencies": {
     "@balena/lint": "^6.2.1",
@@ -57,7 +57,7 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "debug": "^4.3.4",
-    "node-addon-api": "^5.0.0",
+    "node-addon-api": "^8.0.0",
     "prebuild-install": "^7.1.1"
   },
   "binary": {
