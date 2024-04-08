@@ -39,7 +39,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@balena/lint": "^6.2.1",
+    "@balena/lint": "^8.0.0",
     "@types/bindings": "^1.5.1",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
