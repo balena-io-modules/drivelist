@@ -23,7 +23,7 @@ runs:
   steps:
     # https://github.com/actions/setup-node#caching-global-packages-data
     - name: Setup Node.js (Linux)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       if: runner.os == 'Linux'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -36,14 +36,14 @@ runs:
         python-version: "3.11"
 
     - name: Setup Node.js (macOS)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       if: runner.os == 'macOS'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
     - name: Setup Node.js (Windows)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       if: runner.os == 'Windows'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
