@@ -54,6 +54,7 @@ void appendDisk(DADiskRef disk, void *context) {
     CFRunLoopStop(runLoop);
     CFRunLoopRunInMode((CFStringRef)NSDefaultRunLoopMode, 0.05, NO);
     DAUnregisterCallback(session, appendDisk, (void*)_disks);
+    DASessionUnscheduleFromRunLoop(session, runLoop, kCFRunLoopDefaultMode);
     CFRelease(session);
   }
 }
