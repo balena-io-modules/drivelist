@@ -396,6 +396,7 @@ bool GetPartitionTableType(HANDLE hPhysical, DeviceDescriptor *device) {
     NULL);
   if (!hasDiskLayout) {
     free(diskLayout);
+    
     return hasDiskLayout;
   }
   /*
