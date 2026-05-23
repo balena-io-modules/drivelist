@@ -23,7 +23,7 @@ runs:
   steps:
     # https://github.com/actions/setup-node#caching-global-packages-data
     - name: Setup Node.js (Linux)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
       if: runner.os == 'Linux'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
@@ -31,19 +31,19 @@ runs:
 
     - name: Set up Python 3.11
       if: runner.os == 'macOS'
-      uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4
+      uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4
       with:
-        python-version: "3.11"
+        python-version: "3.14"
 
     - name: Setup Node.js (macOS)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
       if: runner.os == 'macOS'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
     - name: Setup Node.js (Windows)
-      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+      uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
       if: runner.os == 'Windows'
       with:
         node-version: ${{ inputs.NODE_VERSION }}
