@@ -41,10 +41,10 @@
   "devDependencies": {
     "@balena/lint": "^6.2.1",
     "@types/bindings": "^1.5.1",
-    "@types/chai": "^4.3.4",
+    "@types/chai": "^5.0.0",
     "@types/mocha": "^10.0.1",
     "@types/sinon": "^10.0.13",
-    "chai": "^4.3.7",
+    "chai": "^5.0.0",
     "eslint": "^8.31.0",
     "jsdoc-to-markdown": "^8.0.0",
     "mocha": "^10.2.0",
